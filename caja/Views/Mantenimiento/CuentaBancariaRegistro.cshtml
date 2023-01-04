@@ -1,0 +1,66 @@
+﻿
+<form name="frmRegistroCuentaBancaria" action="#" method="post" data-table="PLA.PLANILLA_PAGO" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+
+    <input type="hidden" id="C_CUENTA_BANCARIA" name="C_CUENTA_BANCARIA" />
+    <input type="hidden" id="C_EMPRESA" name="C_EMPRESA" />
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Tipo Cuenta</span>
+            <select id="C_PARAMETRO_GENERAL_TIPO_CUENTA" name="C_PARAMETRO_GENERAL_TIPO_CUENTA" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoparametro="Tipo de Cuenta" required></select>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Banco</span>
+            <select id="C_BANCO" name="C_BANCO" class="form-control form-control-sm" data-query="cb_planilla_mantenimiento_personaregistro_laboral_bancos" data-value="CODIGO" data-field="DESCRIPCION" required></select>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Descripción</span>
+            <input type="text" class="form-control form-control-sm" name="DESCRIPCION"/>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Moneda</span>
+            <select id="C_PARAMETRO_GENERAL_MONEDA" name="C_PARAMETRO_GENERAL_MONEDA" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoparametro="Moneda" required></select>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Nro. Cuenta</span>
+            <input type="text" id='NUMERO_CUENTA' name="NUMERO_CUENTA" class="form-control form-control-sm number-input" maxlength="25"/>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Nro. C.C.I.</span>
+            <input type="text" id='CCI_CUENTA' name="CCI_CUENTA" class="form-control form-control-sm number-input" maxlength="25"/>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Cta. Contable</span>
+            <div class="input-group">
+                <input type="text" id="CTA_CONTABLE" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="" name="CTA_CONTABLE" autocomplete="off">
+                <div class="input-group-append">
+                    <button id="ctaContableCompras" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Saldo inicial</span>
+            <input class="form-control form-control-sm" type="number" name="MONTO_INICIAL" min="0"/>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Estado</span>
+            <select id="IND_ESTADO" name="IND_ESTADO" class="form-control form-control-sm" required>
+                <option value="*"> Activo</option>
+                <option value="&"> Inactivo</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <span class="help-block text-muted small-font"> Obervaciones</span>
+            <textarea class="form-control" id="OBSERVACIONES" name="OBSERVACIONES" rows="3"></textarea>
+        </div>
+    </div>
+    
+    <button type="button" class="btn btn-danger btn-sm pull-right" id="btnGuardarCuentaBancaria" name="btnGuardarPlanillaPago"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+
+</form>

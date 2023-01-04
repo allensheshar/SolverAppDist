@@ -1,0 +1,52 @@
+﻿<form name="frm" action="#" method="post">
+
+    <input type="hidden" id="C_EMPRESA" name="C_EMPRESA" value="@Session["SESSION_EMPRESA"]" />
+    <input type="hidden" id="C_METODO_PAGO" name="C_METODO_PAGO" />
+    <input type="hidden" id="IND_EFECTIVO" name="IND_EFECTIVO" />
+    <input type="hidden" id="IND_TARJETA" name="IND_TARJETA" />
+
+    <div class="row mb-3">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <span class="help-block text-muted small-font"> Nombre</span>
+            <input type="text" id="NOMBRE" name="NOMBRE" class="form-control form-control-sm" autocomplete="off" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Moneda</span>
+            <select id="C_PARAMETRO_GENERAL_MONEDA" name="C_PARAMETRO_GENERAL_MONEDA" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoparametro="Moneda" required></select>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Banco</span>
+            <select id="C_BANCO" name="C_BANCO" class="form-control form-control-sm" data-query="cb_caja_mantenimiento_metodopago_bancos" data-field="BANCO" data-value="C_BANCO" data-C_MONEDA="07234" data-C_EMPRESA="@Session["SESSION_EMPRESA"]" required></select>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Nro. Cuenta</span>
+            <select id="NUMERO_CUENTA" name="NUMERO_CUENTA" class="form-control form-control-sm" data-C_EMPRESA="@Session["SESSION_EMPRESA"]" required></select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> Estado</span>
+            <select id="IND_ESTADO" name="IND_ESTADO" class="form-control form-control-sm" required>
+                <option value="*"> Activo</option>
+                <option value="&"> Inactivo</option>
+            </select>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> &nbsp;</span>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="CHECK_EFECTIVO" name="CHECK_EFECTIVO" data-nosend="1">
+                <label class="help-block text-muted small-font form-check-label mt-1" for="CHECK_EFECTIVO">Efectivo</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <span class="help-block text-muted small-font"> &nbsp;</span>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="CHECK_TARJETA" name="CHECK_TARJETA" data-nosend="1" />
+                <label class="help-block text-muted small-font form-check-label mt-1" for="CHECK_TARJETA"> Tarjetas</label>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-danger btn-sm pull-right" id="btnGuardarMetodoPago"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+</form>

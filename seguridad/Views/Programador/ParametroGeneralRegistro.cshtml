@@ -1,0 +1,21 @@
+﻿<form name="frmRegistroParametroGeneral" onsubmit="return false;">
+    <div class="row">
+        <div class="col-12 col-sm-9 col-md-9">
+            <div class="form-group-rm">
+                <input type="text" class="form-control form-control-sm" id="_tipo_parametro" name="_tipo_parametro" placeholder="Ingresar tipo parámetro" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="col-auto p-0 pr-1">
+            <button class="btn btn-danger btn-sm" id="btnGuardar" type="button"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+        </div>
+        <div class="col-auto p-0">
+            <div class="dropdown">
+                <button class="btn btn-orange btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                <div class="dropdown-menu dropdown-caret" style="">
+                    <a id="btnNuevoParametro" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Parámetro General</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="tblParametroGeneral" class="mt-2"></div>

@@ -1,0 +1,15 @@
+﻿@import 'style.css';
+@import 'skin-modes.css';
+@import 'dark-style.css';
+@import 'sidemenu.css';
+@import '../plugins/single-page/css/main.css';
+@import 'icons.css';
+@import '../colors/color2.css';
+
+.login100-form .header-brand-img {
+    height: 4.5rem !important;
+    line-height: 2rem;
+    vertical-align: middle;
+    margin-right: .5rem;
+    width: auto;
+}

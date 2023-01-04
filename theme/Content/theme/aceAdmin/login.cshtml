@@ -1,0 +1,99 @@
+﻿<!doctype html>
+<html lang="es-pe" style="--scrollbar-width:12px; --moz-scrollbar-thin:12px; font-size: 0.8rem;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/png" href="{{UrlTheme}}/img/logo_icono.png" />
+    @*<link rel="shortcut icon" type="image/x-icon" href="{{UrlTheme}}/images/logo_icono.ico" />*@
+</head>
+    
+    <body>
+
+        <div class="body-login">
+            <div class="row justify-content-center">
+
+                <div class="col-12 col-md-5 d-none d-sm-none d-md-block body-login-form body-login-background">
+
+                </div>
+
+                <div class="col-12 col-md-7 col-sm-12">
+
+                    <div class="row justify-content-center">
+
+                        <div class="col-10 col-md-5 col-sm-7 body-login-form">
+
+                            <div class="box">
+
+                                <div class="parent-form p-4 shadow-lg">
+
+                                    <form id="frmLogin" class="form-row animated fadeIn p-5 rounded border" method="post" action="/Cuenta/Login">
+
+                                        <div class="form-group col-md-12 mb-4">
+                                            <center>
+                                                <h4 class="font-raleway"><strong>INICIO DE SESI&Oacute;N</strong></h4>
+                                            </center>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mb-4">
+                                            <div class="box-img"></div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-5">
+                                            <div class="d-flex align-items-center">
+                                                <input name="username" type="text" value="" class="form-control form-control-lg pr-4 shadow-none" placeholder="Usuario" id="id-login-username" autocomplete="off" required />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-2">
+                                            <div class="d-flex align-items-center">
+                                                <input name="password" type="password" value="" class="form-control form-control-lg pr-4 shadow-none" placeholder="Contraseña" id="id-login-password" autocomplete="off" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-n2 mb-5">
+                                            <a id="recoveryPwd" href="#" class="text-black-50 text-decoration-none fw-bold forgot" data-toggle="tab" data-target="#id-tab-forgot">
+                                                ¿Olvidaste tu contraseña?
+                                            </a>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <div class="d-grid gap-2">
+                                                <button type="submit" class="btn btn-danger btn-lg btn-block btn-bold mt-1 mb-0">
+                                                    ACCEDER
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        @{
+                                            if (ViewBag.MessageError != null)
+                                            {
+                                                <div class="form-group col-md-12 text-center text-danger">
+                                                    <span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> @ViewBag.MessageError</span>
+                                                </div>
+                                            }
+                                        }
+
+                                        <div class="form-group col-md-12 text-center pt-3">
+                                            <p class="text-dark mb-0">¿No estas registrado?<br /><a href="/Cuenta/Crear" class="text-primary ml-1 mt-2">¡REGISTRATE GRATÍS!</a></p>
+                                        </div>
+
+                                        <input type="hidden" name="redirect" value="" />
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>

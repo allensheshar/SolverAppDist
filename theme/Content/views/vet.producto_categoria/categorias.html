@@ -1,0 +1,39 @@
+﻿<style type="text/css">
+    .editedRow {
+        color: #b90f0f !important;
+    }
+</style>
+
+<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="filtrosRegCategorias" onsubmit="return false;">
+            <div class="row">
+                <div class="col-12 col-sm-3 col-md-3">
+                    <div class="form-group-rm">
+                        <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar categoría..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-auto p-0">
+                    <div class="dropdown">
+                        <button class="btn btn-orange btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                        <div class="dropdown-menu dropdown-caret" style="">
+                            <a id="btnNuevaCat" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva categoría</a>
+                            <a id="btnDescargar" class="dropdown-item" href="#"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar Excel</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger btn-sm pull-right" id="btnGuardarCat"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="mt-2" id="tblCategoria"></div>
+    </div>
+</div>

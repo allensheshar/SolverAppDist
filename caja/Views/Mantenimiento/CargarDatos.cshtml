@@ -1,0 +1,79 @@
+﻿<div class="row">
+    <div class="col-md-7">
+        <div>
+            <div class="border rounded p-3" style="padding:5px;">
+                <i class="fa fa-cloud-upload pull-right fa-4x"></i>
+                Para iniciar la carga masiva utilice el boton <strong>"Subir Archivo"</strong> ubicado en la parte inferior de cada formato de carga.
+                <br />Asegurate de tener todos los puntos completos para iniciar el proceso masivo.
+                <ol>
+                    <li>
+                        Descarga la plantilla de carga asociada a cada botón de carga.
+                        <ul>
+                            <li><a href="#" class="getPltClientes">Plantilla Saldo Inicial de Caja</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#" class="getPltClientes">Plantilla Movimientos</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#" class="getPltClientes">Plantilla Movimientos Detalle</a></li>
+                        </ul>
+                    </li>
+                    <li>Solo podrás cargar archivos con un <strong>tamaño maximo de 25MB</strong>.</li>
+                    <li>La carga admite archivos con extensiones <strong>XLS o XLSX</strong>.</li>
+                    <li>Se recomienda cargar los seis archivos a la vez, sin embargo esto no impide que se pueda hacer cargas de forma individual.</li>
+                </ol>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <strong>1. Carga archivo para saldo inicial de caja</strong>
+                @*<div id="client-file-load"></div>*@
+
+                <div class="file-loading">
+                    <input id="client-file-load" name="client-file-load" type="file" multiple />
+                </div>
+                <div id="client-file-load-lbl">
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <strong>2. Carga archivo para movimientos</strong>
+                @*<div id="movimientos-file-load-load"></div>*@
+
+                <div class="file-loading">
+                    <input id="movimientos-file-load" name="movimientos-file-load" type="file" multiple />
+                </div>
+                <div id="movimientos-file-load-lbl">
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <strong>3. Carga archivo para movimientos detalle</strong>
+                @*<div id="movimientos-detalle-file-load"></div>*@
+
+                <div class="file-loading">
+                    <input id="movimientos-detalle-file-load" name="movimientos-detalle-file-load" type="file" multiple />
+                </div>
+                <div id="movimientos-detalle-file-load-lbl">
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <p class="p-0 mb-1">** Si estas listo, haz click aquí para iniciar el proceso de tus archivos.</p>
+                <div class="btn-group">
+                    <button class="btn btn-success getProceso" disabled>Procesar Archivos</button>
+                    <button id='verhistorico' class='btn btn-warning' title='Visualice sus tramas importadas' data-toggle='modal' data-target='#modalArchivos'>
+                        <i class='fa fa-clock-o' aria-hidden='true'></i> <span class='hidden-xs'></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

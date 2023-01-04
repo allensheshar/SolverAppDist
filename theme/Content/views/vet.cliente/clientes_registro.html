@@ -1,0 +1,176 @@
+﻿<form name="frmRegistroCliente" action="#" method="post" data-table="VET.CLIENTE" data-condition="@ViewBag.Condition" data-setUpdate="1">
+    <div class="row">
+        <div class="col-md-12">
+            <a id="btnSalir" href="@Url.Action("Clientes","Mantenimiento")" class="btn btn-sm btn-gray"><i class="fa fa-undo" aria-hidden="true"></i> Regresar</a>
+            <button type="button" class="btn btn-danger btn-save-cliente btn-sm pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+        </div>
+    </div>
+    <hr />
+    <ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">Datos Generales</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contacto-tab" data-toggle="tab" href="#contacto" role="tab" aria-controls="contacto" aria-selected="false">Contactos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="direccion-tab" data-toggle="tab" href="#direccion" role="tab" aria-controls="direccion" aria-selected="false">Direcciones</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContentRoles" style="min-height: 650px;">
+        <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+            <div class="clearfix">&nbsp;</div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-2 col-sm-2 col-xs-3">
+                            <label for="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" class="text-danger"> Tipo de documento</label>
+                            <select id="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO_CLIENTE" name="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" class="form-control form-control-sm" data-query="q_movil_ventas_clientes_obtenertipodoc" data-value="C_PARAMETRO_GENERAL" data-field="DESCRIPCION_PARAMETRO" data-tipoParametro="Tipos de Documentos" required></select>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-6">
+                            <label for="RUC_CLIENTE" class="text-danger"> Nro de documento</label>
+                            <input type="text" id="RUC_CLIENTE" class="number-input form-control form-control-sm shadow-none" maxlength="15" autocomplete="off" name="RUC_CLIENTE" required />
+                        </div>
+                        <div class="col-md-4 col-sm-3 col-xs-3">
+                            <label for="RAZON_SOCIAL" class="text-danger"> Razón social</label>
+                            <input type="text" id="RAZON_SOCIAL" class="form-control form-control-sm shadow-none" autocomplete="off" name="RAZON_SOCIAL" required />
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="DIRECCION_FISCAL" class="help-block text-muted small-font"> Dirección fiscal</label>
+                            <input type="text" id="DIRECCION_FISCAL" class="form-control form-control-sm shadow-none" autocomplete="off" name="DIRECCION_FISCAL" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <label for="C_PARAMETRO_GENERAL_PROCEDENCIA" class="text-danger"> Procedencia</label>
+                            <select id="C_PARAMETRO_GENERAL_PROCEDENCIA" name="C_PARAMETRO_GENERAL_PROCEDENCIA" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Procedencia Producto Venta" required></select>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6" style="display:none;" id="bloque_nombre_comercial">
+                            <label for="NOMBRE_COMERCIAL" class="help-block text-muted small-font"> Nombre comercial</label>
+                            <input type="text" id="NOMBRE_COMERCIAL" class="form-control form-control-sm shadow-none" autocomplete="off" name="NOMBRE_COMERCIAL" />
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="TELEFONO" class="help-block text-muted small-font">Teléfono</label>
+                            <input type="text" id="TELEFONO" name="TELEFONO" class="number-input form-control form-control-sm shadow-none" maxlength="9" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="C_CATEGORIA_CLIENTE" class="text-danger">Categoría</label>
+                            <select name="C_CATEGORIA_CLIENTE" id="C_CATEGORIA_CLIENTE" class="form-control form-control-sm c_empresa"
+                                    data-query="q_ventas_mantenimiento_clientes_obtenerlistacategoria" data-C_EMPRESA="@Session["SESSION_EMPRESA"].ToString()" data-value="C_CLIENTE_CATEGORIA" data-field="NOMBRE" data-enabledefault="0" required></select>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="CORREO_FACTURACION" class="text-danger">Correo de facturación</label>
+                            <input type="email" class="form-control form-control-sm shadow-none" id="CORREO_FACTURACION" autocomplete="off" name="CORREO_FACTURACION" required />
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="IND_ESTADO" class="text-danger">Estado</label>
+                            <select class="form-control form-control-sm shadow-none" name="IND_ESTADO" required>
+                                <option value="*">Activo</option>
+                                <option value="&">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="DEPARTAMENTO_REF" class="help-block text-muted small-font">Departamento</label>
+                            <select name="DEPARTAMENTO_REF" id="DEPARTAMENTO_REF" class="form-control form-control-sm" data-nosend="1"
+                                    data-query="gbl_obtener_parametro_general" data-value="DESCRIPCION" data-field="DESCRIPCION" data-tipoparametro="Departamento"></select>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="PROVINCIA_REF" class="help-block text-muted small-font">Provincia</label>
+                            <select name="PROVINCIA_REF" id="PROVINCIA_REF" class="form-control form-control-sm" data-nosend="1"></select>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="DISTRITO_REF" class="help-block text-muted small-font">Distrito</label>
+                            <select name="DISTRITO_REF" id="DISTRITO_REF" class="form-control form-control-sm" data-nosend="1"></select>
+                        </div>
+                    </div>
+
+                    <div id="bloque_datos_representante" style="display:none;">
+                        <h4 class="text-purple-d2 mb-3 border-b-1 brc-grey-l1 pb-1">Datos del Representante</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <label for="APE_PAT_REPRESENTANTE" class="help-block text-muted small-font">Apellido Paterno</label>
+                                <input type="text" id="APE_PAT_REPRESENTANTE" class="form-control form-control-sm shadow-none" autocomplete="off" name="APE_PAT_REPRESENTANTE" />
+                            </div>
+                            <div class="col-md-4 col-sm-3 col-xs-3">
+                                <label for="APE_MAT_REPRESENTANTE" class="help-block text-muted small-font">Apellido Materno</label>
+                                <input type="text" class="form-control form-control-sm shadow-none" id="APE_MAT_REPRESENTANTE" autocomplete="off" name="APE_MAT_REPRESENTANTE" />
+                            </div>
+                            <div class="col-md-4 col-sm-3 col-xs-3">
+                                <label for="NOMBRES_REPRESENTANTE" class="help-block text-muted small-font">Nombres</label>
+                                <input type="text" id="NOMBRES_REPRESENTANTE" class="form-control form-control-sm shadow-none" autocomplete="off" name="NOMBRES_REPRESENTANTE" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4 col-sm-6 col-xs-6 pb-3">
+                                <label for="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO_REPRESENTANTE" class="help-block text-muted small-font pt-0"> Tipo de Documento</label>
+                                <select name="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO_REPRESENTANTE" id="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO_REPRESENTANTE" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Tipos de Documentos"></select>
+                            </div>
+                            <div class="col-md-4 col-sm-3 col-xs-3">
+                                <label for="NRO_DOCUMENTO_REPRESENTANTE" class="help-block text-muted small-font">N° Documento</label>
+                                <input type="text" class="form-control form-control-sm  shadow-none" id="NRO_DOCUMENTO_REPRESENTANTE" autocomplete="off" name="NRO_DOCUMENTO_REPRESENTANTE" />
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <label for="EMAIL_REPRESENTANTE" class="help-block text-muted small-font">Correo Electrónico</label>
+                                <input type="email" class="form-control form-control-sm shadow-none" id="EMAIL_REPRESENTANTE" autocomplete="off" name="EMAIL_REPRESENTANTE" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Otros datos</h3>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <label for="CUENTA_BANCARIA" class="help-block text-muted small-font">Cuenta bancaria para el abono</label>
+                            <textarea rows="5" class="form-control form-control-sm" name="CUENTA_BANCARIA" id="CUENTA_BANCARIA"></textarea>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="DEPARTAMENTO" name="DEPARTAMENTO" value="" />
+                    <input type="hidden" id="PROVINCIA" name="PROVINCIA" value="" />
+                    <input type="hidden" id="DISTRITO" name="DISTRITO" value="" />
+                    <input type="hidden" id="C_CLIENTE" name="C_CLIENTE" value="" />
+                    <input type="hidden" id="C_EMPRESA" name="C_EMPRESA" />
+                    <input type="hidden" id="CREAR" value="@ViewBag.Crear" />
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="contacto" role="tabpanel" aria-labelledby="contacto-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="m-1 btn btn-sm btn-turquesa btn-add-contact"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>
+                    <button type="button" class="m-1 btn btn-sm btn-danger-light btn-delete-contact"><i class="fa fa-close" aria-hidden="true"></i> Eliminar</button>
+                    <div id="tblContacto"></div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="direccion" role="tabpanel" aria-labelledby="direccion-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="m-1 btn btn-sm btn-turquesa btn-add-dir"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>
+                    <button type="button" class="m-1 btn btn-sm btn-danger-light btn-delete-dir"><i class="fa fa-close" aria-hidden="true"></i> Eliminar</button>
+                    <div id="tblDireccion"></div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="telefono" role="tabpanel" aria-labelledby="telefono-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="m-1 btn btn-sm btn-turquesa btn-add-telf"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>
+                    <div id="tblTelefono"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

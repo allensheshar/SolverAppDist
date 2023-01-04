@@ -1,0 +1,90 @@
+﻿<div class="container-fluid container-lg container-md">
+    <div class="card shadow-lg rounded" style="overflow: hidden;">
+        <div class="card-body p-4">
+
+            <ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="vendedor-tab" data-toggle="tab" href="#vendedor" role="tab" aria-controls="vendedor" aria-selected="true">
+                        <i class="fa fa-users" aria-hidden="true"></i> Usuarios Registrados
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="perfil-tab" data-toggle="tab" href="#perfil" role="tab" aria-controls="perfil" aria-selected="false">
+                        <i class="fa fa-list-ul" aria-hidden="true"></i> Perfiles de Acceso
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContentRoles">
+                <div class="tab-pane fade show active" id="vendedor" role="tabpanel" aria-labelledby="vendedor-tab">
+
+                    <div class="card card-default mb-3 shadow-sp">
+                        <div class="card-body p-2">
+                            <form name="frmUsuarios" onsubmit="return false;">
+                                <div class="row">
+                                    <div class="col-12 col-sm-3 col-md-3">
+                                        <div class="form-group-rm">
+                                            <input type="text" class="form-control form-control-sm" name="buscar" placeholder="Buscar usuario..." autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto p-0 pr-1">
+                                        <div class="form-group-rm">
+                                            <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto p-0">
+                                        <div class="dropdown">
+                                            <button class="btn btn-orange btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                                            <div class="dropdown-menu dropdown-caret" style="">
+                                                <a id="btnAgregar" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Usuario</a>
+                                                <a id="btnEditar" class="dropdown-item" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Usuario</a>
+                                                <a id="btnDescargar" class="dropdown-item" href="#"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar excel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="table" class="mt-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
+                    <div class="card card-default mb-3 shadow-sp">
+                        <div class="card-body p-2">
+                            <form name="frmPerfil" onsubmit="return false;">
+                                <div class="row">
+                                    <div class="col-12 col-sm-3 col-md-3">
+                                        <div class="form-group-rm">
+                                            <input type="text" class="form-control form-control-sm" name="buscar" placeholder="Buscar perfil..." autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto p-0 pr-1">
+                                        <div class="form-group-rm">
+                                            <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto p-0">
+                                        <div class="dropdown">
+                                            <button class="btn btn-orange btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                                            <div class="dropdown-menu dropdown-caret" style="">
+                                                <a id="btnAgregarPerfil" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Perfil</a>
+                                                <a id="btnEditarPerfil" class="dropdown-item" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Perfil</a>
+                                                <a id="btnDescargarPerfil" class="dropdown-item" href="#"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar excel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="table2" class="mt-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

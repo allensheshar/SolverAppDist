@@ -1,0 +1,32 @@
+﻿<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="filtrosRegUsuarios" onsubmit="return false;">
+            <div class="row">
+
+                <div class="col-12 col-sm-3 col-md-3">
+                    <div class="form-group-rm">
+                        <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar por Código/Nombre/Email/Teléfono" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-3 p-0">
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-orange dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                        <div class="dropdown-menu dropdown-caret" style="">
+                            <a id="btnNuevoUsuario" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Usuario</a>
+                            <a id="btnEditarUsuario" class="dropdown-item" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Usuario</a>
+                            <a id="btnReenviarAccesos" class="dropdown-item" href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> Reenviar Accesos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="jqxWidget mt-2">
+            <div id="tableRegUsuarios" class="shadow-sp"></div>
+        </div>
+    </div>
+</div>

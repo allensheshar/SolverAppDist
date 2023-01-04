@@ -1,0 +1,74 @@
+﻿<form name="frm" method="post" action="#" data-table="CAJA.MOVIMIENTO_CTA_BANCARIA" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off" style="font-size: 12px; margin-bottom: 10px">
+    <input type="hidden" name="C_EMPRESA" />
+    <input type="hidden" name="C_CUENTA_BANCARIA" />
+    <input type="hidden" name="NRO_OPERACION" />
+    <input type="hidden" name="ANIO" value="@DateTime.Now.Year" />
+    <input type="hidden" name="MONTO_MOV" value="0" />
+    <input type="hidden" name="IND_ESTADO" value="*" />
+    <input type="hidden" name="C_USUARIO" value="" />
+
+    <div class="row">
+        <div class="col-auto">
+            <a href="@Url.Action("MovimientoEgreso","Procesos")" class="btn btn-sm btn-gray float-left"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+            @*<button type="button" class="btn btn-sm btn-gray float-left" id="btnAtras"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</button>*@
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-sm btn-danger float-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-1 pr-0">
+            <strong class="float-right"><label class="col-form-label col-form-label-sm">Número:</label></strong>
+        </div>
+        <div class="col-1 pr-0">
+            <input name="C_MOVIMIENTO" class="form-control form-control-sm" type="text" readonly="readonly" />
+        </div>
+        <div class="col-1 pr-0">
+            <strong class="float-right"><label class="col-form-label col-form-label-sm">Cta. bancaria:</label></strong>
+        </div>
+        <div class="col-3">
+            <select id="C_CUENTA_BANCARIA" name="C_CUENTA_BANCARIA" class="form-control form-control-sm empresa" required
+                    data-query="cb_caja_procesos_nuevo_nuevomovimiento_cuentabancaria" data-C_EMPRESA="" data-field="CUENTA" data-value="C_CUENTA_BANCARIA"></select>
+        </div>
+        <div class="col-1 pr-0">
+            <strong class="float-right"><label class="col-form-label col-form-label-sm">Tipo:</label></strong>
+        </div>
+        <div class="col-3">
+            <select name="C_TIPO_MOVIMIENTO_CTA_BANCARIA" class="form-control form-control-sm empresa" required
+                    data-query="cb_caja_procesos_nuevo_movimiento_tipomovimiento" data-C_EMPRESA="" data-field="NOMBRE_TIPO_MOVIMIENTO" data-value="C_TIPO_MOVIMIENTO_CTA_BANCARIA" data-COD_TIPO="E"></select>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-1 pr-0">
+            <strong class="float-right"><label class="col-form-label col-form-label-sm">Fecha:</label></strong>
+        </div>
+        <div class="col-1 pr-0">
+            <input name="FECHA_REGISTRO" class="form-control form-control-sm" type="text" required value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+        </div>
+        <div class="col-1 pr-0">
+            <strong class="float-right"><label class="col-form-label col-form-label-sm">Tipo de cambio:</label></strong>
+        </div>
+        <div class="col-1">
+            <input name="TC" class="form-control form-control-sm" type="text" readonly required />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-1 pr-0">
+            <strong class="float-right"><label class="col-form-label col-form-label-sm">Descripción:</label></strong>
+        </div>
+        <div class="col">
+            <textarea class="form-control form-control-sm" name="DESCRIPCION"></textarea>
+        </div>
+    </div>
+    <div class="row mt-2 mb-2">
+        <div class="col-auto">
+            <button type="button" id="btnAgregarItem" class="btn-orange btn btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar Item</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="table"></div>
+        </div>
+    </div>
+</form>

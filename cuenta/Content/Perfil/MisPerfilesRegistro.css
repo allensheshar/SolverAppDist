@@ -1,0 +1,71 @@
+﻿.zone-opciones .add-element, .leyenda {
+    font-size: 0.7rem;
+}
+
+.zone-opciones .inner-items {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+    .zone-opciones .inner-items li {
+        font-size: 0.8rem;
+        list-style: none;
+    }
+
+    .zone-opciones .inner-items .add-element {
+        font-size: 0.6rem;
+    }
+
+    .zone-opciones .inner-items li .text strong {
+        background-color: aliceblue;
+        font-size: 0.6rem;
+    }
+
+    .zone-opciones .inner-items li .text:hover {
+        background-color: #fdded6;
+    }
+
+    .zone-opciones .inner-items .editer {
+        cursor: pointer;
+        min-width: 5rem;
+        display: inline-block;
+    }
+
+.zone-opciones .level-01 {
+    margin-bottom: 0.5rem;
+    background-color: #fff3f0;
+    padding: 0.5rem;
+}
+
+    .zone-opciones .level-01 > .text, .level-01 > .text:hover {
+        font-size: 0.9rem !important;
+        font-weight: bold;
+    }
+
+    .zone-opciones .level-01 > ul {
+        padding-left: 0.5rem;
+    }
+
+.zone-opciones .level-02 {
+    padding-top: 0.3rem;
+}
+
+    .zone-opciones .level-02 > .text, .level-02 > .text:hover {
+        font-size: 0.8rem !important;
+    }
+
+    .zone-opciones .level-02 > ul {
+        padding-left: 0.7rem;
+    }
+
+.zone-opciones .level-03 > ul {
+    padding-left: 0.9rem;
+}
+
+.zone-opciones .level-03 > .text > .add-element {
+    display: none;
+}
+
+.zone-opciones .level-03:hover > .text > .add-element {
+    display: block;
+}

@@ -1,0 +1,98 @@
+﻿<div style="padding-bottom: 0.4em;">
+    <form name="frm" onsubmit="return false;" novalidate="novalidate">
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label>Año</label>
+                    <select class="form-control form-control-sm clsEmpresa" id="_anio" data-query="q_ventas_procesos_nuevaventa_consultaraniosventa" data-value="ANIO" data-field="ANIO" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label>Establecimiento</label>
+                    <select class="form-control form-control-sm" id="_establecimiento" name="establecimiento" data-query="gbl_obtenerestablecimientos" data-value="C_ESTABLECIMIENTO" data-field="NOMBRE_ESTABLECIMIENTO" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="producto">Producto</label>
+                    <select class="form-control form-control-sm" id="_producto" name="producto" data-query="cb_ventas_mantenimiento_busquedaproducto_listarproductos" data-value="C_PRODUCTO" data-field="NOMBRE_PARA_VENTA" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="centrocosto">Centro de costo</label>
+                    <select class="form-control form-control-sm" id="_centro" name="centrocosto" data-query="cb_ventas_procesos_filtroventa_listarcentrocosto" data-value="C_UNIDAD_NEGOCIO" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="cliente">Cliente</label>
+                    <select class="form-control form-control-sm" id="_cliente" name="cliente" data-query="cb_ventas_procesos_filtroventa_listarclientes" data-value="C_CLIENTE" data-field="RAZON_SOCIAL" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="vendedor">Vendedor</label>
+                    <select class="form-control form-control-sm" id="_vendedor" name="vendedor" data-query="cb_ventas_obtener_usuarios_venta" data-value="C_USUARIO" data-field="C_USUARIO" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row caja" style="display:none;">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="caja">Caja</label>
+                    <select class="form-control form-control-sm" id="_caja" name="caja" data-query="q_puntoventa_reporte_obtenercajas" data-value="C_CAJA" data-field="NOMBRE_CAJA" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="vendedor">Representación</label>
+
+                </div>
+                <div class="form-group-rm">
+                    <div><input type="radio" name="estadistico" value="item" id="it" checked="checked" /> <label for="it">Estadístico por item</label></div>
+                    <div><input type="radio" name="estadistico" value="cliente" id="cli" /> <label for="cli">Estadístico por cliente</label></div>
+                    <div><input type="radio" name="estadistico" value="vendedor" id="ven" /> <label for="ven">Estadístico por vendedor</label></div>
+                    <div><input type="radio" name="estadistico" value="clienteitem" id="cliitem" /> <label for="cliitem">Estadístico por cliente item</label></div>
+                    <div><input type="radio" name="estadistico" value="centro" id="centro" /> <label for="centro">Estadístico por centro de costo</label></div>
+                    <div><input type="radio" name="estadistico" value="establecimiento" id="est" /> <label for="est">Estadístico por establecimiento</label></div>
+                    <div><input type="radio" name="estadistico" value="caja" id="caj" /> <label for="caj">Estadístico por caja</label></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="vendedor">Información en columnas</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <div><input type="radio" name="moneda" value="soles" id="_soles" checked /> <label for="_soles">Soles</label></div>
+            </div>
+            <div class="col-auto">
+                <div><input type="radio" name="moneda" value="dolares" id="_dolares" /> <label for="_dolares">Dolares</label></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-sm btn-danger float-right">Procesar</button>
+            </div>
+        </div>
+    </form>
+</div>

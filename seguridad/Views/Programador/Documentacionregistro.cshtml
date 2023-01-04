@@ -1,0 +1,42 @@
+﻿<form name="frmRegistroDocumentacion" action="#" method="post" data-table="W_DOCUMENTACION_DB" data-condition="@ViewBag.Condition" data-setupdate="1">
+    <button name="btnGuardar" class="btn btn-danger btn-save-rol btn-sm float-right ml-2" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+    <a href="@Url.Action("Documentacion","Programador")" class="btn btn-gray btn-sm"><i class="fa fa-undo" aria-hidden="true"></i> Regresar</a>
+    <hr />
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label for="NOMBRE_DOC">Nombre documentación</label>
+                <input type="text" maxlength="400" class="form-control form-control-sm" id="NOMBRE_DOC" name="NOMBRE_DOC" placeholder="Nombre documentación" value="" required>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="FEC_DOC">Fecha documentación</label>
+                <input type="text" class="form-control form-control-sm" id="FEC_DOC" name="FEC_DOC" value="@DateTime.Now.ToString("dd-MM-yyyy")" required/>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="USU_DOC">Usuario</label>
+                <input type="text" class="form-control form-control-sm" id="USU_DOC" name="USU_DOC" value="" required readonly>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="COMENTARIO">Escribe aquí su comentario</label>
+                <div class="row-editor">
+                    <div id="EDITOR_COMENTARIO" class="editor"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="form-group">
+                <label for="CADENA_SCRIPT">Escribe aquí la definición de tu consulta SQL</label>
+                <textarea class="form-control form-control-sm" id="CADENA_SCRIPT" name="CADENA_SCRIPT" required></textarea>
+            </div>
+        </div>
+        <input type="hidden" name="C_DOCUMENTACION" id="C_DOCUMENTACION" value="@Guid.NewGuid().ToString().Substring(0,10)" />
+        <input type="hidden" id="FEC_ACTUAL" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+        <input type="hidden" id="COMENTARIO" name="COMENTARIO" value="" />
+    </div>
+</form>

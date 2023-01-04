@@ -1,0 +1,61 @@
+﻿
+<form name="frmBusquedaImportacion" onsubmit="return false;">
+        <div class="row">
+            <div class="col-auto">
+                <div class="form-group-rm">
+                    <label>Desde</label>
+                    <input name="desde" type="text" class="form-control form-control-sm" value="@DateTime.Now.AddDays(-DateTime.Now.Day + 1).ToString("dd/MM/yyyy").ToString()" />
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="form-group-rm">
+                    <label>Hasta</label>
+                    <input name="hasta" type="text" class="form-control form-control-sm" value="@DateTime.Now.ToString("dd/MM/yyyy").ToString()" />
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group-rm">
+                    <label>Nombre</label>
+                    <input name="nombre" type="text" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group-rm">
+                    <label>Pais</label>
+                    <select name="pais" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Nacionalidad" data-textDefault="-- Todos --"></select>
+                </div>
+            </div>
+            <div class="col-1">
+                <label>Canal</label>
+                <select name="canal" class="form-control form-control-sm">
+                    <option value="" selected="selected">--Todos--</option>
+                    <option value="R">Rojo</option>
+                    <option value="V">Verde</option>
+                    <option value="N">Naranja</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label>Estado</label>
+                <select name="estado" class="form-control form-control-sm">
+                    <option value="" selected="selected">--Todos--</option>
+                    <option value="G">Generada</option>
+                    <option value="D">Con documentos</option>
+                    <option value="C">Cerrada</option>
+                    <option value="&">Anulada</option>
+                </select>
+            </div>
+            <div class="col-auto p-0 pr-1">
+                <label>&nbsp;</label>
+                <div class="form-group-rm">
+                    <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Buscar</button>
+                </div>
+            </div>
+            <div class="col-auto p-0">
+                <label>&nbsp;</label>
+                <div class="form-group-rm">
+                    <button type="button" class="float-right btn btn-sm btn-danger" id="btnAceptar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Aceptar</button>
+                </div>
+            </div>
+        </div>
+</form>
+<div class="mt-2" id="tblBusquedaImportacion"></div>

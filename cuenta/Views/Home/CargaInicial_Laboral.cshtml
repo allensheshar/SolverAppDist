@@ -1,0 +1,115 @@
+﻿<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item mr-1px">
+        <a class="nav-link active text-left radius-0" id="areas-tab" data-toggle="tab" href="#areas" role="tab" aria-controls="areas" aria-selected="false">
+            <i class="fa fa-cubes text-pink-m2 mr-3px"></i>
+            Registro de Áreas
+        </a>
+    </li>
+    <li class="nav-item mr-1px">
+        <a class="nav-link text-left radius-0" id="cargo-tab" data-toggle="tab" href="#cargo" role="tab" aria-controls="cargo" aria-selected="false">
+            <i class="fa fa-cubes text-pink-m2 mr-3px"></i>
+            Registro de Cargos
+        </a>
+    </li>
+    <li class="nav-item mr-1px">
+        <a class="nav-link text-left radius-0" id="sucursal-tab" data-toggle="tab" href="#sucursal" role="tab" aria-controls="sucursal" aria-selected="false">
+            <i class="fa fa-cubes text-pink-m2 mr-3px"></i>
+            Registro de Sucursal
+        </a>
+    </li>
+    <li class="nav-item mr-1px">
+        <a class="nav-link text-left radius-0" id="colaboradores-tab" data-toggle="tab" href="#colaboradores" role="tab" aria-controls="colaboradores" aria-selected="true">
+            <i class="fa fa-users text-blue-m1 mr-3px"></i>
+            Registro de Colaboradores
+        </a>
+    </li>
+</ul>
+<div class="tab-content rounded-bottom">
+
+    <div class="tab-pane fade show active text-95" id="areas" role="tabpanel" aria-labelledby="areas-tab">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="alert alert-warning rounded p-3 fs-2" role="alert">
+                    Para iniciar la operación de carga, <a class="" target="_blank" href="https://api.solver.com.pe/v1/Service/DownloadTemplate/0023/plantilla">descargue aquí</a> su modelo de plantilla y complete la información necesaria.
+                </div>
+                <div class="col">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="control-label label-bold">(*) Arrastre y suelte sus Archivos:</label>
+                            <div class="file-loading">
+                                <input class="input-b7" type="file" multiple required data-table="0023">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade text-95" id="cargo" role="tabpanel" aria-labelledby="cargo-tab">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="alert alert-warning rounded p-3 fs-2" role="alert">
+                    Para iniciar la operación de carga, <a class="" target="_blank" href="https://api.solver.com.pe/v1/Service/DownloadTemplate/0024/plantilla">descargue aquí</a> su modelo de plantilla y complete la información necesaria.
+                </div>
+                <div class="col">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="control-label label-bold">(*) Arrastre y suelte sus Archivos:</label>
+                            <div class="file-loading">
+                                <input class="input-b7" type="file" multiple required data-table="0024">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade text-95" id="sucursal" role="tabpanel" aria-labelledby="sucursal-tab">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="alert alert-warning rounded p-3 fs-2" role="alert">
+                    Para iniciar la operación de carga, <a class="" target="_blank" href="https://api.solver.com.pe/v1/Service/DownloadTemplate/0026/plantilla">descargue aquí</a> su modelo de plantilla y complete la información necesaria.
+                </div>
+                <div class="col">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="control-label label-bold">(*) Arrastre y suelte sus Archivos:</label>
+                            <div class="file-loading">
+                                <input class="input-b7" type="file" multiple required data-table="0026">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade text-95" id="colaboradores" role="tabpanel" aria-labelledby="colaboradores-tab">
+        <form name="frmColaboradores">
+            <div class="row">
+                <div class="col-auto">
+                    <label>Buscar</label>
+                    <input type="text" class="form-control form-control-sm" id="_serie_nro" autocomplete="off" name="buscar" data-nosend="1">
+                </div>
+                <div class="col-auto">
+                    <label>&nbsp;</label><br />
+                    <div id="action-colaboradores"></div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="table-colaboradores"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

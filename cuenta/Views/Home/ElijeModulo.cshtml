@@ -1,0 +1,46 @@
+﻿@using domain.client.Helper
+@model ClientResponse
+
+<div class="container-fluid container-lg container-md">
+
+    <div class="row mt-2">
+        @{
+            foreach (var row in Model.rows)
+            {
+                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-4 animated fadeIn">
+                    <div class="card card-sp hvrbox shadow-solver bg-solver">
+                        <div class="card-body p-3 pt-5 pb-4 d-flex flex-column">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <img class="dinamic" data-source="@row["C_ARCHIVO_ICON"]" src="~/Content/Images/no.png" width="45%" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-md-center mt-2">
+                                <div class="col-12 col-md-8">
+                                    <div class="text-center" style="min-height:3rem;">
+                                        <h5 class="font-weight-semibold text-grey mt-2 text-uppercase">@row["NOMBRES"]</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <a href="@ViewBag.baseUrl@row["PATH"]" class="btn btn-md btn-gray btn-xs pl-2 pr-2"><i class="fa fa-paper-plane" aria-hidden="true"></i> INGRESAR</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</div>
+

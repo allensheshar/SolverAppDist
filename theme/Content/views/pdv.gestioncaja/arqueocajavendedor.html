@@ -1,0 +1,84 @@
+﻿<style>
+    .cell-disabled {
+        color: #999;
+    }
+
+    .cell-editable {
+        background-color: #FFF2CC;
+    }
+</style>
+
+<input type="hidden" id="caja" value="@ViewBag.CAJA" />
+<input type="hidden" id="vendedor" value="@ViewBag.VENDEDOR" />
+<input type="hidden" id="fecha" value="@ViewBag.FECHA" />
+<input type="hidden" id="operacion" value="@ViewBag.OPERACION" />
+<input type="hidden" id="tc" />
+<input type="hidden" id="estado" />
+
+
+<div class="row">
+    <div class="col-4">
+        <img id="IMAGEN_EMPRESA" width="200" height="120" />
+        <div class="text-center text-uppercase">
+            <h3 id="titulo"></h3>
+        </div>
+        <label class="col-form-label" id="lblEmpresa"></label><br />
+    </div>
+    <div class="col-8">
+        <div class="">
+            <button id="btnFinalizar" class="btn btn-danger btn-sm float-right mb-3"><i class="fa fa-floppy-o" aria-hidden="true"></i> Finalizar arqueo</button>
+            <button id="btnGuardar" class="btn btn-info btn-sm float-right mb-3 mr-3"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar arqueo</button>
+        </div>
+        <div class="form-group">
+            <label for="NOTAS" class="help-block text-muted small-font">Notas o comentarios</label>
+            <textarea id="NOTAS" class="form-control form-control-sm" rows="3" data-nosend="0"></textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4"><label class="col-form-label" id="lblEstablecimiento"></label></div>
+    <div class="col-4"><label class="col-form-label" id="lblCaja"></label></div>
+    <div class="col-4"><label class="col-form-label" id="lblVendedor"></label></div>
+    <div class="col-4"><label class="col-form-label" id="lblFecha"></label></div>
+    <div class="col-4"><label class="col-form-label" id="lblOperacion"></label></div>
+    <div class="col-4"><label class="col-form-label" id="tipoCambio"></label></div>
+</div>
+<ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="arqueo-tab" data-toggle="tab" href="#arqueo" role="tab" aria-controls="arqueo" aria-selected="true">
+            Arqueo
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="detalle-tab" data-toggle="tab" href="#detalle" role="tab" aria-controls="detalle" aria-selected="false">
+            Detalle de documentos
+        </a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContentRoles" style="min-height: 700px;">
+    <div class="tab-pane fade show active" id="arqueo" role="tabpanel" aria-labelledby="arqueo-tab">
+        <div class="row">
+            <div class="offset-4 col-4">
+                <h4 class="text-center" style="padding: 0px; margin: 0px;">Soles</h4>
+            </div>
+            <div class="col-4">
+                <h4 class="text-center" >Dolares</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div id="table" class="mt-2" style="position:relative; z-index:0;"></div>
+            </div>
+            <div class="col-4">
+                <div id="table1" class="mt-2" style="position:relative; z-index:0;"></div>
+            </div>
+            <div class="col-4">
+                <div id="table2" class="mt-2" style="position:relative; z-index:0;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="detalle" role="tabpanel" aria-labelledby="detalle-tab">
+        <div id="table3" class="mt-2" style="position:relative; z-index:0;"></div>
+    </div>
+
+</div>

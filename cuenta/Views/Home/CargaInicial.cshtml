@@ -1,0 +1,266 @@
+﻿<div class="container">
+
+    <div class="alert alert-warning rounded p-3 fs-3" role="alert">
+        <i class="fa fa-cloud-upload pull-right fa-4x"></i>
+        El siguiente módulo le permite registrar o actualizar la información de los mantenimientos de todos los módulos que tiene asignados. Ubique el pestaña del módulo que sea actualizar y utilice las opciones que se encuentran disponibles por cada una.
+    </div>
+
+    <div>
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item mr-1px">
+                <a class="nav-link active text-left radius-0" id="regclientes-tab" data-toggle="tab" href="#regclientes" role="tab" aria-controls="regclientes" aria-selected="true">
+                    <i class="fa fa-users text-blue-m1 mr-3px"></i>
+                    Registro de Clientes
+                </a>
+            </li>
+            @*<li class="nav-item mr-1px">
+                    <a class="nav-link text-left radius-0" id="regproveedores-tab" data-toggle="tab" href="#regproveedores" role="tab" aria-controls="regproveedores" aria-selected="false">
+                        <i class="fa fa-users text-pink-m2 mr-3px"></i>
+                        Registro de Proveedores
+                    </a>
+                </li>*@
+            <li class="nav-item mr-1px">
+                <a class="nav-link text-left radius-0" id="categoria-tab" data-toggle="tab" href="#categoria" role="tab" aria-controls="categoria" aria-selected="true">
+                    <i class="fa fa-cubes text-pink-m2 mr-3px"></i>
+                    Registro de Categoria
+                </a>
+            </li>
+            <li class="nav-item mr-1px">
+                <a class="nav-link text-left radius-0" id="centrocosto-tab" data-toggle="tab" href="#centrocosto" role="tab" aria-controls="centrocosto" aria-selected="true">
+                    <i class="fa fa-cubes text-pink-m2 mr-3px"></i>
+                    Registro de Centro de Costos
+                </a>
+            </li>
+            <li class="nav-item mr-1px">
+                <a class="nav-link text-left radius-0" id="productos-tab" data-toggle="tab" href="#productos" role="tab" aria-controls="productos" aria-selected="false">
+                    <i class="fa fa-cubes text-pink-m2 mr-3px"></i>
+                    Catalogo de Productos
+                </a>
+            </li>
+            <li class="nav-item mr-1px">
+                <a class="nav-link text-left radius-0" id="servicios-tab" data-toggle="tab" href="#servicios" role="tab" aria-controls="servicios" aria-selected="false">
+                    <i class="fa fa-cubes text-pink-m2 mr-3px"></i>
+                    Catalogo de Servicios
+                </a>
+            </li>
+            <li class="nav-item mr-1px">
+                <a class="nav-link text-left radius-0" id="regproveedores-tab" data-toggle="tab" href="#regproveedores" role="tab" aria-controls="regproveedores" aria-selected="false">
+                    <i class="fa fa-cubes text-pink-m2 mr-3px"></i>
+                    Registro de Proveedores
+                </a>
+            </li>
+            <li class="nav-item mr-1px">
+                <a class="nav-link text-left radius-0" id="laboral-tab" data-toggle="tab" href="#laboral" role="tab" aria-controls="laboral" aria-selected="false">
+                    <i class="fa fa-id-card-o text-pink-m2 mr-3px"></i>
+                    Módulo Laboral
+                </a>
+            </li>
+            <li class="nav-item mr-1px">
+                <a class="nav-link text-left radius-0" id="otros-tab" data-toggle="tab" href="#otros" role="tab" aria-controls="otros" aria-selected="false">
+                    <i class="fa fa-table text-pink-m2 mr-3px"></i>
+                    Otros Mantenimientos
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content rounded-bottom">
+
+            <div class="tab-pane fade show active text-95" id="regclientes" role="tabpanel" aria-labelledby="regclientes-tab">
+                <form name="frmCliente">
+                    <div class="row">
+                        <div class="col-5">
+                            <label>Buscar</label>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="buscar">
+                        </div>
+                        <div class="col-auto">
+                            <label>&nbsp;</label><br />
+                            <button id="btnBuscar" class="btn btn-sm btn-orange" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                        </div>
+                        <div class="col">
+                            <label>&nbsp;</label><br />
+                            <div id="actions-cliente"></div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div id="tblCliente"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-95" id="categoria" role="tabpanel" aria-labelledby="categoria-tab">
+                <form name="frmCategoria">
+                    <div class="row">
+                        <div class="col-5">
+                            <label>Buscar</label>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="buscar">
+                        </div>
+                        <div class="col-auto">
+                            <label>&nbsp;</label><br />
+                            <button id="btnBuscar" class="btn btn-sm btn-orange" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                        </div>
+                        <div class="col">
+                            <label>&nbsp;</label><br />
+                            <div id="actions-categoria"></div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div id="tblCategoria"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-95" id="centrocosto" role="tabpanel" aria-labelledby="centrocosto-tab">
+                <form name="frmCentroCosto">
+                    <div class="row">
+                        <div class="col-5">
+                            <label>Buscar</label>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="buscar">
+                        </div>
+                        <div class="col-auto">
+                            <label>&nbsp;</label><br />
+                            <button id="btnBuscar" class="btn btn-sm btn-orange" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                        </div>
+                        <div class="col">
+                            <label>&nbsp;</label><br />
+                            <div id="actions-centrocosto"></div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div id="tblCentroCosto"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-95" id="productos" role="tabpanel" aria-labelledby="productos-tab">
+                <form name="frmProducto">
+                    <div class="row">
+                        <div class="col-5">
+                            <label>Buscar</label>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="buscar">
+                        </div>
+                        <div class="col-auto">
+                            <label>&nbsp;</label><br />
+                            <button id="btnBuscar" class="btn btn-sm btn-orange" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                        </div>
+                        <div class="col">
+                            <label>&nbsp;</label><br />
+                            <div id="actions-producto"></div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div id="tblProducto"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade text-95" id="servicios" role="tabpanel" aria-labelledby="servicios-tab">
+                <form name="frmServicio">
+                    <div class="row">
+                        <div class="col-5">
+                            <label>Buscar</label>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="buscar">
+                        </div>
+                        <div class="col-auto">
+                            <label>&nbsp;</label><br />
+                            <button id="btnBuscar" class="btn btn-sm btn-orange" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                        </div>
+                        <div class="col">
+                            <label>&nbsp;</label><br />
+                            <div id="actions-servicio"></div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div id="tblServicio"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-95" id="regproveedores" role="tabpanel" aria-labelledby="regproveedores-tab">
+                <form name="frmProveedores">
+                    <div class="row">
+                        <div class="col-5">
+                            <label>Buscar</label>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="buscar">
+                        </div>
+                        <div class="col-auto">
+                            <label>&nbsp;</label><br />
+                            <button id="btnBuscar" class="btn btn-sm btn-orange" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                        </div>
+                        <div class="col">
+                            <label>&nbsp;</label><br />
+                            <div id="actions-proveedores"></div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div id="tblProveedores"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-95" id="laboral" role="tabpanel" aria-labelledby="laboral-tab">
+                <div class="row">
+                    <div class="col-12">
+
+                        @Html.Partial("CargaInicial_Laboral")
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-95" id="otros" role="tabpanel" aria-labelledby="otros-tab">
+                <div class="row">
+                    <div class="col-12">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="modalUploadFiles" tabindex="-1" role="dialog" aria-labelledby="modalUploadFiles" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Carga de Plantilla de Datos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-warning rounded p-3 fs-2" role="alert">
+                            Para iniciar la operación de carga, <a class="descarga_novedad" target="_blank" href="">descargue aquí</a> su modelo de plantilla y complete la información necesaria.
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label class="control-label label-bold">(*) Arrastre y suelte sus Archivos:</label>
+                                <div class="file-loading">
+                                    <input class="input-b6" type="file" multiple required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

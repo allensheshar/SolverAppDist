@@ -1,0 +1,105 @@
+﻿<div class="row">
+    <div class="col-md-7">
+        <div>
+            <div class="border rounded p-3" style="padding:5px;">
+                <i class="fa fa-cloud-upload pull-right fa-4x"></i>
+                Para iniciar la carga masiva utilice el boton <strong>"Subir Archivo"</strong> ubicado en la parte inferior de cada formato de carga.
+                <br />Asegurate de tener todos los puntos completos para iniciar el proceso masivo.
+                <ol>
+                    <li>
+                        Descarga la plantilla de carga asociada a cada botón de carga.
+                        <ul>
+                            <li><a href="#" class="getPltClientes">Plantilla para Proveedores</a></li>
+                            <li><a href="#" class="getPltCentroCosto">Plantilla para Centros de Costo</a></li>
+                            <li><a href="#" class="getPltProductos">Plantilla para Productos</a></li>
+                            <li><a href="#" class="getPltServicios">Plantilla para Servicios</a></li>
+                        </ul>
+                    </li>
+                    <li>Solo podrás cargar archivos con un <strong>tamaño maximo de 25MB</strong>.</li>
+                    <li>La carga admite archivos con extensiones <strong>XLS o XLSX</strong>.</li>
+                    <li>Se recomienda cargar los seis archivos a la vez, sin embargo esto no impide que se pueda hacer cargas de forma individual.</li>
+                </ol>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <strong>1. Carga Archivo para Actualizar Proveedores</strong>
+                @*<div id="client-file-load"></div>*@
+
+                <div class="file-loading">
+                    <input id="client-file-load" name="client-file-load" type="file" multiple />
+                </div>
+                <div id="client-file-load-lbl">
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <strong>2. Carga Archivo para Actualizar Centros de Costo</strong>
+                @*<div id="cc-file-load"></div>*@
+
+                <div class="file-loading">
+                    <input id="cc-file-load" name="cc-file-load" type="file" multiple />
+                </div>
+                <div id="cc-file-load-lbl">
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <strong>3. Carga Archivo para Actualizar Productos</strong>
+                @*<div id="product-file-load"></div>*@
+
+                <div class="file-loading">
+                    <input id="product-file-load" name="product-file-load" type="file" multiple />
+                </div>
+                <div id="product-file-load-lbl">
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <strong>4. Carga Archivo para Actualizar Servicios</strong>
+                @*<div id="service-file-load"></div>*@
+
+                <div class="file-loading">
+                    <input id="service-file-load" name="service-file-load" type="file" multiple />
+                </div>
+                <div id="service-file-load-lbl">
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <strong>5. Carga Archivo para Actualizar Almacenes</strong>
+                @*<div id="cc-file-load"></div>*@
+
+                <div class="file-loading">
+                    <input id="almacen-file-load" name="almacen-file-load" type="file" multiple />
+                </div>
+                <div id="almacen-file-load-lbl">
+
+                </div>
+
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <p class="p-0 mb-1">** Si estas listo, haz click aquí para iniciar el proceso de tus archivos.</p>
+                <div class="btn-group">
+                    <button class="btn btn-success getProceso" disabled>Procesar Archivos</button>
+                    <button id='verhistorico' class='btn btn-warning' title='Visualice sus tramas importadas' data-toggle='modal' data-target='#modalArchivos'>
+                        <i class='fa fa-clock-o' aria-hidden='true'></i> <span class='hidden-xs'></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

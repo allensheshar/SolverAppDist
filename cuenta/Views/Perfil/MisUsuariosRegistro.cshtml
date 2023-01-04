@@ -1,0 +1,274 @@
+﻿<div class="container-fluid container-lg container-md">
+    <div class="card shadow-lg rounded" style="overflow: hidden;">
+        <div class="card-body p-4">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="@Url.Action("MisUsuarios","Perfil")" class="btn btn-sm btn btn-gray"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+                    <button type="button" class="btn btn-danger btn-sm pull-right" id="btnGuardarVendedor"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+                </div>
+            </div>
+            <hr />
+            <ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="vendedor-tab" data-toggle="tab" href="#vendedor" role="tab" aria-controls="vendedor" aria-selected="true">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i> Datos del Usuario
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="permisos-tab" data-toggle="tab" href="#permisos" role="tab" aria-controls="permisos" aria-selected="false">
+                        <i class="fa fa-th-list" aria-hidden="true"></i> Perfiles de Acceso
+                    </a>
+                </li>
+                @*<li class="nav-item">
+                    <a class="nav-link" id="lock-tab" data-toggle="tab" href="#lock" role="tab" aria-controls="lock" aria-selected="false">
+                        <i class="fa fa-lock" aria-hidden="true"></i> Permisos
+                    </a>
+                </li>*@
+            </ul>
+            <div class="tab-content" id="myTabContentRoles">
+                <div class="tab-pane fade show active" id="vendedor" role="tabpanel" aria-labelledby="vendedor-tab">
+
+                    <form name="frmRegistroUsuario" action="#" method="post" data-table="USUARIOS" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+                        <input type="hidden" name="C_ARCHIVO_FIRMA" id="C_ARCHIVO_FIRMA" />
+                        <input type="hidden" name="C_UNIDAD_NEGOCIO" />
+                        <input type="hidden" name="ACRONIMO" data-nosend="1" />
+                        <input type="hidden" name="FECHA_CREACION" value="" data-nosend="1" />
+                        <input type="hidden" name="C_EMPRESA" />
+                        <input type="hidden" name="FLAG_CREADO_EMPRESA" value="*" />
+                        <input type="hidden" name="FLAG_PERMISO_ANULAR_VENTAS" value="&" />
+                        <input type="hidden" name="FLAG_PERMISO_REIMPRIMIR_DOCUMENTOS" value="&" />
+                        <input type="hidden" name="FLAG_PERMISO_APLICA_DESCUENTO" value="&" />
+                        <input type="hidden" name="FLAG_PERMISO_APLICA_CORTESIA" value="&" />
+                        <input type="hidden" name="FLAG_PERMISO_APLICA_ANULAR_PRODUCTO" value="&" />
+                        <input type="hidden" name="FLAG_PERMISO_CREAR_PEDIDOS" value="&" />
+
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="row mb-3">
+
+                                    <div class="col-3">
+                                        <label for="TIPO_DOCUMENTO" class="text-danger col-form-label col-form-label-sm">Tipo de documento:</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <select class="form-control form-control-sm" name="TIPO_DOCUMENTO" required
+                                                data-query="q_movil_ventas_clientes_obtenertipodoc" data-value="C_PARAMETRO_GENERAL" data-field="DESCRIPCION_PARAMETRO"
+                                                data-tipoParametro="Tipos de Documentos"
+                                                data-textDefault="-- Seleccione --"></select>
+                                    </div>
+
+                                    <div class="col-3 text-right">
+                                        <label for="NRO_DOCUMENTO" class="text-danger col-form-label col-form-label-sm">Número de documento:</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="text" name="NRO_DOCUMENTO" placeholder="Número de documento" autocomplete="off" class="form-control form-control-sm" required />
+                                    </div>
+
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-3">
+                                        <label for="NOMBRE" class="text-danger col-form-label col-form-label-sm">Nombres Completos:</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="text" name="NOMBRE" placeholder="Ingrese nombres" maxlength="100" autocomplete="off" class="form-control form-control-sm" required />
+                                    </div>
+                                    <div class="col-2 text-right">
+                                        <label for="TELEFONO" class="col-form-label col-form-label-sm"> Telef. Fijo/Celular:</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" name="TELEFONO" placeholder="Ingrese telefono" autocomplete="off" class="form-control form-control-sm" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-3">
+                                        <label for="DIRECCION" class="col-form-label col-form-label-sm">Dirección:</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" name="DIRECCION" placeholder="Ingrese dirección" maxlength="100" autocomplete="off" class="form-control form-control-sm" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-3">
+                                        <label for="C_ESTABLECIMIENTO" class="col-form-label col-form-label-sm">Establecimiento:</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <select name="C_ESTABLECIMIENTO" class="form-control form-control-sm"
+                                                data-query="gbl_obtenerestablecimientos" data-value="C_ESTABLECIMIENTO" data-field="NOMBRE_ESTABLECIMIENTO"
+                                                data-C_EMPRESA="@Session["SESSION_EMPRESA"]"
+                                                data-textDefault="-- Seleccione --"></select>
+                                    </div>
+                                    <div class="col-3 text-right">
+                                        <label for="NOMBRE_CENTRO_COSTO" class="col-form-label col-form-label-sm">Centro de costo:</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="input-group">
+                                            <input type="text" name="NOMBRE_CENTRO_COSTO" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="readonly" autocomplete="off" data-nosend="1">
+                                            <div class="input-group-append">
+                                                <button id="centroCosto" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Seccion de Usuario*@
+                                <div class="card shadow-sm rounded">
+                                    <div class="card-body p-4">
+
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <span class="font-weight-light text-info"><i class="fa fa-keyboard-o" aria-hidden="true"></i> Datos de Acceso</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-3">
+                                                <label for="EMAIL" class="text-danger col-form-label col-form-label-sm"> Correo electrónico:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="email" id="EMAIL" name="EMAIL" placeholder="Ingrese email" autocomplete="off" class="form-control form-control-sm" required />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-3">
+                                                <label for="C_USUARIO" class="text-danger col-form-label col-form-label-sm"> Usuario de Acceso:</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" name="C_USUARIO" maxlength="15" autocomplete="off" class="form-control form-control-sm" required />
+                                            </div>
+                                            <div class="col-2 text-right">
+                                                <label for="FLAG_ESTADO" class="text-danger col-form-label col-form-label-sm"> Estado:</label>
+                                            </div>
+                                            <div class="col-3">
+                                                <select name="FLAG_ESTADO" class="form-control form-control-sm" required>
+                                                    <option value="*">Activo</option>
+                                                    <option value="&">Inactivo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-3">
+                                                <label for="PASSWORD" class="text-danger col-form-label col-form-label-sm"> Ingrese Contraseña:</label>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="password" name="PASSWORD" placeholder="Ingrese contraseña de acceso" maxlength="50" autocomplete="off" class="form-control form-control-sm" required />
+                                            </div>
+                                            <div class="col-3 text-right">
+                                                <label for="RE_PASSWORD" class="text-danger col-form-label col-form-label-sm"> Re-Ingrese Contraseña:</label>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="password" name="RE_PASSWORD" placeholder="Repita la contraseña" maxlength="50" autocomplete="off" data-nosend="1" class="form-control form-control-sm" required />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                @*Otros Permitos Operativos*@
+                                <div class="card shadow-sm rounded mt-3">
+                                    <div class="card-body p-4">
+
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <span class="font-weight-light text-info"><i class="fa fa-keyboard-o" aria-hidden="true"></i> Otros Permisos Operativos para PDV</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="CHCK_PERMISO_CREAR_PEDIDOS" id="CHCK_PERMISO_CREAR_PEDIDOS" data-nosend="1">
+                                                    <label class="form-check-label" for="CHCK_PERMISO_CREAR_PEDIDOS" style="margin-top: 3px">
+                                                        Crear Pedidos (Sin Caja)
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="CHCK_PERMISO_ANULAR_VENTAS" id="CHCK_PERMISO_ANULAR_VENTAS" data-nosend="1">
+                                                    <label class="form-check-label" for="CHCK_PERMISO_ANULAR_VENTAS" style="margin-top: 3px">
+                                                        Anular Pedidos
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="CHCK_PERMISO_ANULAR_PRODUCTO" id="CHCK_PERMISO_ANULAR_PRODUCTO" data-nosend="1">
+                                                    <label class="form-check-label" for="CHCK_PERMISO_ANULAR_PRODUCTO" style="margin-top: 3px">
+                                                        Anular Productos
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="CHCK_PERMISO_APLICAR_DESCUENTO" id="CHCK_PERMISO_APLICAR_DESCUENTO" data-nosend="1">
+                                                    <label class="form-check-label" for="CHCK_PERMISO_APLICAR_DESCUENTO" style="margin-top: 3px">
+                                                        Aplicar Descuento
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="CHCK_PERMISO_APLICAR_CORTESIA" id="CHCK_PERMISO_APLICAR_CORTESIA" data-nosend="1">
+                                                    <label class="form-check-label" for="CHCK_PERMISO_APLICAR_CORTESIA" style="margin-top: 3px">
+                                                        Aplicar Cortesia
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="CHCK_PERMISO_REIMPRIMIR_COMPROBANTES" id="CHCK_PERMISO_REIMPRIMIR_COMPROBANTES" data-nosend="1">
+                                                    <label class="form-check-label" for="CHCK_PERMISO_REIMPRIMIR_COMPROBANTES" style="margin-top: 3px">
+                                                        Re-Imprimir Tickets
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-3">
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <label class="col-form-label col-form-label-sm"> Firma Escaneada para Cotizaciones:</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <img class="mt-1 mb-1 img-responsive rounded border" id="img" src="~/Content/Images/no.png" style="width: 100%;" />
+                                        <input type="file" name="input-b6" id="input-b6" data-nosend="1" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="permisos" role="tabpanel" aria-labelledby="permisos-tab">
+
+                    <form name="frmPermisos" action="#" method="post">
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                <div class="form-group-rm">
+                                    <input type="text" class="form-control form-control-sm" id="_buscar_serv" placeholder="Ingrese aquí su búsqueda..." autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-auto p-0 pr-1">
+                                <div class="form-group-rm">
+                                    <button type="submit" class="btn btn-sm btn-gray"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-orange btn-sm" type="button" id="btnAgregarRol"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar permiso</button>
+                        </div>
+                    </form>
+                    <div id="tablePermisos"></div>
+                </div>
+                @*<div class="tab-pane fade" id="lock" role="tabpanel" aria-labelledby="lock-tab">
+                    <div id="chckPermisos"></div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>

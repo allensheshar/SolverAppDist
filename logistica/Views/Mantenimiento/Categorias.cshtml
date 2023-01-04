@@ -1,0 +1,37 @@
+﻿<style type="text/css">
+    .editedRow {
+        color: #b90f0f !important;
+    }
+</style>
+
+<form name="filtrosRegCategorias" onsubmit="return false;">
+    <div class="row mb-3">
+        <div class="col-12 col-sm-3 col-md-3">
+            <div class="form-group-rm">
+                <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar categoría..." autocomplete="off" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-4 col-md-4">
+            <div class="row">
+                <div class="form-group-rm mr-2">
+                    <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-orange dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                    <div class="dropdown-menu dropdown-caret" style="">
+                        <a id="btnRefrescar" class="dropdown-item" href="#"><i class="fa fa-refresh" aria-hidden="true"></i> Refrescar</a>
+                        <a id="btnNuevaCat" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva categoría</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-5">
+            <button class="btn btn-danger btn-sm pull-right" id="btnGuardarCat"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="tblCategoria"></div>
+        </div>
+    </div>
+</form>

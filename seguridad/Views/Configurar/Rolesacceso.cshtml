@@ -1,0 +1,26 @@
+﻿<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="filtrosRegRoles" onsubmit="return false;">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group-rm">
+                        <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Ingrese aquí su búsqueda..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-auto p-0">
+                    <div class="form-group-rm">
+                        <a class="btn btn-sm btn-info btn-block btn-nuevo" href="@Url.Action("Rolesregistro", "Configurar")"><i class="fa fa-plus-square" aria-hidden="true"></i> Nuevo Rol</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="mt-2" id="tableRegRoles"></div>
+
+    </div>
+</div>

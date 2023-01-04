@@ -1,0 +1,108 @@
+﻿<form name="frm" onsubmit="return false;">
+    <div class="row">
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Tipo de filtro</label>
+                <select name="C_TIPO_FILTRO" class="form-control form-control-sm">
+                    <option value="R" selected>Por fecha de registro</option>
+                    <option value="D">Por fecha de documento</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Desde</label>
+                <input type="text" class="form-control form-control-sm" name="DESDE" value="@DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy")" />
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Hasta</label>
+                <input type="text" class="form-control form-control-sm" name="HASTA" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group-rm">
+                <label>Proveedor</label>
+                <select name="C_PROVEEDOR" class="form-control form-control-sm c_empresa" data-query="cb_ventas_procesos_filtrocompras_listarproveedores" data-value="C_PROVEEDOR" data-field="RAZON_SOCIAL" data-c_empresa="" data-textDefault="-- Todos --"></select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group-rm">
+                <label>Tipo de documento</label>
+                <select name="C_DOC" class="form-control form-control-sm">
+                    <option value="" selected="selected">-- Todos --</option>
+                    <option value="07236">Factura</option>
+                    <option value="07237">Boleta de venta</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group-rm">
+                <label>N° comprobante</label>
+                <input type="text" class="form-control form-control-sm" name="BUSCAR" id="_buscar" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto pr-0">
+            <div class="form-group-rm">
+                <label for="exampleFormControlSelect1">&nbsp;</label>
+                <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Buscar</button>
+            </div>
+        </div>
+        <div class="col-auto p-0 pl-1">
+            <div class="form-group-rm">
+                <label for="exampleFormControlSelect1">&nbsp;</label>
+                <button type="button" id="btnProcesar" class="btn btn-block btn-sm btn-danger mb-3"><i class="fa fa-refresh" aria-hidden="true"></i> Procesar</button>
+            </div>
+        </div>
+        <div class="col-auto p-0 pl-1">
+            <div class="form-group-rm">
+                <label for="exampleFormControlSelect1">&nbsp;</label>
+                <button type="button" id="btnDescargar" class="btn btn-block btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar excel</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="archivo-tab" data-toggle="tab" href="#archivo" role="tab" aria-controls="archivo" aria-selected="true">
+            Desde archivo
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="qr-tab" data-toggle="tab" href="#qr" role="tab" aria-controls="qr" aria-selected="false">
+            Desde QR
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContentRoles" style="min-height: 700px;">
+    <div class="tab-pane fade show active" id="archivo" role="tabpanel" aria-labelledby="archivo-tab">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col">
+                        <div id="table" style="position:relative; z-index:0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="qr" role="tabpanel" aria-labelledby="qr-tab">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col">
+                        <div id="table1" style="position:relative; z-index:0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

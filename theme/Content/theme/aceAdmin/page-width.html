@@ -1,0 +1,131 @@
+﻿<!doctype html>
+<html lang="es-pe" style="--scrollbar-width:11px; --moz-scrollbar-thin:11px; font-size: 0.85rem;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" type="image/png" href="{{UrlTheme}}/img/logo_icono.png" />
+</head>
+<body>
+
+    <div style="min-height:100vh;">
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-solver sticky-top p-0 shadow">
+            <div class="container-fluid">
+
+                <a id="LinkHome" class="navbar-brand" href="/">
+                    <img src="{{UrlTheme}}/img/logo-top.png?v=1" alt="" height="40" class="d-inline-block align-top">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <span class="navbar-text">
+                        <span class="title-header">@ViewBag.Title</span><br />
+                        <span><i class="fa fa-angle-double-right text-dark" aria-hidden="true"></i> <span class="subtitle-header">Home / Elije Empresa</span></span>
+                    </span>
+                    <ul id="MenuUser" class="navbar-nav ml-auto mb-2 mb-md-0">
+
+                        <li class="nav-item pt-2 mr-2 d-none" id="changeApps">
+                            <a class="nav-link" href="#">
+                                <img src="{{UrlTheme}}/img/change-apps.png?v=1" alt="" height="25" class="d-inline-block align-top">
+                            </a>
+                        </li>
+
+                        <!--<li class="nav-item pt-1 mr-4">
+                        <a class="nav-link" href="#">
+                            <img src="{{UrlTheme}}/img/notification.png?v=1" alt="" height="25" class="d-inline-block align-top">
+                        </a>
+                    </li>-->
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img id="UserPhoto" class="d-none d-lg-inline-block rounded-circle mr-1 animated fadeIn" src="{{UrlTheme}}/img/user.png?v=1" height="36" width="36">
+                                <span id="UserName" class="color-red me-1 text-uppercase">Cargando datos ...</span>
+                                <i class="fa fa-chevron-down color-red" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown01">
+                                <li>
+                                    <a class="dropdown-item profile" href="/">
+                                        <i class="fa fa-user text-primary-m1 text-105 mr-1"></i>
+                                        Mi cuenta
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item company" href="/">
+                                        <i class="fa fa-exchange text-primary-m1 text-105 mr-1" aria-hidden="true"></i>
+                                        Cambiar de empresa
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item users" href="/">
+                                        <i class="fa fa-users text-primary-m1 text-105 mr-1" aria-hidden="true"></i>
+                                        Administrar Usuarios
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item admin" href="/">
+                                        <i class="fa fa-briefcase text-success-m1 text-105 mr-1"></i>
+                                        Administrar clientes
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item tareas" href="/">
+                                        <i class="fa fa-list-alt text-success-m1 text-105 mr-1"></i>
+                                        Mi Tareaje / CheckList
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item update-data" href="/">
+                                        <i class="fa fa-database text-success-m1 text-105 mr-1"></i>
+                                        Carga inicial de datos
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item setting" href="/">
+                                        <i class="fa fa-cog text-success-m1 text-105 mr-1"></i>
+                                        Configuración del sistema
+                                    </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider"></li>
+
+                                <li>
+                                    <a class="dropdown-item logout" href="/">
+                                        <i class="fa fa-power-off text-warning-d1 text-105 mr-1"></i>
+                                        Salir del sistema
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+
+        <div class="container-fluid" >
+            <div class="row">
+                <main class="col-md-12 col-lg-12 col-12 mt-3">
+
+                    @RenderBody()
+
+                </main>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

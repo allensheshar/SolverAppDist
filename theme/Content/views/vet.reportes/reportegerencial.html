@@ -1,0 +1,198 @@
+﻿<form name="form">
+    <div class="row">
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Desde:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <input type="text" name="desde" class="form-control form-control-sm" value="@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")" />
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Hasta:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <input type="text" name="hasta" class="form-control form-control-sm" value="@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+        </div>
+        <div class="col-auto">
+            <button type="button" id="btnExportar" class="btn btn-sm btn-orange btn-block"><i class="fa fa-print" aria-hidden="true"></i> Exportar</button>
+        </div>
+    </div>
+</form>
+
+<ul class="nav nav-tabs mt-2" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="resumen-tab" data-toggle="tab" href="#resumen" role="tab" aria-controls="resumen" aria-selected="true">
+            Resumen
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="anulados-tab" data-toggle="tab" href="#anulados" role="tab" aria-controls="anulados" aria-selected="false">
+            Anulados
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="cortesias-tab" data-toggle="tab" href="#cortesias" role="tab" aria-controls="cortesias" aria-selected="false">
+            Cortesias
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="descuentos-tab" data-toggle="tab" href="#descuentos" role="tab" aria-controls="descuentos" aria-selected="false">
+            Descuentos
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="formapago-tab" data-toggle="tab" href="#formapago" role="tab" aria-controls="formapago" aria-selected="false">
+            Forma de pago
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="liquidacion-tab" data-toggle="tab" href="#liquidacion" role="tab" aria-controls="liquidacion" aria-selected="false">
+            Liquidación de cuadre
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="categorias-tab" data-toggle="tab" href="#categorias" role="tab" aria-controls="categorias" aria-selected="false">
+            Por categorias
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="ventapordia-tab" data-toggle="tab" href="#ventapordia" role="tab" aria-controls="ventapordia" aria-selected="false">
+            Venta por día
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="comparativo-tab" data-toggle="tab" href="#comparativo" role="tab" aria-controls="comparativo" aria-selected="false">
+            Comparativo del mes
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="resumendia-tab" data-toggle="tab" href="#resumendia" role="tab" aria-controls="resumendia" aria-selected="false">
+            Resumen del día
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContentRoles" style="min-height: 700px; max-height: 700px;">
+
+    <div class="tab-pane fade show active" id="resumen" role="tabpanel" aria-labelledby="resumen-tab">
+        <div class="row">
+            <div class="col">
+                <h3>Resumen:</h3>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-6">
+                <table class="table table-bordered">
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="anulados" role="tabpanel" aria-labelledby="anulados-tab">
+        <div class="row">
+            <div class="col-auto">
+                <label class="col-form-label col-form-label-sm"><strong>Tipo de anulación:</strong></label>
+            </div>
+            <div class="col-auto p-0">
+                <select class="form-control form-control-sm" id="tipo_anulacion">
+                    <option value="P">Total Productos Anulados</option>
+                    <option value="C">Total Cuentas Anuladas</option>
+                    <option value="D">Total Documentos Anulados</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+
+                <div id="tableAnulado"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="cortesias" role="tabpanel" aria-labelledby="cortesias-tab">
+        <div class="row">
+            <div class="col">
+                <div id="tableCortesia"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="descuentos" role="tabpanel" aria-labelledby="descuentos-tab">
+        <div class="row">
+            <div class="col">
+                <div id="tableDescuento"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="formapago" role="tabpanel" aria-labelledby="formapago-tab">
+        <div class="row">
+            <div class="col">
+                <div id="tableFormaPago"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="liquidacion" role="tabpanel" aria-labelledby="liquidacion-tab">
+        <div class="row">
+            <div class="col">
+                <label>Total venta: S/.</label><label id="tot_liquidacionventa"></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h4>Soles</h4>
+                <div id="tableLiquidacionSoles"></div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-6">
+                <h4>Dolares</h4>
+                <div id="tableLiquidacionDolares"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
+        <div class="row">
+            <div class="col">
+                <div id="tablePorCategorias"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="ventapordia" role="tabpanel" aria-labelledby="ventapordia-tab">
+        <div class="row">
+            <div class="col" id="graficoPorDia">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4 id="totalResumenDia"></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div id="tableVentaDia"></div>
+            </div>
+            <div class="col-4">
+                <div id="tableCajas"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="comparativo" role="tabpanel" aria-labelledby="comparativo-tab">
+        <div class="row">
+            <div class="col-6">
+                <div id="table1" style="position:relative; z-index:0;"></div>
+            </div>
+            <div class="col-6">
+                <div id="table" style="position:relative; z-index:0;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="resumendia" role="tabpanel" aria-labelledby="resumendia-tab">
+        <div class="row">
+            <div class="col">
+                <div id="tableResumenDia"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

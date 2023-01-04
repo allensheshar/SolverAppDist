@@ -1,0 +1,69 @@
+﻿<button class="btn btn-danger btn-sm pull-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+<ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="area-tab" data-toggle="tab" href="#area" role="tab" aria-controls="area" aria-selected="false">
+            Área
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="cargo-tab" data-toggle="tab" href="#cargo" role="tab" aria-controls="cargo" aria-selected="false">
+            Cargo
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="comodin-tab" data-toggle="tab" href="#comodin" role="tab" aria-controls="comodin" aria-selected="false">
+            Comodín
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="novedad-tab" data-toggle="tab" href="#novedad" role="tab" aria-controls="novedad" aria-selected="false">
+            Novedades
+        </a>
+    </li>
+</ul>
+
+
+<div class="tab-content" id="myTabContentRoles">
+
+    <div class="tab-pane fade show active" id="area" role="tabpanel" aria-labelledby="area-tab">
+        <button id="btnAgregarArea" class="btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarArea" class="btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <div class="mt-2" id="tblArea"></div>
+    </div>
+
+    <div class="tab-pane fade" id="cargo" role="tabpanel" aria-labelledby="cargo-tab">
+        <button id="btnAgregarCargo" class="btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarCargo" class="btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <div class="mt-2" id="tblCargo"></div>
+    </div>
+
+    <div class="tab-pane fade" id="comodin" role="tabpanel" aria-labelledby="comodin-tab">
+        <div class="row">
+            <div class="col-12 col-sm-3 col-md-3">
+                <div class="form-group-rm">
+                    <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar concepto..." autocomplete="off" />
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="row">
+                    <div class="col-auto p-0 pr-1">
+                        <div class="form-group-rm">
+                            <button type="button" id="btnComodin" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                        </div>
+                    </div>
+                    <div class="col-auto p-0">
+                        <button id="btnAgregarComodin" class="btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-2" id="tblComodin"></div>
+    </div>
+
+    <div class="tab-pane fade" id="novedad" role="tabpanel" aria-labelledby="novedad-tab">
+        <button id="btnAgregarNovedad" class="btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarNovedad" class="btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <div class="mt-2" id="tblTipoNovedades"></div>
+    </div>
+
+</div>

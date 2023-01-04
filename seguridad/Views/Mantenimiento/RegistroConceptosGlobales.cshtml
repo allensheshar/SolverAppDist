@@ -1,0 +1,295 @@
+﻿<form name="frmRegistroConceptosGlobales" action="#" method="post" data-table="PLA.CONCEPTO_GLOBAL" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+    <div class="row">
+        <div class="col-md-12">
+            <a id="btnSalir" href="@Url.Action("ConceptosGlobales","Mantenimiento")" class="btn btn-sm btn-gray"><i class="fa fa-undo" aria-hidden="true"></i> Regresar</a>
+            <button type="submit" class="btn btn-danger btn-save-conceptos btn-sm pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+        </div>
+    </div>
+    <hr />
+
+    <input type="hidden" id="C_CONCEPTO_GLOBAL" name="C_CONCEPTO_GLOBAL" value="" />
+    <input type="hidden" id="TIPO_CONCEPTO" name="TIPO_CONCEPTO" value="I" />
+    <input type="hidden" id="FLAG_INCIDENCIA" name="FLAG_INCIDENCIA" value="&" />
+    <input type="hidden" id="FLAG_PLAME_REF" name="FLAG_PLAME_REF" value="&" />
+    <input type="hidden" id="TIPO_CALCULO" name="TIPO_CALCULO" value="F" />
+    <input type="hidden" id="BASE_COMPUTABLE" name="BASE_COMPUTABLE" />
+    <input type="hidden" id="CREAR" value="@ViewBag.Crear" />
+
+    <ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="concepto-global-tab" data-toggle="tab" href="#concepto-global" role="tab" aria-controls="concepto-global" aria-selected="true">Concepto Global</a>
+        </li>
+        <li class="nav-item tab-laborales">
+            <a class="nav-link" id="conceptos-reg-lab-tab" data-toggle="tab" href="#conceptos-reg-lab" role="tab" aria-controls="conceptos-reg-lab" aria-selected="false">Regimen Laboral</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContentRoles">
+        <div class="tab-pane fade show active" id="concepto-global" role="tabpanel" aria-labelledby="concepto-global-tab">
+            <div class="row">
+                <div class="col-9">
+                    <div class="p-3">
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4 class="text-purple-d2 float-left">Datos Concepto Global</h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label>Descripción:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" id="NOMBRE_CONCEPTO" name="NOMBRE_CONCEPTO" placeholder="Ingrese descripción" maxlength="300" autocomplete="off" class="form-control form-control-sm" required />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label>Nombre corto boleta:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" id="NOM_CORTO_BOL" name="NOM_CORTO_BOL" placeholder="Ingrese nombre de boleta" maxlength="300" autocomplete="off" class="form-control form-control-sm" required />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label>Nombre corto planilla:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" id="NOM_CORTO_PLA" name="NOM_CORTO_PLA" placeholder="Ingrese nombre de planilla" maxlength="300" autocomplete="off" class="form-control form-control-sm" required />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label>Nombre liquidación:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" id="NOMBRE_LIQUIDACION" name="NOMBRE_LIQUIDACION" placeholder="Ingrese nombre de liquidación" maxlength="300" autocomplete="off" class="form-control form-control-sm" required />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label> Tipo:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="INGRESO">
+                                    <label class="form-check-label" for="INGRESO">
+                                        Ingreso
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="DEDUCCION">
+                                    <label class="form-check-label" for="DEDUCCION">
+                                        Deducción
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="APORTE">
+                                    <label class="form-check-label" for="APORTE">
+                                        Aporte del Empleador
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label> Grupo de conceptos:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="FLAG_GRUPO_CONCEPTO" name="FLAG_GRUPO_CONCEPTO" class="form-control form-control-sm" data-query="gbl_obtener_parametro_planilla" data-value="CODIGO_PARAMETRO" data-field="DESCRIPCION" data-tipoParametro="Grupo Concepto Globales" required></select>
+                            </div>
+                            <div class="col-md-3">
+                                <label> Estado:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="IND_ESTADO" name="IND_ESTADO" class="form-control form-control-sm">
+                                    <option value="*">Activo</option>
+                                    <option value="&">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label> ¿Es una incidencia?</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="SI">
+                                            <label class="form-check-label" for="SI">
+                                                Si
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="NO">
+                                            <label class="form-check-label" for="NO">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label> Tipo Incidencia:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="TIPO_INCIDENCIA" name="TIPO_INCIDENCIA" class="form-control form-control-sm" data-query="q_cuenta_mantenimiento_obtenertipoincidencia" data-value="value" data-field="label"></select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label> ¿Es un concepto hijo?</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="SI_CONC">
+                                            <label class="form-check-label" for="SI_CONC">
+                                                Si
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="NO_CONC">
+                                            <label class="form-check-label" for="NO_CONC">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label> Código Plame Ref.:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="COD_PLAME_REF_2" class="form-control form-control-sm"></select>
+                                <input type="hidden" id="COD_PLAME_REF" name="COD_PLAME_REF" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label> Código Plame:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="COD_PLAME" name="COD_PLAME" placeholder="Ingrese código PLAME" maxlength="4" autocomplete="off" class="form-control form-control-sm number-input" required />
+                                <input type="hidden" id="COD_PLAME_2" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h4 class="text-purple-d2 float-left">Tipo de Cálculo</h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="col-12">
+                            <div class="row mb-3">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" id="FORMULA">
+                                    <label class="form-check-label" for="FORMULA">
+                                        Fórmula
+                                    </label>
+                                </div>
+                                <div class="form-check ml-2">
+                                    <input class="form-check-input" type="radio" id="VALOR">
+                                    <label class="form-check-label" for="VALOR">
+                                        Valor
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12" id="div-formula">
+                                <div class="input-group mb-3">
+                                    <input type="text" id="DESCRIP_FORMULA" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="" name="DESCRIP_FORMULA" autocomplete="off">
+                                    <div class="input-group-append">
+                                        <button id="btnModalFormula" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3" id="div-valor">
+                                <input type="text" id="NRO_VALOR" name="NRO_VALOR" placeholder="Ingrese Valor" maxlength="10" autocomplete="off" class="form-control form-control-sm number-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="p-3">
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4 class="text-purple-d2 float-left">Base Computable</h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div id="divchk" class="row" style="display:grid">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="conceptos-reg-lab" role="tabpanel" aria-labelledby="conceptos-reg-lab-tab">
+            <div class="clearfix">&nbsp;</div>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-info btn-sm btn-add-pla-concepto mb-3"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Regimen Laboral</button>
+                    <div id="tblConceptosRegimenLab"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal fade" id="modalFormula" tabindex="-1" role="dialog" aria-labelledby="modalFormula" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Generar fórmula</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-8">
+                        <div class="form-floating" style="height: 100%">
+                            <textarea class="form-control" id="formula" style="height: 100%; font-family: courier new; font-size: 1.6rem;"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group mb-2">
+                            <input type="text" id="lblComodin" class="form-control form-control-sm" aria-describedby="basic-addon2" autocomplete="off">
+                        </div>
+                        <div id="area" style="width: 100%; height: 500px; overflow: scroll;">
+                            <div class="list-group">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <button id="btnGuardarFormula" class="btn btn-sm btn-danger float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,131 @@
+﻿<form name="filterPeriodo" class="mb-2">
+    <div class="row">
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Periodo:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <select id="anio" class="form-control form-control-sm" data-query="gbl_anio_trabajo" data-field="Anio" data-value="Anio" data-enableDefault="0"></select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Actualizar</button>
+        </div>
+        <div class="col">
+            <h6 class="col-form-label col-form-label-sm text-right"><strong>*Expresado en soles</strong></h6>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-4 col-12 mb-4">
+        <div class="card card-reporte">
+            <div class="card-title" style="background-color: #F0F0F0">
+                <h3 class="card-reporte-title font-weight-bolder">INGRESOS Y EGRESOS</h3>
+            </div>
+            <div class="card-body p-0">
+                <div id="reporteIngresoEgreso" class="pl-2 pr-2 pt-4" style="height: 20rem;display: none;">
+                    <canvas id="canvas-reporte-ingreso-egreso"></canvas>
+                </div>
+                <div id="noReporteIngresoEgreso" class="text-center" style="display:none;">
+                    <label class="text-130 mt-4"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8 col-12 mb-4">
+        <div class="card card-reporte">
+            <div class="card-title" style="background-color: #F0F0F0">
+                <h3 class="card-reporte-title font-weight-bolder">COMPARATIVO DE INGRESOS Y EGRESOS ANUALES</h3>
+            </div>
+            <div class="card-body p-0">
+                <div id="reporteIngresosEgresosMensuales" class="pl-2 pr-2 pt-4" style="height: 20rem;">
+                    <canvas id="canvas-reporte-ingreso-egreso-mensuales"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 mb-4">
+        <div class="card card-reporte" style="min-height: 20rem;">
+            <div class="card-body p-0 pl-2 pr-2 pt-4">
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-6 col-6 pl-4">
+                        <div class="row">
+                            <div class="col-3">
+                                <img height="60" width="60" src="~/Content/Images/ventasporcobrar.png" />
+                            </div>
+                            <div class="col" style="text-align: left; padding: 0px;">
+                                <div id="cuentasporcobrar"></div>
+                                <h4 class="mt-2 mb-4 pt-1 pb-1" style="color:black;">cuentas por cobrar</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-6 pr-4">
+                        <div class="row">
+                            <div class="col-3">
+                                <img height="60" width="60" src="~/Content/Images/pagosvencidos.png" />
+                            </div>
+                            <div class="col" style="text-align: left; padding: 0px;">
+                                <div id="cuentasporpagar"></div>
+                                <h4 class=" mt-2 mb-4 pt-1 pb-1" style="color:black;">cuentas por pagar</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-6 pt-2 pl-4" id="btnCobranzasPorVencer">
+                        <div class="row">
+                            <div class="col-3">
+                                <img height="60" width="60" src="~/Content/Images/cobrosvencidos.png" />
+                            </div>
+                            <div class="col" style="text-align: left; padding: 0px;">
+                                <div id="cobranzasporvencer"></div>
+                                <h4 class=" mt-2 mb-4 pt-1 pb-1" style="color:black;">cobranza por vencer</h4><br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-6 pt-2 pr-4" id="btnPagosVencidos">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="~/Content/Images/letrasaceptadas.png" width="60" height="60">
+                            </div>
+                            <div class="col" style="text-align: left; padding: 0px;">
+                                <div id="pagosvencidos"></div>
+                                <h4 class=" mt-2 mb-4 pt-1 pb-1" style="color:black;">pagos vencidos</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="col-md-6 col-12 mb-4">
+            <div class="card card-reporte" style="min-height: 20rem;">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col-6 mb-6">
+                            <h3 class="card-reporte-title mt-2 mb-4 pt-1 pb-1 font-weight-bolder" style="text-align: center !important; font-size: 16px;">RESUMEN SEMANAL</h3>
+                            <div class="mt-4" id="ventas_hoy" style="color:black; font-size: 25px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+</div>
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card card-reporte" style="min-height: 12rem;">
+            <div class="card-title" style="background-color: #F0F0F0">
+                <h3 class="card-reporte-title font-weight-bolder">SALDOS EN BANCOS</h3>
+            </div>
+            <div class="card-body p-0 pl-2 pr-2">
+                <div class="card-data mt-2 mb-3 pl-4 pr-4" id="reporteBancos" style="display:none;">
+                </div>
+                <div id="noReporteBancos" class="text-center" style="display:none;">
+                    <label class="text-130 mt-1"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

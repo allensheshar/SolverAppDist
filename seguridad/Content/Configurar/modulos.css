@@ -1,0 +1,73 @@
+﻿
+.add-element, .leyenda {
+    font-size: 0.7rem;
+}
+
+.inner-items {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+    .inner-items li {
+        font-size: 0.8rem;
+        list-style: none;
+    }
+
+    .inner-items .add-element {
+        font-size: 0.6rem;
+    }
+
+    .inner-items li .text strong {
+        background-color: aliceblue;
+        font-size: 0.6rem;
+    }
+
+    .inner-items li .text:hover {
+        background-color: #fdded6;
+    }
+
+    .inner-items .editer {
+        cursor: pointer;
+        background-color: rgba(255, 255, 0, 0.15);
+        min-width: 5rem;
+        display: inline-block;
+    }
+
+.level-01 {
+    margin-bottom: 0.5rem;
+    background-color: #fff3f0;
+    padding: 0.5rem;
+}
+
+    .level-01 > .text, .level-01 > .text:hover {
+        font-size: 0.9rem !important;
+        font-weight: bold;
+    }
+
+    .level-01 > ul {
+        padding-left: 0.7rem;
+    }
+
+.level-02 {
+    padding-top: 0.3rem;
+}
+
+    .level-02 > .text, .level-02 > .text:hover {
+        font-size: 0.8rem !important;
+    }
+
+    .level-02 > ul {
+        padding-left: 0.8rem;
+    }
+
+.level-03 > ul {
+    padding-left: 0.9rem;
+}
+
+.level-03 > .text > .add-element {
+    display: none;
+}
+
+.level-03:hover > .text > .add-element {
+    display: block;
+}

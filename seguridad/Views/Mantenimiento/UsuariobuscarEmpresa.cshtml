@@ -1,0 +1,31 @@
+﻿<div class="card">
+    <div class="card-body">
+        <form name="filtrosRegEmpresa" onsubmit="return false;">
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group-rm">
+                        <label for="_buscar">Buscar Codigo/Nombre/Email</label>
+                        <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Ingrese aquí su búsqueda..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group-rm">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-sm btn-default btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group-rm">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-sm btn-success btn-block btn-add"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div id="tableEmpresas"></div>
+    </div>
+</div>

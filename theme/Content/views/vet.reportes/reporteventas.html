@@ -1,0 +1,73 @@
+﻿<form name="form">
+    <div class="row">
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Por:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <select class="form-control form-control-sm" name="tipo">
+                <option value="C">Fecha caja</option>
+                <option value="E">Fecha emisión</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Desde:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <input type="text" name="desde" class="form-control form-control-sm" value="@DateTime.Now.AddDays(-DateTime.Now.Day + 1).ToString("dd/MM/yyyy")" />
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Hasta:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <input type="text" name="hasta" class="form-control form-control-sm" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+        </div>
+        <div class="col">
+            <h6 class="col-form-label col-form-label-sm text-right"><strong>*Expresado en soles</strong></h6>
+        </div>
+    </div>
+</form>
+
+<div class="row mt-4">
+    <div class="col-9">
+        <div class="card card-reporte">
+            
+            <div class="card-body p-0">
+                <div id="grafico" class="pl-2 pr-2 pt-4" style="height: 20rem;display:none;">
+                    <canvas id="canvas-reporte"></canvas>
+                </div>
+                <div id="nografico" class="text-center" style="display:none;">
+                    <label class="text-130 mt-4"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <div class="col">
+                <label>Filtros</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="filtros"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-10">
+        <div id="reportes">
+        </div>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-lg btn-orange float-right" type="button" id="btnDescargarExcel">Descargar excel</button>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col" id="divTable">
+        <div id="table"></div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+{
+  "js": [
+    "~/Content/scripts/require.js",
+    "~/Content/scripts/main.js",
+    "~/Content/scripts/default/paceInit.js",
+    "~/Content/theme/{theme}/js/theme.js"
+  ],
+  "css": [
+    "~/Content/scripts/plugins/jquery.ui/jquery-ui.min.css",
+    "~/Content/scripts/plugins/bootstrap4/css/bootstrap.min.css",
+    "~/Content/scripts/plugins/bootstrap-select/bootstrap-select.css",
+    "~/Content/scripts/plugins/alertify/alertify.min.css",
+    "~/Content/scripts/plugins/alertify/themes/default.css",
+    "~/Content/scripts/plugins/jqwidgets/styles/jqx.base.css",
+    "~/Content/scripts/plugins/jqwidgets/styles/jqx.bootstrap.css",
+    "~/Content/scripts/plugins/fileinput/css/fileinput.min.css",
+    "~/Content/scripts/plugins/datetimepicker/datetimepicker.css",
+    "~/Content/scripts/plugins/codemirror/codemirror.css",
+    "~/Content/scripts/plugins/jstree/themes/default/style.min.css",
+    "~/Content/scripts/plugins/bootstrap-tag-input/tagsinput.css",
+    "~/Content/scripts/plugins/fullcalendar/main.min.css",
+    "~/Content/scripts/plugins/keyboard/css/keyboard.css",
+    "~/Content/scripts/plugins/p-scroll/perfect-scrollbar.css",
+    "~/Content/scripts/plugins/sidebar/sidebar.css",
+    "~/Content/scripts/default/paceInit.css",
+    "~/Content/styles/font-awesome/css/font-awesome.min.css",
+    "~/Content/styles/animate.css",
+    "~/Content/styles/default.css",
+    "~/Content/theme/{theme}/css/theme.css"
+  ],
+  "theme": {
+    "aceAdmin": {
+      "path": "~/Content/theme/aceAdmin",
+      "noFound": "page-default.html"
+    },
+    "volgh": {
+      "path": "~/Content/theme/volgh",
+      "noFound": ""
+    },
+    "aceDesktop": {
+      "path": "~/Content/theme/aceDesktop",
+      "noFound": "page-default.html"
+    }
+  },
+  "views": "~/Content/views"
+}

@@ -1,0 +1,732 @@
+﻿
+<input type="hidden" id="C_PEDIDO" />
+<input type="hidden" id="NRO_PEDIDO" />
+<input type="hidden" id="COD_CAJA" />
+<input type="hidden" id="C_OPERACION" />
+<input type="hidden" id="TOTALPAGAR" />
+<input type="hidden" id="SALDOPAGAR" />
+<input type="hidden" id="IND_ESTADO" value="" />
+<input type="hidden" id="C_CATEGORIA" value="" />
+<input type="hidden" id="C_ALMACEN_DEFECTO" value="" />
+<input type="hidden" id="PORCENTAJE_DESCUENTO_GLOBAL" value="" />
+<input type="hidden" id="COMENTARIO_DESCUENTO_GLOBAL" value="" />
+<input type="hidden" id="MOTIVO_CORTESIA" />
+<input type="hidden" id="C_MESERO" />
+<input type="hidden" id="USUARIO_CONSTANTE" value="&" />
+
+<div class="row">
+    <div class="col-2">
+
+        <div class="row" id="zone-actions-pedido">
+            <div class="col pr-0 pl-0 text-truncate">
+                <button name="btnPendiente" data-estado="*" class="btn btn-lg btn-gray btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate btn-filter-pedidos"><i class="fa fa-files-o" aria-hidden="true"></i> Pendiente</button>
+            </div>
+            <div class="col-4 pl-0 pr-0 text-truncate">
+                <button name="btnFacturado" data-estado="F" class="btn btn-lg btn-gray btn-block rounded-0 pl-1 pr-1 text-truncate btn-filter-pedidos"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Facturado</button>
+            </div>
+            <div class="col-4 pr-0 pl-0 text-truncate">
+                <button name="btnAnulado" data-estado="&" class="btn btn-lg btn-gray btn-block rounded-0 pl-1 pr-1 text-truncate btn-filter-pedidos"><i class="fa fa-list-ul" aria-hidden="true"></i> Anulado</button>
+            </div>
+        </div>
+
+        <div class="row mt-0">
+            <div class="col pl-0 pr-0 mt-0">
+                <div class="myZoneLeft">
+                    <div class="mytable-pedido-filter"></div>
+                    <div class="mytable-pedido">
+                    </div>
+                    <div class="row my-info-caja" id="zone-actions-caja">
+                        <div class="col-12">
+                            <div class="card rounded-2">
+                                <div class="card-body bg-danger text-white pt-1 pb-1">
+                                    <div class="row" id="lblDatosCaja">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-10">
+
+        <div id="pdvBox">
+
+            <div class="buttons-extras" id="zone-actions-extras">
+                <div class="row">
+                    <div class="col-9 mybuttons">
+                        <div class="row">
+                            <div class="col-2 pr-0 text-truncate">
+                                <button name="btnUnirCuentas" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-files-o" aria-hidden="true"></i> Unir Cuentas</button>
+                            </div>
+                            <div class="col-2 pl-0 pr-0 text-truncate">
+                                <button name="btnVerMeseros" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-th" aria-hidden="true"></i> Ver Meseros</button>
+                            </div>
+                            <div class="col-2 pl-0 pr-0 text-truncate">
+                                <button name="btnVerMesas" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-th" aria-hidden="true"></i> Ver Mesas</button>
+                            </div>
+                            <div class="col-2 pl-0 pr-0 text-truncate d-none">
+                                <button name="btnCambiarUsuario" class="btn btn-lg btn-primary btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-users" aria-hidden="true"></i> Usuarios</button>
+                            </div>
+                            <div class="col-2 pl-0 pr-0 text-truncate">
+                                <button name="btnCambiarProductos" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-edit" aria-hidden="true"></i> Cambiar Platos</button>
+                            </div>
+                            <div class="col-2 pl-0 pr-0 text-truncate">
+                                <button name="btnPaloteo" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-print" aria-hidden="true"></i> Impr. Paloteo</button>
+                            </div>
+                            <div class="col-2 pl-0 pr-0 text-truncate">
+                                <button name="btnCerrarCaja" class="btn btn-lg btn-danger btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-window-close-o" aria-hidden="true"></i> Cerrar Caja</button>
+                            </div>
+                            <div class="col-2 pl-0 text-truncate">
+                                <button name="btnSalir" class="btn btn-lg btn-primary btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blocked">
+                <div class="table-body">
+                    <div class="table-cell">
+                        <div class="row justify-content-md-center">
+                            <div class="col-11 col-sm-11 col-md-11 col-lg-11">
+                                <div class="text border border-secondary p-3 display-5 text-center pt-4 pb-4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="worker">
+                <div class="row">
+
+                    <div class="col-lg-9 col-md-8 col-sm-8 col-12 pr-0">
+
+                        <div class="row" id="zone-actions" style="display: none;">
+
+                            <div class="col-2 pr-0 text-truncate">
+                                <button name="btnNuevo" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Nuevo</button>
+                            </div>
+                            <div class="col-2 pr-0 pl-0 text-truncate">
+                                <button name="btnEnviar" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar</button>
+                            </div>
+                            <div class="col-2 pr-0 pl-0 text-truncate">
+                                <button name="btnDetallado" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-money" aria-hidden="true"></i>Pag. Detallado</button>
+                            </div>
+                            <div class="col-2 pl-0 pr-0 text-truncate">
+                                <button name="btnRapido" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-money" aria-hidden="true"></i> Pag. Rápido</button>
+                            </div>
+                            <div class="col-2 pl-0 pr-0 text-truncate">
+                                <button name="btnPreCuenta" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-print" aria-hidden="true"></i> Pre-Cuenta</button>
+                            </div>
+                            <div class="col-2 pl-0 text-truncate">
+                                <button name="btnAnular" class="btn btn-lg btn-danger btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-trash" aria-hidden="true"></i> Anular</button>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-1" id="zone-search" style="display:none;">
+                            <div class="col-8 pr-0">
+                                <input type="text" id="buscarProducto" class="form-control form-control-lg rounded-0 shadow-none" autocomplete="off" placeholder="Busqueda de artículos..." />
+                            </div>
+                            <div class="col-2 pr-0 pl-0">
+                                <button id="btnSearchProducts" class="btn btn-lg btn-warning btn-block rounded-0"><i class="fa fa-search"></i>&nbsp;Buscar</button>
+                            </div>
+                            <div class="col-2 btn-group btn-group-lg pl-0" role="group">
+                                <button name="btnCategorias" type="button" class="btn btn-lg btn-gray btn-block rounded-0 dropdown-toggle text-truncate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-list" aria-hidden="true"></i> Categorias
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right zone-Cat" aria-labelledby="btnCategorias">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-1" id="zone-venta" style="display:none;">
+                            <div class="col-12">
+                                <div class="mytable-products rounded-bottom">
+                                    <div class="row zoneProds">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-12 pl-1" id="resumen" style="display:none;">
+
+                        <div class="row" id="zone-actions-resumen">
+                            <div class="col-6 pr-0">
+                                <button name="btnReimprimir" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-print" aria-hidden="true"></i> Re-Imprimir</button>
+                            </div>
+                            <div class="col-6 pl-0">
+                                <button name="btnCambiarMesa" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-list-ul" aria-hidden="true"></i> Cambiar Mesa</button>
+                            </div>
+                            <div class="col-6 pr-0 mt-2 mb-2">
+                                <button name="btnCambiarMesero" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-edit" aria-hidden="true"></i> Cambiar Mesero</button>
+                            </div>
+                            <div class="col-6 pl-0 mt-2 mb-2">
+                                <button name="btnEditarMesa" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate"><i class="fa fa-edit" aria-hidden="true"></i> Editar Mesa</button>
+                            </div>
+                        </div>
+
+                        <div class="card rounded-0">
+                            <div class="card-header bg-solver text-center">
+                                <strong><span class="text-center" id="nroPedido">NRO PEDIDO XXX</span></strong>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" id="observaciones" class="form-control form-control-lg rounded-0 shadow-none" autocomplete="off" placeholder="Observacion del pedido" />
+                                    </div>
+                                </div>
+                                <div class="row" id="zoneResumen">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row div-establecimiento" id="zone-establecimiento"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edición de producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="precioProducto" value="0" />
+                <input type="hidden" id="stock" value="0" />
+
+                <div class="row mb-2" id="divAlmacen" style="display:none">
+                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>ALMACEN:</strong></label></div>
+                    <div class="col-sm-7">
+                        <select class="form-control form-control-lg" id="almacen"></select>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>PRODUCTO:</strong></label></div>
+                    <div class="col-sm-7"><label class="col-form-label col-form-label-lg" id="producto"></label></div>
+                </div>
+                <div class="row mb-2" id="divUnidadMedida" style="display:none">
+                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>UNIDAD MEDIDA:</strong></label></div>
+                    <div class="col-sm-7">
+                        <div class="row" id="lstUnidadMedida">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2" id="divStock" style="display:none">
+                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>STOCK:</strong></label></div>
+                    <div class="col-sm-7"><label class="col-form-label col-form-label-lg" id="stockActual"></label></div>
+                </div>
+                <div class="row mb-2" id="divTipoCliente" style="display:none">
+                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>TIPO CLIENTE:</strong></label></div>
+                    <div class="col-sm-7">
+                        <select class="form-control form-control-lg" id="tipoCliente"
+                                data-field="NOMBRE" data-value="CODIGO"
+                                data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-C_PRODUCTO="" data-C_UNIDAD_MEDIDA=""
+                                data-enabledefault="0"></select>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>CANTIDAD:</strong></label></div>
+                    <div class="col-sm-7">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-lg btn-dark" type="button" id="btnMenos">-</button>
+                            </div>
+                            <input type="number" class="form-control form-control-lg" id="cantidad" autocomplete="off" style="text-align:right;" value="1" />
+                            <div class="input-group-append">
+                                <button class="btn btn-lg btn-dark" type="button" id="btnMas">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>PRECIO:</strong></label></div>
+                    <div class="col-sm-7">
+                        <label class="col-form-label col-form-label-lg form-control form-control-lg text-center font-weight-bold" id="precio"></label>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>OBSERVACION:</strong></label></div>
+                    <div class="col-sm-7">
+                        <select class="form-control form-control-lg mb-2" id="cbo_nota"
+                                data-field="NOTA" data-value="NOTA"
+                                data-query="cb_puntoventa_procesos_puntoventa_obtener_notas"
+                                data-C_EMPRESA="@Session["SESSION_EMPRESA"]"></select>
+                        <textarea class="col-form-label col-form-label-lg form-control form-control-lg text-left font-weight-bold" id="nota"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <label class="col-form-label col-form-label-lg" id="gratuito"></label>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <label class="col-form-label col-form-label-lg" id="promocion"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <button type="button" id="btnCancelarProducto" class="btn btn-lg btn-gray float-left"><i class="fa fa-close"></i>&nbsp;Cancelar</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" id="btnAgregarProducto" class="btn btn-lg btn-danger float-right"><i class="fa fa-floppy-o"></i>&nbsp;Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divDetallado">
+    <div class="col">
+        <div class="row mb-1">
+
+            <div class="col-7">
+                <div class="row mb-1">
+                    <div class="col-4">
+                        <strong><label id="tipo_doc" class="col-form-label col-form-label-lg">Nro de Documento:</label></strong>
+                    </div>
+                    <div class="col-8 pl-0 pr-0">
+                        <div class="input-group mb-1">
+                            <input id="RUC" class="form-control form-control-lg" autocomplete="off" maxlength="15" />
+                            <div class="input-group-append">
+                                <button type="button" id="btnBuscarCliente" class="btn btn-gray btn-lg"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Nombre / Razón social:</label></strong>
+                    </div>
+                    <div class="col-8 pl-0 pr-0">
+                        <input type="hidden" id="C_CLIENTE" />
+                        <input id="NOMBRE" class="form-control form-control-lg" autocomplete="off" disabled />
+                        <!--<div class="input-group mb-3">
+                            <div class="input-group-append" id="divNombre">
+                                <button type="button" id="btnEditarCliente" class="btn btn-gray btn-lg"><i class="fa fa-user-plus" aria-hidden="true"></i> Editar</button>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Tipo de Comprobante:</label></strong>
+                    </div>
+                    <div class="col-8">
+                        <div class="row tipoDocDetallado">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Moneda:</label></strong>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div data-codigo="07234" class="col box-tipo-moneda active-box-moneda mr-1">
+                                SOLES
+                                <div class="check-select"><i class="fa fa-check-square-o fa-1x" aria-hidden="true"></i></div>
+                            </div>
+                            <div data-codigo="07235" class="col box-tipo-moneda ml-1">
+                                DOLARES
+                                <div class="check-select"><i class="fa fa-check-square-o fa-1x" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Método de Pago:</label></strong>
+                    </div>
+                    <div class="col-8 pl-0 pr-0 zonePago row ml-0 mr-0">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <div class="row mb-1 billetes">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Billetes:</label></strong>
+                    </div>
+                    <div class="col-8">
+                        <div class="row mr-0">
+                            <div data-codigo="100" class="col box-billete-soles box-billete-soles-100"></div>
+                            <div data-codigo="50" class="col box-billete-soles box-billete-soles-50"></div>
+                            <div data-codigo="20" class="col box-billete-soles box-billete-soles-20"></div>
+                            <div data-codigo="10" class="col box-billete-soles box-billete-soles-10"></div>
+                            <div data-codigo="100" style="display:none;" class="col box-billete-dolares box-billete-dolares-100"></div>
+                            <div data-codigo="50" style="display:none;" class="col box-billete-dolares box-billete-dolares-50"></div>
+                            <div data-codigo="20" style="display:none;" class="col box-billete-dolares box-billete-dolares-20"></div>
+                            <div data-codigo="10" style="display:none;" class="col box-billete-dolares box-billete-dolares-10"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1 tarjetas">
+                    <div class="offset-4 col-8 pl-0">
+                        <div class="row ml-0">
+                            <div data-codigo="V" class="col box-tarjeta box-visa">
+                                <div class="check-select"><i class="fa fa-check-square-o fa-1x" aria-hidden="true"></i></div>
+                            </div>
+                            <div data-codigo="M" class="col box-tarjeta box-mastercard">
+                                <div class="check-select"><i class="fa fa-check-square-o fa-1x" aria-hidden="true"></i></div>
+                            </div>
+                            <div data-codigo="D" class="col box-tarjeta box-dinners">
+                                <div class="check-select"><i class="fa fa-check-square-o fa-1x" aria-hidden="true"></i></div>
+                            </div>
+                            <div data-codigo="A" class="col box-tarjeta box-american">
+                                <div class="check-select"><i class="fa fa-check-square-o fa-1x" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1" id="operacion" style="display:none">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Nro operación:</label></strong>
+                    </div>
+                    <div class="col-8 pl-0">
+                        <input type="text" class="form-control form-control-lg" id="nro_operacion" placeholder="Nro de operación" autocomplete="off" maxlength="4" />
+                    </div>
+                </div>
+                <div class="row mb-1 tipoCambio" style="display:none">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Tipo de cambio</label></strong>
+                    </div>
+                    <div class="col-8 pl-0">
+                        <input id="TC" type="text" class="form-control form-control-sm" style="font-size: 30px;
+                                                text-align: center;
+                                                text-align-last: center;
+                                                -moz-text-align-last: center;
+                                                color: black;" disabled />
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Total Cuenta:</label></strong>
+                    </div>
+                    <div class="col-8 pl-0">
+                        <input id="totalPagar" type="text" class="form-control form-control-sm" style="font-size: 30px;
+                                                    text-align: center;
+                                                    text-align-last: center;
+                                                    -moz-text-align-last: center;
+                                                    color: black;" disabled />
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Saldo:</label></strong>
+                    </div>
+                    <div class="col-md-8 pl-0">
+                        <input id="saldoPagar" type="text" class="form-control form-control-sm" style="font-size: 30px;
+                                                    text-align: center;
+                                                    text-align-last: center;
+                                                    -moz-text-align-last: center;
+                                                    color: black;" disabled />
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">A Pagar:</label></strong>
+                    </div>
+                    <div class="col-8 pl-0">
+                        <div class="input-group">
+                            <input id="aPagar" type="number" class="form-control form-control-sm" style="font-size: 30px;
+                                                            text-align: center;
+                                                            text-align-last: center;
+                                                            -moz-text-align-last: center;
+                                                            color: black;" />
+                            <div class="input-group-append">
+                                <button class="btn btn-lg btn-dark btnCompletar pr-4 pl-4" type="button" id="btnCompletar">&nbsp;<i class="fa fa-dollar" aria-hidden="true"></i>&nbsp;</button>
+                                <button class="btn btn-lg btn-dark btnAgregar pr-4 pl-4" type="button" id="btnAgregar">&nbsp;<i class="fa fa-check" aria-hidden="true"></i>&nbsp;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-4">
+                        <strong><label class="col-form-label col-form-label-lg">Vuelto:</label></strong>
+                    </div>
+                    <div class="col-8 pl-0">
+                        <input id="vuelto" type="text" class="form-control form-control-sm" style="font-size: 30px;
+                                                    text-align: center;
+                                                    text-align-last: center;
+                                                    -moz-text-align-last: center;
+                                                    color: black;" disabled="" value="0">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <strong><label class="col-form-label col-form-label-lg">Detalle de pago a cuenta:</label></strong>
+                <div id="tblListaPagos"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divRapido">
+    <input type="hidden" id="TOTALPAGADO" />
+    <div class="col-7">
+        <div class="row mb-1">
+            <div class="col-4">
+                <label class="col-form-label col-form-label-lg"><strong>Cliente:</strong></label>
+            </div>
+            <div class="col-8">
+                <label id="cliente" class="form-control form-control-lg"></label>
+            </div>
+        </div>
+        <div class="row mb-1">
+            <div class="col-4">
+                <label class="col-form-label col-form-label-lg"><strong>Tipo de comprobante:</strong></label>
+            </div>
+            <div class="col-8">
+                <label class="form-control form-control-lg">Boleta de venta</label>
+            </div>
+        </div>
+        <div class="row mb-1 billetes" style="margin: 0px;">
+            <div data-codigo="07234" class="col box-tipo-moneda active-box-moneda mr-1">
+                SOLES
+                <div class="check-select"><i class="fa fa-check-square-o fa-1x" aria-hidden="true"></i></div>
+            </div>
+            <div data-codigo="07235" class="col box-tipo-moneda ml-1">
+                DOLARES
+                <div class="check-select"><i class="fa fa-check-square-o fa-1x" aria-hidden="true"></i></div>
+            </div>
+        </div>
+        <div class="row mb-1 zonePago" style="margin: 0px;">
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="row mb-1 tipoCambio" style="margin: 0px; display:none;">
+            <div class="col"><label class="col-form-label col-form-label-lg"><strong>Tipo de cambio:</strong></label></div>
+            <div class="col">
+                <input id="tipoCambio" class="form-control form-control-lg" disabled style="font-size: 30px;
+                                                text-align: center;
+                                                text-align-last: center;
+                                                -moz-text-align-last: center;
+                                                color: black;" />
+            </div>
+        </div>
+        <div class="row mb-1" style="margin: 0px;">
+            <div class="col"><label class="col-form-label col-form-label-lg"><strong>Total Cuenta:</strong></label></div>
+            <div class="col">
+                <input id="totalCuenta" class="form-control form-control-lg" disabled style="font-size: 30px;
+                                                text-align: center;
+                                                text-align-last: center;
+                                                -moz-text-align-last: center;
+                                                color: black;" />
+            </div>
+        </div>
+        <div class="row mb-1" style="margin: 0px;">
+            <div class="col"><label class="col-form-label col-form-label-lg"><strong>Pagado:</strong></label></div>
+            <div class="col">
+                <input id="totalPagado" class="form-control form-control-lg" disabled style="font-size: 30px;
+                                                text-align: center;
+                                                text-align-last: center;
+                                                -moz-text-align-last: center;
+                                                color: black;" />
+            </div>
+        </div>
+        <div class="row mb-1" style="margin: 0px;">
+            <div class="col"><label class="col-form-label col-form-label-lg"><strong>Vuelto:</strong></label></div>
+            <div class="col">
+                <input id="totalVuelto" class="form-control form-control-lg" disabled style="font-size: 30px;
+                                                text-align: center;
+                                                text-align-last: center;
+                                                -moz-text-align-last: center;
+                                                color: black;" />
+            </div>
+        </div>
+        <div class="row mb-1" id="divOperacion" style="margin: 0px; display:none;">
+            <div class="col"><label class="col-form-label col-form-label-lg"><strong>Nro operación:</strong></label></div>
+            <div class="col">
+                <input id="nro_operacion_2" class="form-control form-control-lg" placeholder="Nro de operación" autocomplete="off" maxlength="4" style="font-size: 30px; 
+                                                text-align: center;
+                                                text-align-last: center;
+                                                -moz-text-align-last: center;
+                                                color: black;" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="zoneHtmlAnular" class="d-none">
+    <form name="my_form">
+        <div class="row mt-2">
+            <div class="col-4">
+                <label for="USUARIO" class="col-form-label col-form-label-lg">Usuario:</label>
+            </div>
+            <div class="col-8">
+                <select name="USUARIO" class="form-control form-control-lg"
+                        data-query="cb_puntoventa_procesos_puntoventa_obtenerusuarios_conpermiso_anularventa"
+                        data-value="C_USUARIO"
+                        data-field="C_USUARIO"
+                        data-C_EMPRESA="{empresa}"
+                        data-enabledefault="0" required autocomplete="off"></select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-4">
+                <label for="CLAVE" class="col-form-label col-form-label-lg">Contraseña:</label>
+            </div>
+            <div class="col-8">
+                <input type="password" class="form-control form-control-lg" name="CLAVE" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-4">
+                <label for="tipo_anulacion" class="col-form-label col-form-label-lg">Tipo Anulación:</label>
+            </div>
+            <div class="col-8">
+                <select name="tipo_anulacion" class="form-control form-control-lg" required autocomplete="off"></select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <label for="motivo_anulacion" class="col-form-label col-form-label-lg">Motivo Anulación:</label>
+            </div>
+            <div class="col-12">
+                <textarea class="form-control form-control-lg" name="motivo_anulacion" autocomplete="off" rows="3" required></textarea>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-auto">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-lg btn-gray float-left"><i class="fa fa-close"></i>&nbsp;Cancelar</button>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-danger btn-lg pull-right"><i class="fa fa-floppy-o"></i>&nbsp;Anular</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="zoneAutorizacion" class="d-none">
+    <form name="my_form">
+        <div class="row mt-2">
+            <div class="col-4">
+                <label for="USUARIO" class="col-form-label col-form-label-lg">Usuario Autoriza:</label>
+            </div>
+            <div class="col-8">
+                <select name="USUARIO" class="form-control form-control-lg"
+                        data-query="cb_puntoventa_procesos_puntoventa_obtenerusuarios_conpermiso_anularventa"
+                        data-value="C_USUARIO"
+                        data-field="C_USUARIO"
+                        data-C_EMPRESA="{empresa}"
+                        data-enabledefault="0" required autocomplete="off"></select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-4">
+                <label for="CLAVE" class="col-form-label col-form-label-lg">Contraseña:</label>
+            </div>
+            <div class="col-8">
+                <input type="password" class="form-control form-control-lg" name="CLAVE" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="row mt-2 editer-motivo d-none">
+            <div class="col-12">
+                <label for="motivo_autorizacion" class="col-form-label col-form-label-lg editer-motivo-text">Motivo Operacion:</label>
+            </div>
+            <div class="col-12">
+                <textarea class="form-control form-control-lg" name="motivo_autorizacion" autocomplete="off" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-auto">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-lg btn-gray float-left"><i class="fa fa-close"></i>&nbsp;Cancelar</button>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-danger btn-lg pull-right"><i class="fa fa-floppy-o"></i>&nbsp;Validar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="zoneCambiarMesero" class="d-none">
+    <form name="my_form">
+        <div class="row mt-2">
+            <div class="col-4">
+                <label for="USUARIO" class="col-form-label col-form-label-lg">Mesero:</label>
+            </div>
+            <div class="col-8">
+                <select name="USUARIO" class="form-control form-control-lg"
+                        data-query="q_puntoventa_procesos_obtener_usuarios"
+                        data-value="SESSION_ID"
+                        data-field="SESSION_NOMBRE"
+                        data-empresa="{empresa}"
+                        data-enabledefault="0" required autocomplete="off"></select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-auto">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-lg btn-gray float-left"><i class="fa fa-close"></i>&nbsp;Cancelar</button>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-danger btn-lg pull-right"><i class="fa fa-floppy-o"></i>&nbsp;Validar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="zoneEditarMesa" class="d-none">
+    <form name="my_form">
+        <div class="row mt-2">
+            <div class="col-5">
+                <label for="NOMBRE_MESA" class="col-form-label col-form-label-lg">Nombre Mesa</label>
+            </div>
+            <div class="col-7">
+                <input type="text" class="form-control form-control-lg" name="NOMBRE_MESA" autocomplete="off" required maxlength="10" />
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-5">
+                <label for="NRO_PERSONAS" class="col-form-label col-form-label-lg">Nro Personas</label>
+            </div>
+            <div class="col-7">
+                <input type="text" class="form-control form-control-lg" name="NRO_PERSONAS" autocomplete="off" value="" />
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-5">
+                <label for="C_MESERO" class="col-form-label col-form-label-lg">Mesero</label>
+            </div>
+            <div class="col-7">
+                <select name="C_MESERO" class="form-control form-control-lg"
+                        data-query="q_puntoventa_procesos_obtener_usuarios" data-value="SESSION_ID" data-field="SESSION_NOMBRE"
+                        data-empresa="@Session["SESSION_EMPRESA"]" data-enabledefault="0" required></select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-auto">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-lg btn-gray float-left"><i class="fa fa-close"></i>&nbsp;Cancelar</button>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-danger btn-lg pull-right"><i class="fa fa-floppy-o"></i>&nbsp;Aceptar</button>
+            </div>
+        </div>
+    </form>
+
+</div>

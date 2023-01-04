@@ -1,0 +1,68 @@
+﻿
+<form name="frm" onsubmit="return false;">
+    <div class="row">
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Tipo de fecha</label>
+                <select name="tipo_fecha" class="form-control form-control-sm">
+                    <option value="R">Por fecha registro</option>
+                    <option value="E">Por fecha egreso</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Desde</label>
+                <input type="text" class="form-control form-control-sm" name="desde" value="@DateTime.Now.ToString("dd-MM-yyyy")" />
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Hasta</label>
+                <input type="text" class="form-control form-control-sm" name="hasta" value="@DateTime.Now.ToString("dd-MM-yyyy")" />
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Monto</label>
+                <input type="text" class="form-control form-control-sm" name="monto" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group-rm">
+                <label>Usuario</label>
+                <select name="c_usuario" class="form-control form-control-sm"
+                        data-query="cb_puntoventa_procesos_registroegreso_usuarios" data-value="C_USUARIO" data-field="C_USUARIO"
+                        data-C_EMPRESA="@Session["SESSION_EMPRESA"]"
+                        data-textDefault="-- Todos --"></select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Estado</label>
+                <select name="estado" class="form-control form-control-sm">
+                    <option value="">-- Todos --</option>
+                    <option value="&">Pendiente</option>
+                    <option value="*">Aprobado</option>
+                    <option value="A">Anulado</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group-rm ml-2">
+            <label for="exampleFormControlSelect1">&nbsp;</label>
+            <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Buscar</button>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label for="exampleFormControlSelect1">&nbsp;</label>
+                <div id="actions" style="display:block!important">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-12">
+        <div id="table" class="mt-2" style="position:relative; z-index:0;"></div>
+    </div>
+</div>

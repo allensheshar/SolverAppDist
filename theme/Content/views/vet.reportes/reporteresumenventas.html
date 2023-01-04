@@ -1,0 +1,68 @@
+﻿<input type="hidden" id="mes_actual" value="@DateTime.Now.Month" />
+<form name="frm" onsubmit="return false;" novalidate="novalidate">
+    <div class="row">
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>Año</label>
+                <select class="form-control form-control-sm clsEmpresa" name="anio" data-query="q_ventas_procesos_nuevaventa_consultaraniosventa" data-value="ANIO" data-field="ANIO" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>Mes</label>
+                <select class="form-control form-control-sm clsEmpresa" name="mes" data-query="q_ventas_reportes_resumen_obtenermeses" data-value="MES" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>&nbsp;</label>
+                <select class="form-control form-control-sm clsEmpresa" name="mesfin" data-query="q_ventas_reportes_resumen_obtenermeses" data-value="MES" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group-rm">
+                <label>Cliente</label>
+                <select class="form-control form-control-sm clsEmpresa" name="cliente" data-query="cb_ventas_procesos_filtroventa_listarclientes" data-value="C_CLIENTE" data-field="RAZON_SOCIAL" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>Moneda</label>
+                <select class="form-control form-control-sm" name="moneda">
+                    <option value="soles">Soles</option>
+                    <option value="dolares">Dolares</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-auto" style="margin-top: .5rem">
+            <br />
+            <button type="submit" class="btn btn-sm btn-orange btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+            <button type="button" id="btnDescargar" class="btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Descargar excel</button>
+            <a href="~/Reportes/Reportes" class="btn btn-sm btn-gray"><i class="fa fa-undo" aria-hidden="true"></i> Regresar</a>
+        </div>
+    </div>
+</form>
+
+<img id="IMAGEN_EMPRESA" class="mt-4" width="220" height="160" />
+<br />
+<strong><label class="col-form-label col-form-label-sm" id="lblMoneda" style="font-size:14px"></label></strong>
+<div class="text-center">
+    <h3 id="titulo">REPORTE DE VENTAS</h3>
+</div>
+<div>
+    <label class="col-form-label col-form-label-lg" id="lblEmpresa"></label><br />
+    <label class="col-form-label col-form-label-lg" id="lblRuc"></label><br />
+    <label class="col-form-label col-form-label-lg" id="lblPeriodo"></label>
+</div>
+
+<div class="row mt-2">
+    <div class="col-6">
+
+        <div id="tblGrafica"></div>
+    </div>
+    <div class="col-6">
+        <div id="grafico" class="pl-2 pr-2 pt-4 mb-4" style="height:22rem;">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+</div>

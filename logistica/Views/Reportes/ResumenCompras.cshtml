@@ -1,0 +1,93 @@
+﻿<input type="hidden" id="mes_actual" value="@DateTime.Now.Month" />
+<form name="frm" onsubmit="return false;" novalidate="novalidate">
+    <div class="row">
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>Año</label>
+                <select class="form-control form-control-sm clsEmpresa" name="anio" data-query="gbl_anio_trabajo" data-value="Anio" data-field="Anio" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>Mes</label>
+                <select class="form-control form-control-sm clsEmpresa" name="mes" data-query="q_ventas_reportes_resumen_obtenermeses" data-value="MES" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>&nbsp;</label>
+                <select class="form-control form-control-sm clsEmpresa" name="mesfin" data-query="q_ventas_reportes_resumen_obtenermeses" data-value="MES" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group-rm">
+                <label>Proveedor</label>
+                <select class="form-control form-control-sm clsEmpresa" name="proveedor" data-query="cb_logistica_procesos_filtrologistica_listarproveedores" data-value="C_PROVEEDOR" data-field="RAZON_SOCIAL" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"
+                        data-live-search="true" data-style="btn-light" data-size="5"></select>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>Moneda</label>
+                <select class="form-control form-control-sm" name="moneda">
+                    <option value="soles">Soles</option>
+                    <option value="dolares">Dolares</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-auto" style="margin-top: .5rem">
+            <br />
+            <button type="submit" class="btn btn-sm btn-orange btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+            <button type="button" id="btnDescargar" class="btn btn-sm btn-orange"><i class="fa fa-download" aria-hidden="true"></i> Descargar</button>
+            <a href="~/Reportes/Reportes" class="btn btn-sm btn-gray"><i class="fa fa-undo" aria-hidden="true"></i> Regresar</a>
+        </div>
+    </div>
+</form>
+
+<strong><label class="mt-2 mb-2 col-form-label col-form-label-sm" id="lblMoneda" style="font-size:14px"></label></strong>
+
+<ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="tab01-tab" data-toggle="tab" href="#tab01" role="tab" aria-selected="true"><i class="fa fa-line-chart" aria-hidden="true"></i> Grafica de compras</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link " id="tab02-tab" data-toggle="tab" href="#tab02" role="tab" aria-selected="false"><i class="fa fa-table" aria-hidden="true"></i> Detalle de compras</a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="tab01" role="tabpanel" aria-labelledby="tab01-tab">
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="tblGrafica"></div>
+                        <div id="grafico" class="pl-2 pr-2 pt-4 mb-4" style="height:22rem;">
+                            <canvas id="canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="tab02" role="tabpanel" aria-labelledby="tab02-tab">
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <img id="IMAGEN_EMPRESA" width="200" height="120" />
+                        <div class="text-center">
+                            <h3 id="titulo">REPORTE DE COMPRAS</h3>
+                        </div>
+                        <div>
+                            <label class="col-form-label col-form-label-sm" id="lblEmpresa"></label><br />
+                            <label class="col-form-label col-form-label-sm" id="lblRuc"></label><br />
+                            <label class="col-form-label col-form-label-sm" id="lblPeriodo"></label>
+                        </div>
+                        <div class="mt-4" id="tblDetalle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

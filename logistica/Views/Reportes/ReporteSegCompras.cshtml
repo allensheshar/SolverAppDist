@@ -1,0 +1,47 @@
+﻿<input type="hidden" id="mes_actual" value="@DateTime.Now.Month" />
+
+<form name="frmSegCompras" onsubmit="return false;" novalidate="novalidate">
+    <div class="row">
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>Año</label>
+                <select class="form-control form-control-sm clsEmpresa" id="_anio" data-query="q_compras_procesos_nuevaventa_consultaraniosventa" data-value="ANIO" data-field="ANIO" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group-rm">
+                <label>Mes</label>
+                <select class="form-control form-control-sm clsEmpresa" id="_mes" data-query="q_ventas_reportes_resumen_obtenermeses" data-value="MES" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group-rm">
+                <label for="exampleFormControlSelect1">&nbsp;</label>
+                <button type="submit" class="btn btn-sm btn-secondary btn-block btn-orange"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Buscar</button>
+            </div>
+        </div>
+        <div class="form-group-rm">
+            <label for="exampleFormControlSelect1">&nbsp;</label>
+            <button type="button" id="btnDescargarSegCompras" class="btn btn-sm btn-orange btn-block"><i class="fa fa-download" aria-hidden="true"></i> Descargar</button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <img id="IMAGEN_EMPRESA" width="200" height="120" />
+                    <div class="text-center text-uppercase">
+                        <h3 id="titulo"></h3>
+                    </div>
+                    <div>
+                        <label class="col-form-label col-form-label-sm" id="lblEmpresa"></label><br />
+                        <label class="col-form-label col-form-label-sm" id="lblRuc"></label><br />
+                        <label class="col-form-label col-form-label-sm" id="lblPeriodo"></label><br />
+                        <label class="col-form-label col-form-label-sm" id="lblMes"></label>
+                    </div>
+                    <div class="mt-4" id="tblSegCompras"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

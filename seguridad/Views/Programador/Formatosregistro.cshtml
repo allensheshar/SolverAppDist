@@ -1,0 +1,37 @@
+﻿<form name="frmEditarFormato" data-table="W_FORMATOS" data-condition="@ViewBag.Condition" data-setupdate="1">
+    <button type="submit" name="btnGuardar" class="float-right btn btn-danger btn-sm"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+    <a href="@Url.Action("Formatos","Programador")" class="btn btn-sm btn-gray"><i class="fa fa-undo" aria-hidden="true"></i> Regresar</a>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="CODIGO">Nombre llave del formato</label>
+                <input type="text" class="form-control form-control-sm" id="CODIGO" name="CODIGO" placeholder="Ingresa el nombre de tu formato" value="" required />
+            </div>
+
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="DESCRIPCION">Breve descripción</label>
+                <input type="text" class="form-control form-control-sm" id="DESCRIPCION" name="DESCRIPCION" placeholder="Describe el objetivo del formato" value="" required />
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="document-editor__toolbar"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row-editor">
+                        <div id="editor" class="editor"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="C_FORMATO" value="" />
+        <input type="hidden" name="CONTENIDO" value="" />
+    </div>
+</form>

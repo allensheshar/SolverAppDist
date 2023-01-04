@@ -1,0 +1,283 @@
+﻿<style>
+    .orden-compra textarea {
+        border: none;
+        background-color: transparent;
+        resize: none;
+        outline: none;
+    }
+</style>
+<form name="frmOrdenCompra" action="#" method="post" data-table="LOG.ORDEN_COMPRA" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off" style="margin-bottom: 10px; font-size:12px;">
+    <input type="hidden" name="C_EMPRESA" id="C_EMPRESA" />
+    <input type="hidden" name="C_ORDEN_COMPRA" />
+    <input type="hidden" name="C_PROVEEDOR" />
+    <input type="hidden" name="IND_ORDEN_COMPRA" value="*" />
+    <input type="hidden" name="IND_ESTADO_COMPRA" value="*" />
+    <input type="hidden" name="BASE_IMPONIBLE" value="0" />
+    <input type="hidden" name="IGV" value="0" />
+    <input type="hidden" name="TOTAL" value="0" />
+
+    <input type="hidden" id="FECHA_ACTUAL" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+    <input type="hidden" name="FECHA_EMISION" value="@DateTime.Now.ToString("dd/MM/yyyy")" maxlength="10" />
+    <input type="hidden" id="SIMBOLO_MONEDA" />
+    <input type="hidden" name="C_ARCHIVO_PDF_ORDEN_COMPRA" data-nosend="1" />
+    <input type="hidden" name="C_PROVEEDOR_CONTACTO" />
+    <input type="hidden" name="C_PIA" />
+
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <a href="@Url.Action("RegistroOrdenCompra","Procesos")" class="btn btn-sm btn-gray float-left" id="btnAtras"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+            <button type="submit" class="btn btn-sm btn-danger float-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+            <button type="button" class="btn btn-sm btn-orange float-right mr-2" id="btnVerPdf" style="display:none;"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;Ver pdf</button>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-2">
+            <img class="mr-4 mt-4" id="IMAGEN_COMPANY" height="120" data-nosend="1" />
+        </div>
+        <div class="col-4 offset-6 factura-info vertical-center" style="padding: 0px; border-color: black; margin-bottom: 20px; margin-top: 20px; border: 2px solid #000000; box-sizing: border-box;">
+            <div class="col-12 text-center" style="margin-bottom: -10px; font-size: 30px; color:black;">
+                <strong><label id="TIPO_DOC"></label></strong>
+                <strong><label id="RUC"></label></strong>
+            </div>
+            <div class="col-12 text-center" style="margin-bottom: 5px; margin-top: 5px;">
+                <select class="form-control form-control-sm" data-nosend="1" style="font-size: 30px; text-align: center; text-align-last: center; -moz-text-align-last: center;" disabled>
+                    <option>Orden de compra</option>
+                </select>
+            </div>
+            <div class="col-12 text-center">
+                <input type="text" id="NUM_ORDEN_COMPRA" class="mb-2 form-control form-control-sm" style="font-size: 30px;text-align: center;" value="XXXX" readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <strong><label id="RAZON_SOCIAL"></label></strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label id="DIRECCION_EMPRESA"></label>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Nombre/Razón Social:</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-9">
+                    <label class="col-form-label col-form-label-sm" id="NOMBRE"></label>
+                </div>
+                <div class="col-auto">
+                    <button type="button" id="btnBusquedaProveedor" class="btn btn-sm btn-orange"><i class="fa fa-user" aria-hidden="true"></i> Proveedor</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Tipo de Transacción:</label></strong>
+        </div>
+        <div class="col-2">
+            <select class="form-control form-control-sm" name="C_TIPO_TRANSACCION" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Código tipo de transacción orden compra" data-enableDefault="0" required></select>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Fecha Emisión:</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-auto">
+                    <input class="form-control form-control-sm" type="text" name="FECHA_EMISION" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Moneda:</label></strong>
+        </div>
+        <div class="col-2">
+            <select class="form-control form-control-sm" name="C_PARAMETRO_GENERAL_MONEDA" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Moneda" data-enableDefault="0" required></select>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Fecha Entrega:</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-auto">
+                    <input class="form-control form-control-sm" type="text" name="FECHA_ENTREGA" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Almacen:</label></strong>
+        </div>
+        <div class="col-2">
+            <select class="form-control form-control-sm c_empresa" name="C_ALMACEN" data-query="q_logistica_procesos_nuevaordencompra_listaalmacenes" data-C_EMPRESA="" data-value="C_ALMACEN" data-field="NOMBRE_ALMACEN" required></select>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Tipo cambio:</label></strong>
+        </div>
+        <div class="col-1">
+            <input class="form-control form-control-sm" type="text" name="TC" readonly />
+        </div>
+        <div class="offset-4 col-2">
+            <strong><label class="col-form-label col-form-label-sm">Contacto de la orden:</label></strong>
+        </div>
+        <div class="col-2">
+            <select class="form-control form-control-sm c_empresa" name="CONTACTO" required data-nosend="1"></select>
+        </div>
+    </div>
+    @*<div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Pedido Interno:</label></strong>
+        </div>
+        <div class="col-3">
+            <div class="input-group">
+                <input class="form-control form-control-sm" type="text" name="PIA_REF" readonly data-nosend="1" />
+                <div class="input-group-append">
+                    <button id="btnBuscarPia" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="row">
+        <div class="col-auto">
+            <button type="button" class="btn btn-sm btn-orange" id="btnBusquedaProducto"><i class="fa fa-archive" aria-hidden="true"></i> Agregar item</button>
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            <div id="tblDetalle">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7">
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Gravadas:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_GRAVADAS"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>IGV:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="IGV"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Inafecta:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_INAFECTA"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Exonerada:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_EXONERADA"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Gratuitas:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OPE_GRATUITAS"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Descuentos:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="DESCUENTOS"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Importe Total:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="TOTAL"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <strong><label>Información Adicional:&nbsp;</label></strong>
+        </div>
+    </div>
+    <div class="orden-compra">
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div style="padding: 10px;">
+                            <img src="~/Content/Images/ojo celeste.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>OBS. ADICIONAL:</strong></label><br />
+                        <label>
+                            <textarea rows="3" cols="45" name="OBS_ADICIONAL"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div style="padding: 10px;">
+                            <img src="~/Content/Images/ojo morado.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>OBS. EXPORTACIÓN:</strong></label><br />
+                        <label>
+                            <textarea rows="3" cols="45" name="OBS_IMPRIMIR"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

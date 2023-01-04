@@ -1,0 +1,241 @@
+﻿
+<button class="btn btn-danger btn-sm pull-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+
+<ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="miempresa-tab" data-toggle="tab" href="#miempresa" role="tab" aria-controls="miempresa" aria-selected="true">
+            Mi empresa
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="centrocosto-tab" data-toggle="tab" href="#centrocosto" role="tab" aria-controls="centrocosto" aria-selected="false">
+            Centro de costo
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="tipocliente-tab" data-toggle="tab" href="#tipocliente" role="tab" aria-controls="tipocliente" aria-selected="false">
+            Tipo de clientes
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pmetodopago-tab" data-toggle="tab" href="#pmetodopago" role="tab" aria-controls="pmetodopago" aria-selected="false" style="display:none;">
+            Métodos de Pago
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="establecimientoyseries-tab" data-toggle="tab" href="#establecimientoyseries" role="tab" aria-controls="establecimientoyseries" aria-selected="false">
+            Establecimientos y series
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="caja-tab" data-toggle="tab" href="#caja" role="tab" aria-controls="caja" aria-selected="false" style="display:none;">
+            Registro de Cajas
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="mesa-tab" data-toggle="tab" href="#mesa" role="tab" aria-controls="mesa" aria-selected="false" style="display:none;">
+            Registro de Mesas
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="cocina-tab" data-toggle="tab" href="#cocina" role="tab" aria-controls="cocina" aria-selected="false" style="display:none;">
+            Zonas de Preparación
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pdv-tab" data-toggle="tab" href="#pdv" role="tab" aria-controls="pdv" aria-selected="false">
+            Otras Configuraciones
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContentRoles" style="min-height: 700px;">
+
+    <div class="tab-pane fade show active" id="miempresa" role="tabpanel" aria-labelledby="miempresa-tab">
+        <input type="hidden" id="C_EMPRESA" />
+        <input type="hidden" id="C_ARCHIVO_LOGO" />
+        <input type="hidden" id="SERVICIOS" />
+
+        <div class="row">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label for="NRO_DOCUMENTO">RUC</label>
+                        <input type="text" class="form-control form-control-sm" id="NRO_DOCUMENTO" placeholder="0000000000" maxlength="11" disabled>
+                    </div>
+                    <div class="form-group col-md-10">
+                        <label for="RAZON_SOCIAL">Razón social</label>
+                        <input type="text" class="form-control form-control-sm" id="RAZON_SOCIAL" placeholder="Nombre de Empresa" disabled>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="DIRECCION">Dirección</label>
+                        <input type="text" class="form-control form-control-sm" id="DIRECCION" placeholder="Dirección">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="NOMBRE_FIRMA_BE">Nombre del representante legal</label>
+                        <input type="text" class="form-control form-control-sm" id="NOMBRE_FIRMA_BE" placeholder="Nombre del Representante Legal">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="EMAIL_FIRMANTE_BE">Email del representante legal</label>
+                        <input type="text" class="form-control form-control-sm" id="EMAIL_FIRMANTE_BE" placeholder="emailfirmante@dominio.com">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="CUENTA_BANCARIA">Datos de cuenta bancaria</label>
+                        <textarea rows="5" class="form-control form-control-sm" id="CUENTA_BANCARIA"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="CUENTA_DETRACCION">Cuenta de detracción</label>
+                        <textarea rows="5" class="form-control form-control-sm" id="CTA_DETRACCION"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-2">
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label class="control-label label-bold">(*) Logo de la empresa:</label>
+                        <br />
+                        <img width="100%" class="mt-1 mb-1 border rounded" id="img" style="display: none;" />
+                        <div class="file-loading">
+                            <input id="input-b7" name="input-b7" type="file" multiple />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="centrocosto" role="tabpanel" aria-labelledby="centrocosto-tab">
+        <button id="btnDescargarCc" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
+        <div id="padre">
+            <div id="html" class="demo">
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="tipocliente" role="tabpanel" aria-labelledby="tipocliente-tab">
+        <button id="btnAgregarCategoria" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarCategoria" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <button id="btnDescargarTipoCliente" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
+        <div id="tblClienteCategoria"></div>
+    </div>
+
+    <div class="tab-pane fade" id="pmetodopago" role="tabpanel" aria-labelledby="pmetodopago-tab">
+        <button id="btnAgregarMetodoPago" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarMetodoPago" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <button id="btnDescargarMetodoPago" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
+        <div id="tblMetodoPago"></div>
+    </div>
+
+    <div class="tab-pane fade" id="establecimientoyseries" role="tabpanel" aria-labelledby="establecimientoyseries-tab">
+        <button id="btnAgregarEstablecimiento" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarEstablecimiento" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <button id="btnDescargarEstSeries" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
+        <div id="tblEstablecimiento"></div>
+    </div>
+
+    <div class="tab-pane fade" id="caja" role="tabpanel" aria-labelledby="caja-tab">
+        <button id="btnAgregarCaja" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarCaja" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <button id="btnDescargarCaja" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
+        <div id="tblCaja"></div>
+    </div>
+
+    <div class="tab-pane fade" id="mesa" role="tabpanel" aria-labelledby="mesa-tab">
+        <button id="btnAgregarMesa" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarMesa" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <button id="btnDescargarMesa" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
+        <div id="tblMesa"></div>
+    </div>
+
+    <div class="tab-pane fade" id="cocina" role="tabpanel" aria-labelledby="cocina-tab">
+        <button id="btnAgregarCocina" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarCocina" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <button id="btnDescargarCocina" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
+        <div id="tblCocina"></div>
+    </div>
+
+    <div class="tab-pane fade" id="pdv" role="tabpanel" aria-labelledby="pdv-tab">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Cliente por defecto:</label>
+                <select id="cliente" class="form-control form-control-sm"
+                        data-query="cb_ventas_procesos_filtroventa_listarclientes"
+                        data-live-search="true" data-style="btn-light" data-size="10"
+                        data-value="C_CLIENTE" data-field="RAZON_SOCIAL" data-c_empresa='@Session["SESSION_EMPRESA"]'
+                        data-textdefault="-- Seleccione --">
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Moneda por defecto:</label>
+                <select id="moneda" class="form-control form-control-sm">
+                    <option selected="selected" value="07234">Soles</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Metodo de pago por defecto:</label>
+                <select id="metodopago" class="form-control form-control-sm"
+                        data-query="q_puntoventa_mantenimiento_configuraciones_metodopago"
+                        data-value="C_METODO_PAGO" data-field="NOMBRE_METODO_PAGO" data-c_empresa='@Session["SESSION_EMPRESA"]'
+                        data-textdefault="-- Seleccione --">
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label>(%) Recargo al consumo:</label>
+                <input type="number" id="recargoConsumo" class="form-control form-control-sm" min="0" max="13" maxlength="2" value="0" />
+            </div>
+            <div class="form-group col-md-4">
+                <label>(%) IGV por Defecto:</label>
+                <input type="number" id="porc_igv" class="form-control form-control-sm" min="0" max="99" maxlength="2" value="0" />
+            </div>
+            <div class="form-group col-md-4">
+                <label>Tipo de afectación del igv para cortesía:</label>
+                <select id="cortesia" class="form-control form-control-sm"
+                        data-query="gbl_obtener_parametro_general"
+                        data-value="CODIGO" data-field="DESCRIPCION" data-c_empresa='@Session["SESSION_EMPRESA"]'
+                        data-tipoparametro="Código de tipo de afectación del IGV"
+                        data-textdefault="-- Seleccione --">
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Impresora por defecto:</label>
+                <select id="impresoraDefecto" class="form-control form-control-sm"
+                        data-query="q_pdv_mantenimiento_configuraciones_impresoras"
+                        data-value="value" data-field="label" data-c_empresa='@Session["SESSION_EMPRESA"]'
+                        data-textdefault="-- Seleccione --">
+                </select>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Copias Pre-Cuenta:</label>
+                <input type="number" id="copyprecuenta" class="form-control form-control-sm" min="0" max="3" maxlength="2" value="1" />
+            </div>
+            <div class="form-group col-md-2">
+                <label>Copias Comprobante:</label>
+                <input type="number" id="copycomprobante" class="form-control form-control-sm" min="0" max="3" maxlength="2" value="1" />
+            </div>
+            <div class="form-group col-md-2">
+                <label>Copias Anulaciones:</label>
+                <input type="number" id="copyanulaciones" class="form-control form-control-sm" min="0" max="3" maxlength="2" value="1" />
+            </div>
+            <div class="form-group col-md-2">
+                <label>Copias Comanda:</label>
+                <input type="number" id="copycomanda" class="form-control form-control-sm" min="0" max="3" maxlength="2" value="1" />
+            </div>
+            <div class="form-group col-md-2">
+                <label>¿Comanda con el Pago?</label>
+                <select id="comandapago" class="form-control form-control-sm">
+                    <option value="*">SI</option>
+                    <option value="&" selected>NO</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

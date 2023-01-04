@@ -1,0 +1,475 @@
+﻿<button type="button" class="btn btn-danger btn-sm float-right ml-2" id="btnFicha" style="display:none;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Ver ficha</button>
+<button type="button" class="btn btn-danger btn-sm float-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+<ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">Datos generales</a>
+    </li>
+    <li class="nav-item tab-servicios">
+        <a class="nav-link" id="servicios-tab" data-toggle="tab" href="#servicios" role="tab" aria-controls="servicios" aria-selected="true">Servicios</a>
+    </li>
+    <li class="nav-item tab-usuario">
+        <a class="nav-link" id="usuario-tab" data-toggle="tab" href="#usuario" role="tab" aria-controls="usuario" aria-selected="true">Usuarios</a>
+    </li>
+    <li class="nav-item tab-facturacion" style="display:none">
+        <a class="nav-link" id="facturacion-tab" data-toggle="tab" href="#facturacion" role="tab" aria-controls="facturacion" aria-selected="false">Módulo de Facturación</a>
+    </li>
+    <li class="nav-item tab-ventas" style="display:none">
+        <a class="nav-link" id="ventas-tab" data-toggle="tab" href="#ventas" role="tab" aria-controls="ventas" aria-selected="false">Módulo de Ventas</a>
+    </li>
+    <li class="nav-item tab-archivos" style="display:none">
+        <a class="nav-link" id="archivos-tab" data-toggle="tab" href="#archivos" role="tab" aria-controls="archivos" aria-selected="false">Módulo de Archivos</a>
+    </li>
+    <li class="nav-item tab-boletas" style="display:none">
+        <a class="nav-link" id="boletas-tab" data-toggle="tab" href="#boletas" role="tab" aria-controls="boletas" aria-selected="false">Módulo de Boletas</a>
+    </li>
+
+    <li class="nav-item tab-cons-pla" style="display:none">
+        <a class="nav-link" id="cons-pla-tab" data-toggle="tab" href="#cons-pla" role="tab" aria-controls="consisat planillas" aria-selected="false">Consisat Planillas</a>
+    </li>
+
+    <li class="nav-item tab-cons-fac" style="display:none">
+        <a class="nav-link" id="cons-fac-tab" data-toggle="tab" href="#cons-fac" role="tab" aria-controls="consisat facturas" aria-selected="false">Consisat Facturador</a>
+    </li>
+
+    <li class="nav-item tab-cons-cont" style="display:none">
+        <a class="nav-link" id="cons-cont-tab" data-toggle="tab" href="#cons-cont" role="tab" aria-controls="consisat contable" aria-selected="false">Consisat Comercial</a>
+    </li>
+
+    <li class="nav-item tab-cons-comer" style="display:none">
+        <a class="nav-link" id="cons-comer-tab" data-toggle="tab" href="#cons-comer" role="tab" aria-controls="consiat comercial" aria-selected="false">Consisat comercial</a>
+    </li>
+</ul>
+
+<form name="frmRegistroEmpresa" action="#" method="post" data-table="EMPRESA" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+    <div class="tab-content" id="myTabContentRoles">
+        <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label for="NRO_DOCUMENTO">RUC</label>
+                            <input type="text" class="form-control form-control-sm" id="NRO_DOCUMENTO" name="NRO_DOCUMENTO" placeholder="0000000000" maxlength="11" required>
+                        </div>
+                        <div class="form-group col-md-10">
+                            <label for="RAZON_SOCIAL">Razón social</label>
+                            <input type="text" class="form-control form-control-sm" id="RAZON_SOCIAL" name="RAZON_SOCIAL" placeholder="Nombre de Empresa" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="DIRECCION">Dirección</label>
+                            <input type="text" class="form-control form-control-sm" id="DIRECCION" name="DIRECCION" placeholder="Dirección" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="NOMBRE_FIRMA_BE">Nombre del representante legal</label>
+                            <input type="text" class="form-control form-control-sm" id="NOMBRE_FIRMA_BE" name="NOMBRE_FIRMA_BE" placeholder="Nombre del Representante Legal" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="EMAIL_FIRMANTE_BE">E-mail del representante legal</label>
+                            <input type="text" class="form-control form-control-sm" id="EMAIL_FIRMANTE_BE" name="EMAIL_FIRMANTE_BE" placeholder="emailfirmante@dominio.com" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="TELEFONO_FIRMA_BE">Telefono del representante legal</label>
+                            <input type="text" class="form-control form-control-sm" id="TELEFONO_FIRMA_BE" name="TELEFONO_FIRMA_BE" placeholder="555-5555">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="NOMBRE_CONTACTO_TECNICO">Nombre del contacto técnico</label>
+                            <input type="text" class="form-control form-control-sm" id="NOMBRE_CONTACTO_TECNICO" name="NOMBRE_CONTACTO_TECNICO" placeholder="Nombre del Contacto Tecnico">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="CORREO_CONTACTO_TECNICO">E-mail del contacto técnico</label>
+                            <input type="text" class="form-control form-control-sm" id="CORREO_CONTACTO_TECNICO" name="CORREO_CONTACTO_TECNICO" placeholder="emailcontacto@dominio.com">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="TELEFONO_CONTACTO_TECNICO">Telefono del contacto técnico</label>
+                            <input type="text" class="form-control form-control-sm" id="TELEFONO_CONTACTO_TECNICO" name="TELEFONO_CONTACTO_TECNICO" placeholder="555-5555">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="NOMBRE_CONTACTO_FACTURACION">Nombre del contacto facturación</label>
+                            <input type="text" class="form-control form-control-sm" id="NOMBRE_CONTACTO_FACTURACION" name="NOMBRE_CONTACTO_FACTURACION" placeholder="Nombre del Contacto Facturación">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="CORREO_CONTACTO_FACTURACION">E-mail del contacto facturación</label>
+                            <input type="text" class="form-control form-control-sm" id="CORREO_CONTACTO_FACTURACION" name="CORREO_CONTACTO_FACTURACION" placeholder="emailcontacto@dominio.com">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="TELEFONO_CONTACTO_FACTURACION">Telefono del contacto facturación</label>
+                            <input type="text" class="form-control form-control-sm" id="TELEFONO_CONTACTO_FACTURACION" name="TELEFONO_CONTACTO_FACTURACION" placeholder="555-5555">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="NOMBRE_RESPONSABLE">Nombre del responsable</label>
+                            <input type="text" class="form-control form-control-sm" id="NOMBRE_RESPONSABLE" name="NOMBRE_RESPONSABLE" placeholder="Nombre del Responsable">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="CORREO_RESPONSABLE">E-mail del responsable</label>
+                            <input type="text" class="form-control form-control-sm" id="CORREO_RESPONSABLE" name="CORREO_RESPONSABLE" placeholder="emailresponsable@dominio.com">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="TELEFONO_RESPONSABLE">Telefono del responsable</label>
+                            <input type="text" class="form-control form-control-sm" id="TELEFONO_RESPONSABLE" name="TELEFONO_RESPONSABLE" placeholder="555-5555">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="FECHA_INICIO_ACTIVIDADES" class="mt-1 mb-1">Fecha inicio actividades</label>
+                            <input type="text" class="form-control form-control-sm" id="FECHA_INICIO_ACTIVIDADES" name="FECHA_INICIO_ACTIVIDADES">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label label-bold mt-1 mb-1">Ficha ruc:</label>
+                            <a id="show-ficha-ruc" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-ficha-ruc" type="file" multiple />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label label-bold mt-1 mb-1">Dni representante legal:</label>
+                            <a id="show-dni-repre-legal" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-dni-repre-legal" type="file" multiple />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label label-bold mt-1 mb-1"><i class="fa fa-info-circle" aria-hidden="true" title="Vigencia de poder con QR"></i> Copia literal:</label>
+                            <a id="show-copia-literal" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-copia-literal" type="file" multiple />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label label-bold mt-1 mb-1">Acrónimo:</label>
+                            <input type="text" class="form-control form-control-sm" id="ACRONIMO" name="ACRONIMO" placeholder="Acrónimo de la empresa" maxlength="5">
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="C_EMPRESA" id="C_EMPRESA" value="@Guid.NewGuid().ToString().Substring(0, 10)" />
+                    <input type="hidden" name="C_USUARIO" />
+                    <input type="hidden" name="C_USUARIO_REGISTRA" />
+                    <input type="hidden" name="C_ARCHIVO_LOGO" id="C_ARCHIVO_LOGO" />
+                    <input type="hidden" name="ID_EMISOR" id="ID_EMISOR" />
+                    <input type="hidden" id="CONDITION" value="@ViewBag.Condition" />
+                    <input type="hidden" name="SERVICIOS" id="SERVICIOS" />
+                    <input type="hidden" name="HASH_FIRMA" id="HASH_FIRMA" />
+
+
+                    <input type="hidden" id="C_ARCHIVO" name="C_ARCHIVO_FIRMA">
+                    <input type="hidden" name="C_ARCHIVO_FICHA_RUC" id="C_ARCHIVO_FICHA_RUC" />
+                    <input type="hidden" name="C_ARCHIVO_DNI_REPRESENTANTE_LEGAL" id="C_ARCHIVO_DNI_REPRESENTANTE_LEGAL" />
+                    <input type="hidden" name="C_ARCHIVO_COPIA_LITERAL" id="C_ARCHIVO_COPIA_LITERAL" />
+                    <input type="hidden" name="C_ARCHIVO_REGISTRO_VET" id="C_ARCHIVO_REGISTRO_VET" />
+                    <input type="hidden" name="C_ARCHIVO_REGISTRO_COM" id="C_ARCHIVO_REGISTRO_COM" />
+                    <input type="hidden" name="C_ARCHIVO_REGISTRO_PROD_SERV" id="C_ARCHIVO_REGISTRO_PROD_SERV" />
+                    <input type="hidden" name="C_ARCHIVO_REGISTRO_CLI" id="C_ARCHIVO_REGISTRO_CLI" />
+                    <input type="hidden" name="C_ARCHIVO_REGISTRO_PRO" id="C_ARCHIVO_REGISTRO_PRO" />
+                    <input type="hidden" name="C_ARCHIVO_CONSTANCIA_ASOC_PSE_SOLUNET" id="C_ARCHIVO_CONSTANCIA_ASOC_PSE_SOLUNET" />
+
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="control-label label-bold">(*) Logo de la empresa:</label>
+                            <br />
+                            <img width="100%" class="mt-1 mb-1 border rounded" id="img-company" style="display: none;" />
+                            <div class="file-loading">
+                                <input id="input-b7" name="input-b7" type="file" multiple />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="control-label label-bold">Estado del cliente</label>
+                            <select class="form-control form-control-sm" name="IND_ESTADO">
+                                <option value="*">Activo</option>
+                                <option value="&">Inactivo</option>
+                                <option value="P">Pendiente Activar</option>
+                                <option value="A">Pago Atrasado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="servicios" role="tabpanel" aria-labelledby="servicios-tab">
+            <div class="row">
+                <div class="col-12 col-sm-3 col-md-3">
+                    <div class="form-group-rm">
+                        <input type="text" class="form-control form-control-sm" id="_buscar_serv" placeholder="Ingrese aquí su búsqueda..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <button type="button" id="btnServicio" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm" type="button" id="btnAgregarRol"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Paquete</button>
+            </div>
+            <div class="jqxWidget mt-2">
+                <div id="tblServicios" class="shadow-sp"></div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="usuario" role="tabpanel" aria-labelledby="usuario-tab">
+            <div class="row">
+                <div class="col-12 col-sm-3 col-md-3">
+                    <div class="form-group-rm">
+                        <input type="text" class="form-control form-control-sm" id="_buscar" placeholder="Ingrese aquí su búsqueda..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <button type="button" id="btnBuscarUsuario" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+
+                <div class="col-auto p-0">
+                    <div class="dropdown borrar">
+                        <button class="btn btn-sm btn-orange dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                        <div class="dropdown-menu dropdown-caret" style="">
+                            <a id="btnNuevoUsuario" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Usuario</a>
+                            <a id="btnEditarUsuario" class="dropdown-item" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Usuario</a>
+                            <a id="btnReenviarAccesos" class="dropdown-item" href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> Reenviar Accesos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jqxWidget mt-2">
+                <div id="tableRegUsuarios" class="shadow-sp"></div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="facturacion" role="tabpanel" aria-labelledby="facturacion-tab">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label for="TIPO_DOC_FTE">Tipo de documento</label>
+                            <input type="text" class="form-control form-control-sm" id="TIPO_DOC_FTE" maxlength="11">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="NRO_DOCUMENTO_FTE">Nro. doc. identidad</label>
+                            <input type="text" class="form-control form-control-sm" id="NRO_DOCUMENTO_FTE" maxlength="11">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="RAZON_SOCIAL_FTE">Razón social</label>
+                            <input type="text" class="form-control form-control-sm" id="RAZON_SOCIAL_FTE">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="NOMBRE_COMERCIAL_FTE">Nombre comercial</label>
+                            <input type="text" class="form-control form-control-sm" id="NOMBRE_COMERCIAL_FTE">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="DOMICILIO_FISCAL_FTE">Domicilio fiscal</label>
+                            <input type="text" class="form-control form-control-sm" id="DOMICILIO_FISCAL_FTE">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="DEPARTAMENTO">DEPARTAMENTO</label>
+                            <select id="DEPARTAMENTO" class="form-control form-control-sm" data-query="gbl_obtenerdepartamentos" data-value="CODIGO_PARAMETRO" data-field="DESCRIPCION_PARAMETRO"></select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="PROVINCIA">PROVINCIA</label>
+                            <select id="PROVINCIA" class="form-control form-control-sm" disabled></select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="DISTRITO">DISTRITO</label>
+                            <select id="DISTRITO" class="form-control form-control-sm" disabled></select>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="PATH_PFX_FTE">Path pfx</label>
+                            <input type="text" class="form-control form-control-sm" id="PATH_PFX_FTE">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="CLAVE_PFX">Clave pfx</label>
+                            <input type="text" class="form-control form-control-sm" id="CLAVE_PFX">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="USUARIO_SUNAT">Usuario Sunat</label>
+                            <input type="text" class="form-control form-control-sm" id="USUARIO_SUNAT">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="CLAVE_SUNAT">Clave Sunat/Ose</label>
+                            <input type="text" class="form-control form-control-sm" id="CLAVE_SUNAT">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="URL_SERVICIO_SUNAT">Url servicio Sunat/Ose</label>
+                            <input type="text" class="form-control form-control-sm" id="URL_SERVICIO_SUNAT">
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="FORMATO_FT_BT">Formato FT</label>
+                            <input type="text" class="form-control form-control-sm" id="FORMATO_FT_BT">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="FORMATO_NC_ND">Formato NC</label>
+                            <input type="text" class="form-control form-control-sm" id="FORMATO_NC_ND">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="FORMATO_NO_DOMICILIADO">Formato no domiciliado</label>
+                            <input type="text" class="form-control form-control-sm" id="FORMATO_NO_DOMICILIADO">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="FORMATO_NO_DOMICILIADO">Formato no domiciliado NC</label>
+                            <input type="text" class="form-control form-control-sm" id="FORMATO_NO_DOMICILIADO_NC_ND">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="CORREOS_EN_COPIA">Correos Copia</label>
+                            <input type="text" class="form-control form-control-sm" data-role="tagsinput" id="CORREOS_EN_COPIA">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="control-label label-bold">(*) Logo de Documentos y Correos:</label>
+                            <br />
+                            <img class="mt-1 mb-1 border rounded" id="imgfte" style="display: none;width:100%;" />
+                            <div class="file-loading">
+                                <input id="input-b7-fte" type="file" multiple />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="UBIGEO">
+            <input type="hidden" id="C_ARCHIVO_LOGO_FTE" />
+            <input type="hidden" id="EMAIL_ENVIO">
+            <input type="hidden" id="NOMBRE_ENVIO">
+        </div>
+        <div class="tab-pane fade" id="ventas" role="tabpanel" aria-labelledby="ventas-tab"></div>
+        <div class="tab-pane fade" id="archivos" role="tabpanel" aria-labelledby="archivos-tab"></div>
+        <div class="tab-pane fade" id="boletas" role="tabpanel" aria-labelledby="boletas-tab">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <p class="alert alert-warning alert-sm">
+                        La firma digital debe estar generada en version pfx con su respectiva contraseña, al cargar el archivo pasará un proceso de validación.
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="control-label label-bold">(*) Cargue su Archivo PFX:</label>
+                    <a id="show-pfx" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                        <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                    </a>
+                    <br />
+                    <div class="file-loading">
+                        <input id="input-b6" name="input-b6" type="file" multiple>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mt-1">
+                    <label for="CLAVE" class="control-label label-bold">(*) Indique contraseña PFX:</label>
+                    <input class="form-control form-control-sm" type="text" name="CLAVE_FIRMA" id="CLAVE" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mt-1">
+                    <label for="FEC_VENC_FIRMA" class="control-label label-bold">(*) Fecha de vencimiento:</label>
+                    <input class="form-control form-control-sm" type="text" name="FEC_VENC_FIRMA" id="FEC_VENC_FIRMA" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mt-1">
+                    <label for="EMAIL_ADM_SOLICITUD" class="control-label label-bold">(*) Correos de Aprobadores de Solicitudes:</label>
+                    <input type="text" class="form-control form-control-sm" data-role="tagsinput" name="EMAIL_ADM_SOLICITUD" id="EMAIL_ADM_SOLICITUD">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mt-1">
+                    <label for="CORREO_COPIA_BOLETA" class="control-label label-bold">Correos copia de boletas:</label>
+                    <input type="text" class="form-control form-control-sm" data-role="tagsinput" name="CORREO_COPIA_BOLETA" id="CORREO_COPIA_BOLETA">
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="cons-pla" role="tabpanel" aria-labelledby="cons-pla-tab"></div>
+        <div class="tab-pane fade" id="cons-fac" role="tabpanel" aria-labelledby="cons-fac-tab">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label label-bold">Constancia de Asociación a PSE Solunet:</label>
+                            <a id="show-cons-asoc-pse-solunet" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-cons-asoc-pse-solunet" type="file" multiple />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="cons-cont" role="tabpanel" aria-labelledby="cons-cont-tab">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="row">
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label label-bold">Registro de Ventas:</label>
+                            <a id="show-reg-ventas" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-reg-ventas" type="file" multiple />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label label-bold">Registro de Compras:</label>
+                            <a id="show-reg-compras" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-reg-compras" type="file" multiple />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="cons-comer" role="tabpanel" aria-labelledby="cons-comer-tab">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label label-bold">Registro de Productos y Servicios:</label>
+                            <a id="show-reg-prod-vet" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-reg-prod-vet" type="file" multiple />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label label-bold">Registro de Clientes:</label>
+                            <a id="show-reg-cliente" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-reg-cliente" type="file" multiple />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label label-bold">Registro de Proveedores:</label>
+                            <a id="show-reg-proveedor" href="" target="_blank" class="btn-success btn btn-sm float-right" style="display:none;">
+                                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver
+                            </a>
+                            <br />
+                            <div class="file-loading">
+                                <input id="input-b7-reg-proveedor" type="file" multiple />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

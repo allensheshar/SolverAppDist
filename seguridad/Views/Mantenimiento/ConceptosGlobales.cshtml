@@ -1,0 +1,53 @@
+﻿<form name="filtrosRegConceptosGlobales" onsubmit="return false;">
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group-rm">
+                <label for="_buscar">Buscar</label>
+                <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar concepto..." autocomplete="off" />
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group-rm">
+                <label for="FLAG_GRUPO_CONCEPTO">Grupo de Concepto</label>
+                <select id="FLAG_GRUPO_CONCEPTO" name="FLAG_GRUPO_CONCEPTO" class="form-control form-control-sm" data-query="gbl_obtener_parametro_planilla" data-value="CODIGO_PARAMETRO" data-field="DESCRIPCION" data-tipoParametro="Grupo Concepto Globales"></select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group-rm">
+                <label for="TIPO_CALCULO">Tipo de Cálculo</label>
+                <select id="TIPO_CALCULO" name="TIPO_CALCULO" class="form-control form-control-sm">
+                    <option value="">--seleccione--</option>
+                    <option value="V">Valor</option>
+                    <option value="F">Fórmula</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="row">
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <label for="">&nbsp;</label>
+                        <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-auto p-0">
+                    <label for="">&nbsp;</label>
+                    <div class="dropdown">
+                        <button class="btn btn-orange btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                        <div class="dropdown-menu dropdown-caret" style="">
+                            <a id="btnAgregarConcepto" class="dropdown-item" href="@Url.Action("RegistroConceptosGlobales", "Mantenimiento")"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Concepto</a>
+                            <a id="btnEditarConcepto" class="dropdown-item" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Concepto</a>
+                            <a id="btnEliminarConcepto" class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar Concepto</a>
+                            <a id="btnDescargar" class="dropdown-item" href="#"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar Excel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="tblConceptos" class="mt-2"></div>
+        </div>
+    </div>
+</form>

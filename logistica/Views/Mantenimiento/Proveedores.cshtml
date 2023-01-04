@@ -1,0 +1,29 @@
+﻿<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="filtrosRegProveedores" onsubmit="return false;">
+            <div class="row">
+                <div class="col-12 col-sm-3 col-md-3">
+                    <div class="form-group-rm">
+                        <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar proveedor..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-auto p-0">
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-orange dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                        <div class="dropdown-menu dropdown-caret" style="">
+                            <a id="btnAgregarPro" class="dropdown-item" href="@Url.Action("ProveedoresRegistro", "Mantenimiento")"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Proveedor</a>
+                            <a id="btnEditarPro" class="dropdown-item" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Proveedor</a>
+                            <a id="btnEliminarPro" class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar Proveedor</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="tblProveedores" class="mt-2"></div>
+    </div>
+</div>

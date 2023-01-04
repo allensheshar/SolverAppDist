@@ -1,0 +1,32 @@
+﻿<form name="frm">
+    <div class="row">
+        <div class="col">
+            <img id="IMAGEN_EMPRESA" width="200" height="120" />
+            <div class="text-center text-uppercase">
+                <h3 id="titulo"></h3>
+            </div>
+            <div class="mb-4">
+                <div class="row">
+                    <div class="col-auto">
+                        <label class="col-form-label col-form-label-sm" id="lblEmpresa"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <label class="col-form-label col-form-label-sm" id="lblRuc"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <label class="col-form-label col-form-label-sm">Cliente</label>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-control form-control-sm" name="persona" data-query="cb_ventas_procesos_filtroventa_listarclientes" data-value="C_CLIENTE" data-field="RAZON_SOCIAL" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Seleccione --"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="table"></div>
+

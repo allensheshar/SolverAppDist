@@ -1,0 +1,46 @@
+﻿<form name="frmAdjuntarGuia" method="post" onsubmit="return false;" autocomplete="off">
+
+    <div class="col-md-12">
+        <div class="modal-body row mt-0">
+            <div class="col-md-12" style="display:none;" id="crearguia">
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Tipo de guía:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select name="TIPO_DOC" class="form-control form-control-lg" data-query="gbl_obtener_tipo_documento_guia_nuevaguia" data-value="C_PARAMETRO_GENERAL" data-field="DESCRIPCION_PARAMETRO" data-textdefault="--Seleccione--" required></select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Número de guía:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input name="NUMERO" type="text" class="form-control form-control-lg" placeholder="Ingrese número de guía" required />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Centro de costo:</label>
+                    </div>
+                    <div class="col-md-10">
+                        <select name="CENTRO_COSTO" class="form-control form-control-lg" data-query="q_ventas_procesos_ventaregistro_obtenercentrocosto" data-value="C_UNIDAD_NEGOCIO" data-field="NOMBRE" data-EMPRESA="@Session["SESSION_EMPRESA"].ToString()"
+                                data-textdefault="--Seleccione--" required></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div id="tblGuia"></div>
+            </div>
+            <div class="col-md-12 mt-2">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button class="btn btn-sm btn-danger float-right" id="btnGuardar">
+                            <i class="fa fa-floppy-o text-110 mr-1"></i>Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

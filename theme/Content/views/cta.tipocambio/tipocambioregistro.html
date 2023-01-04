@@ -1,0 +1,50 @@
+﻿<style>
+    .editedRow {
+        color: #b90f0f !important;
+    }
+</style>
+<form name="frmRegistroTipoCambio" action="#" method="post" data-table="PADRON_TC" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+
+    <input type="hidden" id="CONDITION" value="@ViewBag.Condition" />
+
+    <div class="p-3">
+        <div class="row">
+            <div class="col-md-10">
+
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="form-group">
+                            <span class="help-block text-muted small-font"> Fecha</span>
+                            <input type="text" class="form-control form-control-sm C_FECHA" name="C_FECHA" id="C_FECHA" />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="form-group">
+                            <span class="help-block text-muted small-font"> Descripción</span>
+                            <select class="form-control form-control-sm" id="C_MONEDA" name="C_MONEDA" data-query="q_administracion_tipocambio_moneda" data-value="C_PARAMETRO_GENERAL" data-field="DESCRIPCION_PARAMETRO" data-enableDefault="0"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="form-group">
+                            <span class="help-block text-muted small-font"> Precio Compra</span>
+                            <input type="number" class="form-control form-control-sm" name="PRECIO_COMPRA" id="PRECIO_COMPRA" />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="form-group">
+                            <span class="help-block text-muted small-font"> Precio Venta</span>
+                            <input type="number" class="form-control form-control-sm" name="PRECIO_VENTA" id="PRECIO_VENTA" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <button type="button" id="btnGuardarTipoCambio" class="btn btn-danger btn-sm"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,39 @@
+﻿
+<form name="filtrosRegCalendarioFeriado" onsubmit="return false;">
+
+    <div class="row mb-3">
+        <div class="col-12 col-sm-3 col-md-3">
+            <div class="form-group-rm">
+                <label>Buscar año</label>
+                <select class="form-control form-control-sm clsEmpresa" id="_anio" name="_anio" data-query="q_pla_mantenimiento_calendarioferiado_consultaranios" data-value="ANIO" data-field="ANIO" data-selected="1"></select>
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <div class="form-group-rm">
+                <label>Buscar feriado</label>
+                <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Ingrese aquí su año de búsqueda..." autocomplete="off" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-4 col-md-4">
+            <label>&nbsp;</label>
+            <div class="row">
+                <div class="form-group-rm mr-2">
+                    <button type="submit" id="btnBuscar" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-orange dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                    <div class="dropdown-menu dropdown-caret" style="">
+                        <a id="btnAgregarFeriado" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar</a>
+                        <a id="btnEliminarFeriado" class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="tblCalendarioFeriado"></div>
+        </div>
+    </div>
+
+</form>

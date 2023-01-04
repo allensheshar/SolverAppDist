@@ -1,0 +1,53 @@
+﻿<style type="text/css">
+    .editedRow {
+        color: #b90f0f !important;
+    }
+</style>
+
+<form name="filtrosRegCuentaBancaria" onsubmit="return false;">
+    <div class="row mb-3">
+        <div class="col-12 col-sm-3 col-md-3">
+            <div class="form-group-rm">
+                <label>Buscar Banco/Proveedor</label>
+                <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar..." autocomplete="off" />
+            </div>
+        </div>
+        <div class="col-3 col-sm-2 col-md-2">
+            <div class="form-group-rm">
+                <label>Moneda</label>
+                <select class="form-control form-control-sm" id="_moneda" name="_moneda" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Moneda"></select>
+            </div>
+        </div>
+        <div class="col-3 col-sm-2 col-md-2">
+            <div class="form-group-rm">
+                <label>Tipo de Cuenta</label>
+                <select class="form-control form-control-sm" id="_cuenta" name="_cuenta" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Tipo de Cuenta"></select>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-4 col-md-4">
+            <div class="row">
+                <div class="form-group-rm mr-2">
+                    <label> &nbsp;</label>
+                    <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                </div>
+                <div class="form-group-rm mr-2">
+                    <label> &nbsp;</label>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-orange dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                        <label> &nbsp;</label>
+                        <div class="dropdown-menu dropdown-caret" style="">
+                            <a id="btnNuevaCuenta" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva Cuenta</a>
+                            <a id="btnEliminarCuenta" class="dropdown-item" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar Cuenta</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="tblCuentaBancaria"></div>
+        </div>
+    </div>
+</form>

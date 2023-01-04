@@ -1,0 +1,88 @@
+﻿<form name="frm" method="post" action="#" data-table="LOG.OPERACION_INTERNACIONAL" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+
+    <div class="row">
+        <div class="col-auto">
+            <a href="@Url.Action("Exportaciones","Procesos")" class="btn btn-sm btn-gray float-left" id="btnAtras"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-sm btn-danger float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+        </div>
+    </div>
+
+    <hr />
+
+    <input type="hidden" name="C_EMPRESA" />
+    <input type="hidden" name="ID_OPERACION" />
+    <input type="hidden" name="ANIO" value="@DateTime.Now.ToString("yyyy")" />
+    <input type="hidden" name="NRO_OPERACION" />
+    <input type="hidden" name="C_PERSONA" />
+    <input type="hidden" name="IND_ESTADO" value="G" />
+
+    <div class="row">
+        <div class="col-md-9 col-lg-9">
+            <img id="imageEmpresa" height="120" src="/Content/Images/no-white.png" />
+        </div>
+        <div class="col-md-3 col-lg-3 ">
+
+            <div class="box border p-2">
+                <div class="cell">
+
+                    <h3 id="RUC_EMPRESA"></h3>
+                    <h3>
+                        <select name="FLAG_TIPO" class="form-control form-control-lg text-uppercase text-center">
+                            <option value="E">Exportación</option>
+                        </select>
+                    </h3>
+                    <h3 id="OPERACION">@DateTime.Now.ToString("yyyy")-XXXX</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-1">
+            <label class="col-form-label col-form-label-sm" for="NOMBRE">Nombre:</label>
+        </div>
+        <div class="col-2">
+            <input name="NOMBRE" type="text" class="form-control form-control-sm" placeholder="Nombre" required>
+        </div>
+        <div class="col-1">
+            <label class="col-form-label col-form-label-sm" for="C_PAIS">País de destino:</label>
+        </div>
+        <div class="col-2">
+            <select name="C_PAIS" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Nacionalidad" data-textDefault="-- Seleccione --" required></select>
+        </div>
+        <div class="col-1">
+            <label class="col-form-label col-form-label-sm" for="C_CANAL">Canal:</label>
+        </div>
+        <div class="col-2">
+            <select name="C_CANAL" class="form-control form-control-sm">
+                <option value="">-- Seleccione --</option>
+                <option value="R">Rojo</option>
+                <option value="V">Verde</option>
+                <option value="N">Naranja</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-1">
+            <label class="col-form-label col-form-label-sm" for="FECHA">Fecha exportación:</label>
+        </div>
+        <div class="col-2">
+            <input name="FECHA" type="text" class="form-control form-control-sm" placeholder="dd/mm/yyyy" value="@DateTime.Now.ToString("dd/MM/yyyy")" required>
+        </div>
+        <div class="col-1">
+            <label class="col-form-label col-form-label-sm" for="C_PERSONA_DETALLE">Cliente:</label>
+        </div>
+        <div class="col-5">
+            <div class="input-group">
+                <input name="C_PERSONA_DETALLE" type="text" data-nosend="1" class="form-control form-control-sm" placeholder="Buscar cliente" readonly required>
+                <div class="input-group-append">
+                    <button class="btn btn-orange btn-sm" type="button" id="btnBuscarCliente"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

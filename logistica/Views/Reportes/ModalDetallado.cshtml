@@ -1,0 +1,86 @@
+﻿<input type="hidden" id="mes_actual" value="@DateTime.Now.Month" />
+<div style="padding-bottom: 0.4em;">
+    <form name="frm" onsubmit="return false;" novalidate="novalidate">
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label>Año</label>
+                    <select class="form-control form-control-sm clsEmpresa" id="_anio" data-query="q_logistica_reportes_filtro_consultaranioscompra" data-value="ANIO" data-field="ANIO" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label>Mes</label>
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control form-control-sm clsEmpresa" id="mes" name="mes" data-query="q_ventas_reportes_resumen_obtenermeses" data-value="MES" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+                        </div>
+                        <div class="col">
+                            <select class="form-control form-control-sm clsEmpresa" id="mesfin" name="mesfin" data-query="q_ventas_reportes_resumen_obtenermeses" data-value="MES" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-selected="1"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="producto">Producto</label>
+                    <select class="form-control form-control-sm" id="_producto" name="producto" data-query="cb_logistica_mantenimiento_busquedaproducto_listarproductos" data-value="C_PRODUCTO" data-field="NOMBRE_PARA_VENTA" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"
+                            data-live-search="true" data-style="btn-light" data-size="5"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="centrocosto">Centro de costo</label>
+                    <select class="form-control form-control-sm" id="_centro" name="centrocosto" data-query="cb_ventas_procesos_filtroventa_listarcentrocosto" data-value="C_UNIDAD_NEGOCIO" data-field="NOMBRE" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="proveedor">Proveedor</label>
+                    <select class="form-control form-control-sm" id="_proveedor" name="proveedor" data-query="cb_logistica_procesos_filtrologistica_listarproveedores" data-value="C_PROVEEDOR" data-field="RAZON_SOCIAL" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"
+                            data-live-search="true" data-style="btn-light" data-size="5"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="estadistico">Representación</label>
+                </div>
+                <div class="form-group-rm">
+                    <div><input type="radio" name="estadistico" value="item" id="it" checked="checked" /> <label for="it">Por item</label></div>
+                    <div><input type="radio" name="estadistico" value="proveedor" id="pro" /> <label for="pro">Por proveedor</label></div>
+                    <div><input type="radio" name="estadistico" value="centro" id="cliitem" /> <label for="cliitem">Por centro de costo</label></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group-rm">
+                    <label for="vendedor">Información en columnas</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <div><input type="radio" name="moneda" value="soles" id="_soles" checked /> <label for="_soles">Soles</label></div>
+            </div>
+            <div class="col-auto">
+                <div><input type="radio" name="moneda" value="dolares" id="_dolares" /> <label for="_dolares">Dolares</label></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-sm btn-danger float-right">Procesar</button>
+            </div>
+        </div>
+    </form>
+</div>

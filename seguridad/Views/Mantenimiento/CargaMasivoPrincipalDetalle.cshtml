@@ -1,0 +1,46 @@
+﻿
+<form name="frmRegistroCargaMasivaDetalle" action="#" method="post" data-table="MASIVO" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+
+    <input type="hidden" id="C_MASIVO" name="C_MASIVO" />
+    <input type="hidden" class="FEC_REGISTRO" name="FEC_REGISTRO" id="FEC_REGISTRO" />
+
+    <div class="row mb-2">
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <span class="help-block text-muted small-font"> Nombre masivo</span>
+            <div class="input-floating-label text-blue-d1 brc-blue-m1">
+                <input type="text" class="form-control form-control-sm" name="NOMBRE_MASIVO" id="NOMBRE_MASIVO" required />
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3" style="display:none;">
+            <span class="help-block text-muted small-font"> Descripción</span>
+            <div class="input-floating-label text-blue-d1 brc-blue-m1">
+                <input type="text" class="form-control form-control-sm" name="DESCRIPCION" id="DESCRIPCION" />
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <span class="help-block text-muted small-font"> Tabla</span>
+            <div class="input-floating-label text-blue-d1 brc-blue-m1">
+                <input type="text" class="form-control form-control-sm" name="NOMBRE_TABLA" id="NOMBRE_TABLA" required />
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <span class="help-block text-muted small-font"> Estado</span>
+            <select class="form-control form-control-sm" id="IND_ESTADO" name="IND_ESTADO">
+                <option value="*"> Activo</option>
+                <option value="&"> Inactivo</option>
+            </select>
+        </div>
+        <div class="col-auto p-0">
+            <span class="help-block text-muted small-font">&nbsp;</span>
+            <button id="btnAgregarDetalle" class="btn btn-sm btn-info btn-block"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Agregar</button>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div id="tblCargaMasivaDetalle"></div>
+        </div>
+    </div>
+
+    <button type="submit" id="btnGuardarCargaMasiva" name="btnGuardarCargaMasiva" class="btn btn-danger float-right btn-sm"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;Guardar</button>
+</form>

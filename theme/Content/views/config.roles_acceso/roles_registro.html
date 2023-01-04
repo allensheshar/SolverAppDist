@@ -1,0 +1,213 @@
+﻿<button class="btn btn-danger btn-save-rol btn-sm float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+<a id="lnkBack" href="#" class="btn btn-gray btn-sm"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+<hr />
+<ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#info" role="tab" aria-controls="home" aria-selected="true">Información</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#permisos" role="tab" aria-controls="profile" aria-selected="false">Accesos Habilitados</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#usuarios" role="tab" aria-controls="contact" aria-selected="false">Usuarios Asignados</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContentRoles">
+    <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="home-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <form name="frmRegistroRol" action="#" method="post" data-table="W_ROL" data-condition="@ViewBag.Condition" data-setUpdate="1">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="C_EMPRESA">Empresa propietaria</label>
+                                <select class="form-control form-control-sm" id="C_EMPRESA" name="C_EMPRESA" data-query="GET_ACTIVOS_EPRESA" data-value="C_EMPRESA" data-field="NOMBRE" data-selected="0" required></select>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="NOMBRE">Nombre del rol</label>
+                                <input type="text" class="form-control form-control-sm" id="NOMBRE" name="NOMBRE" placeholder="Nombre del Rol" value="" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="TIPO_ROL">Tipo de rol</label>
+                                <select class="form-control form-control-sm" id="TIPO_ROL" name="TIPO_ROL" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Tipo Rol" data-selected="0" required></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="DESCRIPCION">Descripción</label>
+                                <textarea rows="8" class="form-control form-control-sm" id="DESCRIPCION" name="DESCRIPCION" placeholder="Agrega un descripcion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="editerLimit" class="row d-none">
+                        <div class="col-12 ">
+
+                            <div class="border rounded bg-light pl-2 pr-2 pt-2">
+
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="IND_VENTA">Tipo de Venta</label>
+                                            <select class="form-control form-control-sm" id="IND_VENTA" name="IND_VENTA">
+                                                <option value="&">Sin Definir</option>
+                                                <option value="W">Solo Web</option>
+                                                <option value="M">Solo Movil</option>
+                                                <option value="*">Web y Movil</option>
+                                                <option value="N">Negociados</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="LIMITE_USUARIOS">Límite de Usuarios</label>
+                                            <input class="form-control form-control-sm" id="LIMITE_USUARIOS" name="LIMITE_USUARIOS" type="number" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="LIMITE_OPERACIONES">Límite de Operaciones</label>
+                                            <input class="form-control form-control-sm" id="LIMITE_OPERACIONES" name="LIMITE_OPERACIONES" type="number" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="LIMITE_ESTABLECIMIENTOS">Límite de Establecimientos</label>
+                                            <input class="form-control form-control-sm" id="LIMITE_ESTABLECIMIENTOS" name="LIMITE_ESTABLECIMIENTOS" type="number" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="LIMITE_ALMACENES">Límite de Almacenes</label>
+                                            <input class="form-control form-control-sm" id="LIMITE_ALMACENES" name="LIMITE_ALMACENES" type="number" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="PRECIO_VENTA">Precio Venta</label>
+                                            <input class="form-control form-control-sm" id="PRECIO_VENTA" name="PRECIO_VENTA" type="number" value="0" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="text-danger">
+                                    ** Si ingresas 0, el limite se establece en ilimitado.
+                                </div>
+
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="C_ROL" value="@Guid.NewGuid().ToString().Substring(0,5)" />
+                    <input type="hidden" name="FLAG_ESTADO" value="*" />
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="permisos" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="zone-opciones" style="margin-top:0.5rem;">
+                    <i class="fa fa-exclamation" aria-hidden="true"></i> No hay accesos registrados.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-info btn-sm btn-add-user"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Usuario</button>
+                <div id="tableRegUsuarios" style="margin-top:5px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+
+    .zone-opciones .add-element, .leyenda {
+        font-size: 0.7rem;
+    }
+
+    .zone-opciones .inner-items {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+        .zone-opciones .inner-items li {
+            font-size: 0.8rem;
+            list-style: none;
+        }
+
+        .zone-opciones .inner-items .add-element {
+            font-size: 0.6rem;
+        }
+
+        .zone-opciones .inner-items li .text strong {
+            background-color: aliceblue;
+            font-size: 0.6rem;
+        }
+
+        .zone-opciones .inner-items li .text:hover {
+            background-color: #fdded6;
+        }
+
+        .zone-opciones .inner-items .editer {
+            cursor: pointer;
+            min-width: 5rem;
+            display: inline-block;
+        }
+
+    .zone-opciones .level-01 {
+        margin-bottom: 0.5rem;
+        background-color: #fff3f0;
+        padding: 0.5rem;
+    }
+
+        .zone-opciones .level-01 > .text, .level-01 > .text:hover {
+            font-size: 0.9rem !important;
+            font-weight: bold;
+        }
+
+        .zone-opciones .level-01 > ul {
+            padding-left: 0.5rem;
+        }
+
+    .zone-opciones .level-02 {
+        padding-top: 0.3rem;
+    }
+
+        .zone-opciones .level-02 > .text, .level-02 > .text:hover {
+            font-size: 0.8rem !important;
+        }
+
+        .zone-opciones .level-02 > ul {
+            padding-left: 0.7rem;
+        }
+
+    .zone-opciones .level-03 > ul {
+        padding-left: 0.9rem;
+    }
+
+    .zone-opciones .level-03 > .text > .add-element {
+        display: none;
+    }
+
+    .zone-opciones .level-03:hover > .text > .add-element {
+        display: block;
+    }
+</style>

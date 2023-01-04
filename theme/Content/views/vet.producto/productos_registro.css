@@ -1,0 +1,24 @@
+﻿.modal-search-50 .modal-dialog {
+    max-width: 50%;
+}
+
+.modal-search-60 .modal-dialog {
+    max-width: 60%;
+    margin-top: 130px;
+}
+
+.modal-search-70 .modal-dialog {
+    max-width: 70%;
+}
+
+.modal-search-80 .modal-dialog {
+    max-width: 80%;
+}
+
+.modal-search-90 .modal-dialog {
+    max-width: 90%;
+}
+
+.almacen-box {
+    background-color: #f9e4c1
+}

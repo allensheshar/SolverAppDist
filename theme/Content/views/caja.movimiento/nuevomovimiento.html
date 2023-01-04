@@ -1,0 +1,97 @@
+﻿<form name="frame" method="post" action="#" data-table="CAJA.MOVIMIENTO" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+
+    <div class="row">
+        <div class="col-auto">
+            <a href="@Url.Action((@ViewBag.COD_TIPO == 'I' ? "MovimientoIngreso" : "MovimientoEgreso"),"Procesos")" class="btn btn-sm btn-gray float-left" id="btnAtras"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-sm btn-danger float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+        </div>
+    </div>
+
+    <hr />
+
+    <input type="hidden" name="C_EMPRESA" value="@Session["SESSION_EMPRESA"]" />
+    <input type="hidden" name="ANIO" value="@DateTime.Now.ToString(" yyyy")" />
+    <input type="hidden" name="NRO_OPERACION" />
+    <input type="hidden" name="C_USUARIO_MOVIMIENTO" value="@Session["SESSION_ID"]" />
+    <input type="hidden" name="COD_TIPO" value="@ViewBag.COD_TIPO" data-nosend="1" />
+    <input type="hidden" name="EDITAR" id="EDITAR" value="@ViewBag.EDITAR" data-nosend="1" />
+    <input type="hidden" name="C_PERSONA" />
+
+    <div class="row mt-3">
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="C_MOVIMIENTO">Código:</label>
+        </div>
+        <div class="col-lg-2">
+            <input name="C_MOVIMIENTO" type="text" class="form-control form-control-sm" readonly placeholder="XXXX">
+        </div>
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="TIPO">Tipo:</label>
+        </div>
+        <div class="col-lg-2">
+            <select class="form-control form-control-sm" name="TIPO" data-query="cb_caja_procesos_nuevo_movimiento_tipomovimiento"
+                    data-value="C_TIPO_MOVIMIENTO_CTA_BANCARIA" data-field="NOMBRE_TIPO_MOVIMIENTO"
+                    data-cod_tipo="@ViewBag.COD_TIPO" data-C_EMPRESA="@Session["SESSION_EMPRESA"]" required></select>
+        </div>
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="FECHA">Fecha:</label>
+        </div>
+        <div class="col-lg-2">
+            <input name="FECHA" type="text" class="form-control form-control-sm" placeholder="dd/mm/yyyy" value="@DateTime.Now.ToString("dd/MM/yyyy")" required>
+        </div>
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="FECHA_BANCO">Fecha banco:</label>
+        </div>
+        <div class="col-lg-2">
+            <input name="FECHA_BANCO" type="text" class="form-control form-control-sm" placeholder="dd/mm/yyyy" value="@DateTime.Now.ToString("dd/MM/yyyy")" required>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="NUMERO">Número:</label>
+        </div>
+        <div class="col-lg-2">
+            <input name="NUMERO" type="text" class="form-control form-control-sm">
+        </div>
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="C_MONEDA">Moneda:</label>
+        </div>
+        <div class="col-lg-2">
+            <select class="form-control form-control-sm" name="C_MONEDA" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoparametro="Moneda" required></select>
+        </div>
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="TC">Tipo de cambio:</label>
+        </div>
+        <div class="col-lg-2">
+            <input name="TC" type="text" class="form-control form-control-sm" required readonly>
+        </div>
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="IND_ESTADO">Estado:</label>
+        </div>
+        <div class="col-lg-2">
+            <select class="form-control form-control-sm" name="IND_ESTADO">
+                <option value="*" selected="selected">Pendiente</option>
+                <option value="A">Aprobado</option>
+                <option value="&">Anulado</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-1">
+            <label class="col-form-label col-form-label-sm" for="DESCRIPCION">Descripción:</label>
+        </div>
+        <div class="col-lg">
+            <textarea name="DESCRIPCION" class="form-control form-control-sm" placeholder="Descripcion"></textarea>
+        </div>
+    </div>
+</form>
+<div id="divTblMovDoc">
+</div>
+
+<div id="divTblMovCaja">
+</div>
+
+<div id="divTblMovGastos">
+</div>

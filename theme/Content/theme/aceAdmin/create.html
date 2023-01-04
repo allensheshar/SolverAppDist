@@ -1,0 +1,30 @@
+﻿<!doctype html>
+<html lang="es-pe" style="--scrollbar-width:12px; --moz-scrollbar-thin:12px; font-size: 0.8rem;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/png" href="{{UrlTheme}}/img/logo_icono.png" />
+    @*<link rel="shortcut icon" type="image/x-icon" href="{{UrlTheme}}/images/logo_icono.ico" />*@
+</head>
+    
+    <body>
+
+        <div class="body-login">sx
+            <div class="row justify-content-center">
+
+                <div class="col-12 col-md-5 d-none d-sm-none d-md-block body-login-form body-login-background">
+
+                </div>
+
+                <div class="col-12 col-md-7 col-sm-12">
+
+                    @RenderBody()
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>

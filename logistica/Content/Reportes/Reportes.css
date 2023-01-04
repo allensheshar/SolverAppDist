@@ -1,0 +1,34 @@
+﻿.imagen-1 {
+    background-image: url('/Logistica/Content/Images/cartera.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.imagen-2 {
+    background-image: url('/Logistica/Content/Images/estadistico.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.imagen-3 {
+    background-image: url('/Logistica/Content/Images/resumen.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.imagen-4 {
+    background-image: url('/Logistica/Content/Images/detallada.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.imagen-5 {
+    background-image: url('/Logistica/Content/Images/seguimiento.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

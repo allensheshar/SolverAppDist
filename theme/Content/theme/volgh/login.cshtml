@@ -1,0 +1,41 @@
+﻿<!doctype html>
+<html lang="es-pe" dir="ltr">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--<meta name="description" content="Volgh –  Bootstrap 4 Responsive Application Admin panel Theme Ui Kit & Premium Dashboard Design Modern Flat HTML Template">
+    <meta name="author" content="Spruko Technologies Private Limited">
+    <meta name="keywords" content="analytics dashboard, bootstrap 4 web app admin template, bootstrap admin panel, bootstrap admin template, bootstrap dashboard, bootstrap panel, Application dashboard design, dashboard design template, dashboard jquery clean html, dashboard template theme, dashboard responsive ui, html admin backend template ui kit, html flat dashboard template, it admin dashboard ui, premium modern html template">-->
+    <!--<link rel="shortcut icon" type="image/x-icon" href="../../assets/images/brand/favicon.ico" />-->
+
+    <title>@ViewBag.Title</title>
+
+</head>
+<body>
+
+    <div id="global-loader">
+        <img src="{{UrlTheme}}/images/loader.svg" class="loader-img" alt="Loader">
+    </div>
+
+    <div class="login-img">
+
+        <div class="page">
+            <div class="">
+
+                <div class="container-login100">
+                    <div class="wrap-login100 p-6">
+
+                        @RenderBody()
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

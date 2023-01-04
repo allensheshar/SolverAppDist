@@ -1,0 +1,213 @@
+﻿<ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">Datos Generales</a>
+    </li>
+    <li class="nav-item tab-facturacion" style="display:none">
+        <a class="nav-link" id="facturacion-tab" data-toggle="tab" href="#facturacion" role="tab" aria-controls="facturacion" aria-selected="false">Facturacion</a>
+    </li>
+    <li class="nav-item tab-ventas" style="display:none">
+        <a class="nav-link" id="ventas-tab" data-toggle="tab" href="#ventas" role="tab" aria-controls="ventas" aria-selected="false">Ventas</a>
+    </li>
+    <li class="nav-item tab-archivos" style="display:none">
+        <a class="nav-link" id="archivos-tab" data-toggle="tab" href="#archivos" role="tab" aria-controls="archivos" aria-selected="false">Archivos</a>
+    </li>
+    <li class="nav-item tab-boletas" style="display:none">
+        <a class="nav-link" id="boletas-tab" data-toggle="tab" href="#boletas" role="tab" aria-controls="boletas" aria-selected="false">Boletas</a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContentRoles">
+    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+
+        <form name="frmRegistroEmpresa" action="#" method="post" data-table="EMPRESA" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+
+            <div class="row">
+                <div class="col-md-10">
+
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label for="NRO_DOCUMENTO">RUC</label>
+                            <input type="text" class="form-control form-control-sm" id="NRO_DOCUMENTO" name="NRO_DOCUMENTO" placeholder="0000000000" maxlength="11" value="" required>
+                        </div>
+                        <div class="form-group col-md-10">
+                            <label for="RAZON_SOCIAL">Razon Social</label>
+                            <input type="text" class="form-control form-control-sm" id="RAZON_SOCIAL" name="RAZON_SOCIAL" placeholder="Nombre de Empresa" value="" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="DIRECCION">Dirección</label>
+                            <input type="text" class="form-control form-control-sm" id="DIRECCION" name="DIRECCION" placeholder="Dirección" value="" required>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="NOMBRE_FIRMA_BE">Nombre del Representante Legal</label>
+                            <input type="text" class="form-control form-control-sm" id="NOMBRE_FIRMA_BE" name="NOMBRE_FIRMA_BE" placeholder="Nombre del Representante Legal" value="" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="EMAIL_FIRMANTE_BE">E-mail del Representante Legal</label>
+                            <input type="text" class="form-control form-control-sm" id="EMAIL_FIRMANTE_BE" name="EMAIL_FIRMANTE_BE" placeholder="emailfirmante@dominio.com" value="" required>
+                        </div>
+                    </div>
+
+                    <label class="control-label label-bold"><strong>Servicios contratados:</strong></label>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="MOD_FACTURACION">
+                                <label class="form-check-label" for="MOD_FACTURACION">
+                                    Módulo de Facturación
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="MOD_VENTAS">
+                                <label class="form-check-label" for="MOD_VENTAS">
+                                    Módulo de Ventas
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="MOD_ARCHIVOS">
+                                <label class="form-check-label" for="MOD_ARCHIVOS">
+                                    Módulo de Archivos
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="MOD_BOLETAS">
+                                <label class="form-check-label" for="MOD_BOLETAS">
+                                    Módulo de Boletas
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="alert alert-warning" role="alert">
+            Al crear el registro se le enviara las credenciales de acceso al correo del firmante.
+        </div>*@
+
+                    <input type="hidden" name="C_EMPRESA" value="@Guid.NewGuid().ToString().Substring(0, 10)" />
+                    <input type="hidden" name="C_USUARIO" />
+                    <input type="hidden" name="C_ARCHIVO_LOGO" id="C_ARCHIVO_LOGO" />
+                    <input type="hidden" name="ID_EMISOR" id="ID_EMISOR" />
+                    <input type="hidden" id="CONDITION" value="@ViewBag.Condition" />
+                    <input type="hidden" name="FLAG_MOD_FACTURACION" id="FLAG_MOD_FACTURACION" value="&" />
+                    <input type="hidden" name="FLAG_MOD_VENTAS" id="FLAG_MOD_VENTAS" value="&" />
+                    <input type="hidden" name="FLAG_MOD_ARCHIVOS" id="FLAG_MOD_ARCHIVOS" value="&" />
+                    <input type="hidden" name="FLAG_MOD_BOLETAS" id="FLAG_MOD_BOLETAS" value="&" />
+
+
+                </div>
+                <div class="col-md-2">
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="control-label label-bold">(*) Logo de la empresa:</label>
+                            <br />
+                            <img width="100%" class="mt-1 mb-1 border rounded" id="img" style="display: none;" />
+                            <div class="file-loading">
+                                <input id="input-b7" name="input-b7" type="file" multiple />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+    <div class="tab-pane fade" id="facturacion" role="tabpanel" aria-labelledby="facturacion-tab">
+
+        <form name="frmRegistroFacturacion" action="#" method="post" autocomplete="off">
+            <div class="row">
+                <div class="col-md-10">
+
+                    <div class="row">
+
+                        <div class="form-group col-md-2">
+                            <label for="TIPO_DOC_FTE">Tipo de documento</label>
+                            <input type="text" class="form-control form-control-sm" id="TIPO_DOC_FTE" maxlength="11">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="NRO_DOCUMENTO_FTE">Nro. doc. identidad</label>
+                            <input type="text" class="form-control form-control-sm" id="NRO_DOCUMENTO_FTE" maxlength="11">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="RAZON_SOCIAL_FTE">Razón social</label>
+                            <input type="text" class="form-control form-control-sm" id="RAZON_SOCIAL_FTE">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="NOMBRE_COMERCIAL_FTE">Nombre comercial</label>
+                            <input type="text" class="form-control form-control-sm" id="NOMBRE_COMERCIAL_FTE">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="DOMICILIO_FISCAL_FTE">Domicilio fiscal</label>
+                            <input type="text" class="form-control form-control-sm" id="DOMICILIO_FISCAL_FTE">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="DEPARTAMENTO">DEPARTAMENTO</label>
+                            <select id="DEPARTAMENTO" class="form-control form-control-sm" data-query="gbl_obtenerdepartamentos" data-value="CODIGO_PARAMETRO" data-field="DESCRIPCION_PARAMETRO"></select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="PROVINCIA">PROVINCIA</label>
+                            <select id="PROVINCIA" class="form-control form-control-sm" disabled></select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="DISTRITO">DISTRITO</label>
+                            <select id="DISTRITO" class="form-control form-control-sm" disabled></select>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="PATH_PFX_FTE">Path pfx</label>
+                            <input type="text" class="form-control form-control-sm" id="PATH_PFX_FTE">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="CLAVE_PFX">Clave pfx</label>
+                            <input type="text" class="form-control form-control-sm" id="CLAVE_PFX">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="USUARIO_SUNAT">Usuario Sunat</label>
+                            <input type="text" class="form-control form-control-sm" id="USUARIO_SUNAT">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="CLAVE_SUNAT">Clave Sunat/Ose</label>
+                            <input type="text" class="form-control form-control-sm" id="CLAVE_SUNAT">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="URL_SERVICIO_SUNAT">Url servicio Sunat/Ose</label>
+                            <input type="text" class="form-control form-control-sm" id="URL_SERVICIO_SUNAT">
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="control-label label-bold">(*) Logo de Documentos y Correos:</label>
+                            <br />
+                            <img class="mt-1 mb-1 border rounded" id="imgfte" style="display: none;width:100%;" />
+                            <div class="file-loading">
+                                <input id="input-b7-fte" type="file" multiple />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <input type="hidden" id="UBIGEO">
+            <input type="hidden" name="C_ARCHIVO_LOGO" id="C_ARCHIVO_LOGO_FTE" />
+            <input type="hidden" id="EMAIL_ENVIO">
+            <input type="hidden" id="NOMBRE_ENVIO">
+
+        </form>
+
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-success btn-sm" id="btnGuardar">GUARDAR</button>
+    </div>
+</div>

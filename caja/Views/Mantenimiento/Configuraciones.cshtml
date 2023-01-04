@@ -1,0 +1,107 @@
+﻿
+<button class="btn btn-danger btn-sm pull-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+
+<ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="miempresa-tab" data-toggle="tab" href="#miempresa" role="tab" aria-controls="miempresa" aria-selected="true">
+            Mi empresa
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="tipo-movimiento-tab" data-toggle="tab" href="#tipo-movimiento" role="tab" aria-controls="tipo-movimiento" aria-selected="false">
+            Tipo de Movimiento
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="tipogasto-tab" data-toggle="tab" href="#tipogasto" role="tab" aria-controls="tipogasto" aria-selected="false">
+            Tipo de gasto
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="tipocontacto-tab" data-toggle="tab" href="#tipocontacto" role="tab" aria-controls="tipocontacto" aria-selected="false">
+            Tipo de contacto
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContentRoles" style="min-height: 700px;">
+    <div class="tab-pane fade show active" id="miempresa" role="tabpanel" aria-labelledby="miempresa-tab">
+        <input type="hidden" id="C_EMPRESA" />
+        <input type="hidden" id="C_ARCHIVO_LOGO" />
+        <input type="hidden" id="SERVICIOS" />
+
+        <div class="row">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label for="NRO_DOCUMENTO">RUC</label>
+                        <input type="text" class="form-control form-control-sm" id="NRO_DOCUMENTO" placeholder="0000000000" maxlength="11" disabled>
+                    </div>
+                    <div class="form-group col-md-10">
+                        <label for="RAZON_SOCIAL">Razon Social</label>
+                        <input type="text" class="form-control form-control-sm" id="RAZON_SOCIAL" placeholder="Nombre de Empresa" disabled>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="DIRECCION">Dirección</label>
+                        <input type="text" class="form-control form-control-sm" id="DIRECCION" placeholder="Dirección">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="NOMBRE_FIRMA_BE">Nombre del Representante Legal</label>
+                        <input type="text" class="form-control form-control-sm" id="NOMBRE_FIRMA_BE" placeholder="Nombre del Representante Legal">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="EMAIL_FIRMANTE_BE">E-mail del Representante Legal</label>
+                        <input type="text" class="form-control form-control-sm" id="EMAIL_FIRMANTE_BE" placeholder="emailfirmante@dominio.com">
+                    </div>
+                </div>
+                <div class="row">
+                    @*<div class="form-group col-md-8">
+                            <label>Servicios contratados:</label>
+                            <div class="form-group row">
+                                <div class="col-sm-12" id="divchk">
+
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="col-md-4">
+                        <label for="CUENTA_BANCARIA">Datos de Cuenta Bancaria</label>
+                        <textarea rows="5" class="form-control form-control-sm" id="CUENTA_BANCARIA"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-2">
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label class="control-label label-bold">(*) Logo de la empresa:</label>
+                        <br />
+                        <img width="100%" class="mt-1 mb-1 border rounded" id="img" style="display: none;" />
+                        <div class="file-loading">
+                            <input id="input-b7" name="input-b7" type="file" multiple />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="tipo-movimiento" role="tabpanel" aria-labelledby="tipo-movimiento-tab">
+        <button id="btnAgregarMovimiento" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarMovimiento" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <div id="tblTipoMovimiento"></div>
+    </div>
+
+    <div class="tab-pane fade" id="tipogasto" role="tabpanel" aria-labelledby="tipogasto-tab">
+        <button id="btnAgregarTipoGasto" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <div id="tblTipoGasto"></div>
+    </div>
+
+    <div class="tab-pane fade" id="tipocontacto" role="tabpanel" aria-labelledby="tipocontacto-tab">
+        <button id="btnAgregarTipoContacto" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarTipoContacto" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <div id="tblTipoContacto"></div>
+    </div>
+</div>
+

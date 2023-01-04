@@ -1,0 +1,567 @@
+﻿
+<form name="frmVenta" method="post" action="#" style="margin-bottom: 10px; font-size:12px;" autocomplete="off">
+    <input type="hidden" id="NC" value="@ViewBag.NC" />
+    <input type="hidden" id="ND" value="@ViewBag.ND" />
+    <input type="hidden" id="C_VENTA" value="@ViewBag.C_VENTA" />
+    <input type="hidden" id="VISTAPREVIA" value="@ViewBag.VISTAPREVIA" />
+    <input type="hidden" id="REF_C_VENTA" />
+    <input type="hidden" id="TC" />
+    <input type="hidden" id="NOTAPEDIDO" value="@ViewBag.NOTAPEDIDO"/>
+
+    <input type="hidden" id="C_CLIENTE" />
+    <input type="hidden" id="C_CATEGORIA_CLIENTE" />
+    <input type="hidden" id="IND_COTIZACION" />
+    <input type="hidden" id="IND_NOTA_PEDIDO" />
+    <input type="hidden" id="IND_ESTADO_VENTA" />
+    <input type="hidden" id="IND_ESTADO_COTIZACION" />
+    <input type="hidden" id="IND_ESTADO_NOTA_PEDIDO" />
+    <input type="hidden" id="NRO_SERIE_COMPROBANTE" />
+    <input type="hidden" id="C_ARCHIVO_PDF_COTIZACION" />
+    <input type="hidden" id="SIMBOLO_MONEDA" />
+    <input type="hidden" id="TIPO_DOC_CLIENTE" />
+    <input type="hidden" id="ID_EMISOR" />
+    <input type="hidden" id="FECHA_ACTUAL" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+    <input type="hidden" id="GUARDAR_GUIA" value="&" />
+    <input type="hidden" id="REF_EXPORTACION" value="" />
+    <input type="hidden" id="DEPARTAMENTO" value="" />
+    <input type="hidden" id="PROVINCIA" value="" />
+    <input type="hidden" id="DISTRITO" value="" />
+    <input type="hidden" id="EMISOR_RETENEDOR" value="&" />
+    <input type="hidden" id="EMISOR_BUEN_CONTRIBUYENTE" value="&" />
+    <input type="hidden" id="CLIENTE_RETENEDOR" value="&" />
+    <input type="hidden" id="CLIENTE_BUEN_CONTRIBUYENTE" value="&" />
+    <input type="hidden" id="COD_MODULO" />
+    <input type="hidden" id="RECARGO_CONSUMO_TOTAL" />
+
+    <input type="hidden" id="NRO_NOTA_PEDIDO" />
+    <input type="hidden" id="IND_NOTA_PEDIDO" value="*" />
+    <input type="hidden" id="IND_ESTADO_NOTA_PEDIDO" value="*" />
+    <input type="hidden" id="ANIO_NOTA_PEDIDO" value="@DateTime.Now.Year" />
+
+    <div class="row">
+        <div class="col-auto">
+            <a href="@Url.Action("RegistroVenta","Procesos")" id="btnAtras" class="btn btn-sm btn-gray float-left"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-sm btn-danger float-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+            <button type="button" class="btn btn-sm btn-orange float-right mr-4 d-none" id="btnVistaPrevia">
+                <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;Vista previa
+            </button>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-8">
+            <img id="IMAGEN_COMPANY" height="180" width="220" /> <br />
+            <strong><label id="RAZON_SOCIAL" style="font-size: 19px"></label></strong> <br />
+            <label id="DIRECCION_EMPRESA" style="font-size: 19px"></label> <br />
+            <strong><label id="UBIGEO" style="font-size: 19px"></label></strong>
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col-12">
+                    <strong><label class="col-form-label col-form-label-lg" for="ORDEN_COMPRA">Establecimiento:</label></strong>
+                    <select id="C_ESTABLECIMIENTO" class="form-control form-control-lg"
+                            data-query="gbl_obtenerestablecimientos" data-value="C_ESTABLECIMIENTO" data-field="NOMBRE_ESTABLECIMIENTO"
+                            data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-enabledefault="0"></select>
+                </div>
+                <div class="col-12">
+                    <div class="facturas factura-info vertical-center" style="padding: 0px;
+                        border-color: black;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        border: 2px solid rgb(193,193,193);
+                        border-radius: 10px;
+                        border-style: solid;
+                        box-sizing: border-box;
+                        display:none;">
+                        <div class="col-12 text-center" style="margin-bottom: -10px; font-size:30px;">
+                            <strong><label class="RUC_EMPRESA" style="color:black;"></label></strong>
+                        </div>
+                        <div class="col-12 text-center" style="margin-bottom: 5px; margin-top: 5px;">
+                            <select name="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" id="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" class="form-control form-control-sm" required
+                                    data-query="gbl_obtener_tipo_documento_ventas_nuevaventa_docs_new_2" data-value="CODIGO" data-field="DESCRIPCION" data-C_ESTABLECIMIENTO=""
+                                    data-enabledefault="0"
+                                    data-C_EMPRESA="@Session["SESSION_EMPRESA"]"
+                                    style="font-size: 30px;
+                            text-align: center;
+                            text-align-last: center;
+                            -moz-text-align-last: center;
+                            color: black;"></select>
+                        </div>
+                        <div class="col-12 mb-2 ">
+                            <div class="row">
+                                <div class="offset-3 p-0 col-auto">
+
+                                    <select id="serie" class="form-control form-control-sm"
+                                            data-query="cb_ventas_procesos_nuevaventa_obtenerseries_porempresa_new" data-value="SERIE" data-field="SERIE"
+                                            data-C_EMPRESA="@Session["SESSION_EMPRESA"]"
+                                            data-enabledefault="0"
+                                            data-C_TIPO_DOC=""
+                                            data-C_ESTABLECIMIENTO=""
+                                            style="font-size: 20px;
+                                text-align: center;
+                                text-align-last: center;
+                                -moz-text-align-last: center;
+                                color: black;"></select>
+                                </div>
+                                <div class="col-3">
+                                    <strong><label id="NRO_COMPROBANTE" style="color:black; font-size:30px;">XXXX</label></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notaspedido factura-info vertical-center" style="padding: 0px;
+                        border-color: black;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        border: 2px solid rgb(193,193,193);
+                        border-radius: 10px;
+                        border-style: solid;
+                        box-sizing: border-box;
+                        display:none;">
+                        <div class="col-12 text-center" style="margin-bottom: -10px; font-size:30px;">
+                            <strong><label class="RUC_EMPRESA"></label></strong>
+                        </div>
+                        <div class="col-12 text-center" id="contC_PARAMETRO_GENERAL_TIPO_DOCUMENTO">
+                            <select name="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" id="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" class="form-control form-control-sm" required>
+                                <option value="09903">Nota de pedido</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-2 ">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <strong><label id="NRO_OPERACION_NOTA_PEDIDO">@DateTime.Now.Year - XXXX</label></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label>Nombre / Razón social:</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="input-group">
+                <input class="form-control form-control-sm" type="text" id="NOMBRE" name="NOMBRE" readonly data-nosend="1" autocomplete="off">
+                <div class="input-group-append">
+                    <button id="btnCliente" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label id="tipo_doc">Nro. documento</label></strong>
+        </div>
+        <div class="col">
+            <input id="RUC" class="form-control form-control-sm" type="text" autocomplete="off" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label>Dirección:</label></strong>
+        </div>
+        <div class="col-5">
+            <input class="form-control form-control-sm" id="DIRECCION" type="text" readonly autocomplete="off" />
+        </div>
+        <div class="col-2 fechaemision">
+            <strong><label>Fecha emisión:</label></strong>
+        </div>
+        <div class="col-auto fechaemision">
+            <input class="form-control form-control-sm" type="text" id="FECHAEMISION" value="@DateTime.Now.ToString("dd-MM-yyyy")" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label>Moneda:</label></strong>
+        </div>
+        <div class="col-2">
+            <select class="form-control form-control-sm" name="C_PARAMETRO_GENERAL_MONEDA" id="C_PARAMETRO_GENERAL_MONEDA" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Moneda" data-enableDefault="0" required></select>
+            <label id="MONEDA" style="display:none;"></label>
+        </div>
+        <div class="col-2 offset-3 fecha_venc">
+            <strong><label>Fecha vencimiento:</label></strong>
+        </div>
+        <div class="col-auto fecha_venc">
+            <input class="form-control form-control-sm" type="text" id="FECHA_VENCIMIENTO" value="@DateTime.Now.ToString("dd-MM-yyyy")" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label for="ORDEN_COMPRA">Orden de compra:</label></strong>
+        </div>
+        <div class="col-2">
+            <input type="text" id="ORDEN_COMPRA" class="form-control form-control-sm" />
+        </div>
+        <div class="col-2 offset-3 bloque_orden_compra">
+            <strong><label>Tipo de operación:</label></strong>
+        </div>
+        <div class="col-2 bloque_orden_compra">
+            <select id="TIPO_OPERACION" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Código de tipo de operación" style="width: 100%" data-enableDefault="0"></select>
+        </div>
+        <div class="col-1 bloque_orden_compra">
+            <button class="btn btn-sm btn-orange" id="buscarAnticipos" type="button">Anticipos</button>
+        </div>
+    </div>
+    <div class="row mb-2 bloque-formapago">
+        <div class="col-2">
+            <strong><label for="ORDEN_COMPRA">Forma de pago:</label></strong>
+        </div>
+        <div class="col-2">
+            <select id="FORMA_PAGO" class="form-control form-control-sm"
+                    data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION"
+                    data-tipoParametro="Forma de pago" data-enableDefault="0"></select>
+        </div>
+        <div class="col-2 offset-3 bloque-tipodetraccion" style="display:none;">
+            <strong><label>Tipo detracción:</label></strong>
+        </div>
+        <div class="col-3 bloque-tipodetraccion" style="display:none;">
+            <select id="TIPO_DETRACCION" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general_detraccion" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Código de tipo de operación" style="width: 100%" data-enableDefault="1"></select>
+        </div>
+    </div>
+    <div class="row mb-2 bloque-formapago">
+        <div class="col-2">
+            <strong><label for="CORREO_ELECTRONICO">Correo electrónico:</label></strong>
+        </div>
+        <div class="col-3">
+            <input type="text" id="CORREO_ELECTRONICO" class="form-control form-control-sm" readonly />
+        </div>
+    </div>
+    <div class="row mb-2" id="bloque_venta" style="display:none">
+        <div class="col-2">
+            <strong><label>Exportación relacionada:</label></strong>
+        </div>
+        <div class="col-3">
+            <div class="input-group">
+                <input class="form-control form-control-sm" type="text" id="EXPORTACION_REF" name="EXPORTACION_REF" readonly data-nosend="1">
+                <div class="input-group-append">
+                    <button id="btnBuscarExportacion" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2" id="bloque_nota_credito">
+        <div class="col-2">
+            <strong><label>Tipo de nota de crédito:</label></strong>
+        </div>
+        <div class="col-3">
+            <select id="TIPO_NOTA_CREDITO" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Codigos de tipo de nota de credito electronica"></select>
+        </div>
+        <div class="col-2 offset-2">
+            <strong><label>Motivo:</label></strong>
+        </div>
+        <div class="col-3">
+            <input type="text" id="MOTIVO_NOTA_CREDITO" class="form-control form-control-sm" />
+        </div>
+    </div>
+    <div class="row mb-2" id="bloque_nota_debito">
+        <div class="col-2">
+            <strong><label>Tipo de nota de débito:</label></strong>
+        </div>
+        <div class="col-3">
+            <select id="TIPO_NOTA_DEBITO" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Códigos de tipo de nota de débito electrónica"></select>
+        </div>
+        <div class="col-2 offset-2">
+            <strong><label>Motivo:</label></strong>
+        </div>
+        <div class="col-3">
+            <input type="text" id="MOTIVO_NOTA_DEBITO" class="form-control form-control-sm" />
+        </div>
+    </div>
+    <div class="row mb-2" id="guiaremision" style="display:none">
+        <div class="col-2">
+            <strong><label for="GUIA_REMISION">Guias de remisión adjuntas:</label></strong>
+        </div>
+        <div class="col-3">
+            <div class="input-group">
+                <input type="text" id="GUIA_REMISION" class="form-control form-control-sm" />
+                <div class="input-group-append">
+                    <button id="btnBuscarDespachos" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2 bloque-nota-credito-debito" style="display:none">
+        <div class="col-2">
+            <strong><label for="NRO_DOC_REF">Nro doc referencia:</label></strong>
+        </div>
+        <div class="col-1">
+            <select id="TIPO_DOC_REF" class="form-control form-control-sm">
+                <option value="07236">Factura</option>
+                <option value="07237">Boleta de venta</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <input type="text" id="NRO_DOC_REF" class="form-control form-control-sm" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <button type="button" class="btn btn-orange btn-sm" id="btnBusquedaProducto"><i class="fa fa-archive" aria-hidden="true"></i> Agregar Item</button>
+        </div>
+        <div class="col-1">
+            <strong><label class="col-form-label" for="PORC_IGV">% IGV:</label></strong>
+        </div>
+        <div class="col-1">
+            <select id="PORC_IGV" class="form-control form-control-sm"
+                    data-query="gbl_obtener_igv_ventas" data-value="IGV" data-field="IGV"
+                    data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-BASE="" data-enableDefault="0"></select>
+            <!--<input type="number" max="100" id="PORC_IGV" name="PORC_IGV" class="form-control form-control-sm" />-->
+        </div>
+        <div class="col-1">
+            <strong><label class="col-form-label" for="PORC_RC">% RC:</label></strong>
+        </div>
+        <div class="col-1">
+            <input type="number" max="13" id="PORC_RC" name="PORC_RC" value="0" class="form-control form-control-sm" />
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            <div id="tblProductos">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <div class="row mb-2 zone-cuotas" style="display:none;">
+                <div class="col-auto"><label class="col-form-label col-form-label-sm">Nro de cuotas:</label></div>
+                <div class="col-2"><input class="form-control form-control-sm number-input" type="number" id="NRO_CUOTAS" /></div>
+                <div class="col-auto"><button type="button" class="btn btn-orange btn-sm" id="btnAplicarCuotas"><i class="fa fa-plus-circle" aria-hidden="true"></i> Aplicar</button></div>
+            </div>
+            <div id="divTblCuotas" class="zone-cuotas" style="display:none;"></div>
+            
+            <div class="row mb-2 zone-anticipos" style="display:none;">
+                <div class="col-12">
+                    <strong><label>Anticipos:</label></strong>
+                </div>
+                <div class="col-12">
+                    <div id="divTblAnticipos"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Gravadas:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_GRAVADAS"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>IGV <span id="porcIgv"></span>:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="IGV"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Inafecta:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_INAFECTA"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Exonerada:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_EXONERADA"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Gratuitas:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OPE_GRATUITAS"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Exportación:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_EXPORTACION"></label>
+                </div>
+            </div>
+            <div class="row restaurant" style="display:none;">
+                <div class="col-5">
+                    <strong><label>Recargo al Consumo:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="RECARGO_CONSUMO"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Descuentos:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="DESCUENTOS"></label>
+                </div>
+            </div>
+            <div class="row zone-anticipos" style="display:none;">
+                <div class="col-5">
+                    <strong><label>Anticipos:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="ANTICIPOS"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Importe Total:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="TOTAL"></label>
+                </div>
+            </div>
+            <div class="row detraccion" style="display:none;">
+                <div class="col-5">
+                    <strong><label>Total detracción:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_DETRACCION"></label>
+                </div>
+            </div>
+            <div class="row retencion" style="display:none;">
+                <div class="col-5">
+                    <strong><label>Total retención:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_RETENCION"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="display:none;">
+        <div class="col-12">
+            <strong><label>Observación de SUNAT:&nbsp;</label></strong><label> El comprobante ha sido aceptado.</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <strong><label>Información Adicional:&nbsp;</label></strong>
+        </div>
+    </div>
+    <div class="factura-venta">
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div>
+                            <img src="~/Ventas/Content/Images/dolar_verde.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>CUENTA BANCARIA:</strong></label><br />
+                        <label><textarea rows="3" cols="45" id="CUENTA_BANCARIA" disabled></textarea></label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div>
+                            <img src="~/Ventas/Content/Images/ojo_celeste.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>OBS. ADICIONAL:</strong></label><br />
+                        <label>
+                            <textarea rows="3" cols="45" id="OBSERVACION_COTIZACION"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div>
+                            <img src="~/Ventas/Content/Images/ojo_morado.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>OBS. EXPORTACIÓN:</strong></label><br />
+                        <label><textarea rows="3" cols="45" id="OBSERVACION_VENTA"></textarea></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+
+    .factura-info {
+        font-size: 20px;
+    }
+
+    .factura-venta table, .factura-venta th, .factura-venta td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .factura-venta th, .factura-venta td {
+        padding: 5px;
+        text-align: left;
+    }
+
+    .factura-venta textarea {
+        border: none;
+        background-color: transparent;
+        resize: none;
+        outline: none;
+    }
+
+    #tblProductos .jqx-grid-column-header {
+        color: #FD7E14;
+        font-size: 12px !important;
+    }
+
+    .my-group .form-control {
+        width: 50%;
+    }
+</style>

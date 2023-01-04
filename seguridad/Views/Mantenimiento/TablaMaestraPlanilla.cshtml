@@ -1,0 +1,28 @@
+﻿<style type="text/css">
+    .editedRow {
+        color: #b90f0f !important;
+    }
+</style>
+
+<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="filtrosRegTablaMaestra" onsubmit="return false;">
+            <div class="row">
+                <div class="col-12 col-sm-3 col-md-3">
+                    <div class="form-group-rm">
+                        <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar parámetro" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <button type="submit" id="btnBuscar" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-auto p-0">
+                    <div id="btnAction"></div>
+                </div>
+            </div>
+        </form>
+        <div id="tblTipoParametro" class="mt-2"></div>
+    </div>
+</div>

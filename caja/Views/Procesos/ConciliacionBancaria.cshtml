@@ -1,0 +1,61 @@
+﻿<form name="frm" autocomplete="off">
+    <div class="row">
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Año</label>
+                <input type="text" class="form-control form-control-sm" id="ANIO" name="ANIO" maxlength="4" max="@DateTime.Now.Year" min="2000" required>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Mes</label>
+                <input type="text" class="form-control form-control-sm" id="MES" name="MES" maxlength="2" max="12" min="1" required>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Banco</label>
+                <select class="form-control form-control-sm" id="C_BANCO" name="C_BANCO"
+                        data-query="gbl_lista_obtenerbancos" data-value="C_BANCO" data-field="RAZON_SOCIAL"
+                        data-c_empresa="@Session["SESSION_EMPRESA"]"
+                        data-textdefault="-- Seleccione --" required></select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>Cuenta</label>
+                <select class="form-control form-control-sm" id="C_CUENTA_BANCARIA" name="C_CUENTA_BANCARIA"
+                        data-query="gbl_obtener_numerocuentas_moneda" data-value="C_CUENTA_BANCARIA" data-field="NUMERO_CUENTA"
+                        data-C_BANCO="" data-c_empresa="@Session["SESSION_EMPRESA"]"
+                        data-textdefault="-- Seleccione --" required></select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Buscar</button>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group-rm">
+                <label>&nbsp;</label>
+                <div id="actions" style="display:block!important"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col">
+        <div id="table"></div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col">
+        <strong><label class="col-form-label col-form-label-lg">Datos del banco no encontrado</label></strong>
+        <div id="tableBanco"></div>
+    </div>
+    <div class="col">
+        <strong><label class="col-form-label col-form-label-lg">Movimientos no conciliados</label></strong>
+        <div id="tableSistema"></div>
+    </div>
+</div>

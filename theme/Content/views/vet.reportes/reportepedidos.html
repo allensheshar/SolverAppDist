@@ -1,0 +1,24 @@
+﻿<form name="form">
+    <div class="row">
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Desde:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <input type="text" name="desde" class="form-control form-control-sm" value="@DateTime.Now.AddDays(-DateTime.Now.Day + 1).ToString("dd/MM/yyyy")" />
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Hasta:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <input type="text" name="hasta" class="form-control form-control-sm" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col">
+        <div id="table"></div>
+    </div>
+</div>

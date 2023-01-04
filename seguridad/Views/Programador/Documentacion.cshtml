@@ -1,0 +1,31 @@
+﻿<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="filtrosDocumentacion" onsubmit="return false;">
+            <div class="row">
+                <div class="col-12 col-sm-3 col-md-3">
+                    <div class="form-group-rm mt-2">
+                        <br />
+                        <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Ingrese aquí su búsqueda..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label>Usuario</label>
+                        <select id="_usuario" class="form-control form-control-sm" data-query="q_web_obtenerusuarios_documentacion" data-value="C_USUARIO" data-field="C_USUARIO" data-textDefault="-- Todos --"></select>
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm mt-4">
+                        <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-auto p-0">
+                    <div class="form-group-rm mt-4">
+                        <a href="#" id="btnNuevaDocumentacion" class="btn btn-sm btn-info btn-block btn-nuevo"><i class="fa fa-plus-square" aria-hidden="true"></i> Nueva documentación</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="tableDocumentacion" class="mt-2"></div>
+    </div>
+</div>

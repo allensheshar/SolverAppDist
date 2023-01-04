@@ -1,0 +1,66 @@
+﻿
+<form name="filtrosRegBancos" onsubmit="return false;">
+
+    <div class="row mb-3">
+        <div class="col-12 col-sm-3 col-md-3">
+            <div class="form-group-rm">
+                <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Buscar Banco..." autocomplete="off" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-4 col-md-4">
+            <div class="row">
+                <div class="form-group-rm mr-2">
+                    <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-orange dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                    <div class="dropdown-menu dropdown-caret" style="">
+                        <a id="btnAgregarBanc" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Banco</a>
+                        <a id="btnCargarBanc" class="dropdown-item" href="#"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Cargar Imagen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <button type="button" id="btnGuardarBancos" class="btn btn-sm btn-danger float-right"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="tblBancos"></div>
+        </div>
+    </div>
+
+</form>
+
+<div class="modal fade" id="modalUploadSigner" tabindex="-1" role="dialog" aria-labelledby="modalUploadFiles" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cargar Logo del Banco</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label class="control-label label-bold">(*) Cargue el logo del Banco:</label>
+                        <div class="file-loading">
+                            <input id="input-b6" name="input-b6" type="file" multiple required>
+                        </div>
+                    </div>
+                </div>
+
+                <form name="CargaLogo" id="CargaLogo">
+                    <div class="col-sm-12 mt-2">
+                        <button class="btn btn-sm btn-success" name="logo-guardar">Guardar</button>
+                    </div>
+                    <input type="hidden" name="C_ARCHIVO" id="C_ARCHIVO" value="" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1536 @@
+﻿#zone-venta .box-mesa {
+    padding: 30px;
+    background: rgb(155,164,166);
+    border: 1px solid #fff;
+    cursor: pointer;
+    /*min-height: 130px;
+    text-align: center;*/
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #zone-venta .box-mesa h1 {
+        color: white;
+        text-align: center;
+        margin: 0px;
+        /*padding-top: 45px;*/
+    }
+
+    #zone-venta .box-mesa .check-select {
+        display: none;
+    }
+
+    #zone-venta .box-mesa .mesero {
+        display: none;
+    }
+
+    #zone-venta .box-mesa .pedido {
+        display: none;
+    }
+
+    #zone-venta .box-mesa .total {
+        font-size: 20px;
+        font-weight: bold;
+        color: yellow;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        display: none;
+    }
+
+    #zone-venta .box-mesa.active-box {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-venta .box-mesa.active-box .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+
+    #zone-venta .box-mesa.ocupied-box {
+        background: #ca0404;
+        cursor: pointer;
+    }
+
+        #zone-venta .box-mesa.ocupied-box .mesero {
+            font-size: 15px;
+            font-weight: bold;
+            color: yellow;
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            display: block;
+        }
+
+        #zone-venta .box-mesa.ocupied-box .pedido {
+            font-size: 15px;
+            font-weight: bold;
+            color: yellow;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            display: block;
+        }
+
+
+#zone-venta .box-plato {
+    min-height: 150px;
+    cursor: pointer;
+}
+
+    #zone-venta .box-plato .item {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        background: rgba(113, 117, 113, 0.7);
+        display: table;
+        background-image: url('Images/sin_imagen.png');
+        background-size: cover;
+        background-position: center;
+    }
+
+        #zone-venta .box-plato .item div {
+            background: rgba(0,0,0,0.4);
+            color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+            #zone-venta .box-plato .item div.nombre {
+                display: table-cell;
+                vertical-align: top;
+                padding-top: 0.5em;
+                font-size: 1.5em;
+            }
+
+            #zone-venta .box-plato .item div.precio {
+                bottom: 0;
+                position: absolute;
+                right: 0;
+                left: 0;
+                height: 22%;
+                width: 100%;
+                font-size: 1.35rem;
+                color: yellow;
+            }
+
+#zone-Cat .box-categoria {
+    min-height: 41.09px;
+    cursor: pointer;
+}
+
+    #zone-Cat .box-categoria .item {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        background: #fd7e14; /*rgba(113, 117, 113, 0.7);*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        #zone-Cat .box-categoria .item div {
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+            #zone-Cat .box-categoria .item div.nombre {
+                color: white;
+                cursor: pointer;
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+        #zone-Cat .box-categoria .item span {
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+
+#zone-pedidos .box-pedido {
+    padding: 30px;
+    background: rgb(155,164,166);
+    border: 1px solid #fff;
+    /*cursor: pointer;*/
+    /*min-height: 130px;
+    text-align: center;*/
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #zone-pedidos .box-pedido h1 {
+        color: white;
+        text-align: center;
+        margin: 0px;
+        /*padding-top: 45px;*/
+    }
+
+    #zone-pedidos .box-pedido .check-select {
+        display: none;
+    }
+
+    #zone-pedidos .box-pedido .mesero {
+        display: none;
+    }
+
+    #zone-pedidos .box-pedido .pedido {
+        display: none;
+    }
+
+    #zone-pedidos .box-pedido .total {
+        font-size: 20px;
+        font-weight: bold;
+        color: yellow;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        display: none;
+    }
+
+    #zone-pedidos .box-pedido.active-box {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pedidos .box-pedido.active-box .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+
+    #zone-pedidos .box-pedido.ocupied-box {
+        background: #ca0404;
+        cursor: pointer;
+    }
+
+        #zone-pedidos .box-pedido.ocupied-box .mesero {
+            font-size: 15px;
+            font-weight: bold;
+            color: yellow;
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            display: block;
+        }
+
+        #zone-pedidos .box-pedido.ocupied-box .pedido {
+            font-size: 15px;
+            font-weight: bold;
+            color: yellow;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            display: block;
+        }
+
+
+#zone-pedidos .box-tipo-pago .check-select {
+    display: none;
+}
+
+#zone-pedidos .box-tipo-pago {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pedidos .box-tipo-pago.active-box {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pedidos .box-tipo-pago.active-box .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pedidos .box-tipo-pago .check-select {
+        display: none;
+    }
+
+#zone-pedidos .box-tipo-comprobante {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pedidos .box-tipo-comprobante.active-box-comprobante {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pedidos .box-tipo-comprobante.active-box-comprobante .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pedidos .box-tipo-comprobante .check-select {
+        display: none;
+    }
+
+#zone-pedidos .box-tipo-moneda {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pedidos .box-tipo-moneda.active-box-moneda {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pedidos .box-tipo-moneda.active-box-moneda .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pedidos .box-tipo-moneda .check-select {
+        display: none;
+    }
+
+#zone-pedidos .box-billete-soles {
+    /*padding: 0px;*/
+    background: #FFD966;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    /*position: relative;*/
+}
+
+#zone-pedidos .box-billete-dolares {
+    /*padding: 0px;*/
+    background: #FFD966;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    /*position: relative;*/
+}
+
+#zone-pedidos .box-tarjeta {
+    padding: 0px;
+    background: #2E72B0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pedidos .box-tarjeta.active-box-tarjeta {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pedidos .box-tarjeta.active-box-tarjeta .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pedidos .box-tarjeta .check-select {
+        display: none;
+    }
+
+.zoneResumen {
+    /*padding: 30px;*/
+    border: 1px solid #fff;
+    /*cursor: pointer;*/
+    /*min-height: 130px;
+    text-align: center;*/
+    height: auto;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    align-items: center;
+}
+
+.btnAgregar {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    position: relative;
+}
+
+.btnCompletar {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    background: green;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    position: relative;
+}
+
+
+.btnIniciar {
+    height: 50px;
+    width: 100%;
+    padding: 0px;
+    background: #ca0404;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    position: relative;
+}
+
+.montos {
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.saldos {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.zoneCaja {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-establecimiento {
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.labels {
+    font-size: 30px;
+}
+
+.modal-search-30 .modal-dialog {
+    max-width: 30%;
+}
+
+.modal-search-40 .modal-dialog {
+    max-width: 40%;
+}
+
+.modal-search-50 .modal-dialog {
+    max-width: 50%;
+}
+
+.modal-search-60 .modal-dialog {
+    max-width: 60%;
+    margin-top: 130px;
+}
+
+.modal-search-70 .modal-dialog {
+    max-width: 70%;
+}
+
+.modal-search-80 .modal-dialog {
+    max-width: 80%;
+}
+
+.modal-search-90 .modal-dialog {
+    max-width: 90%;
+}
+
+.modal-search-95 .modal-dialog {
+    max-width: 95%;
+}
+
+.modal-search-100 .modal-dialog {
+    max-width: 100%;
+}
+
+.almacen-box {
+    background-color: #f9e4c1
+}
+
+#divDetallado {
+    display: none;
+}
+
+#divRapido {
+    display: none;
+}
+
+#zone-pagoDetallado .box-pedido {
+    padding: 30px;
+    background: rgb(155,164,166);
+    border: 1px solid #fff;
+    /*cursor: pointer;*/
+    /*min-height: 130px;
+    text-align: center;*/
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #zone-pagoDetallado .box-pedido h1 {
+        color: white;
+        text-align: center;
+        margin: 0px;
+        /*padding-top: 45px;*/
+    }
+
+    #zone-pagoDetallado .box-pedido .check-select {
+        display: none;
+    }
+
+    #zone-pagoDetallado .box-pedido .mesero {
+        display: none;
+    }
+
+    #zone-pagoDetallado .box-pedido .pedido {
+        display: none;
+    }
+
+    #zone-pagoDetallado .box-pedido .total {
+        font-size: 20px;
+        font-weight: bold;
+        color: yellow;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        display: none;
+    }
+
+    #zone-pagoDetallado .box-pedido.active-box {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pagoDetallado .box-pedido.active-box .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+
+    #zone-pagoDetallado .box-pedido.ocupied-box {
+        background: #ca0404;
+        cursor: pointer;
+    }
+
+        #zone-pagoDetallado .box-pedido.ocupied-box .mesero {
+            font-size: 15px;
+            font-weight: bold;
+            color: yellow;
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            display: block;
+        }
+
+        #zone-pagoDetallado .box-pedido.ocupied-box .pedido {
+            font-size: 15px;
+            font-weight: bold;
+            color: yellow;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            display: block;
+        }
+
+
+#zone-pagoDetallado .box-tipo-pago .check-select {
+    display: none;
+}
+
+#zone-pagoDetallado .box-tipo-pago {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pagoDetallado .box-tipo-pago.active-box {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pagoDetallado .box-tipo-pago.active-box .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pagoDetallado .box-tipo-pago .check-select {
+        display: none;
+    }
+
+#zone-pagoDetallado .box-tipo-comprobante {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pagoDetallado .box-tipo-comprobante.active-box-comprobante {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pagoDetallado .box-tipo-comprobante.active-box-comprobante .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pagoDetallado .box-tipo-comprobante .check-select {
+        display: none;
+    }
+
+#zone-pagoDetallado .box-tipo-moneda {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pagoDetallado .box-tipo-moneda.active-box-moneda {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pagoDetallado .box-tipo-moneda.active-box-moneda .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pagoDetallado .box-tipo-moneda .check-select {
+        display: none;
+    }
+
+#zone-pagoDetallado .box-billete-soles {
+    padding: 0px;
+    background: #FFD966;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+#zone-pagoDetallado .box-billete-dolares {
+    padding: 0px;
+    background: #FFD966;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+#zone-pagoDetallado .box-billete-soles-100 {
+    background: url('Images/Billetes/100.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-billete-soles-50 {
+    background: url('Images/Billetes/50.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-billete-soles-20 {
+    background: url('Images/Billetes/20.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-billete-soles-10 {
+    background: url('Images/Billetes/10.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-billete-dolares-100 {
+    background: url('Images/Billetes/100dolares.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-billete-dolares-50 {
+    background: url('Images/Billetes/50dolares.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-billete-dolares-20 {
+    background: url('Images/Billetes/20dolares.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-billete-dolares-10 {
+    background: url('Images/Billetes/10dolares.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-tarjeta {
+    padding: 0px;
+    background: #2E72B0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pagoDetallado .box-tarjeta.active-box-tarjeta {
+        /*background: #c1521b;*/
+        cursor: pointer;
+    }
+
+        #zone-pagoDetallado .box-tarjeta.active-box-tarjeta .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pagoDetallado .box-tarjeta .check-select {
+        display: none;
+    }
+
+#zone-pagoDetallado .box-american {
+    background: url('Images/Tarjetas/americam_xpress.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-dinners {
+    background: url('Images/Tarjetas/dinners.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-mastercard {
+    background: url('Images/Tarjetas/mastercard.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoDetallado .box-visa {
+    background: url('Images/Tarjetas/visa.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+/* Modal Pago Rápido */
+#zone-pagoRapido .box-pedido {
+    padding: 30px;
+    background: rgb(155,164,166);
+    border: 1px solid #fff;
+    /*cursor: pointer;*/
+    /*min-height: 130px;
+    text-align: center;*/
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #zone-pagoRapido .box-pedido h1 {
+        color: white;
+        text-align: center;
+        margin: 0px;
+        /*padding-top: 45px;*/
+    }
+
+    #zone-pagoRapido .box-pedido .check-select {
+        display: none;
+    }
+
+    #zone-pagoRapido .box-pedido .mesero {
+        display: none;
+    }
+
+    #zone-pagoRapido .box-pedido .pedido {
+        display: none;
+    }
+
+    #zone-pagoRapido .box-pedido .total {
+        font-size: 20px;
+        font-weight: bold;
+        color: yellow;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        display: none;
+    }
+
+    #zone-pagoRapido .box-pedido.active-box {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pagoRapido .box-pedido.active-box .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+
+    #zone-pagoRapido .box-pedido.ocupied-box {
+        background: #ca0404;
+        cursor: pointer;
+    }
+
+        #zone-pagoRapido .box-pedido.ocupied-box .mesero {
+            font-size: 15px;
+            font-weight: bold;
+            color: yellow;
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            display: block;
+        }
+
+        #zone-pagoRapido .box-pedido.ocupied-box .pedido {
+            font-size: 15px;
+            font-weight: bold;
+            color: yellow;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            display: block;
+        }
+
+
+#zone-pagoRapido .box-tipo-pago .check-select {
+    display: none;
+}
+
+#zone-pagoRapido .box-tipo-pago {
+    /*padding: 0px;*/
+    /*background: #2C6AC2;*/
+    color: black;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    /*cursor: pointer;*/
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pagoRapido .box-tipo-pago.active-box {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pagoRapido .box-tipo-pago.active-box .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pagoRapido .box-tipo-pago .check-select {
+        display: none;
+    }
+
+#zone-pagoRapido .box-tipo-comprobante {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pagoRapido .box-tipo-comprobante.active-box-comprobante {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pagoRapido .box-tipo-comprobante.active-box-comprobante .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pagoRapido .box-tipo-comprobante .check-select {
+        display: none;
+    }
+
+#zone-pagoRapido .box-tipo-moneda {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    #zone-pagoRapido .box-tipo-moneda.active-box-moneda {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        #zone-pagoRapido .box-tipo-moneda.active-box-moneda .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pagoRapido .box-tipo-moneda .check-select {
+        display: none;
+    }
+
+#zone-pagoRapido .box-billete-soles {
+    padding: 0px;
+    background: #FFD966;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 110px;
+    position: relative;
+}
+
+#zone-pagoRapido .box-billete-dolares {
+    padding: 0px;
+    background: #FFD966;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 110px;
+    position: relative;
+}
+
+#zone-pagoRapido .box-billete-soles-100 {
+    background: url('Images/Billetes/100.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-billete-soles-50 {
+    background: url('Images/Billetes/50.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-billete-soles-20 {
+    background: url('Images/Billetes/20.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-billete-soles-10 {
+    background: url('Images/Billetes/10.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-billete-dolares-100 {
+    background: url('Images/Billetes/100dolares.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-billete-dolares-50 {
+    background: url('Images/Billetes/50dolares.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-billete-dolares-20 {
+    background: url('Images/Billetes/20dolares.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-billete-dolares-10 {
+    background: url('Images/Billetes/10dolares.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-tarjeta {
+    padding: 0px;
+    /*background: #2E72B0;*/
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 90px;
+    position: relative;
+}
+
+    #zone-pagoRapido .box-tarjeta.active-box-tarjeta {
+        /*background: #c1521b;*/
+        cursor: pointer;
+    }
+
+        #zone-pagoRapido .box-tarjeta.active-box-tarjeta .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    #zone-pagoRapido .box-tarjeta .check-select {
+        display: none;
+    }
+
+#zone-pagoRapido .box-american {
+    background: url('Images/Tarjetas/americam_xpress.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-dinners {
+    background: url('Images/Tarjetas/dinners.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-mastercard {
+    background: url('Images/Tarjetas/mastercard.png');
+    background-size: cover;
+    background-repeat: round;
+}
+
+#zone-pagoRapido .box-visa {
+    background: url('Images/Tarjetas/visa.png');
+    background-size: cover;
+    background-repeat: round;
+}
+/* Fin Modal Pago Rápido */
+
+.top-30 {
+    top: 30px;
+}
+
+.top-40 {
+    top: 40px;
+}
+
+.top-50 {
+    top: 50px;
+}
+
+.top-60 {
+    top: 60px;
+}
+
+.top-70 {
+    top: 70px;
+}
+
+.top-80 {
+    top: 80px;
+}
+
+/*#resumen {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    padding: 60px 0 0;*/
+/* box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%); */
+/*}*/
+
+.mytable-resumen {
+    height: 64.5vh;
+    position: relative;
+    overflow: hidden;
+}
+
+    .mytable-resumen .tbody {
+        padding-bottom: 13rem;
+        overflow: hidden;
+        overflow-y: auto;
+        /* overflow-x: scroll; */
+        height: 62vh;
+        display: block;
+    }
+
+    .mytable-resumen td {
+        font-size: 1.1rem;
+        padding: 0.25rem;
+        vertical-align: middle;
+    }
+
+    .mytable-resumen tfoot {
+        bottom: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: inline-table;
+        width: 100%;
+        background: #dc3545;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+#nroPedido {
+    font-size: 1.3rem;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    /*-khtml-user-select: none;*/ /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Versión sin prefijo, actualmente compatible con Chrome y Opera */
+}
+
+.unidad-box {
+    padding: 0px;
+    background: #2C6AC2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e0dddd;
+    cursor: pointer;
+    min-height: 50px;
+    position: relative;
+}
+
+    .unidad-box.active-box-unidad {
+        background: #c1521b;
+        cursor: pointer;
+    }
+
+        .unidad-box.active-box-unidad .check-select {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: yellow;
+        }
+
+    .unidad-box .check-select {
+        display: none;
+    }
+
+#pdvBox {
+    position: relative;
+}
+
+    #pdvBox .buttons-extras {
+        position: absolute;
+        bottom: 0rem;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    #pdvBox .blocked {
+        z-index: 1;
+        display: block;
+        background-color: #a19f9fc9;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+
+        #pdvBox .blocked .table-body {
+            display: table;
+            height: 100%;
+            width: 100%;
+        }
+
+            #pdvBox .blocked .table-body .table-cell {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+                #pdvBox .blocked .table-body .table-cell .text {
+                    background-color: white;
+                }
+
+    #pdvBox .worker {
+        z-index: 0;
+    }
+
+
+.display-5 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.mesaGridText {
+    font-size: 20px;
+    color: red !important;
+    font-weight: bold;
+}
+
+    .mesaGridText .jqx-grid-cell-left-align {
+        margin-top: 16px !important;
+    }
+
+
+.mytable-products {
+    height: 79vh;
+    position: relative;
+    background-color: #edeaea;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.mytable-pedido {
+    height: 85.5vh;
+    position: relative;
+    /* background-color: aliceblue; */
+    overflow: hidden;
+    padding-bottom: 9.5rem;
+    overflow-y: auto;
+}
+
+    .mytable-pedido .text-normal {
+        font-size: 1.15rem;
+    }
+
+    .mytable-pedido .box-info-pedido {
+        cursor: pointer;
+    }
+
+        .mytable-pedido .box-info-pedido:hover {
+            background-color: #efefef;
+        }
+
+.myZoneLeft {
+    position: relative;
+}
+
+    .myZoneLeft .my-info-caja {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+.check-pedido {
+    -ms-transform: scale(2);
+    -moz-transform: scale(2);
+    -webkit-transform: scale(2);
+    -o-transform: scale(2);
+    padding: 10px;
+}
+
+.table-message {
+    display: table;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+    .table-message .text {
+        display: table-cell;
+        vertical-align: middle;
+        align-content: center;
+        text-align: center;
+        background-color: #edeaea;
+        color: #fd4747;
+    }
+
+.close_aditional {
+    font-size: 2.5rem;
+    color: red;
+    opacity: 1;
+}
+
+.text-nroPedido {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#tableCortesia .jqx-grid-header {
+    font-size: 16px;
+}
+
+#tableCortesia .jqx-grid-cell {
+    font-size: 16px;
+}
+
+#tableDividir .jqx-grid-header {
+    font-size: 16px;
+}
+
+#tableDividir .jqx-grid-cell {
+    font-size: 16px;
+}
+
+/*#tableCortesia .jqx-checkbox-default {
+    width: 20px;
+    height: 20px;
+}*/
+
+.cell-editable {
+    background-color: #FFF2CC;
+}
+
+#tablePedido1 .jqx-grid-header {
+    font-size: 16px;
+}
+
+#tablePedido1 .jqx-grid-cell {
+    font-size: 16px;
+}
+
+#tablePedido2 .jqx-grid-header {
+    font-size: 16px;
+}
+
+#tablePedido2 .jqx-grid-cell {
+    font-size: 16px;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+    font-size: 2.2em;
+}
+
+#zone-actions-extras .mybuttons {
+    background-color: white;
+}
+
+#tableDescuento .jqx-grid-header {
+    font-size: 16px;
+}
+
+#tableDescuento .jqx-grid-cell {
+    font-size: 16px;
+}
+
+.jqx-grid-content {
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+    border-color: transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-bottom: 5rem;
+}
+
+.btn-mesa {
+    font-size: 18px;
+}
+
+/*.ajs-error {
+    width: 400px !important;
+    font-size: 20px;
+    font-weight: 400
+}*/
+
+.btn-confirm-sweetalert {
+    font-size: 20px !important;
+}
+
+.btn-deny-sweetalert {
+    font-size: 20px !important;
+}

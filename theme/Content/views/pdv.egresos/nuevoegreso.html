@@ -1,0 +1,88 @@
+﻿<form name="frmRegistroEgreso" action="#" method="post">
+
+    <input type="hidden" name="C_EMPRESA" />
+    <input type="hidden" name="C_EGRESO" />
+    <input type="hidden" name="C_USUARIO_REGISTRO" value='@Session["SESSION_ID"]' />
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="nombre">Fecha egreso</label>
+                <input type="text" class="form-control form-control-sm" name="FEC_EGRESO" value='@DateTime.Now.ToString("dd-MM-yyyy")' required autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="C_ESTABLECIMIENTO">Establecimiento</label>
+                <select name="C_ESTABLECIMIENTO" class="form-control form-control-sm" data-query="q_pdv_mantenimiento_configuraciones_obtenerestablecimientos_2"
+                        data-value="value" data-field="label" data-C_EMPRESA='@Session["SESSION_EMPRESA"]' required data-selected="1"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="C_CAJA">Caja</label>
+                <select name="C_CAJA" class="form-control form-control-sm"
+                        data-query="q_puntoventa_mantenimiento_configuraciones_obtenercajas_sucursal" data-value="CODIGO" data-field="DESCRIPCION" data-C_EMPRESA='@Session["SESSION_EMPRESA"]' data-C_ESTABLECIMIENTO="" data-selected="1" required>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="C_MONEDA">Moneda</label>
+                <select class="form-control form-control-sm" name="C_MONEDA" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoparametro="Moneda" data-enabledefault="0" required></select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="MONTO_EGRESO">Monto</label>
+                <input type="text" class="form-control form-control-sm" name="MONTO_EGRESO" placeholder="Monto" required autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="etiqueta">Etiqueta</label>
+                <input type="text" class="form-control form-control-sm" name="etiqueta" placeholder="Etiqueta" required autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="MOTIVO_EGRESO">Motivo</label>
+                <textarea class="form-control form-control-sm" name="MOTIVO_EGRESO" placeholder="Motivo" autocomplete="off" rows="4" required></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="C_USUARIO_SOLICITANTE">Usuario solicitante</label>
+                <select name="C_USUARIO_SOLICITANTE" class="form-control form-control-sm"
+                        data-query="cb_puntoventa_procesos_registroegreso_usuarios" data-value="C_USUARIO" data-field="C_USUARIO"
+                        data-C_EMPRESA='@Session["SESSION_EMPRESA"]' required></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="nombre">Estado</label>
+                <select name="IND_ESTADO" class="form-control form-control-sm">
+                    <option value="&">Pendiente</option>
+                    <option value="*" selected>Aprobado</option>
+                    <option value="A">Anulado</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn pull-right btn-danger btn-sm"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+</form>

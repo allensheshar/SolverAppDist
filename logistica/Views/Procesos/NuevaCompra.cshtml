@@ -1,0 +1,486 @@
+﻿<style>
+
+    .compra textarea {
+        border: none;
+        background-color: transparent;
+        resize: none;
+        outline: none;
+    }
+</style>
+<form name="frmCompra" method="post" action="#" data-table="LOG.COMPRA" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off" style="font-size: 12px; margin-bottom: 10px">
+    <input type="hidden" name="C_EMPRESA" id="C_EMPRESA" />
+    <input type="hidden" name="C_COMPRA" id="C_COMPRA" />
+
+    <input type="hidden" name="IND_COMPRA" value="*" />
+    <input type="hidden" name="IND_ESTADO_COMPRA" value="R" />
+    <input type="hidden" name="C_PROVEEDOR" id="C_PROVEEDOR" />
+    <input type="hidden" name="TC" />
+    <input type="hidden" name="BASE_IMPONIBLE" value="0" />
+    <input type="hidden" name="DESCUENTO" value="0" />
+    <input type="hidden" name="IGV" value="0" />
+    <input type="hidden" name="TOTAL" value="0" />
+    <input type="hidden" name="OPERACIONES_GRATUITAS" value="0" />
+    <input type="hidden" name="REF_ORDEN_COMPRA" value="" />
+    <input type="hidden" name="REF_IMPORTACION" value="" />
+    <input type="hidden" name="FLAG_TIPO" value="C" />
+    <input type="hidden" name="PERIODO" />
+    <input type="hidden" name="SIMBOLO_MONEDA" value="S/." data-nosend="1" />
+    <input type="hidden" id="TIPO_DOC_PROVEEDOR" />
+    <input type="hidden" name="MES_ACTUAL" value="@DateTime.Now.Month" data-nosend="1" />
+    <input type="hidden" name="C_COMPRA_REF" />
+    <input type="hidden" name="C_CONSTANCIA" />
+
+    <input type="hidden" name="C_SUJETO_DETRACCION" />
+    <input type="hidden" name="FECHA_DETRACCION" />
+    <input type="hidden" name="NUMERO_DETRACCION" />
+
+    <input type="hidden" name="C_TIPO_TRANSFORMACION"/>
+    <input type="hidden" name="C_TRANSFORMACION"/>
+
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <a href="@Url.Action("RegistroCompra","Procesos")" class="btn btn-sm btn-gray float-left" id="btnAtras"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+            <button type="button" class="btn btn-sm btn-danger float-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-2">
+            <img class="mr-4 mt-4" id="IMAGEN_COMPANY" height="120" data-nosend="1" />
+        </div>
+        <div class="col-4 offset-6 factura-info vertical-center" style="padding: 0px; border-color: black; margin-bottom: 20px; margin-top: 20px; border: 2px solid #000000; box-sizing: border-box;">
+            <div class="col-12 text-center" style="margin-bottom: -10px; font-size: 20px; color:black;">
+                <strong><label id="TIPO_DOC"></label></strong>
+                <strong><label id="RUC"></label></strong>
+            </div>
+            <div class="col-12 text-center" style="margin-bottom: 5px; margin-top: 5px;">
+                <select name="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" id="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" class="form-control form-control-sm"
+                        data-query="gbl_obtener_tipo_documento_compras_nuevacompra" data-value="C_PARAMETRO_GENERAL" data-field="DESCRIPCION_PARAMETRO" required
+                        style="font-size: 20px; text-align: center; text-align-last: center; -moz-text-align-last: center;" data-textDefault="--Seleccione--"></select>
+            </div>
+            <div class="col-12 text-center">
+                <input type="text" class="mb-2 form-control form-control-sm" id="NRO_COMPROBANTE" name="NRO_COMPROBANTE" style="font-size: 20px;" required />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <strong><label id="RAZON_SOCIAL"></label></strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label id="DIRECCION_EMPRESA"></label>
+            <button id="btnOrdenCompra" class="btn btn-sm btn-orange float-right" type="button"><i class="fa fa-upload" aria-hidden="true"></i> Cargar O/C</button>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Nombre/Razón social:</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-9">
+                    <input type="text" class="form-control form-control-sm" id="NOMBRE" readonly />
+                    @*<label class="col-form-label col-form-label-sm" id="NOMBRE"></label>*@
+                </div>
+                <div class="col-auto">
+                    <button type="button" id="btnProveedor" class="btn btn-sm btn-orange"><i class="fa fa-user" aria-hidden="true"></i> Proveedor</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Fecha emisión:</label></strong>
+        </div>
+        <div class="col-auto">
+            <input class="form-control form-control-sm" type="text" id="FECHA_EMISION" name="FECHA_EMISION" value="@DateTime.Now.ToString("dd/MM/yyyy")" required />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Dirección:</label></strong>
+        </div>
+        <div class="col-5">
+            <input type="text" class="form-control form-control-sm" id="DIRECCION" readonly />
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Fecha vencimiento:</label></strong>
+        </div>
+        <div class="col-auto">
+            <input class="form-control form-control-sm" type="text" name="FECHA_VENCIMIENTO" value="@DateTime.Now.ToString("dd/MM/yyyy")" required />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Forma de pago:</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-auto">
+                    <select id="FORMA_PAGO" name="FORMA_PAGO" class="form-control form-control-sm"
+                            data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION"
+                            data-tipoparametro="Forma de pago"
+                            data-enabledefault="0"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 fechaingresostock">
+            <strong><label class="col-form-label col-form-label-sm">Fecha ingreso stock:</label></strong>
+        </div>
+        <div class="col-auto fechaingresostock">
+            <input class="form-control form-control-sm" type="text" name="FECHA_INGRESO_STOCK" value="@DateTime.Now.ToString("dd/MM/yyyy")" required />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Moneda:</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-auto">
+                    <select class="form-control form-control-sm" name="C_PARAMETRO_GENERAL_MONEDA" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Moneda" data-enableDefault="0"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Periodo impuesto:</label></strong>
+        </div>
+        <div class="col-auto">
+            <div class="row">
+                <div class="col-auto">
+                    <select name="ANIO" class="form-control form-control-sm"
+                            data-query="gbl_anio_trabajo" data-field="Anio" data-value="Anio"
+                            data-enabledefault="0" data-nosend="1"></select>
+                </div>
+                <div class="col-auto">
+                    <select class="form-control form-control-sm" name="MES"
+                            data-query="q_ventas_reportes_resumen_obtenermeses" data-value="MES" data-field="NOMBRE"
+                            data-enabledefault="0" data-nosend="1"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Tipo de compra</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-auto">
+                    <select class="form-control form-control-sm" name="TIPO_INGRESO" id="TIPO_INGRESO">
+                        <option value="M">Mercadería</option>
+                        <option value="G">Gastos</option>
+                        <option value="S">Servicios</option>
+                        <option value="A">Activos fijos</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label>Tipo de operación:</label></strong>
+        </div>
+        <div class="col">
+            <select id="TIPO_OPERACION" name="TIPO_OPERACION" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Código de tipo de operación" style="width: 100%" data-enableDefault="0"></select>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Importación relacionada:</label></strong>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input class="form-control form-control-sm" type="text" name="IMPORTACION_REF" readonly data-nosend="1" />
+                <div class="input-group-append">
+                    <button id="btnBuscarImportacion" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 offset-3 bloque-tipodetraccion" style="display:none">
+            <strong><label>Tipo detracción:</label></strong>
+        </div>
+        <div class="col-3 bloque-tipodetraccion" style="display: none">
+            <select id="TIPO_DETRACCION" class="form-control form-control-sm"
+                    data-query="gbl_obtener_parametro_general_detraccion" data-value="CODIGO" data-field="DESCRIPCION"
+                    data-tipoparametro="Código de tipo de operación" data-enabledefault="1" name="TIPO_DETRACCION"></select>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Transformación asociada</label></strong>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input class="form-control form-control-sm" type="text" name="TRANSFORMACION_ASOCIADA" readonly />
+                <div class="input-group-append">
+                    <button id="btnDeleteTransformacionAsociada" class="btn btn-gray btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-close"></i></button>
+                    <button id="btnBuscarTransformacionAsociada" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2 bloque-tipodetraccion">
+        <div class="offset-7 col-2 bloque-tipodetraccion" style="display:none">
+            <strong><label class="col-form-label col-form-label-sm">Cód. constancia y fecha de detracción.</label></strong>
+        </div>
+        <div class="col-3 bloque-tipodetraccion" style="display:none">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control form-control-sm" name="NUMERO_DETRACCION" maxlength="9"/>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control form-control-sm" name="FECHA_DETRACCION" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2 nd nc" style="display:none;">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Documento de ref.</label></strong>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input class="form-control form-control-sm" type="text" name="DOCUMENTO_REF" readonly data-nosend="1" />
+                <div class="input-group-append">
+                    <button id="btnBuscarDocumentoRef" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2 rh" style="display:none;">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Constancia de suspención</label></strong>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input class="form-control form-control-sm" type="text" name="CONSTANCIA_REF" readonly />
+                <div class="input-group-append">
+                    <button id="btnDeleteConstanciaRef" class="btn btn-gray btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-close"></i></button>
+                    <button id="btnBuscarConstanciaRef" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2 retencion" style="display:none;">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Documentos de referencia</label></strong>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input class="form-control form-control-sm" type="text" name="RETENCION" readonly />
+                <div class="input-group-append">
+                    <button id="btnDeleteRetencion" class="btn btn-gray btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-close"></i></button>
+                    <button id="btnBuscarRetencion" class="btn btn-orange btn-sm btn-filter" type="button" data-nosend="1"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-sm btn-orange" id="btnProducto"><i class="fa fa-archive" aria-hidden="true"></i> Agregar Item</button>
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            <div id="tblDetalle">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="btnAgregarCuota" class="btn btn-sm btn-turquesa btn-cuotas" style="display:none;"><icon class="fa fa-plus"></icon>&nbsp;Agregar</button>
+                    <button type="button" id="btnEliminarCuota" class="btn btn-sm btn-danger-light btn-cuotas" style="display:none;"><icon class="fa fa-close"></icon>&nbsp;Eliminar</button>
+                    <div id="divTblCuotas" class="mt-2">
+                        <div id="tblCuotas"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Gravadas:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_GRAVADAS"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>IGV:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="IGV"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Inafecta:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_INAFECTA"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Exonerada:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_EXONERADA"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Gratuitas:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OPE_GRATUITAS"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Op. Exportación:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_EXPORTACION"></label>
+                </div>
+            </div>
+            <div class="row restaurant">
+                <div class="col-5">
+                    <strong><label>Recargo al Consumo:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="RECARGO_CONSUMO"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Descuentos:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="DESCUENTOS"></label>
+                </div>
+            </div>
+            <div class="row rh" style="display:none">
+                <div class="col-5">
+                    <strong><label>Retención (8 %) IR:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="IMPUESTO_RETENCION"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <strong><label>Importe Total:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="TOTAL"></label>
+                </div>
+            </div>
+            <div class="row detraccion" style="display:none;">
+                <div class="col-5">
+                    <strong><label>Total detracción: (Sistema)</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_DETRACCION"></label>
+                </div>
+            </div>
+            <div class="row detraccion" style="display:none;">
+                <div class="col-5">
+                    <strong><label>Total detracción: (Usuario)</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <input class="form-control form-control-sm" type="number" name="RETENCION_USUARIO" style="text-align: end" />
+                </div>
+            </div>
+            <div class="row retencion" style="display:none;">
+                <div class="col-5">
+                    <strong><label>Total retención:</label></strong>
+                </div>
+                <div class="col-1">
+                    <strong><label class="SIGNO_MONEDA"></label></strong>
+                </div>
+                <div class="col-5">
+                    <label class="float-right" id="OP_RETENCION"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <strong><label>Información Adicional:&nbsp;</label></strong>
+        </div>
+    </div>
+    <div class="compra">
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div style="padding: 10px;">
+                            <img src="~/Content/Images/ojo celeste.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>OBS. ADICIONAL:</strong></label><br />
+                        <label>
+                            <textarea rows="3" cols="45" name="OBS_ADICIONAL"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div style="padding: 10px;">
+                            <img src="~/Content/Images/ojo morado.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>OBS. EXPORTACIÓN:</strong></label><br />
+                        <label>
+                            <textarea rows="3" cols="45" name="OBS_IMPRIMIR"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

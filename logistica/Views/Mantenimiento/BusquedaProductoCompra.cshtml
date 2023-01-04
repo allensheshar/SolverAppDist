@@ -1,0 +1,199 @@
+﻿<style>
+
+    .number-right {
+        text-align: end;
+    }
+
+        .number-right::placeholder {
+            text-align: start;
+        }
+</style>
+
+<form name="frmBusquedaProducto" method="post" onsubmit="return false;" autocomplete="off" style="min-height: 285px;">
+    <input type="hidden" name="C_PRODUCTO" id="C_PRODUCTO" />
+    <input type="hidden" name="NOMBRE_PARA_VENTA" id="NOMBRE_PARA_VENTA" />
+    <input type="hidden" name="C_UNIDAD_PRIN" id="C_UNIDAD_PRIN" />
+    <input type="hidden" name="UNIDAD_PRIN" id="UNIDAD_PRIN" />
+    <input type="hidden" name="C_UNIDAD_AUX" id="C_UNIDAD_AUX" />
+    <input type="hidden" name="UNIDAD_AUX" id="UNIDAD_AUX" />
+    <input type="hidden" name="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" id="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" />
+    @*<input type="hidden" name="AFECTACION_IGV" id="AFECTACION_IGV" value="09827" />*@
+    <input type="hidden" name="FACTOR" id="FACTOR" />
+    <input type="hidden" name="FLAG_GENERA_STOCK_AUT" id="FLAG_GENERA_STOCK_AUT" value="&" />
+    
+    <input type="hidden" name="FLAG_OTROS_CARGOS" id="FLAG_OTROS_CARGOS" value="&" />
+    <input type="hidden" name="FLAG_BOLSAS" id="FLAG_BOLSAS" value="&" />
+    <input type="hidden" name="FLAG_ISC" id="FLAG_ISC" value="&" />
+    <input type="hidden" name="FLAG_PRORRATA" id="FLAG_PRORRATA" value="&" />
+    <input type="hidden" name="FLAG_OP_NO_GRAVADA" id="FLAG_OP_NO_GRAVADA" value="&" />
+
+    <div class="col-md-12">
+        <div class="modal-body row mt-0">
+            <div class="col-md-12">
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Producto:</label>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <input type="text" id="PRODUCTO" class="form-control form-control-lg" aria-describedby="basic-addon2" readonly="readonly" name="PRODUCTO">
+                            <div class="input-group-append">
+                                <button id="btnEscogerProducto" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Descripción:</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" name="DESCRIPCION" id="DESCRIPCION" class="form-control form-control-lg" placeholder="Ingrese descripción" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Cantidad:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="CANTIDAD" id="CANTIDAD" placeholder="Ingrese Cantidad" autocomplete="off" class="form-control form-control-lg number-right" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Precio:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="PRECIO" id="PRECIO" placeholder="Ingrese Precio" autocomplete="off" class="form-control form-control-lg number-right" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2 servicios">
+                        <label class="col-form-label col-form-label-lg float-right" for="C_PARAMETRO_GENERAL_UNIDAD">Unidad medida:</label>
+                    </div>
+                    <div class="col-md-4 servicios">
+                        <select class="form-control form-control-lg" name="C_PARAMETRO_GENERAL_UNIDAD" id="C_PARAMETRO_GENERAL_UNIDAD"
+                                data-query="cb_almacen_procesos_nuevaguiaremision_unidadmedida"
+                                data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-C_PRODUCTO=""
+                                data-value="CODIGO" data-field="DESCRIPCION"
+                                data-enabledefault="0" required></select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Total:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="TOTAL" id="TOTAL" placeholder="Total" autocomplete="off" class="form-control form-control-lg number-right" readonly />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Afectación IGV:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="AFECTACION_IGV" name="AFECTACION_IGV" class="form-control form-control-lg"
+                                data-query="gbl_obtener_parametro_general_afectacion" data-value="CODIGO" data-field="DESCRIPCION"
+                                data-tipoafectacion="1"
+                                data-enabledefault="0" required></select>
+                    </div>
+                    <div class="col-md-2 servicios">
+                        <label for="CHECK_IGV" class="col-form-label col-form-label-lg float-right">Incluye IGV:</label>
+                    </div>
+                    <div class="col-md-4 servicios">
+                        <input type="checkbox" id="CHECK_IGV" name="CHECK_IGV" class="mt-3 float-left" checked />
+                    </div>
+                </div>
+                <div class="row mb-3 porcentajes">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right" for="PORCENTAJE_IGV">% IGV:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" max="100" id="PORCENTAJE_IGV" name="PORCENTAJE_IGV" value="18" class="form-control form-control-lg"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="PORCENTAJE_RC" class="col-form-label col-form-label-lg float-right">% RC:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" max="100" id="PORCENTAJE_RC" name="PORCENTAJE_RC" value="0" class="form-control form-control-lg"  />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label for="CENTRO_COSTO" class="col-form-label col-form-label-lg float-right">Centro costo:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control form-control-lg" name="CENTRO_COSTO" id="CENTRO_COSTO"
+                                data-query="q_ventas_procesos_ventaregistro_obtenercentrocosto" data-value="C_UNIDAD_NEGOCIO" data-field="NOMBRE"
+                                data-EMPRESA="@Session["SESSION_EMPRESA"]"
+                                data-textdefault="--Seleccione--"
+                                required></select>
+                    </div>
+                    <div class="col-md-2 servicios">
+                        <label for="FLAG_ICBPER" class="col-form-label col-form-label-lg float-right">Bolsa plástica:</label>
+                    </div>
+                    <div class="col-md-4 servicios">
+                        <input type="checkbox" id="FLAG_ICBPER" name="FLAG_ICBPER" class="mt-3 float-left" />
+                    </div>
+                </div>
+                <div class="row mb-3 divAlmacen">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right" for="CHECK_GENERA_STOCK">Gen. stock auto:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="checkbox" id="CHECK_GENERA_STOCK" name="CHECK_GENERA_STOCK" class="mt-3 float-left">
+                    </div>
+                    <div class="col-md-2 almacen" style="display: none;">
+                        <label class="col-form-label col-form-label-lg float-right">Almacén:</label>
+                    </div>
+                    <div class="col-md-4 almacen" style="display: none;">
+                        <select class="form-control form-control-lg" name="C_ALMACEN" id="C_ALMACEN"
+                                data-query="q_logistica_procesos_nuevaordencompra_listaalmacenes" data-value="C_ALMACEN" data-field="NOMBRE_ALMACEN"
+                                data-EMPRESA="@Session["SESSION_EMPRESA"]"
+                                data-enabledefault="0"></select>
+                    </div>
+                </div>
+                @*<div class="row mb-3">
+            <div class="col-md-2">
+                <label class="col-form-label col-form-label-lg float-right" for="CHECK_OTROS_CARGOS">Otros cargos y tributos:</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="CHECK_OTROS_CARGOS" name="CHECK_OTROS_CARGOS" class="mt-3 float-left">
+            </div>
+            <div class="col-md-2">
+                <label class="col-form-label col-form-label-lg float-right" for="CHECK_BOLSAS">Bolsas:</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" id="CHECK_BOLSAS" name="CHECK_BOLSAS" class="mt-3 float-left">
+            </div>
+        </div>*@
+                @*<div class="row mb-3">
+            <div class="col-md-2">
+                <label class="col-form-label col-form-label-lg float-right" for="CHECK_PRORRATA">Prorrata:</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="CHECK_PRORRATA" name="CHECK_PRORRATA" class="mt-3 float-left checkbox">
+            </div>
+            <div class="col-md-2">
+                <label class="col-form-label col-form-label-lg float-right" for="CHECK_OP_NO_GRAVADA">No gravada:</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="CHECK_OP_NO_GRAVADA" name="CHECK_OP_NO_GRAVADA" class="mt-3 float-left checkbox">
+            </div>
+            <div class="col-md-2">
+                <label class="col-form-label col-form-label-lg float-right" for="CHECK_ISC">Isc:</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" id="CHECK_ISC" name="CHECK_ISC" class="mt-3 float-left checkbox">
+            </div>
+        </div>*@
+            </div>
+            <div class="col-md-12 mt-2">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="submit" class="btn btn-sm btn-danger float-right" id="btnGuardar">
+                            <i class="fa fa-floppy-o text-110 mr-1"></i>Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

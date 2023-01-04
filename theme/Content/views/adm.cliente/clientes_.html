@@ -1,0 +1,77 @@
+﻿<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="filtrosRegClientes" onsubmit="return false;">
+            <div class="row">
+                <div class="col-12 col-sm-3 col-md-3">
+                    <div class="form-group-rm">
+                        <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Ingrese aquí su búsqueda..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-auto p-0">
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-orange btn-block dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                        <div class="dropdown-menu dropdown-caret" style="">
+                            <a id="btnNuevaEmpresa" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva empresa</a>
+                            <a id="btnEditarEmpresa" class="dropdown-item" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar empresa</a>
+                            @*<a id="btnCargarFirma" class="dropdown-item" href="#"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Cargar Firma</a>*@
+                            <a id="btnReenviarAccesos" class="dropdown-item" href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> Reenviar accesos</a>
+                            <a id="btnValidarConfiguracion" class="dropdown-item" href="#"><i class="fa fa-check" aria-hidden="true"></i> Validar configuración</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="jqxWidget">
+            <div id="tableRegClientes" class="shadow-sp mt-2"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUploadSigner" tabindex="-1" role="dialog" aria-labelledby="modalUploadFiles" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cargar Certificado para Firma Digital</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <p class="alert alert-warning alert-sm">
+                            La firma digital debe estar generada en version pfx con su respectiva contraseña, al cargar el archivo pasará un proceso de validación.
+                        </p>
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="control-label label-bold">(*) Cargue su Archivo PFX:</label>
+                        <div class="file-loading">
+                            <input id="input-b6" name="input-b6" type="file" multiple required>
+                        </div>
+                    </div>
+                </div>
+
+                <form name="registraPfx" id="registraPfx">
+                    <div class="form-group row">
+                        <div class="col-sm-12 mt-1">
+                            <label for="CLAVE" class="control-label label-bold">(*) Indique contraseña PFX:</label>
+                            <input class="form-control form-control-sm" type="text" id="CLAVE" name="CLAVE" value="" />
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                            <button class="btn btn-sm btn-success" name="pfx-guardar">Guardar</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="C_EMPRESA" id="C_EMPRESA" value="" />
+                    <input type="hidden" name="C_ARCHIVO" id="C_ARCHIVO" value="" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

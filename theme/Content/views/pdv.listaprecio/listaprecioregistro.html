@@ -1,0 +1,104 @@
+﻿<form name="frmPrecio" autocomplete="off">
+    <input type="hidden" name="C_EMPRESA" value="@Session["SESSION_EMPRESA"]" />
+    <input type="hidden" name="C_PRODUCTO" />
+    <input type="hidden" name="C_PRODUCTO_PRECIO" />
+    <input type="hidden" name="TIPO_CONFIG" />
+    <input type="hidden" name="DIAS" />
+    <input type="hidden" name="MONEDA" value="S" />
+    <input type="hidden" name="IND_ESTADO" value="*" />
+    <input type="hidden" name="C_USUARIO_REGISTRO" value="@Session["SESSION_ID"]" />
+
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <label class="col-form-label col-form-label-lg" id="nombre_producto">Producto:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipoprecio" id="pordefecto" value="09995" checked data-nosend="1">
+                        <label class="form-check-label" for="pordefecto">
+                            Por defecto
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipoprecio" id="porfecha" value="09996" data-nosend="1">
+                        <label class="form-check-label" for="porfecha">
+                            Por fecha
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row porfecha mt-2">
+                <div class="col-6"><label class="col-form-label col-form-label-sm">Fecha inicio</label></div>
+                <div class="col-6"><input name="FECHA_DESDE" type="text" class="form-control form-control-sm" /></div>
+            </div>
+            <div class="row porfecha mt-2">
+                <div class="col-6"><label class="col-form-label col-form-label-sm">Fecha fin</label></div>
+                <div class="col-6"><input name="FECHA_HASTA" type="text" class="form-control form-control-sm" /></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipoprecio" id="pordia" value="09997" data-nosend="1">
+                        <label class="form-check-label" for="pordia">
+                            Por día
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row pordia mt-2">
+                <div class="col-12">
+                    <input data-value="LUNES" type="checkbox" id="lunes" /> <label for="lunes">Lunes</label>
+                    <input class="ml-3" data-value="MARTES" type="checkbox" id="martes" /> <label for="martes">Martes</label>
+                    <input class="ml-3" data-value="MIERCOLES" type="checkbox" id="miercoles" /> <label for="miercoles">Miercoles</label>
+                    <input class="ml-3" data-value="JUEVES" type="checkbox" id="jueves" /> <label for="jueves">Jueves</label>
+                    <input class="ml-3" data-value="VIERNES" type="checkbox" id="viernes" /> <label for="viernes">Viernes</label>
+                    <input class="ml-3" data-value="SABADO" type="checkbox" id="sabado" /> <label for="sabado">Sabado</label>
+                    <input class="ml-3" data-value="DOMINGO" type="checkbox" id="domingo" /> <label for="domingo">Domingo</label>
+                </div>
+            </div>
+            <hr />
+            <div class="row mt-2">
+                <div class="col-6"><label class="col-form-label col-form-label-sm">Hora inicio</label></div>
+                <div class="col-6"><input type="text" class="form-control form-control-sm" name="HORA_DESDE" value="00:00:00" required /></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6"><label class="col-form-label col-form-label-sm">Hora fin</label></div>
+                <div class="col-6"><input type="text" class="form-control form-control-sm" name="HORA_HASTA" value="23:59:59" required /></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6"><label class="col-form-label col-form-label-sm">Tipo de cliente</label></div>
+                <div class="col-6">
+                    <select class="form-control form-control-sm" name="C_CLIENTE_CATEGORIA"
+                            data-query="cb_puntoventa_mantenimiento_listaprecios_obtenertipocliente" data-value="C_CLIENTE_CATEGORIA" data-field="NOMBRE"
+                            data-C_EMPRESA="@Session["SESSION_EMPRESA"]"
+                            data-enabledefault="0" required></select>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6"><label class="col-form-label col-form-label-sm">Unidad</label></div>
+                <div class="col-6">
+                    <select class="form-control form-control-sm" name="C_PARAMETRO_GENERAL_UNIDAD"
+                            data-query="cb_ventas_obtener_unidades_medida" data-value="CODIGO" data-field="NOMBRE"
+                            data-C_EMPRESA="@Session["SESSION_EMPRESA"]"
+                            data-enabledefault="0" required></select>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6"><label class="col-form-label col-form-label-sm">Precio</label></div>
+                <div class="col-6"><input type="text" name="PRECIO" class="form-control form-control-sm" /></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6"></div>
+                <div class="col-6"><button type="submit" class="btn btn-sm float-right btn-danger"><i class="fa fa-floppy-o"></i> &nbsp; Guardar</button></div>
+            </div>
+        </div>
+    </div>
+</form>

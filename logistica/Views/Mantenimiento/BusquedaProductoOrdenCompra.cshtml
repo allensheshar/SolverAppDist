@@ -1,0 +1,120 @@
+﻿<style>
+    .bs-placeholder {
+        color: #495057;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        background-clip: padding-box;
+        font-size: .875rem;
+        font-weight: 400 !important;
+        font-family: sans-serif !important;
+    }
+
+    .filter-option-inner-inner {
+        color: #495057;
+    }
+
+    .number-right {
+        text-align: end;
+    }
+
+        .number-right::placeholder {
+            text-align: start;
+        }
+</style>
+
+<form name="frmBusquedaProducto" method="post" onsubmit="return false;" autocomplete="off">
+    <input type="hidden" name="C_PRODUCTO" id="C_PRODUCTO" />
+    <input type="hidden" name="NOMBRE_PARA_VENTA" id="NOMBRE_PARA_VENTA" />
+    <input type="hidden" name="C_UNIDAD_PRIN" id="C_UNIDAD_PRIN" />
+    <input type="hidden" name="UNIDAD_PRIN" id="UNIDAD_PRIN" />
+    <input type="hidden" name="C_UNIDAD_AUX" id="C_UNIDAD_AUX" />
+    <input type="hidden" name="UNIDAD_AUX" id="UNIDAD_AUX" />
+    <input type="hidden" name="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" id="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" />
+    <input type="hidden" name="AFECTACION_IGV" id="AFECTACION_IGV" value="09827" />
+    <input type="hidden" name="FACTOR" id="FACTOR" />
+    <div class="col-md-12">
+        <div class="modal-body row mt-0">
+            <div class="col-md-12">
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Producto:</label>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <input type="text" id="PRODUCTO" class="form-control form-control-lg" aria-describedby="basic-addon2" readonly="readonly" name="PRODUCTO" required>
+                            <div class="input-group-append">
+                                <button id="btnEscogerProducto" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Descripción:</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control form-control-lg" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese descripción" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Cantidad:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="CANTIDAD" id="CANTIDAD" placeholder="Ingrese Cantidad" autocomplete="off" class="form-control form-control-lg number-right" required />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Precio:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="PRECIO" id="PRECIO" placeholder="Ingrese Precio" autocomplete="off" class="form-control form-control-lg number-right" required />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label for="CHECK_IGV" class="col-form-label col-form-label-lg float-right">Incluye IGV:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="checkbox" id="CHECK_IGV" name="CHECK_IGV" class="mt-3" checked />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Total:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="TOTAL" id="TOTAL" placeholder="Total" autocomplete="off" class="form-control form-control-lg number-right" readonly />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Centro de costo:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select name="CENTRO_COSTO" id="CENTRO_COSTO" class="form-control form-control-lg"
+                                data-textdefault="--Seleccione--" required></select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-form-label col-form-label-lg float-right">Unidad medida:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control form-control-lg" name="C_PARAMETRO_GENERAL_UNIDAD" id="C_PARAMETRO_GENERAL_UNIDAD"
+                                data-query="cb_almacen_procesos_nuevaguiaremision_unidadmedida"
+                                data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-C_PRODUCTO=""
+                                data-value="CODIGO" data-field="DESCRIPCION"
+                                data-enabledefault="0" required></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="submit" class="btn btn-sm btn-danger float-right">
+                            <i class="fa fa-floppy-o text-110 mr-1"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

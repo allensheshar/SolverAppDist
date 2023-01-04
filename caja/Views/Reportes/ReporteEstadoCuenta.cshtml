@@ -1,0 +1,117 @@
+﻿<div class="row mb-2">
+    <div class="col-auto">
+        <button type="button" id="btnFiltros" class="btn btn-sm btn-orange"><i class="fa fa-search-plus" aria-hidden="true"></i> Filtros</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <img id="IMAGEN_EMPRESA" width="200" height="120" />
+        <div class="text-center text-uppercase">
+            <h3 id="titulo"></h3>
+        </div>
+        <div class="mb-4">
+            <label class="col-form-label col-form-label-sm" id="lblEmpresa"></label><br />
+            <label class="col-form-label col-form-label-sm" id="lblRuc"></label><br />
+            <label class="col-form-label col-form-label-sm" id="lblPeriodo"></label><br />
+            <label class=" col-form-label col-form-label-sm" id="lblMoneda"></label>
+        </div>
+    </div>
+</div>
+<div id="t">
+    <div id="table"></div>
+</div>
+
+<div class="modal fade" id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="modalUploadFiles" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Filtros</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="padding-bottom: 0.4em;">
+                    <form name="frmEstadoCuenta" onsubmit="return false;">
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group-rm">
+                                    <label>Tipo de catalogo</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div><input type="radio" name="tipocatalogo" value="ven" id="_ven" checked /> <label for="_ven">Clientes</label></div>
+                            </div>
+                            <div class="col-auto">
+                                <div><input type="radio" name="tipocatalogo" value="com" id="_com" /> <label for="_com">Proveedores</label></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group-rm">
+                                    <label for="_persona">Catalogo</label>
+                                    <select class="form-control form-control-sm" id="_persona" name="persona" 
+                                            data-query="cb_ventas_procesos_filtroventa_listarclientes" data-value="C_CLIENTE" data-field="RAZON_SOCIAL" 
+                                            data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group-rm">
+                                    <label>Información en columnas</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div><input type="radio" name="moneda" value="soles" id="_soles" checked /> <label for="_soles">Soles</label></div>
+                            </div>
+                            <div class="col-auto">
+                                <div><input type="radio" name="moneda" value="dolares" id="_dolares" /> <label for="_dolares">Dolares</label></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group-rm">
+                                    <label for="_desde">Desde</label>
+                                    <input type="text" class="form-control form-control-sm" id="_desde" value="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).ToString("dd-MM-yyyy")" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group-rm">
+                                    <label for="_hasta">Hasta</label>
+                                    <input type="text" class="form-control form-control-sm" id="_hasta" value="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(1).AddDays(-1).ToString("dd-MM-yyyy")" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group-rm">
+                                    <label>Representación</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto"><input type="radio" name="presentacion" value="re" id="re" checked="checked" /> <label for="re">Resumen</label></div>
+                            <div class="col-auto"><input type="radio" name="presentacion" value="de" id="de" /> <label for="de">Detallado</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-sm btn-danger float-right">Procesar</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

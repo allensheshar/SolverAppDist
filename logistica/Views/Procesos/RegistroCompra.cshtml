@@ -1,0 +1,97 @@
+﻿<div class="row">
+    <div class="col-12">
+        <div class="card pt-0">
+            <div class="card card-default">
+                <div class="card-body p-2">
+                    <div style="padding-bottom: 0.4em;">
+                        <form name="frmRegistroCompras" onsubmit="return false;">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group-rm">
+                                        <label>Desde</label>
+                                        <input type="text" class="form-control form-control-sm _desde" id="_desde" value="@DateTime.Now.AddDays(-7).ToString("dd-MM-yyyy")" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group-rm">
+                                        <label>Hasta</label>
+                                        <input type="text" class="form-control form-control-sm _hasta" id="_hasta" value="@DateTime.Now.ToString("dd-MM-yyyy")" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group-rm">
+                                        <label>Proveedor</label>
+                                        <select id="_proveedor" class="form-control form-control-sm c_empresa" data-query="cb_ventas_procesos_filtrocompras_listarproveedores" data-value="C_PROVEEDOR" data-field="RAZON_SOCIAL" data-c_empresa="" data-textDefault="-- Todos --"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group-rm">
+                                        <label>Tipo de ingreso</label>
+                                        <select id="_tipoingreso" class="form-control form-control-sm">
+                                            <option value="">-- Todos --</option>
+                                            <option value="M">Mercadería</option>
+                                            <option value="A">Activo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group-rm">
+                                        <label>Tipo de documento</label>
+                                        <select id="_tipo" class="form-control form-control-sm" data-query="gbl_obtener_tipo_documento_compras" data-value="CODIGO" data-field="DESCRIPCION" data-textDefault="-- Todos --"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group-rm">
+                                        <label>Unidad negocio / Centro de costo</label>
+                                        <select name="C_UNIDAD_NEGOCIO" id="_centro" class="form-control form-control-sm c_empresa" data-query="q_venta_listaunidadnegocio" data-value="C_UNIDAD_NEGOCIO" data-field="NOMBRE" data-textDefault="-- Todos --"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group-rm">
+                                        <label>Estado</label>
+                                        <select id="_estado" class="form-control form-control-sm c_empresa">
+                                            <option value="">-- Todos --</option>
+                                            <option value="R">Registradas</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group-rm">
+                                        <label>N° comprobante</label>
+                                        <input type="text" class="form-control form-control-sm" id="_buscar" />
+                                    </div>
+                                </div>
+                                <div class="form-group-rm">
+                                    <label for="exampleFormControlSelect1">&nbsp;</label>
+                                    <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                                </div>
+                                <div class="col-md-auto">
+                                    <label for="exampleFormControlSelect1">&nbsp;</label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-orange btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                                        <div class="dropdown-menu dropdown-caret" style="">
+                                            <a id="btnNueva" class="dropdown-item" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nueva</a>
+                                            <a id="btnEditar" class="dropdown-item" href="#" style="display:none;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;Editar</a>
+                                            <a id="btnAnular" class="dropdown-item" href="#" style="display:none;"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Anular</a>
+                                            <a id="btnDescargar" class="dropdown-item" href="#" style="display:none;"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Descargar datos</a>                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <span class="float-right text-info" id="estados"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="tblCompras" style="position:relative; z-index:0;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿<div style="padding-bottom: 0.4em;">
+    <form name="frmCartera" onsubmit="return false;" novalidate="novalidate">
+        <div class="row">
+            <div class="col-12 col-sm-3 col-md-3">
+                <div class="form-group-rm">
+                    <label for="_buscar">Buscar Proveedor</label>
+                    <input type="text" class="form-control form-control-sm" id="_buscar" name="_buscar" placeholder="Ingrese aquí su búsqueda..." autocomplete="off" data-nosend="0">
+                </div>
+            </div>
+            <div class="col-auto" style="margin-top: .5rem">
+                <br />
+                <button type="submit" class="btn btn-sm btn-orange btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                <button type="button" id="btnDescargarCartera" class="btn btn-sm btn-orange"><i class="fa fa-download" aria-hidden="true"></i> Descargar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <img id="IMAGEN_EMPRESA" width="200" height="120" />
+                <div class="text-center">
+                    <h3>REPORTE DE PROVEEDORES</h3>
+                </div>
+                <div>
+                    <label class="col-form-label col-form-label-sm" id="lblEmpresa"></label><br />
+                    <label class="col-form-label col-form-label-sm" id="lblRuc"></label>
+                </div>
+                <div class="mt-4" id="tblCarteraProveedores"></div>
+            </div>
+        </div>
+    </div>
+</div>

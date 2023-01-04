@@ -1,0 +1,33 @@
+﻿<form name="frmRegistroScripts" action="#" method="post" data-table="W_SCRIPTS" data-condition="@ViewBag.Condition" data-setupdate="1">
+    <button name="btnGuardar" class="btn btn-danger btn-save-rol btn-sm float-right ml-2" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+    <a href="#" id="btnShowCambios" class="btn btn-info btn-save-rol btn-sm float-right"><i class="fa fa-eye" aria-hidden="true"></i> Ver Cambios</a>
+    <a href="@Url.Action("EditorConsultas","Programador")" class="btn btn-gray btn-sm"><i class="fa fa-undo" aria-hidden="true"></i> Regresar</a>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="NOM_SCRIPT">Nombre de la consulta</label>
+                <input type="text" class="form-control form-control-sm" id="NOM_SCRIPT" name="NOM_SCRIPT" placeholder="Nombre de la consulta" value="" required>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="COMENTARIO">Comentario de la consulta</label>
+                <input type="text" maxlength="600" class="form-control form-control-sm" id="COMENTARIO" name="COMENTARIO" placeholder="Comentario de la consulta" value="" required>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="USU_ULTIMO_MODI">Último usuario</label>
+                <input type="text" class="form-control form-control-sm" id="USU_ULTIMO_MODI" name="USU_ULTIMO_MODI" placeholder="Último usuario" value="" readonly>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="CADENA_SCRIPT">Escribe aquí la definición de tu consulta SQL</label>
+                <textarea class="form-control form-control-sm" id="CADENA_SCRIPT" name="CADENA_SCRIPT" required></textarea>
+            </div>
+        </div>
+        <input type="hidden" name="C_SCRIPT" id="C_SCRIPT" value="@Guid.NewGuid().ToString().Substring(0,10)" />
+    </div>
+</form>

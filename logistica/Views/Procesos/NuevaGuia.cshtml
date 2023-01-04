@@ -1,0 +1,176 @@
+﻿<style>
+
+    .compra textarea {
+        border: none;
+        background-color: transparent;
+        resize: none;
+        outline: none;
+    }
+</style>
+<form name="frmCompra" method="post" action="#" data-table="LOG.COMPRA" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off" style="font-size: 12px; margin-bottom: 10px">
+    <input type="hidden" name="C_EMPRESA" />
+    <input type="hidden" name="C_COMPRA" />
+
+    <input type="hidden" name="IND_COMPRA" value="*" />
+    <input type="hidden" name="IND_ESTADO_COMPRA" value="R" />
+    <input type="hidden" name="C_PROVEEDOR" />
+
+    <input type="hidden" id="TIPO_DOC_PROVEEDOR" />
+
+    <input type="hidden" name="REF_ORDEN_COMPRA" value="" />
+    <input type="hidden" name="REF_C_COMPRA" value="" />
+    <input type="hidden" name="FLAG_TIPO" value="G" />
+
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <button type="button" class="btn btn-sm btn-gray float-left" id="btnAtras"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Atrás</button>
+            <button type="submit" class="btn btn-sm btn-danger float-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-2">
+            <img class="mr-4 mt-4" id="IMAGEN_COMPANY" height="120" data-nosend="1" />
+        </div>
+        <div class="col-4 offset-6 factura-info vertical-center" style="padding: 0px; border-color: black; margin-bottom: 20px; margin-top: 20px; border: 2px solid #000000; box-sizing: border-box;">
+            <div class="col-12 text-center" style="margin-bottom: -10px; font-size: 20px; color:black;">
+                <strong><label id="TIPO_DOC"></label></strong>
+                <strong><label id="RUC"></label></strong>
+            </div>
+            <div class="col-12 text-center" style="margin-bottom: 5px; margin-top: 5px;">
+                <select name="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" class="form-control form-control-sm" data-query="gbl_obtener_tipo_documento_guia_nuevaguia" data-value="C_PARAMETRO_GENERAL" data-field="DESCRIPCION_PARAMETRO" required
+                        style="font-size: 20px; text-align: center; text-align-last: center; -moz-text-align-last: center;" data-textDefault=" "></select>
+            </div>
+            <div class="col-12 text-center">
+                <input type="text" class="mb-2 form-control form-control-sm" name="NRO_COMPROBANTE" style="font-size: 20px;" required/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <strong><label id="RAZON_SOCIAL"></label></strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label id="DIRECCION_EMPRESA"></label>
+            <button id="btnOrdenCompra" class="btn btn-sm btn-orange float-right" type="button"><i class="fa fa-upload" aria-hidden="true"></i> Cargar O/C</button>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Nombre/Razón Social:</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-9">
+                    <label class="col-form-label col-form-label-sm" id="NOMBRE"></label>
+                </div>
+                <div class="col-auto">
+                    <button type="button" id="btnProveedor" class="btn btn-sm btn-orange"><i class="fa fa-user" aria-hidden="true"></i> Proveedor</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Fecha Emisión:</label></strong>
+        </div>
+        <div class="col-auto">
+            <input class="form-control form-control-sm" type="text" name="FECHA_EMISION" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Dirección:</label></strong>
+        </div>
+        <div class="col-5">
+            <label id="DIRECCION"></label>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Fecha Ingreso Stock:</label></strong>
+        </div>
+        <div class="col-auto">
+            <input class="form-control form-control-sm" type="text" name="FECHA_INGRESO_STOCK" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Tipo de ingreso</label></strong>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-auto">
+                    <select class="form-control form-control-sm" name="TIPO_INGRESO" id="TIPO_INGRESO">
+                        <option value="M">Mercadería</option>
+                        <option value="A">Activo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Compra referencia</label></strong>
+        </div>
+        <div class="col-auto">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="input-group mb-3">
+                        <input type="text" name="NRO_COMPROBANTE_COMPRA" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="readonly" autocomplete="off" data-nosend="1">
+                        <div class="input-group-append">
+                            <button id="btnAgregarReferenciaCompra" class="btn btn-orange btn-sm btn-filter" type="button">...</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-sm btn-orange" id="btnProducto"><i class="fa fa-archive" aria-hidden="true"></i> Agregar Item</button>
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            <div id="tblDetalle">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <strong><label>Información Adicional:&nbsp;</label></strong>
+        </div>
+    </div>
+    <div class="compra">
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div style="padding: 10px;">
+                            <img src="~/Content/Images/ojo celeste.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>OBS. ADICIONAL:</strong></label><br />
+                        <label>
+                            <textarea rows="3" cols="45" name="OBS_ADICIONAL"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div style="padding: 10px;">
+                            <img src="~/Content/Images/ojo morado.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <label style="color: #FD7E14"><strong>OBS. EXPORTACIÓN:</strong></label><br />
+                        <label>
+                            <textarea rows="3" cols="45" name="OBS_IMPRIMIR"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

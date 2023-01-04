@@ -1,0 +1,77 @@
+﻿<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="filtrosRegProductos" onsubmit="return false;">
+            <div class="row">
+                <div class="col-2">
+                    <div class="form-group-rm">
+                        <label>Categoría</label>
+                        <select class="form-control form-control-sm" name="C_CATEGORIA"
+                                data-query="cm_categoria_producto" data-field="DESCRIPCION" data-value="CODIGO" data-c_empresa="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group-rm">
+                        <label>Tipo producto</label>
+                        <select class="form-control form-control-sm" name="C_PARAMETRO_GENERAL_TIPO_PRODUCTO"
+                                data-query="cb_logistica_mantenimiento_productos_listatipoproducto_v2" data-field="DESCRIPCION_PARAMETRO" data-value="C_PARAMETRO_GENERAL" data-textdefault="-- Todos --"></select>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="form-group-rm">
+                        <label>Estado</label>
+                        <select class="form-control form-control-sm" name="IND_ESTADO">
+                            <option value="" selected>-- Todos --</option>
+                            <option value="*">Activo</option>
+                            <option value="&">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="form-group-rm">
+                        <label>Promoción</label>
+                        <select class="form-control form-control-sm" name="PROMOCION">
+                            <option value="" selected>-- Todos --</option>
+                            <option value="*">Si</option>
+                            <option value="&">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="form-group-rm">
+                        <label>Stock ilimitado</label>
+                        <select class="form-control form-control-sm" name="STOCK_ILIMITADO">
+                            <option value="" selected>-- Todos --</option>
+                            <option value="*">Si</option>
+                            <option value="&">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="form-group-rm">
+                        <label>Buscar</label>
+                        <input type="text" class="form-control form-control-sm" name="buscar" placeholder="Buscar producto..." autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-sm btn-gray btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+                <div class="col-auto p-0">
+                    <label>&nbsp;</label>
+                    <div class="dropdown">
+                        <button class="btn btn-orange btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</button>
+                        <div class="dropdown-menu dropdown-caret" style="">
+                            <a id="btnAgregarProd" class="dropdown-item" href="@Url.Action("ProductoRegistro","Mantenimiento")"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Producto</a>
+                            <a id="btnEditarProd" class="dropdown-item" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Producto</a>
+                            <a id="btnDescargar" class="dropdown-item" href="#"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar excel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="tblProductos" class="mt-2"></div>
+    </div>
+</div>

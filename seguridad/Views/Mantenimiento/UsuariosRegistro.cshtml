@@ -1,0 +1,110 @@
+﻿
+<button type="button" class="btn btn-danger btn-sm pull-right" id="btnGuardarUsuario"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+<a href="@Url.Action("Usuarios","Mantenimiento")" class="btn btn-sm btn btn-gray mr-2 pull-right"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item mr-1px">
+        <a class="nav-link active text-left radius-0" id="tabs-tab" data-toggle="tab" href="#tabs" role="tab" aria-controls="tabs" aria-selected="true">
+            <i class="fa fa-user text-blue-m1 mr-3px"></i> Datos del usuario
+        </a>
+    </li>
+    <li class="nav-item tab-rol">
+        <a class="nav-link" id="rol-tab" data-toggle="tab" href="#rol" role="tab" aria-controls="rol" aria-selected="true">
+            <i class="fa fa-id-badge"></i>
+            <span class="d-n-active text-white-m1"> Roles</span>
+        </a>
+    </li>
+    <li class="nav-item mr-1px" id="div-empresa" style="display:none;">
+        <a class="nav-link text-left radius-0" id="alerts-tab" data-toggle="tab" href="#alerts" role="tab" aria-controls="alerts" aria-selected="false">
+            <i class="fa fa-building text-pink-m2 mr-3px"></i>
+            <span class="d-n-active text-white-m1"> Acceso a empresas</span>
+        </a>
+    </li>
+</ul>
+<div class="tab-content rounded-bottom">
+    <div class="tab-pane fade show active text-95" id="tabs" role="tabpanel" aria-labelledby="tabs-tab">
+        <form name="frmRegistroUsuarios" action="#" method="post" data-table="USUARIOS" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+
+            <div class="form-group">
+                <label for="C_USUARIO">Usuario</label>
+                <div class="form-check float-right ml-3">
+                    <input class="form-check-input" type="checkbox" value="" id="CHECK_ADMINISTRADOR_TOTAL">
+                    <label class="form-check-label" for="CHECK_ADMINISTRADOR_TOTAL">
+                        <strong>Administrador total</strong>
+                    </label>
+                </div>
+                <div class="form-check float-right">
+                    <input class="form-check-input" type="checkbox" value="" id="CHECK_APP_MOVIL_SOLVER">
+                    <label class="form-check-label" for="CHECK_APP_MOVIL_SOLVER">
+                        <strong>Móvil</strong>
+                    </label>
+                </div>
+                <input type="text" class="form-control form-control-sm" id="C_USUARIO" name="C_USUARIO" placeholder="Usuario" value="" required maxlength="15">
+                <input type="hidden" id="C_USUARIO_VALIDADOR">
+                <input type="hidden" id="C_USUARIO_REGISTRA" name="C_USUARIO_REGISTRA">
+            </div>
+            <div class="form-group">
+                <label for="NOMBRE">Nombres</label>
+                <input type="text" class="form-control form-control-sm" id="NOMBRE" name="NOMBRE" placeholder="Nombre de Usuario" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="FLAG_ESTADO">Estado</label>
+                <select type="" class="form-control form-control-sm" id="FLAG_ESTADO" name="FLAG_ESTADO" value="" required>
+                    <option value="*">Activo</option>
+                    <option value="&">Inactivo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="PASSWORD">Password</label>
+                <input type="password" class="form-control form-control-sm" id="PASSWORD" name="PASSWORD" placeholder="Password" value="" autocomplete="off" required>
+            </div>
+            <div class="form-group">
+                <label for="EMAIL">Email</label>
+                <input type="text" class="form-control form-control-sm" id="EMAIL" name="EMAIL" placeholder="Email" value="" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="TELEFONO">Teléfono</label>
+                <input type="text" class="form-control form-control-sm number-input" maxlength="9" id="TELEFONO" name="TELEFONO" placeholder="Teléfono" value="" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="C_GRUPO_TRABAJO">Grupo de trabajo</label>
+                <select name="C_GRUPO_TRABAJO" id="C_GRUPO_TRABAJO" class="form-control form-control-sm" data-query="cb_tareaje_mantenimiento_grupotrabajo" data-value="CODIGO" data-field="DESCRIPCION"></select>
+            </div>
+
+            <input type="hidden" id="CREAR" value="@ViewBag.Crear" />
+            <input type="hidden" id="FEC_ASIGNACION" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+            <input type="hidden" id="CONDITION" value="@ViewBag.Condition" />
+            <input type="hidden" id="DUPLICADO" value="@ViewBag.Duplicado" />
+            <input type="hidden" id="VALIDADOR" value="Si" />
+            <input type="hidden" id="FLAG_ADMINISTRADOR_TOTAL" name="FLAG_ADMINISTRADOR_TOTAL" value="&" />
+            <input type="hidden" id="FLAG_ACCESO_APP_MOVIL_SOLVER" name="FLAG_ACCESO_APP_MOVIL_SOLVER" value="&" />
+        </form>
+    </div>
+    <div class="tab-pane fade" id="rol" role="tabpanel" aria-labelledby="rol-tab">
+        <div class="row">
+            <div class="col-12 col-sm-3 col-md-3">
+                <div class="form-group-rm">
+                    <input type="text" class="form-control form-control-sm" id="_buscar_serv" placeholder="Ingrese aquí su búsqueda..." autocomplete="off" />
+                </div>
+            </div>
+            <div class="col-auto p-0 pr-1">
+                <div class="form-group-rm">
+                    <button type="button" id="btnServicio" class="btn btn-sm btn-secondary btn-block btn-filter"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                </div>
+            </div>
+            <button class="btn btn-info btn-sm" type="button" id="btnAgregarRol"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Roles</button>
+        </div>
+        <div class="jqxWidget mt-2">
+            <div id="tblServicios" class="shadow-sp"></div>
+        </div>
+    </div>
+    <div class="tab-pane fade text-95" id="alerts" role="tabpanel" aria-labelledby="alerts-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-info btn-sm btn-add-empresa"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Empresa</button>
+                <div id="tableUsuarioEmpresas" style="margin-top:5px;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

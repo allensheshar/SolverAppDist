@@ -1,0 +1,293 @@
+﻿@using System.Globalization;
+
+<input type="hidden" value="@DateTime.Now.Month" id="MES_ACTUAL" />
+<input type="hidden" value="@DateTime.Now.AddDays(-DateTime.Now.Day + 1).AddMonths(1).AddDays(-1).Day" id="DIA_FIN_MES" />
+<input type="hidden" value="@DateTime.Now.Day" id="DIA_ACTUAL" />
+<input type="hidden" value="" id="SEMANA_ACTUAL_ANUAL" />
+<input type="hidden" value="" id="SEMANA_PRIMER_DIA_MES_ANUAL" />
+
+<form name="filterPeriodo" class="mb-2">
+    <div class="row">
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Por:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <select class="form-control form-control-sm" name="tipo">
+                <option value="C">Fecha caja</option>
+                <option value="E">Fecha emisión</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Periodo:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <select name="anio" class="form-control form-control-sm" data-query="gbl_anio_trabajo" data-field="Anio" data-value="Anio" data-enableDefault="0"></select>
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Mes:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <select name="mes" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-tipoParametro="Meses" data-field="DESCRIPCION" data-value="CODIGO_PARAMETRO" data-textdefault="-- Todos --"></select>
+        </div>
+        @if(ViewBag.MESERO != null) {
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Mesero:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <select name="mesero" class="form-control form-control-sm" data-query="gbl_obtener_meseros" data-field="NOMBRE" data-value="C_USUARIO" data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+        </div>
+        }
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm">
+            
+                @if(ViewBag.MESERO != null){
+                <strong>Cajero:</strong>
+                }
+                else{
+                <strong>Vendedor:</strong>
+                }
+            </label>
+        </div>
+        <div class="col-auto p-0">
+            <select name="cajero" class="form-control form-control-sm" data-query="gbl_obtener_cajeros" data-field="C_USUARIO" data-value="C_USUARIO" data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-textdefault="-- Todos --"></select>
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Cliente:</strong></label>
+        </div>
+        <div class="col-2 p-0">
+            <select name="cliente" class="form-control form-control-sm"
+                    data-query="cb_ventas_procesos_filtroventa_listarclientes"
+                    data-value="C_CLIENTE" data-field="RAZON_SOCIAL" data-c_empresa='@Session["SESSION_EMPRESA"]' data-textdefault="-- Todos --"
+                    data-live-search="true" data-style="btn-light" data-size="10"
+                    style="color: #495057; background-color: #fff; border: 1px solid #ced4da; background-clip: padding-box; font-size: .875rem; font-weight: 400 !important; font-family: sans-serif !important;"
+                    >
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Actualizar</button>
+        </div>
+        <div class="col">
+            <h6 class="col-form-label col-form-label-sm text-right"><strong>*Expresado en soles</strong></h6>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+
+    <div class="col-md-8 col-12 mb-4">
+        <div class="card card-reporte">
+            <div class="card-title" style="background-color: #F0F0F0">
+                <h3 class="card-reporte-title font-weight-bolder" id="title-card-reporte-1">ESTATUS DE COTIZACIONES Y VENTAS</h3>
+            </div>
+            <div class="card-body p-0">
+                <div id="canva-actions" class="row">
+                    <div class="col m-2">
+                        <button class="btn btn-lg btn-secondary btn-tipo-grafico btn-tipo-grafico-selected" data-id="V">Ventas</button>
+                        <button class="btn btn-lg btn-outline-secondary btn-tipo-grafico" data-id="P">Pedidos</button>
+                    </div>
+                </div>
+                <div id="reporte1" class="pl-2 pr-2 pt-4" style="height: 20rem;display: none;">
+                    <canvas id="canvas-reporte-1"></canvas>
+                </div>
+                <div id="noreporte1" class="text-center" style="display:none;">
+                    <label class="text-130 mt-4"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-12 mb-4">
+        <div class="card card-reporte">
+            <div class="card-title" style="background-color: #F0F0F0">
+                <h3 class="card-reporte-title font-weight-bolder">ESTATUS DE COMPROBANTES</h3>
+            </div>
+            <div class="card-body p-0">
+                <div id="reporte2" class="pl-2 pr-2 pt-4" style="height: 24rem; display: none;">
+                    <div id="reporte-2">
+                        <div class="row pl-3 pr-3">
+                            <div class="col-5">
+                                <h5 class="mb-2">&nbsp;</h5>
+                                <h5>Boletas de Venta</h5>
+                                <h5 class="mt-4">Facturas</h5>
+                                <h5 class="mt-4">Nota de Crédito</h5>
+                                <h5 class="mt-4">Nota de Débito</h5>
+                                <h5 class="mt-4">Pendientes</h5>
+                                <h5 class="mt-4">Observadas</h5>
+                                <h5 class="mt-4">Total</h5>
+                            </div>
+                            <div class="col-4 text-right">
+                                <h5 class="text-danger text-center mb-2">MONTO</h5>
+                                <h5 id="bol"></h5>
+                                <h5 class="mt-4" id="fac"></h5>
+                                <h5 class="mt-4" id="nc"></h5>
+                                <h5 class="mt-4" id="nd"></h5>
+                                <h5 class="mt-4" id="pen"></h5>
+                                <h5 class="mt-4" id="obs"></h5>
+                                <h5 class="mt-4" id="tot_monto"></h5>
+                            </div>
+                            <div class="col-3 text-right">
+                                <h5 class="text-danger text-center mb-2">CANT.</h5>
+                                <h5 id="cbol"></h5>
+                                <h5 class="mt-4" id="cfac"></h5>
+                                <h5 class="mt-4" id="cnc"></h5>
+                                <h5 class="mt-4" id="cnd"></h5>
+                                <h5 class="mt-4" id="cpen"></h5>
+                                <h5 class="mt-4" id="cobs"></h5>
+                                <h5 class="mt-4" id="tot_cant"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="noreporte2" class="text-center" style="display: none;">
+                    <label class="text-130 mt-4"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5 col-12 mb-4">
+        <div class="card card-reporte text-center" style="min-height: 18rem;">
+            <div class="card-body">
+                <div class="row" id="reporte3" style="display:none">
+                    <div class="col mt-2">
+                        <div class="row no-restaurant">
+                            <div class="col">
+                                <h3 class="card-reporte-title font-weight-bolder text-danger text-muted">VENTAS</h3>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col">
+                                <h3 class="card-reporte-subtitle font-weight-bolder">HOY @DateTime.Now.ToString("dd/MM")</h3>
+                                <div class="mt-4" style="color:black; font-size: 25px;"><h3 id="ventas_hoy_monto"></h3></div>
+                            </div>
+                            <div class="col">
+                                <h3 class="card-reporte-subtitle font-weight-bolder">MES - @DateTime.Now.ToString("MMMM")</h3>
+                                <div class="mt-4" style="color:black; font-size: 25px;"><h3 id="ventas_mes_monto"></h3></div>
+                            </div>
+                            <div class="col">
+                                <h3 class="card-reporte-subtitle font-weight-bolder">ACUM. @DateTime.Now.Year</h3>
+                                <div class="mt-4" style="color:black; font-size: 25px;"><h3 id="ventas_anual_monto"></h3></div>
+                            </div>
+                        </div>
+                        <div class="row mt-4 restaurant" style="display: none;">
+                            <div class="col">
+                                <h3 class="card-reporte-title font-weight-bolder text-danger text-muted">PEDIDOS</h3>
+                            </div>
+                        </div>
+                        <div class="row restaurant" style="display: none;">
+                            <div class="col">
+                                <h3 class="card-reporte-subtitle font-weight-bolder">HOY @DateTime.Now.ToString("dd/MM")</h3>
+                                <div class="mt-4" style="color:black; font-size: 25px;"><h3 id="cantidad_hoy_monto"></h3></div>
+                            </div>
+                            <div class="col">
+                                <h3 class="card-reporte-subtitle font-weight-bolder">MES - @DateTime.Now.ToString("MMMM")</h3>
+                                <div class="mt-4" style="color:black; font-size: 25px;"><h3 id="cantidad_mes_monto"></h3></div>
+                            </div>
+                            <div class="col">
+                                <h3 class="card-reporte-subtitle font-weight-bolder">ACUM. @DateTime.Now.Year</h3>
+                                <div class="mt-4" style="color:black; font-size: 25px;"><h3 id="cantidad_anual_monto"></h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="noreporte3" class="text-center" style="display: none;">
+                    <label class="text-130 mt-4"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7 col-12 mb-6">
+        <div class="card card-reporte" style="min-height: 18rem;">
+            <div class="card-body pl-2 pr-2">
+                <h3 class="card-reporte-title mt-2 pb-1 font-weight-bolder" style="text-align: center !important;">VENTAS MENSUALES</h3>
+                <div class="row pt-3 pr-3 pl-3" style="display:none" id="reporte6">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <h5>Enero</h5>
+                                <h5 class="mt-4">Febrero</h5>
+                                <h5 class="mt-4">Marzo</h5>
+                                <h5 class="mt-4">Abril</h5>
+                            </div>
+                            <div class="col text-right">
+                                <h5 id="ene"></h5>
+                                <h5 class="mt-4" id="feb"></h5>
+                                <h5 class="mt-4" id="mar"></h5>
+                                <h5 class="mt-4" id="abr"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <h5>Mayo</h5>
+                                <h5 class="mt-4">Junio</h5>
+                                <h5 class="mt-4">Julio</h5>
+                                <h5 class="mt-4">Agosto</h5>
+                            </div>
+                            <div class="col text-right">
+                                <h5 id="may"></h5>
+                                <h5 class="mt-4" id="jun"></h5>
+                                <h5 class="mt-4" id="jul"></h5>
+                                <h5 class="mt-4" id="ago"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <h5>Setiembre</h5>
+                                <h5 class="mt-4">Octubre</h5>
+                                <h5 class="mt-4">Noviembre</h5>
+                                <h5 class="mt-4">Diciembre</h5>
+                            </div>
+                            <div class="col text-right">
+                                <h5 id="set"></h5>
+                                <h5 class="mt-4" id="oct"></h5>
+                                <h5 class="mt-4" id="nov"></h5>
+                                <h5 class="mt-4" id="dic"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="noreporte6" class="text-center" style="display: none;">
+                    <label class="text-130 mt-4"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5 col-12 mb-4">
+        <div class="card card-reporte" style="min-height: 26rem;">
+            <div class="card-title" style="background-color: #F0F0F0">
+                <h3 class="card-reporte-title font-weight-bolder">VENTAS SEMANALES</h3>
+            </div>
+            <div class="card-body pl-2 pr-2">
+                <div id="reporte4" class="pl-2 pr-2" style="height: 20rem; display: none;">
+                    <canvas id="canvas-reporte-3"></canvas>
+                </div>
+                <div id="noreporte4" class="text-center" style="display: none;">
+                    <label class="text-130 mt-1"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7 col-12 mb-4">
+        <div class="card card-reporte" style="min-height: 26rem;">
+            <div class="card-title" style="background-color: #F0F0F0">
+                <h3 class="card-reporte-title font-weight-bolder">VENTAS ÚLTIMOS 2 MESES</h3>
+            </div>
+            <div class="card-body pl-2 pr-2 ">
+                <div id="reporte5" class="mt-3 pl-2 pr-2" style="height:18rem;">
+                    <canvas id="card-data-4"></canvas>
+                </div>
+                <div id="noreporte5" class="text-center" style="display:none">
+                    <label class="text-130 mt-1"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,59 @@
+﻿<div class="container-fluid container-lg container-md">
+    <div class="card shadow-lg rounded" style="overflow: hidden;">
+        <div class="card-body p-4">
+
+            <button class="btn btn-danger btn-save-rol btn-sm float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button>
+            <a href="@Url.Action("MisUsuarios","Perfil")" class="btn btn-gray btn-sm"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+            <hr />
+            <ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#info" role="tab" aria-controls="home" aria-selected="true">Información del Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#permisos" role="tab" aria-controls="profile" aria-selected="false">Accesos Habilitados</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContentRoles">
+                <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form name="frmRegistroRol" action="#" method="post" data-table="W_ROL" data-condition="@ViewBag.Condition" data-setUpdate="1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="NOMBRE">Nombre del Perfil de Acceso</label>
+                                            <input type="text" class="form-control form-control-sm" id="NOMBRE" name="NOMBRE" placeholder="Nombre del Perfil de Acceso" value="" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="DESCRIPCION">Breve Descripción</label>
+                                            <textarea class="form-control form-control-sm" id="DESCRIPCION" name="DESCRIPCION" placeholder="Agrega una breve descripcion" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="C_ROL" value="@Guid.NewGuid().ToString().Substring(0,5)" />
+                                <input type="hidden" name="FLAG_ESTADO" value="*" />
+                                <input type="hidden" name="COD_EMPRESA" value="@Session["SESSION_EMPRESA"]" />
+                                <input type="hidden" name="C_EMPRESA" value="E000000001" />
+                                <input type="hidden" name="TIPO_ROL" value="09706" />
+                                <input type="hidden" name="FEC_CREAC" value="" data-nosend="1" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="permisos" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="zone-opciones" style="margin-top:0.5rem;">
+                                <i class="fa fa-exclamation" aria-hidden="true"></i> No hay accesos registrados.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,174 @@
+﻿
+<form name="frmRegistroServicio" action="#" method="post" data-table="VET.PRODUCTO" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("Servicio","Mantenimiento")" class="btn btn-sm btn-gray"><i class="fa fa-undo" aria-hidden="true"></i> Regresar</a>
+            <button type="submit" class="btn btn-danger btn-sm pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <h4 class="text-purple-d2 mb-3 border-b-1 brc-grey-l1 pb-1">Datos Generales</h4>
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font"> Código de servicio</label>
+                    <input id="codigo" class="form-control form-control-sm" readonly />
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font"> Código de referencia</label>
+                    <input type="text" id="C_PRODUCTO_REF" name="C_PRODUCTO_REF" class="form-control form-control-sm" autocomplete="off" maxlength="100" />
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font">Código C.C. referencia</label>
+                    <input type="text" name="C_UNIDAD_NEGOCIO_REF" id="C_UNIDAD_NEGOCIO_REF" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font">Código de barras</label>
+                    <input type="text" name="C_BARRAS_PRODUCTO" id="C_BARRAS_PRODUCTO" class="form-control form-control-sm" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <div class="form-group">
+                    <label for="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" class="text-danger"> Tipo</label>
+                    <select id="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" name="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" class="form-control form-control-sm" required>
+                        <option value="07229">Servicio</option>
+                        <option value="09762">Gasto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <div class="form-group">
+                    <label for="NOMBRE_PARA_VENTA" class="text-danger"> Nombre comercial</label>
+                    <input type="text" id="NOMBRE_PARA_VENTA" name="NOMBRE_PARA_VENTA" class="form-control form-control-sm" autocomplete="off" required />
+                    <span class="badge badge-warning">* Nombre para control de ventas pdv y restaurant</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label for="NOMBRE_GENERICO" class="text-danger"> Nombre generico</label>
+                    <input type="text" id="NOMBRE_GENERICO" name="NOMBRE_GENERICO" class="form-control form-control-sm" autocomplete="off" required />
+                    <span class="badge badge-warning">* Nombre para control de compras almacén y producción</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label class="text-danger">(*) Centro de costo / Unidad de negocio.</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="NOMBRE_CENTRO_COSTO" id="NOMBRE_CENTRO_COSTO" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="readonly" autocomplete="off" data-nosend="1">
+                        <div class="input-group-append">
+                            <button id="centroCosto" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font">Familia</label>
+                    <select id="FAMILIA" name="FAMILIA" class="form-control form-control-sm c_empresa" data-query="q_cargafamilia_combo" data-value="nombre_familia" data-field="nombre_familia" disabled data-nosend="true" data-C_EMPRESA=""></select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font">Sub familia</label>
+                    <select id="SUBFAMILIA" name="SUBFAMILIA" class="form-control form-control-sm" data-nosend="true" disabled></select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font">Categoría</label>
+                    <select id="C_CATEGORIA" name="C_CATEGORIA" class="form-control form-control-sm" disabled required></select>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label for="IND_ESTADO" class="text-danger">Estado</label>
+                    <select name="IND_ESTADO" class="form-control form-control-sm" required>
+                        <option value="*">Activo</option>
+                        <option value="&">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font"> Precio venta referencial </label>
+                    <input type="number" id="PRECIO_REF" name="PRECIO_REF" class="form-control form-control-sm" autocomplete="off" value="0" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font">Notas o comentarios</label>
+                    <textarea type="text" id="NOTAS" name="NOTAS" class="form-control form-control-sm" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="text-purple-d2 mb-3 border-b-1 brc-grey-l1 pb-1">Facturación SUNAT</h4>
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="C_PARAMETRO_GENERAL_AFECTACION_IGV" class="text-danger">Afectación del IGV</label>
+                    <select id="C_PARAMETRO_GENERAL_AFECTACION_IGV" name="C_PARAMETRO_GENERAL_AFECTACION_IGV" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Código de tipo de afectación del IGV" data-enableDefault="0" required></select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label class="help-block text-muted small-font">Bienes y servicios sujetos a detracciones</label>
+                    <select id="C_PARAMETRO_GENERAL_SUJETO_DETRACCION" name="C_PARAMETRO_GENERAL_SUJETO_DETRACCION" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general_detraccion" data-value="CODIGO" data-field="DESCRIPCION" data-textdefault="No aplica bienes ni servicios" data-live-search="true" data-style="btn-light" data-size="10"
+                            style="color: #495057; background-color: #fff; border: 1px solid #ced4da; background-clip: padding-box; font-size: .875rem; font-weight: 400 !important; font-family: sans-serif !important;"></select>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="text-purple-d2 mb-3 border-b-1 brc-grey-l1 pb-1">Datos contables</h4>
+        <div class="row">
+            <div class="col-3">
+                <label class="help-block text-muted small-font"> Cuenta de ventas</label>
+                <div class="input-group mb-3">
+                    <input type="text" id="CTA_CONTABLE_VENTAS" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="" name="CTA_CONTABLE_VENTAS" autocomplete="off">
+                    <div class="input-group-append">
+                        <button id="ctaContableVentas" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="text-purple-d2 mb-3 border-b-1 brc-grey-l1 pb-1">Código de Producto SUNAT (CUBSO)</h4>
+        <div class="row">
+            <div class="col-5">
+                <div class="">
+                    <label class="help-block text-muted small-font"> Cubso</label>
+                    <div class="input-group mb-3">
+                        <input type="text" id="NOMBRE_CUBSO" name="NOMBRE_CUBSO" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="readonly" autocomplete="off" data-nosend="1">
+                        <div class="input-group-append">
+                            <button id="cubso" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <input type="hidden" name="C_EMPRESA" value="" />
+    <input type="hidden" name="C_PRODUCTO" value="" />
+    <input type="hidden" name="C_CUBSO" id="C_CUBSO" />
+    <input type="hidden" name="C_UNIDAD_NEGOCIO" id="C_UNIDAD_NEGOCIO" />
+</form>

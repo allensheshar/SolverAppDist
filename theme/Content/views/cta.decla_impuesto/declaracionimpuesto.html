@@ -1,0 +1,27 @@
+﻿<div class="card card-default mb-3 shadow-sp">
+    <div class="card-body p-2">
+        <form name="formImpuestos" onsubmit="return false;">
+            <div class="row">
+                <div class="col-2">
+                    <div class="form-group-rm">
+                        <label>Año</label>
+                        <select class="form-control form-control-sm" id="ANIO" name="ANIO" data-query="cb_auditoriat_mantenimiento_anio" data-value="ANIO" data-field="ANIO" data-enabledefault="0"></select>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="form-group-rm">
+                        <label>Tipo de cronograma</label>
+                        <select class="form-control form-control-sm" id="C_TIPO_DECLARACION" name="C_TIPO_DECLARACION" data-query="gbl_obtener_parametro_general" data-tipoparametro="Tipo de cronograma de obligaciones" data-value="CODIGO" data-field="DESCRIPCION" data-enabledefault="0"></select>
+                    </div>
+                </div>
+                <div class="col-auto p-0 pr-1">
+                    <div class="form-group-rm">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-sm btn-gray btn-block"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="mt-2" id="table"></div>
+    </div>
+</div>

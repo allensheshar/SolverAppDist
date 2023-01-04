@@ -1,0 +1,93 @@
+﻿<div class="row justify-content-center">
+    <div class="col-10 col-md-6 col-sm-7 body-login-form">
+        <div class="box">
+            <div class="parent-form p-4 shadow-lg">
+
+                <form name="frmRegistroEmpresa" action="#" method="post" data-table="EMPRESA" autocomplete="off" class="form-row animated fadeIn p-5 rounded border">
+
+                    <div class="row justify-content-center">
+
+                        <div class="form-group col-md-12 mb-2">
+                            <center>
+                                <h4 class="font-raleway"><strong>CREA UNA CUENTA</strong></h4>
+                            </center>
+                        </div>
+
+                        <div class="form-group col-md-12 mb-4">
+                            <div class="box-img"></div>
+                        </div>
+
+                        <div class="form-group col-12">
+                            @*<label for="NRO_DOCUMENTO">Ingresa tu número de RUC</label>*@
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-lg shadow-none" id="NRO_DOCUMENTO" name="NRO_DOCUMENTO" placeholder="Ingresa tu número de RUC" maxlength="11" aria-label="Ingresa tu número de RUC" aria-describedby="basic-addon2" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-orange btn-lg" type="button" id="btnValidarRuc">Validar</button>
+                                </div>
+                            </div>
+                            @*<input type="text" class="form-control form-control-lg shadow-none" id="NRO_DOCUMENTO" name="NRO_DOCUMENTO" placeholder="Ingresa tu número de RUC" maxlength="11" required>*@
+                        </div>
+
+                        <div class="form-group col-12">
+                            @*<label for="RAZON_SOCIAL">Razón social</label>*@
+                            <input type="text" class="form-control form-control-lg shadow-none" id="RAZON_SOCIAL" name="RAZON_SOCIAL" placeholder="Razon social" required readonly>
+                        </div>
+
+                        <div class="form-group col-12">
+                            @*<label for="NOMBRE_RESPONSABLE">Nombre de Contacto</label>*@
+                            <input type="text" class="form-control form-control-lg shadow-none" id="NOMBRE_RESPONSABLE" name="NOMBRE_RESPONSABLE" placeholder="Nombre de contacto" required readonly>
+                        </div>
+
+                        <div class="form-group col-12">
+                            @*<label for="CORREO_RESPONSABLE">E-mail de Comunicación</label>*@
+                            <input type="text" class="form-control form-control-lg shadow-none" id="CORREO_RESPONSABLE" name="CORREO_RESPONSABLE" placeholder="emailcomunicacion@dominio.com" required readonly>
+                        </div>
+
+                        <div class="form-group col-12">
+                            @*<label for="TELEFONO_RESPONSABLE">Teléfono de Contacto</label>*@
+                            <input type="text" class="form-control form-control-lg shadow-none" id="TELEFONO_RESPONSABLE" name="TELEFONO_RESPONSABLE" maxlength="9" placeholder="999-999-999" required readonly>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <select name="C_GIRO" class="form-control form-control-lg shadow-none"
+                                    data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION"
+                                    data-tipoParametro="Giro de negocios"
+                                    data-textDefault="Seleccione Giro del negocio" required readonly style="pointer-events: none"></select>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <div class="form-check text-justify">
+                                <input type="checkbox" class="form-check-input" id="CHECK_AUTORIZO" name="CHECK_AUTORIZO" required data-nosend="1" disabled/>
+                                <span class="form-check-label" for="CHECK_AUTORIZO">Autorizo a <span class="text-primary">SOLUNET GLOBAL SAC</span>, a usar mis datos personales para ofrecerme este y otros servicios relacionados.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-danger btn-lg btn-block btn-bold mt-1 mb-0" disabled>
+                                    REGISTRARME
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 text-center pt-3">
+                            <p class="text-dark mb-0">Si ya tienes una cuenta<br /> <a href="@Url.Action("Login","Cuenta")" class="text-primary ml-1 mt-2">¡ACCEDA!</a></p>
+                        </div>
+
+                    </div>
+
+                    <input type="hidden" id="DIRECCION" name="DIRECCION" />
+                    <input type="hidden" name="C_EMPRESA" id="C_EMPRESA" value="@Guid.NewGuid().ToString().Substring(0, 10)" />
+                    <input type="hidden" name="C_USUARIO" />
+                    <input type="hidden" name="C_USUARIO_REGISTRA" />
+                    @*<input type="hidden" name="ID_EMISOR" id="ID_EMISOR" />*@
+                    <input type="hidden" name="IND_ESTADO" id="IND_ESTADO" value="P" />
+                    <input type="hidden" name="C_EMPRESA_REF" id="C_EMPRESA_REF" value="@ViewBag.EmpresaRef" />
+                    <input type="hidden" name="FLAG_AUTORIZO" value="&" />
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

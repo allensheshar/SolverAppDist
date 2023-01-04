@@ -1,0 +1,51 @@
+﻿
+<div class="row">
+    <div class="col-12 col-md-12">
+        <form name="filtrosRegModulos" onsubmit="return false;">
+            <div class="row" id="modulos">
+
+                @*<div class="col-auto">
+                    <div class="form-group-rm">
+                        <label for="_buscar">Seleccione Empresa</label>
+                        <select class="form-control form-control-sm" id="_buscar" name="_buscar" data-query="GET_ACTIVOS_EPRESA" data-value="C_EMPRESA" data-field="NOMBRE" data-textDefault="--todos--" data-selected="1"></select>
+                    </div>
+                </div>*@
+                <div class="col-auto">
+                    <div class="form-group-rm">
+                        <label for="_modulo">Filtrar Módulo</label>
+                        <select class="form-control form-control-sm" id="_modulo" name="_modulo" data-query="GET_FULL_MODULOS_ACTIVOS" data-value="Codigo" data-field="Nombre" data-textDefault="--todos--" data-selected="0"></select>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="form-group-rm">
+                        <label for="btnGuardar">&nbsp;</label><br/>
+                        <button type="button" class="btn btn-sm btn-danger float-right btnGuardar" name="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+            <input type="hidden" name="script" value="GET_FULL_MODULES_v2" />
+            <input type="hidden" name="_buscar" value="E000000001" />
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<div class="row zone-modules">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-9">
+        <a href="#" class="add-element">Agregar Módulo <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+        <div class="float-right leyenda">
+            <strong>Leyenda: </strong>
+            <span class="badge badge-danger">MÓDULO</span>
+            <span class="badge badge-success">MENÚ</span>
+            <span class="badge badge-info">OPCIÓN</span>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-9">
+        <div class="zone-opciones">
+            <div class="message"><i class="fa fa-info-circle" aria-hidden="true"></i>El menú no registra opciones.</div>
+        </div>
+    </div>
+</div>

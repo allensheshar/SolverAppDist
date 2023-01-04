@@ -1,0 +1,212 @@
+﻿@using domain.client.Helper
+@model ClientResponse
+
+<div class="container-fluid container-lg container-md">
+
+    <div class="card shadow-lg rounded" style="overflow: hidden;">
+        <div class="card-body p-4">
+
+
+            <div class="row">
+
+                <div class="col-12">
+
+                    <ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="micuenta-tab" data-toggle="tab" href="#micuenta" role="tab" aria-controls="micuenta" aria-selected="true">
+                                <i class="fa fa-user" aria-hidden="true"></i> Mi cuenta y Seguridad
+                            </a>
+                        </li>
+                        @*<li class="nav-item">
+                                <a class="nav-link" id="seguridad-tab" data-toggle="tab" href="#seguridad" role="tab" aria-controls="seguridad" aria-selected="false">
+                                    <i class="fa fa-lock" aria-hidden="true"></i> Seguridad
+                                </a>
+                            </li>*@
+                        <li class="nav-item" style="display:none">
+                            <a class="nav-link" id="empresas-tab" data-toggle="tab" href="#empresas" role="tab" aria-controls="empresas" aria-selected="false">
+                                <i class="fa fa-building" aria-hidden="true"></i> Empresas Asignadas
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContentRoles">
+                        <div class="tab-pane fade show active" id="micuenta" role="tabpanel" aria-labelledby="micuenta-tab">
+
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-xl-3 pl-3 pr-2">
+                                    <!-- Profile picture card-->
+                                    <div class="card">
+                                        <div class="card-header">Foto de Perfil</div>
+                                        <div class="card-body text-center" style="text-align: center;">
+
+                                            <div class="ml-4 mr-4 mt-4 mb-4">
+                                                <center>
+                                                    <img class="img-fluid rounded-circle border" id="img" src="~/Content/Images/no-white.png" />
+                                                </center>
+                                            </div>
+
+                                            <input type="file" name="input-b6" id="input-b6" />
+
+                                            @*<img class="img-account-profile rounded-circle mb-2" src="{{UrlTheme}}/img/user.png?v=1" alt="">
+                                                <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                                                <button class="btn btn-primary" type="button">Subir Foto</button>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 pl-2 pr-2">
+                                    <!-- Account details card-->
+                                    <div class="card mb-4">
+                                        <div class="card-header">Datos Personales</div>
+                                        <div class="card-body">
+                                            <form name="filtrosMiCuenta" onsubmit="return false;">
+                                                <!-- Form Group (username)-->
+                                                <div class="form-group">
+                                                    <label>Este es tu <strong>nombre de usuario</strong></label>
+                                                    <input class="form-control" id="C_USUARIO" type="text">
+                                                </div>
+                                                <!-- Form Row-->
+                                                <div class="form-row">
+                                                    <!-- Form Group (first name)-->
+                                                    <div class="form-group col-md-12">
+                                                        <label>Nombres y Apellidos</label>
+                                                        <input class="form-control" id="NOMBRES" type="text" required>
+                                                    </div>
+                                                </div>
+                                                <!-- Form Row        -->
+                                                <div class="form-row">
+                                                    <!-- Form Group (organization name)-->
+                                                    <div class="form-group col-md-12" id="div-empresa" style="display:none;">
+                                                        <label>Razon Social de tu Empresa</label>
+                                                        <input class="form-control" id="EMPRESA" type="text">
+                                                    </div>
+                                                </div>
+                                                <!-- Form Group (email address)-->
+                                                <div class="form-group">
+                                                    <label>E-mail para comunicaciones</label>
+                                                    <input class="form-control" id="EMAIL" type="email" required>
+                                                </div>
+                                                <!-- Form Row-->
+                                                <div class="form-row">
+                                                    <!-- Form Group (phone number)-->
+                                                    <div class="form-group col-md-6">
+                                                        <label>Teléfono</label>
+                                                        <input class="form-control number-input" maxlength="9" id="TELEFONO" type="text" required>
+                                                    </div>
+                                                    <!-- Form Group (birthday)-->
+                                                    <div class="form-group col-md-6">
+                                                        <label>Fecha Nacimiento</label>
+                                                        <input class="form-control" id="FEC_NAC" type="text" name="FEC_NAC">
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" id="C_ARCHIVO" name="C_ARCHIVO" />
+                                                <input type="hidden" id="PASSWORD_USU" name="PASSWORD_USU" />
+
+                                                <!-- Save changes button-->
+                                                <button class="btn btn-orange" id="btnGuardarMicuenta" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar datos</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 pl-2 pr-3">
+                                    <div class="card mb-4">
+                                        <div class="card-header">Cambio de contraseña</div>
+                                        <div class="card-body">
+                                            <form name="filtrosContraseña" onsubmit="return false;">
+                                                <div class="form-row">
+                                                    <label>Ingresa tu actual contraseña</label>
+                                                    <input class="form-control" name="PASSWORD" id="PASSWORD" type="password" required />
+                                                </div>
+                                                <div class="form-row mt-3">
+                                                    <label>Ingresa una nueva contraseña</label>
+                                                    <input class="form-control" name="PASSWORD_NEW" id="PASSWORD_NEW" type="password" required readonly />
+                                                </div>
+                                                <div class="form-row mt-3">
+                                                    <label>Confirma tu nueva contraseña</label>
+                                                    <input class="form-control" name="PASSWORD_NEW_CONFIRMAR" id="PASSWORD_NEW_CONFIRMAR" type="password" required readonly />
+                                                </div>
+                                                <div class="form-row mt-3">
+                                                    <button class="btn btn-orange" id="btnGuardarContraseña" type="submit">
+                                                        <i class="fa fa-unlock-alt" aria-hidden="true"></i> Actualiza Contraseña
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="empresas" role="tabpanel" aria-labelledby="empresas-tab">
+
+                            <div class="container-fluid container-lg container-md">
+
+                                <div class="row">
+                                    @{
+                                        foreach (var row in Model.rows)
+                                        {
+                                            <div class="col-lg-2 col-md-3 col-sm-6 col-6 mb-4 animated bounceIn">
+                                                <div class="card card-sp hvrbox shadow-solver card-company">
+                                                    <div class="card-body pt-4 pb-4 d-flex flex-column bg-solver">
+
+                                                        @{
+                                                            if (row["C_ARCHIVO_LOGO"] == null)
+                                                            {
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="text-center">
+                                                                            <img src="~/Content/Images/no.png" height="135" width="100%" class="client shadow-sm rounded bg-white" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="text-center">
+                                                                            <img data-source="@row["C_ARCHIVO_LOGO"]" src="~/Content/Images/no.png" height="135" width="100%" class="client shadow-sm rounded bg-white" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+
+                                                        }
+
+                                                        <div class="row justify-content-md-center mt-3">
+                                                            <div class="col-12 col-md-12">
+                                                                <div class="text-center" style="min-height: 3rem;">
+                                                                    <h6 class="title font-weight-semibold text-grey m-0 p-0">@row["RAZON_SOCIAL"]</h6>
+                                                                    @*<span class="text-sm text-grey">@row["DESCRIPCION"]</span>*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-4">
+                                                            <div class="col-12">
+                                                                <div class="text-center">
+                                                                    <button class="btn btn-md btn-orange btn-xs pl-2 pr-2 btnVerFicha" data-empresa="@row["C_EMPRESA"]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDITAR</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+
+                            </div>
+                        
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

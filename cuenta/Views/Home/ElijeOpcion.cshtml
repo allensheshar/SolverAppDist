@@ -1,0 +1,60 @@
+﻿@using domain.client.Helper
+@model List<ClientResponse>
+
+<div id="menu-home" class="pl-0 pt-2 pb-2">
+    @{
+
+        List<string> colors = new List<string> {
+                "bg-solver-orange","bg-solver-blue","bg-solver-green","bg-solver-red"
+            };
+
+        var countOption = 0;
+
+        foreach (var menu in Model[0].rows)
+        {
+
+            var classShow = "";
+
+            countOption+=1;
+
+            if (countOption == 1) {
+                classShow = "";
+            };
+
+            <div id="@menu["C_MENU"].ToString()" class="menu-solver mb-4 shadow-solver animated fadeInLeft">
+                <div class="title-item title bg-solver-red p-2 pb-0" data-toggle="collapse" data-target="#opts_@menu["C_MENU"].ToString()" aria-expanded="false" aria-controls="OPTS_@menu["C_MENU"].ToString()">
+                    <span class="icon"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+                    <span class="text text-uppercase">@menu["NOMBRE_MENU"].ToString()</span>
+                </div>
+                <div id="opts_@menu["C_MENU"].ToString()" data-ref="#@menu["C_MENU"].ToString()" class="option-item options p-0 pt-2 pb-2 collapse @classShow" aria-labelledby="@menu["C_MENU"].ToString()" data-parent="#menu-home">
+                    <div class="container-fluid">
+                        <div class="row pl-2 pr-2">
+                            @{
+
+                                var myOptions = Model[1].rows.Where(x => x["C_MODULO"].ToString() == menu["C_MODULO"].ToString() && x["C_MENU"].ToString() == menu["C_MENU"].ToString()).ToList();
+                                var myIndex = 0;
+
+                                foreach (var opcion in myOptions)
+                                {
+                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-3 p-1" >
+                                        <a data-parent="opts_@menu["C_MENU"].ToString()" href="@string.Concat(ViewBag.domainUrl,opcion["PATH_MODULO"].ToString(),"/",opcion["ACCION_OPCION"].ToString())" class="text-decoration-none action-solver">
+                                            <div class="box @colors[myIndex] p-1" title="@opcion["ETIQUETA_OPCION"].ToString()" data-action="@string.Concat(ViewBag.domainUrl,opcion["PATH_MODULO"].ToString(),"/",opcion["ACCION_OPCION"].ToString())">
+                                                <div class="icon text-center mt-2 mb-2"><i class="fa fa-briefcase fa-3x" aria-hidden="true"></i></div>
+                                                <div class="title text text-uppercase text-center mb-0">@opcion["ETIQUETA_OPCION"].ToString()</div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    myIndex+= 1;
+
+                                    if (myIndex > colors.Count - 1) { myIndex = 0; }
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

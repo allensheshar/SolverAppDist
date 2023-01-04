@@ -1,0 +1,38 @@
+﻿
+<form name="frmRegistroCalendarioFeriado" action="#" method="post" data-table="CALENDARIO_FERIADOS" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off">
+
+    <input type="hidden" id="C_FERIADO" name="C_FERIADO" />
+
+    <div class="row mb-3">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <span class="help-block text-muted small-font"> Fecha nacimiento</span>
+            <div class="input-floating-label text-blue-d1 brc-blue-m1">
+                <input type="text" class="form-control form-control-sm FEC_FERIADO" name="FEC_FERIADO" id="FEC_FERIADO" required />
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <span class="help-block text-muted small-font"> Estado</span>
+            <select class="form-control form-control-sm" id="IND_ESTADO" name="IND_ESTADO">
+                <option value="*"> Activo</option>
+                <option value="&"> Inactivo</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <span class="help-block text-muted small-font"> Nombre feriado</span>
+            <div class="input-floating-label text-blue-d1 brc-blue-m1">
+                <input type="text" class="form-control form-control-sm" name="NOM_FERIADO" id="NOM_FERIADO" required />
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <span class="help-block text-muted small-font"> Descripción feriado</span>
+            <div class="input-floating-label text-blue-d1 brc-blue-m1">
+                <input type="text" class="form-control form-control-sm" name="DESCRIP" id="DESCRIP" />
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" id="btnGuardarFeriado" name="btnGuardarFeriado" class="btn btn-danger btn-sm float-right"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+
+</form>

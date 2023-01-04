@@ -1,0 +1,162 @@
+﻿<form name="frm" method="post" action="#" data-table="CAJA.LETRA" data-condition="@ViewBag.Condition" data-setUpdate="1" autocomplete="off" style="margin-bottom: 10px; font-size:12px;" onsubmit="return false;">
+    <input type="hidden" name="C_EMPRESA" />
+    <input type="hidden" name="C_LETRA" />
+    <input type="hidden" name="C_LETRA_DETALLE" data-nosend="1" />
+
+    <input type="hidden" name="C_CLIENTE" />
+    <input type="hidden" name="FECHA_REGISTRO" value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")" />
+    <input type="hidden" name="IND_ESTADO" value="*" />
+    <input type="hidden" name="TOTAL_FRACCION" value="0.0" />
+    <input type="hidden" name="TOTAL_LETRA" value="0.0" />
+    <input type="hidden" name="C_USUARIO" value="" />
+
+    <div class="row">
+        <a href="@Url.Action("GeneracionLetra","Procesos")" class="btn btn-sm btn-gray float-left"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</a>
+        @*<div class="col-auto"><button type="button" class="btn btn-sm btn-gray float-left" id="btnAtras"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Regresar</button></div>*@
+        <div class="col"><button type="submit" class="btn btn-sm btn-danger float-right" id="btnGuardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Guardar</button></div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-2">
+            <img class="mr-4 mt-4" id="IMAGEN_COMPANY" height="120" />
+        </div>
+        <div class="col-4 offset-6 factura-info vertical-center" style="padding: 0px;border-color: black;margin-top: 20px;margin-bottom: 20px;border: 2px solid rgb(193,193,193);box-sizing: border-box;">
+            <div class="col-12 text-center" style="margin-bottom: -10px; font-size:30px;">
+                <strong><label class="col-form-label" id="RUC_EMPRESA" style="color:black;"></label></strong>
+            </div>
+            <div class="col-12 text-center" style="margin-bottom: 5px; margin-top: 5px;">
+                <select name="C_PARAMETRO_GENERAL_TIPO_DOCUMENTO" class="form-control form-control-sm"
+                        data-query="cb_caja_procesos_nuevaletra_tipodocumento" data-value="C_PARAMETRO_GENERAL" data-field="DESCRIPCION_PARAMETRO" data-enableDefault="0"
+                        style="font-size: 30px;text-align: center;text-align-last: center;-moz-text-align-last: center;color: black;"
+                        required></select>
+            </div>
+            <div class="col-12 mb-2 ">
+                <div class="row">
+                    <div class="col text-center">
+                        <strong><label class="col-form-label col-form-label-sm" id="LETRA" style="color:black; font-size:30px;">XXXX</label></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <strong><label class="col-form-label col-form-label-sm" id="RAZON_SOCIAL"></label></strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label class="col-form-label col-form-label-sm" id="DIRECCION_EMPRESA"></label>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Nombre/Razón Social:</label></strong>
+        </div>
+        <div class="col-4">
+            <label id="NOMBRE" class="col-form-label col-form-label-sm"></label>
+        </div>
+        <div class="col-1">
+            <button type="button" id="btnCliente" class="btn btn-orange btn-sm"><i class="fa fa-user" aria-hidden="true"></i> Cliente</button>
+        </div>
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm" id="tipo_doc"></label></strong>
+        </div>
+        <div class="col-3">
+            <label class="col-form-label col-form-label-sm" id="RUC"></label>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Dirección:</label></strong>
+        </div>
+        <div class="col-5">
+            <label class="col-form-label col-form-label-sm" id="DIRECCION"></label>
+        </div>
+        <div class="col-2 fechaemision">
+            <strong><label class="col-form-label col-form-label-sm">Fecha Emisión:</label></strong>
+        </div>
+        <div class="col-1 fechaemision">
+            <input class="form-control form-control-sm" type="text" name="FECHA_EMISION" value="@DateTime.Now.ToString("dd/MM/yyyy")" required />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-2">
+            <strong><label class="col-form-label col-form-label-sm">Moneda:</label></strong>
+        </div>
+        <div class="col-1">
+            <select name="C_PARAMETRO_GENERAL_MONEDA" class="form-control form-control-sm" required
+                    data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Moneda" data-enableDefault="0"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <button type="button" class="btn btn-orange btn-sm" id="btnVenta"><i class="fa fa-archive" aria-hidden="true"></i> Agregar Item</button>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-auto"><label class="col-form-label col-form-label-sm">Nro de cuotas:</label></div>
+                <div class="col-2"><input class="form-control form-control-sm" type="number" name="NRO_CUOTAS" /></div>
+                <div class="col-auto"><button type="button" class="btn btn-orange btn-sm" id="btnAplicarCuotas">Aplicar</button></div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-6">
+            <div id="tableDetalle">
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="tableDetalleCuotas">
+            </div>
+        </div>
+    </div>
+    <div class="factura-venta">
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-2">
+                        <div style="padding: 10px;">
+                            <img src="~/Content/Images/ojo celeste.png" width="60" height="60" style="margin-left: 1px; border-radius: 25px;" />
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <strong><label class="col-form-label col-form-label-sm" style="color: #FD7E14">OBSERVACIONES:</label></strong><br />
+                        <label>
+                            <textarea rows="3" cols="45" name="OBSERVACION"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+
+    .factura-info {
+        font-size: 20px;
+    }
+
+    .factura-venta table, .factura-venta th, .factura-venta td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .factura-venta th, .factura-venta td {
+        padding: 5px;
+        text-align: left;
+    }
+
+    .factura-venta textarea {
+        border: none;
+        background-color: transparent;
+        resize: none;
+        outline: none;
+    }
+
+    #tblProductos .jqx-grid-column-header {
+        color: #FD7E14;
+        font-size: 12px !important;
+    }
+</style>
