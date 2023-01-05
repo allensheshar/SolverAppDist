@@ -15,17 +15,17 @@
         const objValidarTablas = {
             tables: [
                 {
-                    table: tblPrecios,
-                    tableText: 'Lista de precios',
-                    items: ['C_CLIENTE_CATEGORIA', 'MONEDA', 'PRECIO'],
-                    itemsText: ['categoría', 'moneda', 'precio']
-                },
-                {
                     table: tblPromo,
                     tableText: 'Productos del paquete',
                     items: ['CANTIDAD', 'UNIDAD_MEDIDA'],
                     itemsText: ['cantidad', 'unidad de medida'],
                     minimumOfRows: 1
+                },
+                {
+                    table: tblPrecios,
+                    tableText: 'Lista de precios',
+                    items: ['C_CLIENTE_CATEGORIA', 'MONEDA', 'PRECIO'],
+                    itemsText: ['categoría', 'moneda', 'precio']
                 }
             ]
         };
@@ -446,6 +446,10 @@
                             }
                             return true;
                         }
+                    },
+                    'IND_CAMBIAR_PROD': {
+                        text: 'Camb. prod.',
+                        columntype: 'checkbox'
                     }
                 },
                 config: {
@@ -742,8 +746,13 @@
                 }
             },
             onSubmit: function (form, controls) {
-                if ($(_controls.PROMOCION).val() == '*') objValidarTablas.tables[1]['minimumOfRows'] = 1
-                else delete objValidarTablas.tables[1].minimumOfRows
+                if ($(_controls.CALCULO_PRECIO).val() != '') {
+                    objValidarTablas.tables.splice(1, 1)
+                }
+                else {
+                    if ($(_controls.PROMOCION).val() == '*') objValidarTablas.tables[1]['minimumOfRows'] = 1
+                    else delete objValidarTablas.tables[1].minimumOfRows
+                }
                 var validacion = $.solver.fn.validarCondicionesTabla(objValidarTablas);
                 if (validacion.estado) {
                     if ($(controls.C_UNIDAD_NEGOCIO).val() == '') {
@@ -771,86 +780,96 @@
             onDetail: function (form, controls, token) {
                 var inserts = $(tblPrecios).jqxGrid('getrows').filter(x => x['MODO'] == 1);
                 var update = $(tblPrecios).jqxGrid('getrows').filter(x => x['MODO'] == 2);
+                if ($(_controls.CALCULO_PRECIO).val() == '') {
+                    $.each(inserts, function (i, precio) {
+                        var type = 1;
+                        var condition = '';
+                        var codCliente = (precio.C_CLIENTE_CATEGORIA == '' ? null : categoriaClientes.filter(x => x['label'] == precio.C_CLIENTE_CATEGORIA)[0].value);
+                        var objPrecio = {
+                            C_EMPRESA: precio.C_EMPRESA,
+                            C_PRODUCTO: precio.C_PRODUCTO,
+                            C_PRODUCTO_PRECIO: precio.C_PRODUCTO_PRECIO,
+                            C_CLIENTE_CATEGORIA: codCliente,
+                            MONEDA: (precio.MONEDA == 'Soles' ? 'S' : 'D'),
+                            PRECIO: (precio.PRECIO == '' ? null : precio.PRECIO),
+                            CODIGO: (precio.CODIGO == '' ? null : precio.CODIGO),
+                            MARCA: (precio.MARCA == '' ? null : precio.MARCA),
+                            IND_ESTADO: (precio.IND_ESTADO == 'Activo' ? '*' : '&'),
+                            CONDICION: precio.CONDICION,
+                            C_PARAMETRO_GENERAL_UNIDAD: precio.C_PARAMETRO_GENERAL_UNIDAD,
+                            MODIFICA_PRECIO: (precio.MODIFICA_PRECIO == 'true' || precio.MODIFICA_PRECIO == true ? '*' : '&'),
+                            TIPO_CONFIG: '09995',
+                            HORA_DESDE: '00: 00: 00',
+                            HORA_HASTA: '23: 59: 59',
+                            C_USUARIO_REGISTRO: $.solver.session.SESSION_ID
+                        };
+                        var extPrecio = {
+                            C_PRODUCTO: {
+                                action: {
+                                    name: 'GetParentId',
+                                    args: $.ConvertObjectToArr({
+                                        token: token,
+                                        column: 'C_PRODUCTO'
+                                    })
+                                }
+                            },
+                            C_PRODUCTO_PRECIO: {
+                                action: {
+                                    name: 'GetNextId',
+                                    args: $.ConvertObjectToArr({
+                                        columns: 'C_EMPRESA,C_PRODUCTO',
+                                        max_length: 3
+                                    })
+                                }
+                            }
+                        };
+                        $.AddPetition({
+                            table: 'VET.PRODUCTO_PRECIO',
+                            type: type,
+                            condition: condition,
+                            items: $.ConvertObjectToArr(objPrecio, extPrecio)
+                        });
+                    });
 
-                $.each(inserts, function (i, precio) {
-                    var type = 1;
-                    var condition = '';
-                    var codCliente = (precio.C_CLIENTE_CATEGORIA == '' ? null : categoriaClientes.filter(x => x['label'] == precio.C_CLIENTE_CATEGORIA)[0].value);
-                    var objPrecio = {
-                        C_EMPRESA: precio.C_EMPRESA,
-                        C_PRODUCTO: precio.C_PRODUCTO,
-                        C_PRODUCTO_PRECIO: precio.C_PRODUCTO_PRECIO,
-                        C_CLIENTE_CATEGORIA: codCliente,
-                        MONEDA: (precio.MONEDA == 'Soles' ? 'S' : 'D'),
-                        PRECIO: (precio.PRECIO == '' ? null : precio.PRECIO),
-                        CODIGO: (precio.CODIGO == '' ? null : precio.CODIGO),
-                        MARCA: (precio.MARCA == '' ? null : precio.MARCA),
-                        IND_ESTADO: (precio.IND_ESTADO == 'Activo' ? '*' : '&'),
-                        CONDICION: precio.CONDICION,
-                        C_PARAMETRO_GENERAL_UNIDAD: precio.C_PARAMETRO_GENERAL_UNIDAD,
-                        MODIFICA_PRECIO: (precio.MODIFICA_PRECIO == 'true' || precio.MODIFICA_PRECIO == true ? '*' : '&'),
-                        TIPO_CONFIG: '09995',
-                        HORA_DESDE: '00: 00: 00',
-                        HORA_HASTA: '23: 59: 59',
-                        C_USUARIO_REGISTRO: $.solver.session.SESSION_ID
-                    };
-                    var extPrecio = {
-                        C_PRODUCTO: {
-                            action: {
-                                name: 'GetParentId',
-                                args: $.ConvertObjectToArr({
-                                    token: token,
-                                    column: 'C_PRODUCTO'
-                                })
-                            }
-                        },
-                        C_PRODUCTO_PRECIO: {
-                            action: {
-                                name: 'GetNextId',
-                                args: $.ConvertObjectToArr({
-                                    columns: 'C_EMPRESA,C_PRODUCTO',
-                                    max_length: 3
-                                })
-                            }
+                    $.each(update, function (i, precio) {
+                        var type = 2;
+                        var condition = `C_EMPRESA = '${empresa}' AND C_PRODUCTO = '${precio['C_PRODUCTO']}' AND C_PRODUCTO_PRECIO = '${precio['C_PRODUCTO_PRECIO']}'`;
+                        var codCliente = (precio.C_CLIENTE_CATEGORIA == '' ? null : categoriaClientes.filter(x => x['label'] == precio.C_CLIENTE_CATEGORIA)[0].value);
+                        var objPrecio = {
+                            C_EMPRESA: precio.C_EMPRESA,
+                            C_PRODUCTO: precio.C_PRODUCTO,
+                            C_PRODUCTO_PRECIO: precio.C_PRODUCTO_PRECIO,
+                            C_CLIENTE_CATEGORIA: codCliente,
+                            MONEDA: (precio.MONEDA == 'Soles' ? 'S' : 'D'),
+                            PRECIO: precio.PRECIO,
+                            CODIGO: (precio.CODIGO == '' ? null : precio.CODIGO),
+                            MARCA: (precio.MARCA == '' ? null : precio.MARCA),
+                            IND_ESTADO: (precio.IND_ESTADO == 'Activo' ? '*' : '&'),
+                            CONDICION: precio.CONDICION,
+                            C_PARAMETRO_GENERAL_UNIDAD: precio.C_PARAMETRO_GENERAL_UNIDAD,
+                            MODIFICA_PRECIO: (precio.MODIFICA_PRECIO == 'true' || precio.MODIFICA_PRECIO == true ? '*' : '&'),
+                            TIPO_CONFIG: precio.TIPO_CONFIG,
+                            HORA_DESDE: precio.HORA_DESDE,
+                            HORA_HASTA: precio.HORA_HASTA,
+                            C_USUARIO_REGISTRO: $.solver.session.SESSION_ID
+                        };
+                        $.AddPetition({
+                            table: 'VET.PRODUCTO_PRECIO',
+                            type: type,
+                            condition: condition,
+                            items: $.ConvertObjectToArr(objPrecio)
+                        });
+                    });
+                }
+
+                if ($(_controls.CALCULO_PRECIO).val() != '') {
+                    var rows = $(tblPrecios).jqxGrid('getrows');
+                    $.each(rows, function (i, v) {
+                        if (v['C_PRODUCTO_PRECIO'] != '') {
+                            arrEliminadoPrecio.push(v);
                         }
-                    };
-                    $.AddPetition({
-                        table: 'VET.PRODUCTO_PRECIO',
-                        type: type,
-                        condition: condition,
-                        items: $.ConvertObjectToArr(objPrecio, extPrecio)
-                    });
-                });
-
-                $.each(update, function (i, precio) {
-                    var type = 2;
-                    var condition = `C_EMPRESA = '${empresa}' AND C_PRODUCTO = '${precio['C_PRODUCTO']}' AND C_PRODUCTO_PRECIO = '${precio['C_PRODUCTO_PRECIO']}'`;
-                    var codCliente = (precio.C_CLIENTE_CATEGORIA == '' ? null : categoriaClientes.filter(x => x['label'] == precio.C_CLIENTE_CATEGORIA)[0].value);
-                    var objPrecio = {
-                        C_EMPRESA: precio.C_EMPRESA,
-                        C_PRODUCTO: precio.C_PRODUCTO,
-                        C_PRODUCTO_PRECIO: precio.C_PRODUCTO_PRECIO,
-                        C_CLIENTE_CATEGORIA: codCliente,
-                        MONEDA: (precio.MONEDA == 'Soles' ? 'S' : 'D'),
-                        PRECIO: precio.PRECIO,
-                        CODIGO: (precio.CODIGO == '' ? null : precio.CODIGO),
-                        MARCA: (precio.MARCA == '' ? null : precio.MARCA),
-                        IND_ESTADO: (precio.IND_ESTADO == 'Activo' ? '*' : '&'),
-                        CONDICION: precio.CONDICION,
-                        C_PARAMETRO_GENERAL_UNIDAD: precio.C_PARAMETRO_GENERAL_UNIDAD,
-                        MODIFICA_PRECIO: (precio.MODIFICA_PRECIO == 'true' || precio.MODIFICA_PRECIO == true ? '*' : '&'),
-                        TIPO_CONFIG: precio.TIPO_CONFIG,
-                        HORA_DESDE: precio.HORA_DESDE,
-                        HORA_HASTA: precio.HORA_HASTA,
-                        C_USUARIO_REGISTRO: $.solver.session.SESSION_ID
-                    };
-                    $.AddPetition({
-                        table: 'VET.PRODUCTO_PRECIO',
-                        type: type,
-                        condition: condition,
-                        items: $.ConvertObjectToArr(objPrecio)
-                    });
-                });
+                    })
+                }
 
                 if (arrEliminadoPrecio.length > 0) {
                     $.each(arrEliminadoPrecio, function (i, eliminado) {
@@ -904,7 +923,8 @@
                                 C_PRODUCTO_PROMO_DETALLE: '',
                                 C_PRODUCTO: v.C_PRODUCTO,
                                 CANTIDAD: v.CANTIDAD,
-                                C_UNIDAD_MEDIDA: v.C_UNIDAD_MEDIDA
+                                C_UNIDAD_MEDIDA: v.C_UNIDAD_MEDIDA,
+                                IND_CAMBIAR_PROD: (v.IND_CAMBIAR_PROD == 'true' || v.IND_CAMBIAR_PROD == true ? '*' : '&')
                             }, {
                                 C_PRODUCTO_REF: {
                                     action: {
@@ -954,9 +974,6 @@
                 _controls = controls;
 
                 $(_controls.C_EMPRESA).val(empresa);
-                //$(_controls.NOMBRE_PARA_VENTA).keyup(function () {
-                //    $(_controls.NOMBRE_GENERICO).val($(this).val());
-                //});
                 $(_controls.FAMILIA).change(function () {
                     $('#SUBFAMILIA').attr('data-query', 'cb_ventas_mantenimiento_productos_listarsubfamilias')
                     $('#SUBFAMILIA').attr('data-value', 'NOMBRE_SUB_FAMILIA')
@@ -995,17 +1012,6 @@
                         }
                     });
                 });
-
-                //cargamos combo de cocina
-                //$(_controls.C_COCINA).attr('data-query', 'gbl_obtener_cocinas_empresa');
-                //$(_controls.C_COCINA).attr('data-value', 'C_COCINA');
-                //$(_controls.C_COCINA).attr('data-field', 'NOMBRE_COCINA');
-                //$(_controls.C_COCINA).attr('data-empresa', $.solver.session.SESSION_EMPRESA);
-                //$(_controls.C_COCINA).FieldLoadRemote({
-                //    onReady: function (control) {
-                        
-                //    }
-                //});
 
                 if ($.solver.basePath == '/ventas') {
                     $(_controls.C_COCINA).closest('div').addClass('d-none');
@@ -1159,6 +1165,8 @@
 
                         $('#groupCocina').hide();
                         $(controls.C_COCINA).attr('disabled', 'disabled')
+
+                        $('.calculoPrecio').show();
                     }
                     else {
                         $('.zone-promo').hide()
@@ -1169,6 +1177,7 @@
 
                         $('#groupCocina').show();
                         $(controls.C_COCINA).removeAttr('disabled')
+                        $('.calculoPrecio').hide();
                     }
                 });
 
@@ -1181,6 +1190,7 @@
                     $('.form-check').show();
                     $('#groupCocina').show();
                     $(controls.C_COCINA).removeAttr('disabled')
+                    $('.calculoPrecio').hide();
                 }
                 else {
                     $('.zone-promo').show();
@@ -1188,6 +1198,7 @@
                     $('.form-check').hide();
                     $('#groupCocina').hide();
                     $(controls.C_COCINA).attr('disabled', 'disabled')
+                    $('.calculoPrecio').show();
                 };
 
                 fnObtenerCentroCosto();
@@ -1204,6 +1215,22 @@
                         }
                     }
                 });
+
+                if ($(controls.CALCULO_PRECIO).val() == '') {
+                    $('#listaprecios-tab').show();
+                }
+                else {
+                    $('#listaprecios-tab').hide();
+                }
+
+                $(controls.CALCULO_PRECIO).change(function () {
+                    if ($(controls.CALCULO_PRECIO).val() == '') {
+                        $('#listaprecios-tab').show();
+                    }
+                    else {
+                        $('#listaprecios-tab').hide();
+                    }
+                })
 
             },
             onReady: function (result, controls, form) {

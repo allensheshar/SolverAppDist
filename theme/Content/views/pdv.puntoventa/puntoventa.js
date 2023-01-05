@@ -792,7 +792,7 @@
                                     C_PEDIDO: codPedido,
                                     C_DETALLE: itemPedidoDetalle.C_DETALLE,
                                     C_PRODUCTO: itemPedidoDetalle.IdProducto,
-                                    C_ALMACEN: $('#C_ALMACEN_DEFECTO').val(),
+                                    C_ALMACEN: ($('#C_ALMACEN_DEFECTO').val() == '' ? null : $('#C_ALMACEN_DEFECTO').val()),
                                 };
 
                                 if (itemPedidoDetalle.C_DETALLE == '') {
@@ -899,32 +899,32 @@
 
                             // Agregamos script para validar y registrar movimientos de recetas
                             //if ($.solver.basePath != '/restaurant') {
-                                $.AddPetition({
-                                    type: '4',
-                                    transaction: true,
-                                    items: $.ConvertObjectToArr({
-                                        script: 'spw_gbl_validar_registrar_movimientos_recetas_2',
-                                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                        C_DOCUMENTO: codPedido,
-                                        FLAG_DOCUMENTO: 'pdv',
-                                        C_USUARIO_REGISTRO: $.solver.session.SESSION_ID,
-                                        MODULO: $.solver.basePath,
-                                        C_COMANDA: '',
-                                        VENTA: '&'
-                                    },
-                                        {
-                                            C_DOCUMENTO: {
-                                                action: {
-                                                    name: 'GetParentId',
-                                                    args: $.ConvertObjectToArr({
-                                                        column: 'C_PEDIDO',
-                                                        token: tokenPedido,
-                                                    })
-                                                }
+                            $.AddPetition({
+                                type: '4',
+                                transaction: true,
+                                items: $.ConvertObjectToArr({
+                                    script: 'spw_gbl_validar_registrar_movimientos_recetas_2',
+                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                    C_DOCUMENTO: codPedido,
+                                    FLAG_DOCUMENTO: 'pdv',
+                                    C_USUARIO_REGISTRO: $.solver.session.SESSION_ID,
+                                    MODULO: $.solver.basePath,
+                                    C_COMANDA: '',
+                                    VENTA: '&'
+                                },
+                                    {
+                                        C_DOCUMENTO: {
+                                            action: {
+                                                name: 'GetParentId',
+                                                args: $.ConvertObjectToArr({
+                                                    column: 'C_PEDIDO',
+                                                    token: tokenPedido,
+                                                })
                                             }
                                         }
-                                    )
-                                });
+                                    }
+                                )
+                            });
                             //}
 
                             // Agregamos script para validar y registrar el movimiento stock
@@ -1886,7 +1886,7 @@
                             C_PEDIDO: codPedido,
                             C_DETALLE: itemPedidoDetalle.C_DETALLE,
                             C_PRODUCTO: itemPedidoDetalle.IdProducto,
-                            C_ALMACEN: $('#C_ALMACEN_DEFECTO').val(),
+                            C_ALMACEN: ($('#C_ALMACEN_DEFECTO').val() == '' ? null : $('#C_ALMACEN_DEFECTO').val()),
                         };
 
                         if (itemPedidoDetalle.C_DETALLE == '') {
@@ -2064,32 +2064,32 @@
 
                     // Agregamos script para validar y registrar movimientos de recetas
                     //if ($.solver.basePath != '/restaurant') {
-                        $.AddPetition({
-                            type: '4',
-                            transaction: true,
-                            items: $.ConvertObjectToArr({
-                                script: 'spw_gbl_validar_registrar_movimientos_recetas_2',
-                                C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                C_DOCUMENTO: codPedido,
-                                FLAG_DOCUMENTO: 'pdv',
-                                C_USUARIO_REGISTRO: $.solver.session.SESSION_ID,
-                                MODULO: $.solver.basePath,
-                                C_COMANDA: '',
-                                VENTA: '&'
-                            },
-                                {
-                                    C_DOCUMENTO: {
-                                        action: {
-                                            name: 'GetParentId',
-                                            args: $.ConvertObjectToArr({
-                                                column: 'C_PEDIDO',
-                                                token: tokenPedido,
-                                            })
-                                        }
+                    $.AddPetition({
+                        type: '4',
+                        transaction: true,
+                        items: $.ConvertObjectToArr({
+                            script: 'spw_gbl_validar_registrar_movimientos_recetas_2',
+                            C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                            C_DOCUMENTO: codPedido,
+                            FLAG_DOCUMENTO: 'pdv',
+                            C_USUARIO_REGISTRO: $.solver.session.SESSION_ID,
+                            MODULO: $.solver.basePath,
+                            C_COMANDA: '',
+                            VENTA: '&'
+                        },
+                            {
+                                C_DOCUMENTO: {
+                                    action: {
+                                        name: 'GetParentId',
+                                        args: $.ConvertObjectToArr({
+                                            column: 'C_PEDIDO',
+                                            token: tokenPedido,
+                                        })
                                     }
                                 }
-                            )
-                        });
+                            }
+                        )
+                    });
                     //}
 
                     // Agregamos script para validar y registrar el movimiento stock
@@ -2983,7 +2983,7 @@
                         C_CAJA: function () {
                             return objMyCaja.C_CAJA || null;
                         }
-                    },{
+                    }, {
                         empresa: $.solver.session.SESSION_EMPRESA,
                         pedido: codPedido,
                         comanda: codComanda,
@@ -4679,7 +4679,7 @@
                     IND_SERVICIO: (itemPedidoDetalle.TipoProducto == '07229' ? '*' : '&'),
                     C_PRODUCTO_PRECIO: itemPedidoDetalle.IdProductoPrecio,
                     IND_ESTADO: itemPedidoDetalle.Estado,
-                    C_ALMACEN: itemPedidoDetalle.C_ALMACEN,
+                    C_ALMACEN: (itemPedidoDetalle.C_ALMACEN == '' ? null : itemPedidoDetalle.C_ALMACEN),
                     STOCK: itemPedidoDetalle.STOCK,
                     C_PARAMETRO_GENERAL_UNIDAD: itemPedidoDetalle.C_UNIDAD_MEDIDA,
                     PRECIO_ORIGINAL: itemPedidoDetalle.PrecioOriginal,
@@ -4760,11 +4760,13 @@
             $('#tipoCliente').attr('data-C_UNIDAD_MEDIDA', C_UNIDAD_MEDIDA)
             $('#tipoCliente').FieldLoadRemote({
                 onReady: function () {
-                    $('#divTipoCliente').show();
-                    var PRECIO = $('#tipoCliente')[0].args.data.filter(x => x['CODIGO'] == $('#tipoCliente').val())[0].PRECIO;
-                    var PRECIO_PRODUCTO = $('#tipoCliente')[0].args.data.filter(x => x['CODIGO'] == $('#tipoCliente').val())[0].PRECIO_PRODUCTO;
-                    $('#precio').text(PRECIO);
-                    $('#precioProducto').val(PRECIO_PRODUCTO);
+                    if ($('#tipoCliente')[0].args.data.length != 0) {
+                        $('#divTipoCliente').show();
+                        var PRECIO = $('#tipoCliente')[0].args.data.filter(x => x['CODIGO'] == $('#tipoCliente').val())[0].PRECIO;
+                        var PRECIO_PRODUCTO = $('#tipoCliente')[0].args.data.filter(x => x['CODIGO'] == $('#tipoCliente').val())[0].PRECIO_PRODUCTO;
+                        $('#precio').text(PRECIO);
+                        $('#precioProducto').val(PRECIO_PRODUCTO);
+                    }
                 }
             })
 
@@ -4932,6 +4934,7 @@
                         NOMBRE_PARA_VENTA,
                         C_PARAMETRO_GENERAL_TIPO_PRODUCTO,
                         PROMOCION,
+                        CALCULO_PRECIO,
                         STOCK_ILIMITADO,
                         C_PARAMETRO_GENERAL_AFECTACION_IGV,
                         CODIGO_AFECTACION_IGV,
@@ -5026,6 +5029,101 @@
 
                     };
 
+                    if (PROMOCION == '*') {
+                        $('.calculoPrecio').show();
+                        $('#modalProducto').find('.modal-dialog').css({ 'max-width': '80%' });
+
+                        $('#divTable').html('<div id="tablePrecios"></div>')
+
+                        var hiddens = []
+                        hiddens = ['C_EMPRESA', 'C_PRODUCTO_PROMO_DETALLE', 'CANTIDAD', 'SUBTOTAL', 'C_CATEGORIA']
+                        //if (CALCULO_PRECIO == '') {
+                        //    hiddens = ['C_EMPRESA', 'C_PRODUCTO_PROMO_DETALLE', 'C_CATEGORIA']
+                        //}
+                        //else {
+                        //    hiddens = ['C_EMPRESA', 'C_PRODUCTO_PROMO_DETALLE', 'CANTIDAD', 'SUBTOTAL', 'C_CATEGORIA']
+                        //}
+
+                        $('#tablePrecios').CreateGrid({
+                            query: 'tbl_puntoventa_procesos_puntoventa_obtenerdetallepromo',
+                            hiddens: hiddens,
+                            items: {
+                                C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                C_PRODUCTO: C_PRODUCTO
+                            },
+                            columns: {
+                                C_PRODUCTO: {
+                                    text: 'Cód. prod',
+                                    width: 80
+                                },
+                                NOMBRE_PARA_VENTA: {
+                                    text: 'Producto',
+                                    width: 200
+                                },
+                                PRECIO: {
+                                    text: 'Precio',
+                                    cellsFormat: 'd2',
+                                    cellsAlign: 'right',
+                                    width: 80
+                                },
+                                CANTIDAD: {
+                                    text: 'Cant',
+                                    cellsFormat: 'd2',
+                                    cellsAlign: 'right',
+                                    width: 80
+                                },
+                                SUBTOTAL: {
+                                    text: 'Subtotal',
+                                    cellsFormat: 'd2',
+                                    cellsAlign: 'right',
+                                    width: 80,
+                                    aggregates: ['sum'],
+                                    aggregatesRenderer: function (aggregates, column, element) {
+                                        var formatNumber = aggregates.sum;
+                                        if (formatNumber === undefined)
+                                            formatNumber = '';
+                                        return `<div class="h-30 d-flex justify-content-end align-items-center font-weight-bold">
+                                                    <strong> ${formatNumber} </strong>
+                                                </div>`;
+                                    }
+                                },
+                                IND_CAMBIAR_PROD: {
+                                    text: '',
+                                    width: 100,
+                                    cellsrenderer: function (index, columnfield, value, defaulthtml, columnproperties) {
+                                        if (value == '*') {
+                                            var botones = ''
+                                            botones += `<a class="btn btn-sm btn-orange" onclick="$.CambiarProducto('${index}', '${CALCULO_PRECIO}');" style="cursor: pointer;"><i class="fa fa-edit"> Cambiar</i></a>`
+                                            return `<div class="jqx-grid-cell-middle-align" style="margin-top: 11px;">${botones}</div>`;
+                                        }
+                                        else {
+                                            return '';
+                                        }
+                                    }
+                                }
+                            },
+                            config: {
+                                height: 500,
+                                rowsheight: 50,
+                                showaggregates: true,
+                                showstatusbar: true,
+                                statusbarheight: 20,
+                            }
+                        });
+                        $('#tablePrecios').on('bindingcomplete', function () {
+                            if (CALCULO_PRECIO == '10255') {
+                                var rows = $('#tablePrecios').jqxGrid('getrows');
+                                var mayor = 0;
+                                $.each(rows, function (i, v) {
+                                    if (v.PRECIO * v.CANTIDAD >= mayor) {
+                                        mayor = v.PRECIO * v.CANTIDAD;
+                                    }
+                                })
+                                $('#precio').text(mayor)
+                                $('#precioProducto').val(mayor)
+                            }
+                        });
+                    }
 
                     $('#btnAgregarProducto').unbind('click');
                     $('#btnAgregarProducto').bind('click', function () {
@@ -5045,12 +5143,14 @@
                             var CANTIDAD = parseFloat($('#cantidad').val());
                             var C_PRODUCTO_PRECIO = ''
 
+                            var precios = $('#tipoCliente')[0].args.data.filter(x => x['CODIGO'] == $('#tipoCliente').val());
+
                             if (C_PARAMETRO_GENERAL_TIPO_PRODUCTO != '07229') {
                                 C_UNIDAD_MEDIDA = $('.active-box-unidad').attr('data-codigo');
                                 UNIDAD_MEDIDA = $('.active-box-unidad').attr('data-nombre');
                                 TIPO_CLIENTE = $('#tipoCliente').val();
                                 PRECIO = $('#precioProducto').val();
-                                C_PRODUCTO_PRECIO = $('#tipoCliente')[0].args.data.filter(x => x['CODIGO'] == $('#tipoCliente').val())[0].C_PRODUCTO_PRECIO;
+                                C_PRODUCTO_PRECIO = (precios.length > 0 ? precios[0].C_PRODUCTO_PRECIO: '');
                             };
 
                             fnAgregarProducto({ C_PRODUCTO, NOMBRE_PARA_VENTA, PROMOCION, STOCK_ILIMITADO, C_PARAMETRO_GENERAL_AFECTACION_IGV, CODIGO_AFECTACION_IGV, C_UNIDAD_MEDIDA, UNIDAD_MEDIDA, TIPO_CLIENTE, PRECIO, C_PRODUCTO_PRECIO, C_PARAMETRO_GENERAL_TIPO_PRODUCTO, CANTIDAD });
@@ -5078,13 +5178,26 @@
                         } else {
                             $('#cantidad').val(1);
                         }
+                        if (PROMOCION == '*') {
+                            $('#tablePrecios').jqxGrid('refresh')
+                            if (CALCULO_PRECIO == '10255') {
+                                var rows = $('#tablePrecios').jqxGrid('getrows');
+                                var mayor = 0;
+                                $.each(rows, function (i, v) {
+                                    if (v.PRECIO * v.CANTIDAD >= mayor) {
+                                        mayor = v.PRECIO * v.CANTIDAD;
+                                    }
+                                })
+                                $('#precio').text(mayor)
+                                $('#precioProducto').val(mayor)
+                            }
+                        }
                     });
 
                     $('#btnMas').unbind('click');
                     $('#btnMas').bind('click', function () {
                         var cantidad = parseFloat($('#cantidad').val());
                         var limite = $('#cantidad').attr('max')
-
                         if (limite != undefined) {
                             if (cantidad + 1 <= limite) {
                                 $('#cantidad').val(cantidad + 1);
@@ -5092,6 +5205,20 @@
                         }
                         else {
                             $('#cantidad').val(cantidad + 1);
+                        }
+                        if (PROMOCION == '*') {
+                            $('#tablePrecios').jqxGrid('refresh')
+                            if (CALCULO_PRECIO == '10255') {
+                                var rows = $('#tablePrecios').jqxGrid('getrows');
+                                var mayor = 0;
+                                $.each(rows, function (i, v) {
+                                    if (v.PRECIO * v.CANTIDAD >= mayor) {
+                                        mayor = v.PRECIO * v.CANTIDAD;
+                                    }
+                                })
+                                $('#precio').text(mayor)
+                                $('#precioProducto').val(mayor)
+                            }
                         }
                     });
 
@@ -5112,7 +5239,6 @@
                         const nota = $('#cbo_nota').val();
                         $('#nota').val(nota)
                     })
-
 
                 }
             });
@@ -5340,9 +5466,9 @@
                 FechaPedidoDetalle: moment(new Date()).format('DD/MM/YYYY HH:mm:ss')
             };
 
-            var search = objPedido.platos.find(x => 
-                    x.IdProducto == data.C_PRODUCTO && x.IdProductoPrecio == data.C_PRODUCTO_PRECIO && x.C_ALMACEN == Plato.C_ALMACEN && x.NroComanda == '' && x.Estado == '*' && x.Nota == Plato.Nota
-                )
+            var search = objPedido.platos.find(x =>
+                x.IdProducto == data.C_PRODUCTO && x.IdProductoPrecio == data.C_PRODUCTO_PRECIO && x.C_ALMACEN == Plato.C_ALMACEN && x.NroComanda == '' && x.Estado == '*' && x.Nota == Plato.Nota
+            )
             //var search = $.grep(objPedido.platos, function (n, i) {
             //    return
             //    
@@ -5585,7 +5711,7 @@
 
                         $.SendPetition({
                             onReady: function (result) {
-                                
+
                                 $.CloseStatusBar();
                                 fnMostrarResumen();
 
@@ -5605,7 +5731,7 @@
                 if ($.solver.basePath == '/restaurant' && search.EnviadCocina == '*') {
                     fnAutorizarAccion('AnularProducto', function (datausuario, textMotivo) {
                         eliminarProducto(textMotivo, datausuario);
-                    },'S','Motivo eliminación:');
+                    }, 'S', 'Motivo eliminación:');
                 } else {
                     eliminarProducto('Eliminado manualmente.');
                 };
@@ -6307,7 +6433,7 @@
 
                                                 percent = result / totalventa;
 
-                                                if ((percent*100) > 60) {
+                                                if ((percent * 100) > 60) {
                                                     fnObtenerAlertaWarning('El porcentaje ingresado no debe ser mayor a 60%.')
                                                     return;
                                                 };
@@ -6660,7 +6786,7 @@
                         })
                     });
                     $(dialogCortesia).find(`#${tokenDividirCuenta} #btnAplicarDivision`).click(function () {
-                        
+
                         var indexes = $(dialogCortesia).find(`#${tokenDividirCuenta} #tableDividir`).jqxGrid('getselectedrowindexes') //datos selecionados;
                         var new_platos = [];
                         var total_platos = objPedido.platos.filter(x => x.Estado == '*').length;
@@ -6760,7 +6886,7 @@
             buttonState = false;
 
         };
-        const fnAutorizarAccion = function (flag, callback,flagMotivo,textFlagMotivo) {
+        const fnAutorizarAccion = function (flag, callback, flagMotivo, textFlagMotivo) {
 
             var tokenLogin = $.CreateToken();
             let dialogLogin = bootbox.dialog({
@@ -8271,5 +8397,57 @@
             fnBuscarProductos();
         });
 
+        $.CambiarProducto = function (index, CALCULO_PRECIO) {
+            var row = $('#tablePrecios').jqxGrid('getrows')[index];
+            var categoria = row['C_CATEGORIA'];
+            $.solver.fn.fnAbrirModal({
+                query: 'tbl_restaurant_procesos_puntoventa_obtenerproductosparareemplazarenpromocion',
+                items: {
+                    CATEGORIA: (categoria == null ? '' : categoria)
+                },
+                hiddens: ['ROW', 'C_PRODUCTO', 'TIPO', 'C_PARAMETRO_GENERAL_TIPO_PRODUCTO', 'CODIGO_AFECTACION_IGV', 'C_ARCHIVO_FOTO', 'PROMOCION', 'STOCK_ILIMITADO', 'C_PRODUCTO_PRECIO'],
+                columns: {
+                    '_rowNum': {
+                        text: '#',
+                        width: '30',
+                        cellsAlign: 'center',
+                        hidden: false,
+                        pinned: true,
+                        editable: false,
+                        sortable: false
+                    },
+                    NOMBRE_PARA_VENTA: {
+                        text: 'Producto'
+                    },
+                    PRECIO_VENTA: {
+                        text: 'Precio',
+                        cellsFormat: 'd2',
+                        cellsAlign: 'right'
+                    }
+                },
+                onAfter: function (token, dialog) {
+                    $(dialog).find('.modal-dialog').css({ 'max-width': '50%' })
+                    $(dialog).find('.modal-dialog').css({ 'margin-top': '5%' })
+                },
+                onSelected: function (rowData) {
+                    $('#tablePrecios').jqxGrid('getrows')[index].C_PRODUCTO = rowData['C_PRODUCTO'];
+                    $('#tablePrecios').jqxGrid('getrows')[index].NOMBRE_PARA_VENTA = rowData['NOMBRE_PARA_VENTA'];
+                    $('#tablePrecios').jqxGrid('getrows')[index].PRECIO = rowData['PRECIO_VENTA'];
+                    $('#tablePrecios').jqxGrid('getrows')[index].SUBTOTAL = $('#tablePrecios').jqxGrid('getrows')[index].CANTIDAD * rowData['PRECIO_VENTA'];
+
+                    if (CALCULO_PRECIO == '10255') {
+                        var rows = $('#tablePrecios').jqxGrid('getrows');
+                        var mayor = 0;
+                        $.each(rows, function (i, v) {
+                            if (v.PRECIO * v.CANTIDAD >= mayor) {
+                                mayor = v.PRECIO * v.CANTIDAD;
+                            }
+                        })
+                        $('#precio').text(mayor)
+                        $('#precioProducto').val(mayor)
+                    }
+                }
+            })
+        }
     });
 });

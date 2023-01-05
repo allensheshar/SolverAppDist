@@ -136,15 +136,6 @@
                         <div class="row">
                             <div class="col-md-3 col-sm-3 col-xs-3 pb-2">
                                 <div class="form-group">
-                                    <label for="PROMOCION" class="text-danger">¿Es paquete?</label>
-                                    <select name="PROMOCION" id="PROMOCION" class="form-control form-control-sm" required>
-                                        <option value="*">Si</option>
-                                        <option value="&" selected="selected">No</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3 pb-2">
-                                <div class="form-group">
                                     <label for="TIPO_UNIDAD" class="text-danger">Tipo de unidad</label>
                                     <select name="TIPO_UNIDAD" id="TIPO_UNIDAD" class="form-control form-control-sm" required>
                                         <option value="U">UNIDAD</option>
@@ -152,24 +143,44 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2 col-sm-6 col-xs-6">
+                            <div class="col-md-3 col-sm-6 col-xs-6">
                                 <div class="form-group">
-                                    <label for="C_PARAMETRO_GENERAL_UNIDAD_PRIN" class="help-block text-muted small-font">Unidad principal</label>
+                                    <label for="C_PARAMETRO_GENERAL_UNIDAD_PRIN" class="text-danger">Unidad principal</label>
                                     <select name="C_PARAMETRO_GENERAL_UNIDAD_PRIN" id="C_PARAMETRO_GENERAL_UNIDAD_PRIN" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Unidad Producto Venta" required></select>
                                 </div>
                             </div>
-                            <div class="col-md-2 col-sm-6 col-xs-6">
+                            <div class="col-md-3 col-sm-6 col-xs-6">
                                 <div class="form-group">
-                                    <label for="C_PARAMETRO_GENERAL_UNIDAD_AUX" class="help-block text-muted small-font">Unidad auxiliar</label>
+                                    <label for="C_PARAMETRO_GENERAL_UNIDAD_AUX" class="text-danger">Unidad auxiliar</label>
                                     <select name="C_PARAMETRO_GENERAL_UNIDAD_AUX" id="C_PARAMETRO_GENERAL_UNIDAD_AUX" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Unidad Producto Venta" required></select>
                                 </div>
                             </div>
-                            <div class="col-md-2 col-sm-6 col-xs-6">
+                            <div class="col-md-3 col-sm-6 col-xs-6">
                                 <div class="form-group">
-                                    <label for="FACTOR" class="help-block text-muted small-font">Factor de conversión</label>
+                                    <label for="FACTOR" class="text-danger">Factor de conversión</label>
                                     <input type="text" name="FACTOR" class="form-control form-control-sm number-input" autocomplete="off" value="1" readonly required min="1" />
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-3 pb-2">
+                                <div class="form-group">
+                                    <label for="PROMOCION" class="text-danger">¿Es paquete?</label>
+                                    <select name="PROMOCION" id="PROMOCION" class="form-control form-control-sm" required>
+                                        <option value="*">Si</option>
+                                        <option value="&" selected="selected">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 pb-2 calculoPrecio" style="display:none">
+                                <div class="form-group">
+                                    <label for="CALCULO_PRECIO" class="help-block text-muted small-font">Cálculo del precio?</label>
+                                    <select class="form-control form-control-sm" id="CALCULO_PRECIO" name="CALCULO_PRECIO"
+                                            data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION"
+                                            data-tipoParametro="Calculo del precio" data-textdefault="Sin seleccionar"></select>
+                                </div>
+                            </div>
+
                         </div>
                         <h4 class="text-purple-d2 mb-3 border-b-1 brc-grey-l1 zone-promo" style="display:none">Productos del paquete (Mínimo 1 producto)</h4>
                         <div class="row zone-promo" style="display:none">

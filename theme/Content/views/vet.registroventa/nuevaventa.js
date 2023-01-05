@@ -679,7 +679,6 @@
                                 .FieldLoadRemote({
                                     onReady: function () {
                                         if (indice != undefined) {
-
                                             const fila = $(tblProductos).jqxGrid('getrows')[indice];
                                             const c_producto = fila['C_PRODUCTO'];
                                             const nomProducto = fila['NOMBRE_ORIGINAL'];
@@ -731,8 +730,8 @@
                                                         $(form).find('#STOCK_ILIMITADO').val(stockIlimitado);
                                                         $(form).find('#PROMOCION').val(promocion);
                                                         $(form).find('#MODIFICA_PRECIO').val(modificaPrecio);
-                                                        $(form).find('#PORC_IGV').val((porc_igv == null) ? parseInt(porcIgv * 100) : parseInt(porc_igv * 100))
-                                                        $(form).find('#PORC_RC').val((porc_rc == null) ? parseInt($('#RECARGO_CONSUMO_TOTAL').val()) : parseInt(porc_rc * 100))
+                                                        $(form).find('#PORC_IGV').val(porc_igv)
+                                                        $(form).find('#PORC_RC').val(porc_rc)
                                                         if (modificaPrecio == '&') {
                                                             $(form).find('#PRECIO').attr('readonly', 'readonly')
                                                         }
@@ -1040,13 +1039,15 @@
                                     var porc_igv = parseFloat($('#PORC_IGV').val());
                                     porc_igv = porc_igv / 100;
                                     var porc_recargo_consumo = $('#PORC_RC').val();
-                                    porc_recargo_consumo = parseFloat(porc_recargo_consumo == '' ? 0 : porc_recargo_consumo);
+                                    porc_recargo_consumo = parseFloat(porc_recargo_consumo == '' ? 0 : porc_recargo_consumo / 100);
 
                                     var valorUnitario = 0;
                                     var codigoAfectacionIgv = $(myControls).find('#AFECTACION_IGV')[0].args.data.filter(x => x['CODIGO'] == $(myControls).find('#AFECTACION_IGV').val())[0]['CODIGO_PARAMETRO_2']
                                     var codigoAfectacionIgvCab = $(myControls).find('#AFECTACION_IGV')[0].args.data.filter(x => x['CODIGO'] == $(myControls).find('#AFECTACION_IGV').val())[0]['CODIGO_PARAMETRO_3']
-                                    if (incluyeIgv && codigoAfectacionIgv == '01') valorUnitario = precio / ((1 + porc_igv) + (porc_recargo_consumo / 100));
+                                    if (incluyeIgv && codigoAfectacionIgv == '01') valorUnitario = precio / ((1 + porc_igv) + (porc_recargo_consumo));
                                     else valorUnitario = precio;
+
+                                    valorUnitario = parseFloat(numeral(valorUnitario).format('0.0000000000'))
 
                                     const dsctoUnitario = valorUnitario * (porcDescuento / 100);
                                     const valorVentaUnitario = valorUnitario - dsctoUnitario;
@@ -1054,16 +1055,23 @@
                                     if (codigoAfectacionIgv == '01') igvUnitario = valorVentaUnitario * porc_igv;
                                     else igvUnitario = 0;
 
-                                    var recargo_consumo = (valorUnitario * (porc_recargo_consumo / 100) * cantidad)
+                                    igvUnitario = parseFloat(numeral(igvUnitario).format('0.0000000000'))
+
+                                    var recargo_consumo = (valorUnitario * (porc_recargo_consumo) * cantidad)
+                                    recargo_consumo = parseFloat(numeral(recargo_consumo).format('0.0000000000'))
 
                                     var dsctoUnitarioIgv = 0;
                                     if (codigoAfectacionIgv == '01') dsctoUnitarioIgv = dsctoUnitario * porc_igv;
                                     else dsctoUnitarioIgv = 0;
 
-                                    const precioBase = valorVentaUnitario * cantidad;
-                                    const igv = igvUnitario * cantidad;
-                                    const precioTotal = igv + precioBase + recargo_consumo;
-                                    const dsctoParcial = (dsctoUnitario + dsctoUnitarioIgv) * cantidad;
+                                    let precioBase = valorVentaUnitario * cantidad;
+                                    precioBase = parseFloat(numeral(precioBase).format('0.00000'))
+                                    let igv = igvUnitario * cantidad;
+                                    igv = parseFloat(numeral(igv).format('0.00000'))
+                                    let precioTotal = igv + precioBase + parseFloat(numeral(recargo_consumo).format('0.00000'));
+                                    precioTotal = parseFloat(numeral(precioTotal).format('0.00000'))
+                                    let dsctoParcial = (dsctoUnitario + dsctoUnitarioIgv) * cantidad;
+                                    dsctoParcial = parseFloat(numeral(dsctoParcial).format('0.00000'))
 
                                     if (indice != undefined) {
                                         $(tblProductos).jqxGrid('getrows')[indice]['IND_SERVICIO'] = (c_tipo_producto == '07229' ? '*' : '&');
@@ -1102,7 +1110,7 @@
                                         $(tblProductos).jqxGrid('getrows')[indice]['C_SUJETO_DETRACCION'] = c_sujeto_detraccion;
                                         $(tblProductos).jqxGrid('getrows')[indice]['RECARGO_CONSUMO'] = recargo_consumo;
                                         $(tblProductos).jqxGrid('getrows')[indice]['PORC_IGV'] = porc_igv;
-                                        $(tblProductos).jqxGrid('getrows')[indice]['PORC_RC'] = porc_recargo_consumo / 100;
+                                        $(tblProductos).jqxGrid('getrows')[indice]['PORC_RC'] = porc_recargo_consumo;
 
                                         $(tblProductos).jqxGrid('refresh');
                                     }
@@ -1148,7 +1156,7 @@
                                             C_SUJETO_DETRACCION: c_sujeto_detraccion,
                                             RECARGO_CONSUMO: recargo_consumo,
                                             PORC_IGV: porc_igv,
-                                            PORC_RC: porc_recargo_consumo / 100
+                                            PORC_RC: porc_recargo_consumo
                                         });
                                     }
 
@@ -1230,13 +1238,13 @@
                 var porc_igv = parseFloat($('#PORC_IGV').val());
                 porc_igv = porc_igv / 100;
                 var porc_recargo_consumo = $('#PORC_RC').val();
-                porc_recargo_consumo = parseFloat(porc_recargo_consumo == '' ? 0 : porc_recargo_consumo);
+                porc_recargo_consumo = parseFloat(porc_recargo_consumo == '' ? 0 : porc_recargo_consumo / 100);
 
                 //if ($.solver.basePath == '/restaurant') porc_recargo_consumo = 0;
                 var valorUnitario = 0;
                 var codigoAfectacionIgv = v.CODIGO_AFECTACION_IGV
 
-                if (incluyeIgv && codigoAfectacionIgv == '01') valorUnitario = precio / ((1 + porc_igv) + (porc_recargo_consumo / 100));
+                if (incluyeIgv && codigoAfectacionIgv == '01') valorUnitario = precio / ((1 + porc_igv) + (porc_recargo_consumo));
                 else valorUnitario = precio;
 
                 const dsctoUnitario = valorUnitario * (porcDescuento / 100);
@@ -1245,7 +1253,7 @@
                 if (codigoAfectacionIgv == '01') igvUnitario = valorVentaUnitario * porc_igv;
                 else igvUnitario = 0;
 
-                var recargo_consumo = (valorUnitario * (porc_recargo_consumo / 100) * cantidad)
+                var recargo_consumo = (valorUnitario * (porc_recargo_consumo) * cantidad)
 
                 var dsctoUnitarioIgv = 0;
                 if (codigoAfectacionIgv == '01') dsctoUnitarioIgv = dsctoUnitario * porc_igv;
@@ -1271,7 +1279,7 @@
                 $(tblProductos).jqxGrid('getrows')[i]['DSCTO_UNITARIO_IGV'] = dsctoUnitarioIgv;
                 $(tblProductos).jqxGrid('getrows')[i]['RECARGO_CONSUMO'] = recargo_consumo;
                 $(tblProductos).jqxGrid('getrows')[i]['PORC_IGV'] = porc_igv;
-                $(tblProductos).jqxGrid('getrows')[i]['PORC_RC'] = porc_recargo_consumo / 100;
+                $(tblProductos).jqxGrid('getrows')[i]['PORC_RC'] = porc_recargo_consumo;
 
                 $(tblProductos).jqxGrid('refresh');
 
@@ -1297,14 +1305,13 @@
                     $.ShowError({ error: error });
                 },
                 onReady: function (result) {
-
+                    
                     const data = result[0]
 
                     $('#RAZON_SOCIAL').text(data['RAZON_SOCIAL']);
                     $('#DIRECCION_EMPRESA').text(data['DIRECCION']);
                     $('.RUC_EMPRESA').text('RUC N° ' + data['NRO_DOCUMENTO']);
                     $('#CUENTA_BANCARIA').val(data['CUENTA_BANCARIA']);
-                    $('#RECARGO_CONSUMO_TOTAL').val(data['PORC_RECARGO_CONSUMO']);
                     if ($('#CUENTA_BANCARIA').val() == '') {
                         $('#CUENTA_BANCARIA').val(data['CUENTA_BANCARIA']);
                     };
@@ -1312,7 +1319,7 @@
                     if (Object.keys(dataVenta).length == 0) {
                         $('#porcIgv').html(numeral(porcIgv).format('0%'));
                         $('#PORC_IGV').val(parseInt(porcIgv * 100));
-                        $('#PORC_RC').val(data['PORC_RECARGO_CONSUMO']);
+                        $('#PORC_RC').val(parseInt(data['PORC_RECARGO_CONSUMO'] * 100));
                     }
 
                     if (typeof callback == 'function') {
@@ -1684,8 +1691,8 @@
                         porcIgv = parseFloat(data['PORC_IGV']);
                         $('#porcIgv').html(numeral(porcIgv).format('0%'));
 
-                        $('#PORC_IGV').val(parseInt(parseFloat(data['PORC_IGV']) * 100))
-                        $('#PORC_RC').val(parseInt(data['PORC_RC']));
+                        $('#PORC_IGV').val(parseInt(parseFloat(data['PORC_IGV']) * 100));
+                        $('#PORC_RC').val(parseInt(parseFloat(data['PORC_RC']) * 100));
 
                         $.GetQuery({
                             query: ['tbl_ventas_procesos_nuevaventa_obtener_detalle_anticipos'],
@@ -2904,7 +2911,6 @@
 
                     if (precioTotal > 0) {
 
-                        debugger
                         const tipoOperacion = $('#TIPO_OPERACION').val();
                         const tipoDetraccion = $('#TIPO_DETRACCION').val();
                         const emisorRetenedor = $('#EMISOR_RETENEDOR').val();
@@ -2972,7 +2978,6 @@
                 return true;
             };
             const fnGuardar = function () {
-
                 const rows = $('#tblProductos').jqxGrid('getrows');
                 let precioBase = 0;
                 let precioDescuento = 0;
@@ -2992,7 +2997,7 @@
                 const clienteRetenedor = $('#CLIENTE_RETENEDOR').val();
                 const clienteBuenContribuyente = $('#CLIENTE_BUEN_CONTRIBUYENTE').val();
 
-                let porcRecConsumo = $('#RECARGO_CONSUMO_TOTAL').val();
+                let porcRecConsumo = $('#PORC_RC').val();
                 if (porcRecConsumo == '' || porcRecConsumo == 0) {
                     porcRecConsumo = 0;
                 }
@@ -3232,7 +3237,7 @@
                     COD_MODULO: $('#COD_MODULO').val() == '' ? $.solver.basePath : $('#COD_MODULO').val(),
                     RECARGO_CONSUMO_TOTAL: recargoConsumoTotal,
                     PORC_IGV: ($('#PORC_IGV').val() == '' ? 0 : parseInt($('#PORC_IGV').val()) / 100),
-                    PORC_REC_CONSUMO: $('#PORC_RC').val() == '' ? 0 : parseInt($('#PORC_RC').val()),
+                    PORC_REC_CONSUMO: ($('#PORC_RC').val() == '' ? 0 : parseInt($('#PORC_RC').val()) / 100),
 
                     NRO_NOTA_PEDIDO: (notaPedido == '*' ? $('#NRO_NOTA_PEDIDO').val() : null),
                     IND_NOTA_PEDIDO: (notaPedido == '*' ? '*' : null),
@@ -3292,9 +3297,9 @@
                         C_DETALLE: c_detalle,
                         C_PRODUCTO: v.C_PRODUCTO,
                         DESCRIPCION: v.DESCRIPCION,
-                        CANTIDAD: v.CANTIDAD,
-                        PRECIO: v.PRECIO,
-                        BASE_IMPONIBLE: numeral(v.BASE_IMPONIBLE).format('0.000'),
+                        CANTIDAD: numeral(v.CANTIDAD).format('0.0000000000'),
+                        PRECIO: numeral(v.PRECIO).format('0.0000000000'),
+                        BASE_IMPONIBLE: numeral(v.BASE_IMPONIBLE).format('0.00000'),
                         INCLUYE_IGV: ((v.INCLUYE_IGV == true || v.INCLUYE_IGV == 'true') ? '*' : '&'),
                         VALOR_UNITARIO: numeral(v.VALOR_UNITARIO).format('0.0000000000'),
                         PORC_DSCTO: v.PORC_DSCTO,
@@ -3302,10 +3307,10 @@
                         VALOR_VENTA_UNITARIO: numeral(v.VALOR_VENTA_UNITARIO).format('0.0000000000'),
                         AFECTACION_IGV: v.AFECTACION_IGV,
                         IGV_UNITARIO: numeral(v.IGV_UNITARIO).format('0.0000000000'),
-                        PRECIO_BASE: numeral(v.PRECIO_BASE).format('0.000'),
-                        IGV: numeral(v.IGV).format('0.000'),
-                        PRECIO_TOTAL: numeral(v.PRECIO_TOTAL).format('0.000'),
-                        DSCTO_PARCIAL: numeral(v.DSCTO_PARCIAL).format('0.000'),
+                        PRECIO_BASE: numeral(v.PRECIO_BASE).format('0.00000'),
+                        IGV: numeral(v.IGV).format('0.00000'),
+                        PRECIO_TOTAL: numeral(v.PRECIO_TOTAL).format('0.00000'),
+                        DSCTO_PARCIAL: numeral(v.DSCTO_PARCIAL).format('0.00000'),
                         C_PRODUCTO_PRECIO: v.C_PRODUCTO_PRECIO,
                         IND_ESTADO: '*',
                         IND_SERVICIO: v.IND_SERVICIO,
@@ -3317,7 +3322,7 @@
                         C_TIPO: v.C_TIPO,
                         C_DESPACHO: v.C_DESPACHO,
                         C_SUJETO_DETRACCION: v.C_SUJETO_DETRACCION,
-                        RECARGO_CONSUMO: v.RECARGO_CONSUMO,
+                        RECARGO_CONSUMO: numeral(v.RECARGO_CONSUMO).format('0.0000000000'),
                         PORC_IGV: v.PORC_IGV,
                         PORC_RC: v.PORC_RC
                     };

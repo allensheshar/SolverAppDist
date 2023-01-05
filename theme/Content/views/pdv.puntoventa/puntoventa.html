@@ -211,87 +211,100 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="precioProducto" value="0" />
-                <input type="hidden" id="stock" value="0" />
 
-                <div class="row mb-2" id="divAlmacen" style="display:none">
-                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>ALMACEN:</strong></label></div>
-                    <div class="col-sm-7">
-                        <select class="form-control form-control-lg" id="almacen"></select>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>PRODUCTO:</strong></label></div>
-                    <div class="col-sm-7"><label class="col-form-label col-form-label-lg" id="producto"></label></div>
-                </div>
-                <div class="row mb-2" id="divUnidadMedida" style="display:none">
-                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>UNIDAD MEDIDA:</strong></label></div>
-                    <div class="col-sm-7">
-                        <div class="row" id="lstUnidadMedida">
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-2" id="divStock" style="display:none">
-                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>STOCK:</strong></label></div>
-                    <div class="col-sm-7"><label class="col-form-label col-form-label-lg" id="stockActual"></label></div>
-                </div>
-                <div class="row mb-2" id="divTipoCliente" style="display:none">
-                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>TIPO CLIENTE:</strong></label></div>
-                    <div class="col-sm-7">
-                        <select class="form-control form-control-lg" id="tipoCliente"
-                                data-field="NOMBRE" data-value="CODIGO"
-                                data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-C_PRODUCTO="" data-C_UNIDAD_MEDIDA=""
-                                data-enabledefault="0"></select>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>CANTIDAD:</strong></label></div>
-                    <div class="col-sm-7">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-lg btn-dark" type="button" id="btnMenos">-</button>
-                            </div>
-                            <input type="number" class="form-control form-control-lg" id="cantidad" autocomplete="off" style="text-align:right;" value="1" />
-                            <div class="input-group-append">
-                                <button class="btn btn-lg btn-dark" type="button" id="btnMas">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>PRECIO:</strong></label></div>
-                    <div class="col-sm-7">
-                        <label class="col-form-label col-form-label-lg form-control form-control-lg text-center font-weight-bold" id="precio"></label>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>OBSERVACION:</strong></label></div>
-                    <div class="col-sm-7">
-                        <select class="form-control form-control-lg mb-2" id="cbo_nota"
-                                data-field="NOTA" data-value="NOTA"
-                                data-query="cb_puntoventa_procesos_puntoventa_obtener_notas"
-                                data-C_EMPRESA="@Session["SESSION_EMPRESA"]"></select>
-                        <textarea class="col-form-label col-form-label-lg form-control form-control-lg text-left font-weight-bold" id="nota"></textarea>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-12">
-                        <label class="col-form-label col-form-label-lg" id="gratuito"></label>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-12">
-                        <label class="col-form-label col-form-label-lg" id="promocion"></label>
-                    </div>
-                </div>
                 <div class="row">
-                    <div class="col-auto">
-                        <button type="button" id="btnCancelarProducto" class="btn btn-lg btn-gray float-left"><i class="fa fa-close"></i>&nbsp;Cancelar</button>
-                    </div>
                     <div class="col">
-                        <button type="button" id="btnAgregarProducto" class="btn btn-lg btn-danger float-right"><i class="fa fa-floppy-o"></i>&nbsp;Agregar</button>
+                        <input type="hidden" id="precioProducto" value="0" />
+                        <input type="hidden" id="stock" value="0" />
+
+                        <div class="row mb-2" id="divAlmacen" style="display:none">
+                            <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>ALMACEN:</strong></label></div>
+                            <div class="col-sm-7">
+                                <select class="form-control form-control-lg" id="almacen"></select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>PRODUCTO:</strong></label></div>
+                            <div class="col-sm-7"><label class="col-form-label col-form-label-lg" id="producto"></label></div>
+                        </div>
+                        <div class="row mb-2" id="divUnidadMedida" style="display:none">
+                            <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>UNIDAD MEDIDA:</strong></label></div>
+                            <div class="col-sm-7">
+                                <div class="row" id="lstUnidadMedida">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2" id="divStock" style="display:none">
+                            <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>STOCK:</strong></label></div>
+                            <div class="col-sm-7"><label class="col-form-label col-form-label-lg" id="stockActual"></label></div>
+                        </div>
+                        <div class="row mb-2" id="divTipoCliente" style="display:none">
+                            <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>TIPO CLIENTE:</strong></label></div>
+                            <div class="col-sm-7">
+                                <select class="form-control form-control-lg" id="tipoCliente"
+                                        data-field="NOMBRE" data-value="CODIGO"
+                                        data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-C_PRODUCTO="" data-C_UNIDAD_MEDIDA=""
+                                        data-enabledefault="0"></select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>CANTIDAD:</strong></label></div>
+                            <div class="col-sm-7">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-lg btn-dark" type="button" id="btnMenos">-</button>
+                                    </div>
+                                    <input type="number" class="form-control form-control-lg" id="cantidad" autocomplete="off" style="text-align:right;" value="1" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-lg btn-dark" type="button" id="btnMas">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>PRECIO:</strong></label></div>
+                            <div class="col-sm-7">
+                                <label class="col-form-label col-form-label-lg form-control form-control-lg text-center font-weight-bold" id="precio"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-5"><label class="col-form-label col-form-label-lg"><strong>OBSERVACION:</strong></label></div>
+                            <div class="col-sm-7">
+                                <select class="form-control form-control-lg mb-2" id="cbo_nota"
+                                        data-field="NOTA" data-value="NOTA"
+                                        data-query="cb_puntoventa_procesos_puntoventa_obtener_notas"
+                                        data-C_EMPRESA="@Session["SESSION_EMPRESA"]"></select>
+                                <textarea class="col-form-label col-form-label-lg form-control form-control-lg text-left font-weight-bold" id="nota"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-12">
+                                <label class="col-form-label col-form-label-lg" id="gratuito"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-12">
+                                <label class="col-form-label col-form-label-lg" id="promocion"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <button type="button" id="btnCancelarProducto" class="btn btn-lg btn-gray float-left"><i class="fa fa-close"></i>&nbsp;Cancelar</button>
+                            </div>
+                            <div class="col">
+                                <button type="button" id="btnAgregarProducto" class="btn btn-lg btn-danger float-right"><i class="fa fa-floppy-o"></i>&nbsp;Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col calculoPrecio" style="display:none">
+                        <div class="row">
+                            <div class="col">
+                                <div id="divTable"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>

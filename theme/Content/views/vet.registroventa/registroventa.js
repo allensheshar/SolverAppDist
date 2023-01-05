@@ -1256,12 +1256,12 @@
                     estado = result[0].IND_ESTADO_VENTA;
 
                     //if (/*nro_nc == 0 && */nro_nd == 0) {
-                        if (estado == 'A') {
-                            if (cod_tipo_doc == '07237' || cod_tipo_doc == '07236') {
-                                const direccion = $.solver.baseUrl + '/Procesos/NuevaVenta?id=' + c_venta + '&notacredito=anular';
-                                document.location = direccion;
-                            }
+                    if (estado == 'A') {
+                        if (cod_tipo_doc == '07237' || cod_tipo_doc == '07236') {
+                            const direccion = $.solver.baseUrl + '/Procesos/NuevaVenta?id=' + c_venta + '&notacredito=anular';
+                            document.location = direccion;
                         }
+                    }
                     //}
                     //else {
                     //    fnObtenerAlerta('Este documento ya tiene nota de ' + (nro_nc > 0 ? 'crédito' : 'débito'))
@@ -1287,12 +1287,12 @@
                     estado = result[0].IND_ESTADO_VENTA;
 
                     //if (nro_nc == 0 && nro_nd == 0) {
-                        if (estado == 'A') {
-                            if (cod_tipo_doc == '07237' || cod_tipo_doc == '07236') {
-                                const direccion = $.solver.baseUrl + '/Procesos/NuevaVenta?id=' + c_venta + '&notadebito=debitar';
-                                document.location = direccion;
-                            }
+                    if (estado == 'A') {
+                        if (cod_tipo_doc == '07237' || cod_tipo_doc == '07236') {
+                            const direccion = $.solver.baseUrl + '/Procesos/NuevaVenta?id=' + c_venta + '&notadebito=debitar';
+                            document.location = direccion;
                         }
+                    }
                     //}
                     //else {
                     //    fnObtenerAlerta('Este documento ya tiene nota de ' + (nro_nc > 0 ? 'crédito' : 'débito'))
@@ -1860,7 +1860,9 @@
                                     $(object).find('#tipodetraccion').change(function () {
                                         var label = arrTipoDetraccion.filter(x => x['value'] == $(object).find('#tipodetraccion').val())[0].label;
                                         $.each($(object).find('#table').jqxGrid('getrows'), function (i, v) {
-                                            $(object).find('#table').jqxGrid('getrows')[i].TIPO_DETRACCION = label;
+                                            if ($(object).find('#table').jqxGrid('getrows')[i].TIPO_OPERACION == 'Operación Sujeta a Detracción') {
+                                                $(object).find('#table').jqxGrid('getrows')[i].TIPO_DETRACCION = label;
+                                            }
                                         });
                                         $(object).find('#table').jqxGrid('refresh')
                                     });
@@ -1939,12 +1941,6 @@
                                             editor.jqxDropDownList({ source: myadapter, displayMember: 'label', valueMember: 'value' });
                                         },
                                         cellendedit: function (row, datafield, columntype, oldvalue, newvalue) {
-                                            if (newvalue == 'Operación Sujeta a Detracción') {
-                                                $(object).find('#table').jqxGrid('showcolumn', 'TIPO_DETRACCION');
-                                            }
-                                            else {
-                                                $(object).find('#table').jqxGrid('hidecolumn', 'TIPO_DETRACCION');
-                                            }
                                             var rowData = $(object).find('#table').jqxGrid('getrows')[row];
                                             var rows = $(object).find('#table').jqxGrid('getrows');
                                             $.each(rows, function (i, v) {
@@ -1953,6 +1949,14 @@
                                                     $(object).find('#table').jqxGrid('getrows')[i].TIPO_DETRACCION = '';
                                                 }
                                             })
+                                            if (newvalue == 'Operación Sujeta a Detracción') {
+                                                $(object).find('#table').jqxGrid('showcolumn', 'TIPO_DETRACCION');
+                                            }
+                                            else {
+                                                if ($(object).find('#table').jqxGrid('getrows').filter(x => x['TIPO_OPERACION'] == 'Operación Sujeta a Detracción').length == 0) {
+                                                    $(object).find('#table').jqxGrid('hidecolumn', 'TIPO_DETRACCION');
+                                                }
+                                            }
                                         }
                                     },
                                     'TIPO_DETRACCION': {
@@ -1971,6 +1975,21 @@
                                                 localdata: arrTipoDetraccion
                                             };
 
+                                            var myadapter = new $.jqx.dataAdapter(source, { autoBind: true });
+
+                                            editor.jqxDropDownList({ source: myadapter, displayMember: 'label', valueMember: 'value' });
+                                        },
+                                        initeditor: function (row, cellvalue, editor, celltext, cellwidth, cellheight) {
+                                            var rowData = $(object).find('#table').jqxGrid('getrows')[row];
+                                            var source =
+                                            {
+                                                datatype: "array",
+                                                datafields: [
+                                                    { name: 'label', type: 'string' },
+                                                    { name: 'value', type: 'string' }
+                                                ],
+                                                localdata: (rowData.TIPO_OPERACION == 'Operación Sujeta a Detracción' ? arrTipoDetraccion : [])
+                                            };
                                             var myadapter = new $.jqx.dataAdapter(source, { autoBind: true });
 
                                             editor.jqxDropDownList({ source: myadapter, displayMember: 'label', valueMember: 'value' });
@@ -2083,7 +2102,13 @@
                             })
 
                             $(object).find('#btnProcesos').click(function () {
+                                // Validamos info
                                 var rows = $(object).find('#table').jqxGrid('getrows');
+                                if (rows.filter(x => x['TIPO_OPERACION'] == 'Operación Sujeta a Detracción' && x['TIPO_DETRACCION'] == '').length != 0) {
+                                    alertify.warning('Por favor complete la información de detracción');
+                                    return;
+                                }
+
                                 var ventas = [];
                                 $.each(rows, function (i, v) {
                                     if (ventas.indexOf(v.C_VENTA) == -1) {
@@ -2097,7 +2122,7 @@
                                                 C_EMPRESA: empresa,
                                                 C_VENTA: v.C_VENTA,
                                                 TIPO_OPERACION: arrTipoOperacion.filter(x => x['label'] == v.TIPO_OPERACION)[0].value,
-                                                TIPO_DETRACCION: (v.TIPO_DETRACCION == '' ? '' : arrTipoDetraccion.filter(x => x['label'] == v.TIPO_DETRACCION)[0].value),
+                                                TIPO_DETRACCION: (v.TIPO_DETRACCION == '' || v.TIPO_DETRACCION == null ? '' : arrTipoDetraccion.filter(x => x['label'] == v.TIPO_DETRACCION)[0].value),
                                             })
                                         });
                                     }
