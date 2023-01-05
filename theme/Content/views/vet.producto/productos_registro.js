@@ -750,8 +750,8 @@
                     objValidarTablas.tables.splice(1, 1)
                 }
                 else {
-                    if ($(_controls.PROMOCION).val() == '*') objValidarTablas.tables[1]['minimumOfRows'] = 1
-                    else delete objValidarTablas.tables[1].minimumOfRows
+                    if ($(_controls.PROMOCION).val() == '*') objValidarTablas.tables[0]['minimumOfRows'] = 1
+                    else delete objValidarTablas.tables[0].minimumOfRows
                 }
                 var validacion = $.solver.fn.validarCondicionesTabla(objValidarTablas);
                 if (validacion.estado) {
