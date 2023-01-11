@@ -6,19 +6,19 @@
         let codigo_masivo = '';
         let table_update = '';
         const fn_CrearGrillas_Laboral = function () {
-            $('#table-colaboradores').CreateGrid({
-                query: 'tbl_carga_data_inicial_planilla_colaboradores',
-                items: {
-                    empresa: $.solver.session.SESSION_EMPRESA
-                },
-                //sortcolumn: 'Fecha Carga',
-                //sortdirection: 'DESC',
-                columns: {},
-                config: {
-                    pageSize: 1000,
-                    height: 500
-                }
-            });
+            //$('#table-colaboradores').CreateGrid({
+            //    query: 'tbl_carga_data_inicial_planilla_colaboradores',
+            //    items: {
+            //        empresa: $.solver.session.SESSION_EMPRESA
+            //    },
+            //    //sortcolumn: 'Fecha Carga',
+            //    //sortdirection: 'DESC',
+            //    columns: {},
+            //    config: {
+            //        pageSize: 1000,
+            //        height: 500
+            //    }
+            //});
         };
         const fnCrearCargaArchivo = function () {
 

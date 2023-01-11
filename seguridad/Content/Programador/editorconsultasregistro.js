@@ -114,7 +114,7 @@
                         config: {
                             height: 600,
                             pageSize: 100,
-                            sortable: false,
+                            sortable: true,
                             editable: false
                         }
                     });

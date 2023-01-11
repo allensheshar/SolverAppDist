@@ -3593,7 +3593,7 @@
                         type: '4',
                         transaction: true,
                         items: $.ConvertObjectToArr({
-                            script: 'spw_gbl_registrar_declaracion_sunat_venta',
+                            script: 'spw_gbl_registrar_declaracion_sunat_venta_2',
                             C_EMPRESA: $.solver.session.SESSION_EMPRESA,
                             C_DOCUMENTO: c_venta,
                             FLAG_DOCUMENTO: 'ven',

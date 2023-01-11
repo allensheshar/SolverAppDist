@@ -839,7 +839,7 @@
         });
         $('#guardar').click(function () {
             $.GetQuery({
-                query: ['q_ventas_mantenimiento_clienteproducto_validarnombres'],
+                query: ['q_ventas_mantenimiento_clienteproducto_validarnombres_producto'],
                 items: [{
                     C_EMPRESA: empresa,
                     NOMBRE_PARA_VENTA: function () {

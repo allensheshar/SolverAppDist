@@ -2061,7 +2061,6 @@
                         items: $.ConvertObjectToArr(objectVenta, extraVenta)
                     });
 
-
                     // Agregamos script para validar y registrar movimientos de recetas
                     //if ($.solver.basePath != '/restaurant') {
                     $.AddPetition({
@@ -2975,7 +2974,7 @@
             };
 
             $.GetQuery({
-                query: ['q_obtener_datos_impresion_pdv', 'q_obtener_cocinas_para_impresion_v2'],
+                query: ['q_obtener_datos_impresion_pdv', 'q_obtener_cocinas_para_impresion_v3'],
                 items: [
                     {
                         C_EMPRESA: $.solver.session.SESSION_EMPRESA,
@@ -2998,13 +2997,13 @@
                         fnObtenerAlertaWarning('No se pudo generar la impresion.')
                         return;
                     };
-                    if (result['q_obtener_cocinas_para_impresion_v2'].result.rows.length == 0) {
+                    if (result['q_obtener_cocinas_para_impresion_v3'].result.rows.length == 0) {
                         fnObtenerAlertaWarning('No hay cocinas para la impresion.')
                         return;
                     };
 
                     var object = result['q_obtener_datos_impresion_pdv'].result.rows[0];
-                    var cocinas = result['q_obtener_cocinas_para_impresion_v2'].result.rows;
+                    var cocinas = result['q_obtener_cocinas_para_impresion_v3'].result.rows;
                     var fnRegImpresion = function (cocina) {
 
                         if (cocina.impresora_cocina == '') cocina.impresora_cocina = object.C_IMPRESORA; //si no hay impresora para la cocina
@@ -3012,7 +3011,8 @@
 
                         if (cocina.impresora_cocina == '') {
                             fnObtenerAlertaWarning('No hay impresoras para imprimir comanda.');
-                        } else {
+                        }
+                        else {
                             //Envia Impresion de Documento al servicio
                             $.SendPrinter({
                                 empresa: $.solver.session.SESSION_EMPRESA,
@@ -3035,7 +3035,7 @@
                                     {
                                         name: 'detalle',
                                         args: $.ConvertObjectToArr({
-                                            script: 'q_restaurant_print_comanda_detalle_v2',
+                                            script: 'q_restaurant_print_comanda_detalle_v3',
                                             empresa: $.solver.session.SESSION_EMPRESA,
                                             pedido: codPedido,
                                             comanda: codComanda,
@@ -4361,7 +4361,7 @@
                         }
                     });
                 }
-                $(objBotones.btnUnirCuentas).removeAttr('disabled');
+                //$(objBotones.btnUnirCuentas).removeAttr('disabled');
                 $(objBotones.btnCambiarUsuario).removeAttr('disabled');
                 if ($.solver.basePath != '/restaurant') $(objBotones.btnVerMesas).closest('div').addClass('d-none');
                 if ($.solver.basePath != '/puntoventa') $(objBotones.btnVerMeseros).closest('div').addClass('d-none');
@@ -4637,7 +4637,6 @@
                     });
                 };
             };
-
             // Agregamos detalle pedido
             for (var index in groupPlatos) {
 
@@ -4654,16 +4653,7 @@
                                 token: tokenPedido
                             })
                         }
-                    },
-                    //C_DETALLE: {
-                    //    action: {
-                    //        name: 'GetNextId',
-                    //        args: $.ConvertObjectToArr({
-                    //            columns: 'C_EMPRESA,C_PEDIDO',
-                    //            max_length: 3
-                    //        })
-                    //    }
-                    //}
+                    }
                 };
                 var objectPedidoDetalle = {
                     C_EMPRESA: $.solver.session.SESSION_EMPRESA,
@@ -4691,7 +4681,8 @@
                     NOTA: (itemPedidoDetalle.Nota == '' ? null : itemPedidoDetalle.Nota),
                     C_USUARIO: $.solver.session.SESSION_ID,
                     C_COCINA: itemPedidoDetalle.C_COCINA,
-                    FEC_CREAC: itemPedidoDetalle.FechaPedidoDetalle
+                    FEC_CREAC: itemPedidoDetalle.FechaPedidoDetalle,
+                    NOTA_2: itemPedidoDetalle.Nota2
                 };
 
                 if (itemPedidoDetalle.C_DETALLE == '') {
@@ -4704,12 +4695,68 @@
                     condPedidoDetalle = `C_EMPRESA='${$.solver.session.SESSION_EMPRESA}' AND C_PEDIDO='${codPedido}' AND C_DETALLE='${itemPedidoDetalle.C_DETALLE}'`;
                 };
 
-                $.AddPetition({
+                var tokenPedidoDetalle = $.AddPetition({
                     table: 'PDV.PEDIDO_DETALLE',
                     type: modoPedidoDetalle,
                     condition: condPedidoDetalle,
                     items: $.ConvertObjectToArr(objectPedidoDetalle, extraPedidoDetalle)
                 });
+
+                for (var i = 0; i < itemPedidoDetalle.PROMOCION.length; i++) {
+                    var itemPedidoPromoDetalle = itemPedidoDetalle.PROMOCION[i];
+
+                    var modoPedidoPromoDetalle = 1;
+                    var condPedidoPromoDetalle = '';
+                    var extraPedidoPromoDetalle = {
+                        C_PEDIDO: {
+                            action: {
+                                name: 'GetParentId',
+                                args: $.ConvertObjectToArr({
+                                    column: 'C_PEDIDO',
+                                    token: tokenPedido
+                                })
+                            }
+                        },
+                        C_DETALLE: {
+                            action: {
+                                name: 'GetParentId',
+                                args: $.ConvertObjectToArr({
+                                    column: 'C_DETALLE',
+                                    token: tokenPedidoDetalle
+                                })
+                            }
+                        }
+                    };
+                    var objectPedidoPromoDetalle = {
+                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                        C_PEDIDO: codPedido,
+                        C_DETALLE: itemPedidoPromoDetalle.C_DETALLE,
+                        C_DETALLE_PROMO: itemPedidoPromoDetalle.C_DETALLE_PROMO,
+                        C_PRODUCTO_REF: itemPedidoDetalle.IdProducto,
+                        C_PRODUCTO_PROMO_DETALLE: itemPedidoPromoDetalle.C_PRODUCTO_PROMO_DETALLE,
+                        C_PRODUCTO: itemPedidoPromoDetalle.C_PRODUCTO,
+                        PRECIO: itemPedidoPromoDetalle.PRECIO,
+                        CANTIDAD: itemPedidoPromoDetalle.CANTIDAD,
+                        C_UNIDAD_MEDIDA: itemPedidoPromoDetalle.C_UNIDAD_MEDIDA
+                    }
+
+                    if (itemPedidoPromoDetalle.C_DETALLE_PROMO == '') {
+                        let codigoDetalle = '000' + (parseInt(i) + 1);
+                        objPedido.platos[index].PROMOCION[i].C_DETALLE_PROMO = codigoDetalle.substring(codigoDetalle.length - 3, codigoDetalle.length)
+                        objectPedidoPromoDetalle.C_DETALLE_PROMO = objPedido.platos[index].PROMOCION[i].C_DETALLE_PROMO;
+                    }
+                    else {
+                        modoPedidoPromoDetalle = 2;
+                        condPedidoPromoDetalle = `C_EMPRESA='${$.solver.session.SESSION_EMPRESA}' AND C_PEDIDO='${codPedido}' AND C_DETALLE='${itemPedidoDetalle.C_DETALLE}' AND C_DETALLE_PROMO='${objectPedidoPromoDetalle.C_DETALLE_PROMO}'`;
+                    }
+
+                    $.AddPetition({
+                        table: 'PDV.PEDIDO_DETALLE_PROMOCION',
+                        type: modoPedidoPromoDetalle,
+                        condition: condPedidoPromoDetalle,
+                        items: $.ConvertObjectToArr(objectPedidoPromoDetalle, extraPedidoPromoDetalle)
+                    })
+                }
 
             };
 
@@ -4731,27 +4778,18 @@
             $('#divTipoCliente').hide();
             $('#divUnidadMedida').hide();
             $('#cantidad').removeAttr('max');
+            $('.calculoPrecio').hide();
         };
-        const fnMostrarLabelPromocion = function (c_producto) {
-            $.GetQuery({
-                query: ['q_puntoventa_procesos_puntoventa_obtenerproductospromo'],
-                items: [{
-                    C_PRODUCTO: c_producto,
-                    C_EMPRESA: $.solver.session.SESSION_EMPRESA
-                }],
-                onReady: function (result) {
-                    if (result.length != 0) {
-                        $('#promocion').html('')
-                        var html = '<strong>Estos productos se descontaran: </strong><br />'
-                        var prods = [];
-                        $.each(result, function (i, v) {
-                            prods.push(v.NOMBRE_PARA_VENTA)
-                        });
-                        html += prods.join('<strong> + </strong>')
-                        $('#promocion').html(html)
-                    }
-                }
-            })
+        const fnMostrarLabelPromocion = function () {
+            var rows = $('#tablePrecios').jqxGrid('getrows');
+            var html = '<strong>Estos productos se descontaran: </strong><br />'
+            var prods = [];
+            for (var i = 0; i < rows.length; i++) {
+                var item = rows[i];
+                prods.push(item.NOMBRE_PARA_VENTA);
+            }
+            html += prods.join(`<strong> + </strong>`)
+            $('#promocion').html(html);
         };
         const fnObtenerTipoCliente = function (C_PRODUCTO, C_UNIDAD_MEDIDA) {
 
@@ -4910,10 +4948,14 @@
                 }
             });
         };
+        // Acciones
         const fnSeleccionarProducto = function (productos, refToken) {
-
             $.GetQuery({
-                query: ['q_puntoventa_procesos_puntoventa_obtenerproducto_porid', 'q_puntoventa_procesos_puntoventa_obtenerproducto_validarstock'],
+                query: [
+                    'q_puntoventa_procesos_puntoventa_obtenerproducto_porid',
+                    'q_puntoventa_procesos_puntoventa_obtenerproducto_validarstock',
+                    'q_puntoventa_procesos_puntoventa_obtenerdetalle_promo'
+                ],
                 items: [
                     {
                         C_EMPRESA: $.solver.session.SESSION_EMPRESA,
@@ -4925,12 +4967,17 @@
                         C_CAJA: function () {
                             return $('#COD_CAJA').val()
                         }
-                    }
+                    },
+                    {
+                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                        C_PRODUCTO: productos[refToken].C_PRODUCTO
+                    },
                 ],
                 onReady: function (producto) {
 
                     var validarStock = producto['q_puntoventa_procesos_puntoventa_obtenerproducto_validarstock'].result.rows
-                    var { C_PRODUCTO,
+                    var {
+                        C_PRODUCTO,
                         NOMBRE_PARA_VENTA,
                         C_PARAMETRO_GENERAL_TIPO_PRODUCTO,
                         PROMOCION,
@@ -4938,7 +4985,9 @@
                         STOCK_ILIMITADO,
                         C_PARAMETRO_GENERAL_AFECTACION_IGV,
                         CODIGO_AFECTACION_IGV,
-                        PRECIO_REF } = producto['q_puntoventa_procesos_puntoventa_obtenerproducto_porid'].result.rows[0];
+                        PRECIO_REF
+                    } = producto['q_puntoventa_procesos_puntoventa_obtenerproducto_porid'].result.rows[0];
+                    var productosPromo = producto['q_puntoventa_procesos_puntoventa_obtenerdetalle_promo'].result.rows
 
                     fnReiniciarModalSeleccionarProducto();
 
@@ -4953,17 +5002,17 @@
                         });
 
                         $('#producto').text(NOMBRE_PARA_VENTA);
-                        $('#precio').text('S/ ' + PRECIO_REF);
+                        $('#precio').text(PRECIO_REF);
                         $('#precioProducto').val(PRECIO_REF);
 
                         if (parseInt(CODIGO_AFECTACION_IGV) == 0) $('#gratuito').html('<strong><label>** Este producto es gratuito</label></strong>')
-                        if (PROMOCION == '*') fnMostrarLabelPromocion(C_PRODUCTO);
 
                         setTimeout(function () {
                             $('#cantidad').val(1);
                         }, 250);
 
-                    } else {
+                    }
+                    else {
 
                         if (STOCK_ILIMITADO == '*') {
 
@@ -4976,7 +5025,6 @@
                             });
                             $('#producto').text(NOMBRE_PARA_VENTA);
                             if (parseInt(CODIGO_AFECTACION_IGV) == 0) $('#gratuito').html('<strong><label>** Este producto es gratuito</label></strong>')
-                            if (PROMOCION == '*') fnMostrarLabelPromocion(C_PRODUCTO);
 
                             setTimeout(function () {
                                 $('#cantidad').val(1);
@@ -4989,7 +5037,8 @@
 
                             if (validarStock.length == 0) {
                                 fnObtenerAlertaWarning('Producto sin stock');
-                            } else if (validarStock[0].C_ALMACEN != '') {
+                            }
+                            else if (validarStock[0].C_ALMACEN != '') {
 
                                 $('#modalProducto').modal('show');
                                 $('#cbo_nota').FieldLoadRemote({
@@ -5016,7 +5065,6 @@
                                 $('#producto').text(NOMBRE_PARA_VENTA);
 
                                 if (parseInt(CODIGO_AFECTACION_IGV) == 0) $('#gratuito').html('<strong><label>** Este producto es gratuito</label></strong>')
-                                if (PROMOCION == '*') fnMostrarLabelPromocion(C_PRODUCTO);
 
                                 setTimeout(function () {
                                     $('#cantidad').val(1);
@@ -5029,20 +5077,16 @@
 
                     };
 
-                    if (PROMOCION == '*') {
+                    if (PROMOCION == '*' && (productosPromo.filter(x => x['IND_CAMBIAR_PROD'] == '*').length != 0 || CALCULO_PRECIO != '')) {
+
                         $('.calculoPrecio').show();
-                        $('#modalProducto').find('.modal-dialog').css({ 'max-width': '80%' });
+                        $('#modalProducto').find('.modal-dialog').css({ 'max-width': '90%' });
 
                         $('#divTable').html('<div id="tablePrecios"></div>')
 
-                        var hiddens = []
-                        hiddens = ['C_EMPRESA', 'C_PRODUCTO_PROMO_DETALLE', 'CANTIDAD', 'SUBTOTAL', 'C_CATEGORIA']
-                        //if (CALCULO_PRECIO == '') {
-                        //    hiddens = ['C_EMPRESA', 'C_PRODUCTO_PROMO_DETALLE', 'C_CATEGORIA']
-                        //}
-                        //else {
-                        //    hiddens = ['C_EMPRESA', 'C_PRODUCTO_PROMO_DETALLE', 'CANTIDAD', 'SUBTOTAL', 'C_CATEGORIA']
-                        //}
+                        var hiddens = [];
+                        if (CALCULO_PRECIO == '10255') hiddens = ['C_PRODUCTO', 'C_EMPRESA', 'C_PRODUCTO_PROMO_DETALLE', 'SUBTOTAL', 'C_CATEGORIA', 'C_UNIDAD_MEDIDA']
+                        else hiddens = ['C_PRODUCTO', 'C_EMPRESA', 'C_PRODUCTO_PROMO_DETALLE', 'PRECIO', 'SUBTOTAL', 'C_CATEGORIA', 'C_UNIDAD_MEDIDA']
 
                         $('#tablePrecios').CreateGrid({
                             query: 'tbl_puntoventa_procesos_puntoventa_obtenerdetallepromo',
@@ -5052,27 +5096,45 @@
                                 C_PRODUCTO: C_PRODUCTO
                             },
                             columns: {
-                                C_PRODUCTO: {
-                                    text: 'Cód. prod',
-                                    width: 80
+                                '_rowNum': {
+                                    text: '#',
+                                    width: '30',
+                                    cellsAlign: 'center',
+                                    cellsalign: 'center',
+                                    hidden: false,
+                                    pinned: true,
+                                    editable: false,
+                                    sortable: false
                                 },
                                 NOMBRE_PARA_VENTA: {
+                                    editable: false,
                                     text: 'Producto',
                                     width: 200
                                 },
+                                CANTIDAD: {
+                                    editable: false,
+                                    text: 'Cant',
+                                    cellsFormat: 'd2',
+                                    cellsAlign: 'right',
+                                    columnType: 'numberinput',
+                                    width: 90
+                                },
+                                UNIDAD_MEDIDA: {
+                                    editable: false,
+                                    text: 'U.M',
+                                    cellsFormat: 'd2',
+                                    cellsAlign: 'right',
+                                    width: 100
+                                },
                                 PRECIO: {
+                                    editable: false,
                                     text: 'Precio',
                                     cellsFormat: 'd2',
                                     cellsAlign: 'right',
                                     width: 80
                                 },
-                                CANTIDAD: {
-                                    text: 'Cant',
-                                    cellsFormat: 'd2',
-                                    cellsAlign: 'right',
-                                    width: 80
-                                },
                                 SUBTOTAL: {
+                                    editable: false,
                                     text: 'Subtotal',
                                     cellsFormat: 'd2',
                                     cellsAlign: 'right',
@@ -5088,13 +5150,14 @@
                                     }
                                 },
                                 IND_CAMBIAR_PROD: {
+                                    editable: false,
                                     text: '',
                                     width: 100,
                                     cellsrenderer: function (index, columnfield, value, defaulthtml, columnproperties) {
                                         if (value == '*') {
                                             var botones = ''
-                                            botones += `<a class="btn btn-sm btn-orange" onclick="$.CambiarProducto('${index}', '${CALCULO_PRECIO}');" style="cursor: pointer;"><i class="fa fa-edit"> Cambiar</i></a>`
-                                            return `<div class="jqx-grid-cell-middle-align" style="margin-top: 11px;">${botones}</div>`;
+                                            botones += `<a class="btn btn-orange" onclick="$.CambiarProducto('${index}', '${CALCULO_PRECIO}');" style="cursor: pointer;"><i class="fa fa-edit"> Cambiar</i></a>`
+                                            return `<div class="jqx-grid-cell-middle-align" style="margin-top: 7px;">${botones}</div>`;
                                         }
                                         else {
                                             return '';
@@ -5103,31 +5166,48 @@
                                 }
                             },
                             config: {
-                                height: 500,
-                                rowsheight: 50,
+                                editable: true,
+                                height: 400,
+                                rowsheight: 45,
                                 showaggregates: true,
                                 showstatusbar: true,
                                 statusbarheight: 20,
+                                sortable: false
                             }
                         });
                         $('#tablePrecios').on('bindingcomplete', function () {
+                            var rows = $('#tablePrecios').jqxGrid('getrows');
                             if (CALCULO_PRECIO == '10255') {
-                                var rows = $('#tablePrecios').jqxGrid('getrows');
                                 var mayor = 0;
                                 $.each(rows, function (i, v) {
                                     if (v.PRECIO * v.CANTIDAD >= mayor) {
-                                        mayor = v.PRECIO * v.CANTIDAD;
+                                        mayor = v.PRECIO;
                                     }
                                 })
-                                $('#precio').text(mayor)
+                                $('#precio').text('S/ ' + numeral(mayor).format('0.00'))
                                 $('#precioProducto').val(mayor)
                             }
+                            var cambiaProducto = false;
+                            for (var i = 0; i < rows.length; i++) {
+                                var item = rows[i];
+                                if (item.IND_CAMBIAR_PROD == '*') {
+                                    cambiaProducto = true;
+                                }
+                            }
+                            setTimeout(function () {
+                                if (!cambiaProducto) {
+                                    $('#tablePrecios').jqxGrid('hidecolumn', 'IND_CAMBIAR_PROD');
+                                }
+                            }, 300)
+                            fnMostrarLabelPromocion();
                         });
+                    }
+                    else {
+                        $('#modalProducto').find('.modal-dialog').css({ 'max-width': '30%' });
                     }
 
                     $('#btnAgregarProducto').unbind('click');
                     $('#btnAgregarProducto').bind('click', function () {
-
                         if ($('#cantidad').val() == '' || $('#cantidad').val() == 0) {
                             fnObtenerAlertaError('Faltan rellenar campos');
                         }
@@ -5135,7 +5215,6 @@
                             fnObtenerAlertaError('La cantidad no puede ser menor a 0');
                         }
                         else {
-
                             var C_UNIDAD_MEDIDA = ''
                             var UNIDAD_MEDIDA = ''
                             var TIPO_CLIENTE = ''
@@ -5150,13 +5229,35 @@
                                 UNIDAD_MEDIDA = $('.active-box-unidad').attr('data-nombre');
                                 TIPO_CLIENTE = $('#tipoCliente').val();
                                 PRECIO = $('#precioProducto').val();
-                                C_PRODUCTO_PRECIO = (precios.length > 0 ? precios[0].C_PRODUCTO_PRECIO: '');
+                                C_PRODUCTO_PRECIO = (precios.length > 0 ? precios[0].C_PRODUCTO_PRECIO : '');
                             };
 
-                            fnAgregarProducto({ C_PRODUCTO, NOMBRE_PARA_VENTA, PROMOCION, STOCK_ILIMITADO, C_PARAMETRO_GENERAL_AFECTACION_IGV, CODIGO_AFECTACION_IGV, C_UNIDAD_MEDIDA, UNIDAD_MEDIDA, TIPO_CLIENTE, PRECIO, C_PRODUCTO_PRECIO, C_PARAMETRO_GENERAL_TIPO_PRODUCTO, CANTIDAD });
-                            //fnMostrarResumen();
-                            //fnObtenerPlatos();
+                            if (PROMOCION == '*' && (productosPromo.filter(x => x['IND_CAMBIAR_PROD'] == '*').length != 0 || CALCULO_PRECIO != '')) {
+                                productosPromo = [];
+                                var promos = $('#tablePrecios').jqxGrid('getrows')
+                                for (var i = 0; i < promos.length; i++) {
+                                    var item = promos[i];
+                                    productosPromo.push({
+                                        C_DETALLE: '',
+                                        C_DETALLE_PROMO: '',
+                                        C_PRODUCTO_REF: C_PRODUCTO,
+                                        C_PRODUCTO_PROMO_DETALLE: item.C_PRODUCTO_PROMO_DETALLE,
+                                        C_PRODUCTO: item.C_PRODUCTO,
+                                        PRECIO: item.PRECIO,
+                                        CANTIDAD: item.CANTIDAD,
+                                        C_UNIDAD_MEDIDA: item.C_UNIDAD_MEDIDA,
+                                        NOMBRE_PARA_VENTA: item.NOMBRE_PARA_VENTA
+                                    })
+                                }
+                            }
 
+                            fnAgregarProducto({
+                                C_PRODUCTO, NOMBRE_PARA_VENTA, PROMOCION, STOCK_ILIMITADO,
+                                C_PARAMETRO_GENERAL_AFECTACION_IGV, CODIGO_AFECTACION_IGV,
+                                C_UNIDAD_MEDIDA, UNIDAD_MEDIDA, TIPO_CLIENTE, PRECIO,
+                                C_PRODUCTO_PRECIO, C_PARAMETRO_GENERAL_TIPO_PRODUCTO, CANTIDAD,
+                                PROMOCION: productosPromo
+                            });
                         }
                     });
 
@@ -5172,10 +5273,12 @@
                         if (cantidad != '' && cantidad > 0) {
                             if ((cantidad - 1) == 0) {
                                 $('#cantidad').val(1);
-                            } else {
+                            }
+                            else {
                                 $('#cantidad').val(cantidad - 1);
                             };
-                        } else {
+                        }
+                        else {
                             $('#cantidad').val(1);
                         }
                         if (PROMOCION == '*') {
@@ -5184,11 +5287,11 @@
                                 var rows = $('#tablePrecios').jqxGrid('getrows');
                                 var mayor = 0;
                                 $.each(rows, function (i, v) {
-                                    if (v.PRECIO * v.CANTIDAD >= mayor) {
-                                        mayor = v.PRECIO * v.CANTIDAD;
+                                    if (v.PRECIO >= mayor) {
+                                        mayor = v.PRECIO;
                                     }
                                 })
-                                $('#precio').text(mayor)
+                                $('#precio').text('S/ ' + numeral(mayor).format('0.00'))
                                 $('#precioProducto').val(mayor)
                             }
                         }
@@ -5212,11 +5315,11 @@
                                 var rows = $('#tablePrecios').jqxGrid('getrows');
                                 var mayor = 0;
                                 $.each(rows, function (i, v) {
-                                    if (v.PRECIO * v.CANTIDAD >= mayor) {
-                                        mayor = v.PRECIO * v.CANTIDAD;
+                                    if (v.PRECIO >= mayor) {
+                                        mayor = v.PRECIO;
                                     }
                                 })
-                                $('#precio').text(mayor)
+                                $('#precio').text('S/ ' + numeral(mayor).format('0.00'))
                                 $('#precioProducto').val(mayor)
                             }
                         }
@@ -5242,7 +5345,6 @@
 
                 }
             });
-
         };
         const fnSeleccionarAgregarProducto = function (productos, refToken) {
 
@@ -5349,7 +5451,8 @@
                                 }
                             });
 
-                        } else {
+                        }
+                        else {
 
                             if (validarStock.length == 0) {
                                 fnObtenerAlertaWarning('Producto sin stock');
@@ -5435,11 +5538,14 @@
             };
 
             var PlatoContar = objPedido.platos.length + 1;
+            var nota2 = data.PROMOCION.map(function (x) {
+                return x.CANTIDAD + ' '+ x.NOMBRE_PARA_VENTA;
+            }).join('<br>');
             var Plato = {
                 Fila: PlatoContar,
                 IdPedido: '',
                 IdProducto: data.C_PRODUCTO,
-                Nombre: data.NOMBRE_PARA_VENTA + '<br/><span class="text-danger">&nbsp;' + $('#nota').val() + '</span>', //+ (data.UNIDAD_MEDIDA == '' ? '' : ' - ' + data.UNIDAD_MEDIDA),
+                Nombre: data.NOMBRE_PARA_VENTA + (nota2 == '' ? '' : '<br/><span class="text-primary">' + nota2 + '</span>') + ($('#nota').val() == '' ? '' : '<br/><span class="text-danger">&nbsp;' + $('#nota').val() + '</span>' ) ,
                 NombreCorto: data.NOMBRE_PARA_VENTA,
                 Precio: data.PRECIO,
                 AfectacionCabecera: data.CODIGO_AFECTACION_IGV,
@@ -5463,20 +5569,25 @@
                 EnviadCocina: '&',
                 Nota: $('#nota').val(),
                 C_DETALLE: '',
-                FechaPedidoDetalle: moment(new Date()).format('DD/MM/YYYY HH:mm:ss')
+                FechaPedidoDetalle: moment(new Date()).format('DD/MM/YYYY HH:mm:ss'),
+                PROMOCION: data.PROMOCION,
+                Nota2: nota2
             };
 
             var search = objPedido.platos.find(x =>
-                x.IdProducto == data.C_PRODUCTO && x.IdProductoPrecio == data.C_PRODUCTO_PRECIO && x.C_ALMACEN == Plato.C_ALMACEN && x.NroComanda == '' && x.Estado == '*' && x.Nota == Plato.Nota
-            )
-            //var search = $.grep(objPedido.platos, function (n, i) {
-            //    return
-            //    
-            //});
+                x.IdProducto == data.C_PRODUCTO &&
+                x.IdProductoPrecio == data.C_PRODUCTO_PRECIO &&
+                x.C_ALMACEN == Plato.C_ALMACEN &&
+                x.NroComanda == '' &&
+                x.Estado == '*' &&
+                x.Nota == Plato.Nota &&
+                JSON.stringify(x.PROMOCION.map(({ C_PRODUCTO_REF, C_PRODUCTO, CANTIDAD }) => ({ C_PRODUCTO_REF: C_PRODUCTO_REF, C_PRODUCTO: C_PRODUCTO, CANTIDAD: CANTIDAD }))) == JSON.stringify(Plato.PROMOCION.map(({ C_PRODUCTO_REF, C_PRODUCTO, CANTIDAD }) => ({ C_PRODUCTO_REF: C_PRODUCTO_REF, C_PRODUCTO: C_PRODUCTO, CANTIDAD: CANTIDAD })))
+            );
 
             if (search == undefined) {
                 objPedido.platos.push(Plato);
-            } else {
+            }
+            else {
                 search.Cantidad += parseFloat($('#cantidad').val());
             };
 
@@ -5765,7 +5876,8 @@
                 query: [
                     'q_puntoventa_procesos_puntoventa_obtenerpedido',
                     'q_puntoventa_procesos_puntoventa_obtenerdetallepedido',
-                    'q_puntoventa_procesos_puntoventa_obtenerdetallemesas'
+                    'q_puntoventa_procesos_puntoventa_obtenerdetallemesas',
+                    'q_puntoventa_procesos_puntoventa_obtenerdetallepromo',
                 ],
                 items: [
                     {
@@ -5773,7 +5885,14 @@
                         C_PEDIDO: function () {
                             return $('#C_PEDIDO').val()
                         }
-                    }, {
+                    },
+                    {
+                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                        C_PEDIDO: function () {
+                            return $('#C_PEDIDO').val()
+                        }
+                    },
+                    {
                         C_EMPRESA: $.solver.session.SESSION_EMPRESA,
                         C_PEDIDO: function () {
                             return $('#C_PEDIDO').val()
@@ -5790,6 +5909,7 @@
                     var dataPedido = result['q_puntoventa_procesos_puntoventa_obtenerpedido'].result.rows[0];
                     var dataPedidoDetalle = result['q_puntoventa_procesos_puntoventa_obtenerdetallepedido'].result.rows;
                     var dataPedidoMesas = result['q_puntoventa_procesos_puntoventa_obtenerdetallemesas'].result.rows;
+                    var dataPedidoDetallePromo = result['q_puntoventa_procesos_puntoventa_obtenerdetallepromo'].result.rows;
 
                     //cargamos mesas del pedido
                     objMesa = dataPedidoMesas;
@@ -5797,11 +5917,12 @@
                     //cargamos detalle pedido
                     $.each(dataPedidoDetalle, function (PlatoContar, data) {
                         var PlatoContar = objPedido.platos.length + 1;
+                        var productosPromo = dataPedidoDetallePromo.filter(x => x.C_DETALLE == data.C_DETALLE)
                         var Plato = {
                             Fila: PlatoContar,
                             IdPedido: '',
                             IdProducto: data.C_PRODUCTO,
-                            Nombre: data.NOMBRE_PARA_VENTA + '<br/><span class="text-danger">&nbsp;' + data.NOTA + '</span>',//(data.UNIDAD_MEDIDA == '' ? '' : ' - ' + data.UNIDAD_MEDIDA),
+                            Nombre: data.NOMBRE_PARA_VENTA + (data.NOTA_2 == '' ? '' : '<br/><span class="text-primary">' + data.NOTA_2 + '</span>') + (data.NOTA == '' ? '' : '<br/><span class="text-danger">&nbsp;' + data.NOTA + '</span>'),
                             NombreCorto: data.NOMBRE_PARA_VENTA,
                             Precio: data.PRECIO,
                             PorcDscto: data.PORC_DSCTO,
@@ -5827,7 +5948,9 @@
                             Nota: data.NOTA,
                             C_DETALLE: data.C_DETALLE,
                             C_COCINA: data.C_COCINA,
-                            FechaPedidoDetalle: data.FEC_CREAC
+                            FechaPedidoDetalle: data.FEC_CREAC,
+                            PROMOCION: productosPromo,
+                            Nota2: data.NOTA_2
                         };
                         objPedido.platos.push(Plato);
                     });
@@ -6102,7 +6225,6 @@
                             })
                         });
                         $(dialogCortesia).find(`#${tokenCortesia} button.btnAplicarCortesia`).click(function () {
-
                             if ($.trim($('#motivo').val()) == '') {
                                 fnObtenerAlertaWarning('Por favor ingrese el motivo');
                                 return;
@@ -6152,6 +6274,14 @@
 
                                         // Si la cantidad de cortesia no es la misma del producto, se crea un nuevo detalle y se resta la cantidad al original
                                         if (row.Cantidad < objPedido.platos[index].Cantidad) {
+                                            var promociones = [];
+                                            for (var i = 0; i < plato.PROMOCION.length; i++) {
+                                                var newDetallePromo = JSON.parse(JSON.stringify(plato.PROMOCION[i]));
+                                                newDetallePromo.C_DETALLE = '';
+                                                newDetallePromo.C_DETALLE_PROMO = '';
+                                                promociones.push(newDetallePromo);
+                                            }
+
                                             newPlatoCortesia = JSON.parse(JSON.stringify(plato));
                                             newPlatoCortesia.Cortesia = '*';
                                             newPlatoCortesia.AfectacionCabecera = nuevoMultitplicador;
@@ -6159,6 +6289,7 @@
                                             newPlatoCortesia.Cantidad = row.Cantidad;
                                             newPlatoCortesia.Guardado = false;
                                             newPlatoCortesia.C_DETALLE = ''
+                                            newPlatoCortesia.PROMOCION = promociones
 
                                             plato.Cantidad = plato.Cantidad - row.Cantidad;
                                             objPedido.platos.push(newPlatoCortesia);
@@ -6754,7 +6885,7 @@
                             virtualmode: false,
                             height: 400,
                             rowsheight: 45,
-                            pageSize: 999999,
+                            pageSize: 100,
                             pageable: false,
                             sortable: false,
                             editable: true,
@@ -6771,7 +6902,7 @@
                                     CantidadOriginal: plato.Cantidad,
                                     Cantidad: plato.Cantidad,
                                     Precio: plato.PrecioOriginal,
-                                    SubTotal: 0,//((plato.Cantidad * plato.PrecioOriginal) * plato.AfectacionCabeceraOriginal),
+                                    SubTotal: 0,
                                     Selected: plato.Cortesia
                                 }
                                 arrCortesia.push(objeto);
@@ -6786,7 +6917,6 @@
                         })
                     });
                     $(dialogCortesia).find(`#${tokenDividirCuenta} #btnAplicarDivision`).click(function () {
-
                         var indexes = $(dialogCortesia).find(`#${tokenDividirCuenta} #tableDividir`).jqxGrid('getselectedrowindexes') //datos selecionados;
                         var new_platos = [];
                         var total_platos = objPedido.platos.filter(x => x.Estado == '*').length;
@@ -6807,10 +6937,20 @@
                                 var diferencia = cantidadOriginal - cantidad;
                                 plato.Cantidad = diferencia;
 
+                                // Limpiamos las promociones
+                                var promociones = [];
+                                for (var i = 0; i < plato.PROMOCION.length; i++) {
+                                    var newDetallePromo = JSON.parse(JSON.stringify(plato.PROMOCION[i]));
+                                    newDetallePromo.C_DETALLE = '';
+                                    newDetallePromo.C_DETALLE_PROMO = '';
+                                    promociones.push(newDetallePromo);
+                                }
+
                                 var new_plato = {}
                                 new_plato = JSON.parse(JSON.stringify(plato));
                                 new_plato.Cantidad = cantidad;
                                 new_plato.C_DETALLE = '';
+                                new_plato.PROMOCION = promociones
 
                                 new_platos.push(JSON.parse(JSON.stringify(new_plato)));
 
@@ -7042,7 +7182,7 @@
             var fnAplicaUnionCuenta = function () {
                 //llamamos a servicio
                 const objectPedido = {
-                    script: 'spw_puntoventa_procesos_puntoventa_unirpedidos',
+                    script: 'spw_puntoventa_procesos_puntoventa_unirpedidos_2',
                     C_EMPRESA: $.solver.session.SESSION_EMPRESA,
                     C_PEDIDOS: c_pedidos,
                     C_USUARIO: $.solver.session.SESSION_ID
@@ -7274,24 +7414,18 @@
                                 $('.mytable-pedido').html('');
 
                                 if (items2.length == 0 && c_pedido2 != '') {
-
                                     fnAplicarCambioEstado(c_pedido2, '&', function () {
                                         $('#C_PEDIDO').val(c_pedido1);
                                         fnObtenerPedido();
                                         fnMostrarPedidos();
-                                        //$('#pedido-' + c_pedido2).find('.mesas').html(fnObtenerNombreMesa('S'));
                                     })
                                 }
                                 else {
                                     fnObtenerPedido();
                                     fnMostrarPedidos();
-                                    //$('#pedido-' + c_pedido2).find('.mesas').html(fnObtenerNombreMesa('S'));
-
                                 }
                                 fnObtenerAlertaOk('Se actualizaron los pedidos correctamente.');
                                 $(dialogCambiarProductos).modal('hide');
-
-
 
                             });
 
@@ -7414,16 +7548,11 @@
                             </div>
                         </div>
                     `);
-                    //<div class="form-group-rm">
-                    //    <label class="col-form-label col-form-label-lg">&nbsp;</label>
-                    //    <button type="button" data-type="2" class="btn btn-lg btn-success btn-block btnMover"><<</button>
-                    //</div>
                     $(dialogCambiarProductos).find(`#${tokenCambiarProductos}`).find('form[name=frmCambiarProductos]').ValidForm({
                         type: -1,
                         onDone: function (form, controls) {
                             var estadoTabla1 = false;
 
-                            //var c_pedido = $($('.mytable-pedido').find('.border-danger')[0]).attr('data-ref');
                             var c_pedido = $('#C_PEDIDO').val();
                             if (c_pedido != undefined) {
                                 $(controls.MESA1).val(c_pedido).trigger('change')
@@ -7708,7 +7837,7 @@
                                     virtualmode: false,
                                     height: 400,
                                     rowsheight: 45,
-                                    pageSize: 999999,
+                                    pageSize: 100,
                                     pageable: false,
                                     sortable: false,
                                     editable: true,
@@ -7742,20 +7871,32 @@
                                 });
 
                                 $.GetQuery({
-                                    query: ['q_puntoventa_procesos_puntoventa_obtenerdetallepedido'],
-                                    items: [{
-                                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                        C_PEDIDO: c_pedido
-                                    }],
-                                    onReady: function (result) {
+                                    query: [
+                                        'q_puntoventa_procesos_puntoventa_obtenerdetallepedido',
+                                        'q_puntoventa_procesos_puntoventa_obtenerdetallepromo'
+                                    ],
+                                    items: [
+                                        {
+                                            C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                            C_PEDIDO: c_pedido
+                                        },
+                                        {
+                                            C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                            C_PEDIDO: c_pedido
+                                        }
+                                    ],
+                                    onReady: function (resultQuery) {
+                                        var result = resultQuery['q_puntoventa_procesos_puntoventa_obtenerdetallepedido'].result.rows;
+                                        var dataPedidoDetallePromo = resultQuery['q_puntoventa_procesos_puntoventa_obtenerdetallepromo'].result.rows;
                                         var platosArr = [];
                                         $.each(result, function (i, data) {
                                             var PlatoContar = platosArr.length + 1;
+                                            var productosPromo = dataPedidoDetallePromo.filter(x => x.C_DETALLE == data.C_DETALLE)
                                             var Plato = {
                                                 Fila: PlatoContar,
                                                 IdPedido: '',
                                                 IdProducto: data.C_PRODUCTO,
-                                                Nombre: data.NOMBRE_PARA_VENTA + '<br/><span class="text-danger">&nbsp;' + data.NOTA + '</span>',
+                                                Nombre: data.NOMBRE_PARA_VENTA + (data.NOTA_2 == '' ? '' : '<br/><span class="text-primary">' + data.NOTA_2 + '</span>') + (data.NOTA == '' ? '' : '<br/><span class="text-danger">&nbsp;' + data.NOTA + '</span>'),
                                                 NombreCorto: data.NOMBRE_PARA_VENTA,
                                                 Precio: data.PRECIO,
                                                 AfectacionCabecera: data.AFECTACION_IGV_CABECERA,
@@ -7780,7 +7921,9 @@
                                                 Nota: data.NOTA,
                                                 C_DETALLE: data.C_DETALLE,
                                                 C_COCINA: data.C_COCINA,
-                                                FechaPedidoDetalle: data.FEC_CREAC
+                                                FechaPedidoDetalle: data.FEC_CREAC,
+                                                PROMOCION: productosPromo,
+                                                Nota2: data.NOTA_2
                                             };
                                             platosArr.push(Plato);
                                         });
@@ -7809,20 +7952,32 @@
 
                                 }
                                 $.GetQuery({
-                                    query: ['q_puntoventa_procesos_puntoventa_obtenerdetallepedido'],
-                                    items: [{
-                                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                        C_PEDIDO: c_pedido
-                                    }],
-                                    onReady: function (result) {
+                                    query: [
+                                        'q_puntoventa_procesos_puntoventa_obtenerdetallepedido',
+                                        'q_puntoventa_procesos_puntoventa_obtenerdetallepromo'
+                                    ],
+                                    items: [
+                                        {
+                                            C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                            C_PEDIDO: c_pedido
+                                        },
+                                        {
+                                            C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                            C_PEDIDO: c_pedido
+                                        }
+                                    ],
+                                    onReady: function (resultQuery) {
+                                        var result = resultQuery['q_puntoventa_procesos_puntoventa_obtenerdetallepedido'].result.rows;
+                                        var dataPedidoDetallePromo = resultQuery['q_puntoventa_procesos_puntoventa_obtenerdetallepromo'].result.rows;
                                         var platosArr = [];
                                         $.each(result, function (i, data) {
                                             var PlatoContar = platosArr.length + 1;
+                                            var productosPromo = dataPedidoDetallePromo.filter(x => x.C_DETALLE == data.C_DETALLE)
                                             var Plato = {
                                                 Fila: PlatoContar,
                                                 IdPedido: '',
                                                 IdProducto: data.C_PRODUCTO,
-                                                Nombre: data.NOMBRE_PARA_VENTA + '<br/><span class="text-danger">&nbsp;' + data.NOTA + '</span>',
+                                                Nombre: data.NOMBRE_PARA_VENTA + (data.NOTA_2 == '' ? '' : '<br/><span class="text-primary">' + data.NOTA_2 + '</span>') + (data.NOTA == '' ? '' : '<br/><span class="text-danger">&nbsp;' + data.NOTA + '</span>'),
                                                 NombreCorto: data.NOMBRE_PARA_VENTA,
                                                 Precio: data.PRECIO,
                                                 AfectacionCabecera: data.AFECTACION_IGV_CABECERA,
@@ -7847,7 +8002,9 @@
                                                 Nota: data.NOTA,
                                                 C_DETALLE: data.C_DETALLE,
                                                 C_COCINA: data.C_COCINA,
-                                                FechaPedidoDetalle: data.FEC_CREAC
+                                                FechaPedidoDetalle: data.FEC_CREAC,
+                                                PROMOCION: productosPromo,
+                                                Nota2: data.NOTA_2
                                             };
                                             platosArr.push(Plato);
                                         });
@@ -7858,22 +8015,36 @@
                                 });
 
                                 $.GetQuery({
-                                    query: ['q_puntoventa_procesos_puntoventa_obtenerdetallepedido'],
-                                    items: [{
-                                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                        C_PEDIDO: function () {
-                                            return $(controls.MESA1).val();
+                                    query: [
+                                        'q_puntoventa_procesos_puntoventa_obtenerdetallepedido',
+                                        'q_puntoventa_procesos_puntoventa_obtenerdetallepromo'
+                                    ],
+                                    items: [
+                                        {
+                                            C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                            C_PEDIDO: function () {
+                                                return $(controls.MESA1).val();
+                                            },
+                                        },
+                                        {
+                                            C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                            C_PEDIDO: function () {
+                                                return $(controls.MESA1).val();
+                                            },
                                         }
-                                    }],
-                                    onReady: function (result) {
+                                    ],
+                                    onReady: function (resultQuery) {
+                                        var result = resultQuery['q_puntoventa_procesos_puntoventa_obtenerdetallepedido'].result.rows;
+                                        var dataPedidoDetallePromo = resultQuery['q_puntoventa_procesos_puntoventa_obtenerdetallepromo'].result.rows;
                                         var platosArr = [];
                                         $.each(result, function (PlatoContar, data) {
                                             var PlatoContar = objPedido.platos.length + 1;
+                                            var productosPromo = dataPedidoDetallePromo.filter(x => x.C_DETALLE == data.C_DETALLE)
                                             var Plato = {
                                                 Fila: PlatoContar,
                                                 IdPedido: '',
                                                 IdProducto: data.C_PRODUCTO,
-                                                Nombre: data.NOMBRE_PARA_VENTA + '<br/><span class="text-danger">&nbsp;' + data.NOTA + '</span>',
+                                                Nombre: data.NOMBRE_PARA_VENTA + (data.NOTA_2 == '' ? '' : '<br/><span class="text-primary">' + data.NOTA_2 + '</span>') + (data.NOTA == '' ? '' : '<br/><span class="text-danger">&nbsp;' + data.NOTA + '</span>'),
                                                 NombreCorto: data.NOMBRE_PARA_VENTA,
                                                 Precio: data.PRECIO,
                                                 AfectacionCabecera: data.AFECTACION_IGV_CABECERA,
@@ -7898,7 +8069,8 @@
                                                 Nota: data.NOTA,
                                                 C_DETALLE: data.C_DETALLE,
                                                 C_COCINA: data.C_COCINA,
-                                                FechaPedidoDetalle: data.FEC_CREAC
+                                                FechaPedidoDetalle: data.FEC_CREAC,
+                                                PROMOCION: productosPromo
                                             };
                                             platosArr.push(Plato);
                                         });
@@ -7937,13 +8109,22 @@
 
                                     var cantidadOriginal = plato['Cantidad'];
                                     var diferencia = cantidadOriginal - cantidad;
-
                                     plato.Cantidad = diferencia;
+
+                                    // Limpiamos las promociones
+                                    var promociones = [];
+                                    for (var i = 0; i < plato.PROMOCION.length; i++) {
+                                        var newDetallePromo = JSON.parse(JSON.stringify(plato.PROMOCION[i]));
+                                        newDetallePromo.C_DETALLE = '';
+                                        newDetallePromo.C_DETALLE_PROMO = '';
+                                        promociones.push(newDetallePromo);
+                                    }
 
                                     var new_plato = {};
                                     new_plato = JSON.parse(JSON.stringify(plato));
                                     new_plato.Cantidad = cantidad;
                                     new_plato.C_DETALLE = '';
+                                    new_plato.PROMOCION = promociones
 
                                     _newProductos.push(JSON.parse(JSON.stringify(new_plato)));
 
@@ -8107,12 +8288,10 @@
                         var hasOcupied = $(this).hasClass('btn-danger');
 
                         if (!hasOcupied) {
-
                             $('#pdvBox .blocked').css({ display: 'none' });
-
                             fnCambiarPedidoMesa(mesas[index]);
-
-                        } else {
+                        }
+                        else {
                             fnObtenerAlertaWarning('<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No puedes elegir esta mesa.');
                         };
 
@@ -8423,6 +8602,12 @@
                         text: 'Precio',
                         cellsFormat: 'd2',
                         cellsAlign: 'right'
+                    },
+                },
+                controlsAfter: {
+                    procesar: {
+                        class: 'col-auto',
+                        html: `<button id="btnProcesar" type="button" class="btn btn-lg btn-danger"><i class="fa fa-floppy-o" aria-hidden="true"></i> Aceptar</button>`
                     }
                 },
                 onAfter: function (token, dialog) {
@@ -8433,21 +8618,70 @@
                     $('#tablePrecios').jqxGrid('getrows')[index].C_PRODUCTO = rowData['C_PRODUCTO'];
                     $('#tablePrecios').jqxGrid('getrows')[index].NOMBRE_PARA_VENTA = rowData['NOMBRE_PARA_VENTA'];
                     $('#tablePrecios').jqxGrid('getrows')[index].PRECIO = rowData['PRECIO_VENTA'];
-                    $('#tablePrecios').jqxGrid('getrows')[index].SUBTOTAL = $('#tablePrecios').jqxGrid('getrows')[index].CANTIDAD * rowData['PRECIO_VENTA'];
+                    $('#tablePrecios').jqxGrid('getrows')[index].SUBTOTAL = rowData['PRECIO_VENTA'];
 
                     if (CALCULO_PRECIO == '10255') {
                         var rows = $('#tablePrecios').jqxGrid('getrows');
                         var mayor = 0;
                         $.each(rows, function (i, v) {
-                            if (v.PRECIO * v.CANTIDAD >= mayor) {
-                                mayor = v.PRECIO * v.CANTIDAD;
+                            if (v.PRECIO >= mayor) {
+                                mayor = v.PRECIO;
                             }
                         })
-                        $('#precio').text(mayor)
+                        $('#precio').text('S/ ' + numeral(mayor).format('0.00'))
                         $('#precioProducto').val(mayor)
+                    }
+                    fnMostrarLabelPromocion();
+                    $('#tablePrecios').jqxGrid('refresh')
+                },
+                onReady: function (form, controls, formToken, dialog) {
+                    $(form).find('#btnProcesar').click(function () {
+                        var rowData = $(`#${formToken}_table`).jqxGrid('getrows')[$(`#${formToken}_table`).jqxGrid('getselectedrowindex')];
+                        if (rowData == undefined) {
+                            fnObtenerAlertaWarning('Por favor seleccione un producto')
+                            return;
+                        }
+                        $(`#tablePrecios`).jqxGrid('getrows')[index].C_PRODUCTO = rowData['C_PRODUCTO'];
+                        $(`#tablePrecios`).jqxGrid('getrows')[index].NOMBRE_PARA_VENTA = rowData['NOMBRE_PARA_VENTA'];
+                        $(`#tablePrecios`).jqxGrid('getrows')[index].PRECIO = rowData['PRECIO_VENTA'];
+                        $(`#tablePrecios`).jqxGrid('getrows')[index].SUBTOTAL = rowData['PRECIO_VENTA'];
+
+                        if (CALCULO_PRECIO == '10255') {
+                            var rows = $('#tablePrecios').jqxGrid('getrows');
+                            var mayor = 0;
+                            $.each(rows, function (i, v) {
+                                if (v.PRECIO >= mayor) {
+                                    mayor = v.PRECIO;
+                                }
+                            })
+                            $('#precio').text('S/ ' + numeral(mayor).format('0.00'))
+                            $('#precioProducto').val(mayor)
+                        }
+                        fnMostrarLabelPromocion();
+                        $(dialog).modal('hide')
+                        $('#tablePrecios').jqxGrid('refresh')
+                    })
+                },
+                config: {
+                    pageable: true,
+                    sortable: true,
+                    height: 600,
+                    pageSize: 100,
+                    rowsheight: 45,
+                },
+                showSearch: false,
+                controls: {
+                    buscar: {
+                        class: 'col-lg-4',
+                        html: `<input type="text" name="buscar" class="form-control form-control-lg" placeholder="Ingrese busqueda..." autocomplete="off" value="" />`
+                    },
+                    btn: {
+                        class: 'col-lg',
+                        html: `<button type="submit" class="btn btn-lg btn-gray"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>`
                     }
                 }
             })
         }
+
     });
 });

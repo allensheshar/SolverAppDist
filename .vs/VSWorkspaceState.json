@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\theme",
+    "\\theme\\Content",
+    "\\theme\\Content\\scripts",
+    "\\theme\\Content\\views",
+    "\\theme\\Content\\views\\pdv.puntoventa"
   ],
-  "SelectedNode": "\\cuenta",
+  "SelectedNode": "\\theme\\Content\\views\\pdv.puntoventa\\puntoventa.html",
   "PreviewInSolutionExplorer": false
 }

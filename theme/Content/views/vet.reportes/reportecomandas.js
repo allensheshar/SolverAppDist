@@ -172,7 +172,6 @@
         }
 
         $.ReimprimirComanda = function (rowIndex) {
-
             var row = $(table).jqxGrid('getrows')[rowIndex];
             const codPedido = row['C_PEDIDO'];
             const codComanda = row['C_COMANDA'];

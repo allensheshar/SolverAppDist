@@ -33,6 +33,11 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" id="salon-tab" data-toggle="tab" href="#salon" role="tab" aria-controls="salon" aria-selected="false" style="display:none;">
+            Registro de Salones
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" id="mesa-tab" data-toggle="tab" href="#mesa" role="tab" aria-controls="mesa" aria-selected="false" style="display:none;">
             Registro de Mesas
         </a>
@@ -143,6 +148,13 @@
         <button id="btnEliminarCaja" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
         <button id="btnDescargarCaja" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
         <div id="tblCaja"></div>
+    </div>
+
+    <div class="tab-pane fade" id="salon" role="tabpanel" aria-labelledby="salon-tab">
+        <button id="btnAgregarSalon" class="m-1 btn btn-sm btn-turquesa"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar</button>
+        <button id="btnEliminarSalon" class="m-1 btn btn-sm" style="background-color: rgb(227,79,79); border-color: rgb(227,79,79); color: white;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Eliminar</button>
+        <button id="btnDescargarSalon" class="m-1 btn btn-sm btn-orange"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Descargar excel</button>
+        <div id="tblSalon"></div>
     </div>
 
     <div class="tab-pane fade" id="mesa" role="tabpanel" aria-labelledby="mesa-tab">

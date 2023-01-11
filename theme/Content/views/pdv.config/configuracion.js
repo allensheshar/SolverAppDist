@@ -11,6 +11,7 @@
         let tblSerie = '#tblSerie';
         let tblCaja = '#tblCaja';
         let tblMesas = '#tblMesa';
+        let tblSalon = '#tblSalon';
         let tblCocinas = '#tblCocina';
         let Caja = true;
 
@@ -21,12 +22,14 @@
         let arrEliminadosCaja = [];
         let arrEliminadosCategoria = [];
         let arrEliminadosMetodoPago = [];
+        let arrEliminadosSalon = [];
         let arrEliminadosMesas = [];
         let arrEliminadosCocinas = [];
         let arrEliminadosEstablecimientos = [];
         let establecimientos = [];
         let almacenes = [];
         let impresoras = [];
+        let salones = [];
         let estadoButton = false;
 
         const empresa = $.solver.session.SESSION_EMPRESA;
@@ -645,7 +648,7 @@
             };
 
             $.GetQuery({
-                query: ['q_pdv_mantenimiento_configuraciones_obtenerestablecimientos_2', 'q_pdv_mantenimiento_configuraciones_impresoras', 'q_pdv_mantenimiento_configuraciones_almacenes'],
+                query: ['q_pdv_mantenimiento_configuraciones_obtenerestablecimientos_2', 'q_pdv_mantenimiento_configuraciones_impresoras', 'q_pdv_mantenimiento_configuraciones_almacenes', 'q_pdv_mantenimiento_configuraciones_salones'],
                 items: [
                     {
                         C_EMPRESA: function () { return empresa; },
@@ -655,12 +658,16 @@
                     },
                     {
                         C_EMPRESA: function () { return empresa; },
-                    }
+                    },
+                    {
+                        C_EMPRESA: function () { return empresa; },
+                    },
                 ],
                 onReady: function (result) {
                     establecimientos = result['q_pdv_mantenimiento_configuraciones_obtenerestablecimientos_2'].result.rows.filter(x => x['value'].length == 3);
                     impresoras = result['q_pdv_mantenimiento_configuraciones_impresoras'].result.rows;
                     almacenes = result['q_pdv_mantenimiento_configuraciones_almacenes'].result.rows;
+                    salones = result['q_pdv_mantenimiento_configuraciones_salones'].result.rows;
                 },
                 onError: function (error) {
                     console.log(error);
@@ -1413,11 +1420,104 @@
                 }
             });
 
+            //listado de salones
+            $(tblSalon).CreateGrid({
+                query: 'tbl_rest_mantenimiento_lista_salon',
+                items: { C_EMPRESA: empresa },
+                hiddens: ['C_EMPRESA', 'C_SALON'],
+                columns: {
+                    '_rowNum': {
+                        text: '#',
+                        width: '30',
+                        cellsAlign: 'center',
+                        hidden: false,
+                        pinned: true,
+                        editable: false,
+                        sortable: false
+                    },
+                    'NOMBRE': {
+                        text: 'Nombre',
+                        width: 300,
+                        cellclassname: fnClassEditer
+                    },
+                    'IND_ESTADO': {
+                        text: 'Estado',
+                        columntype: 'dropdownlist',
+                        createeditor: function (row, value, editor) {
+                            const estados = [
+                                { value: "*", label: "Activo" },
+                                { value: "&", label: "Inactivo" }
+                            ];
+                            const estadoSource =
+                            {
+                                datatype: "array",
+                                datafields: [
+                                    { name: 'label', type: 'string' },
+                                    { name: 'value', type: 'string' }
+                                ],
+                                localdata: estados
+                            };
+                            const myadapter = new $.jqx.dataAdapter(estadoSource, { autoBind: true });
+                            editor.jqxDropDownList({ source: myadapter, displayMember: 'label', valueMember: 'value' });
+                        },
+                        cellclassname: fnClassEditer,
+                        width: 100,
+                        cellsAlign: 'center'
+                    }
+                },
+                config: {
+                    virtualmode: false,
+                    height: 600,
+                    pageSize: 999999,
+                    columnsresize: true,
+                    editable: true,
+                    sortable: true,
+                    pageable: false
+                }
+            });
+            $('#btnAgregarSalon').click(function () {
+                const fila = $(tblSalon).jqxGrid('getrows').length;
+                var mesa = {
+                    _rowNum: fila + 1,
+                    MODO: 1,
+                    C_EMPRESA: empresa,
+                    C_SALON: '',
+                    NOMBRE: '',
+                    IND_ESTADO: 'Activo'
+                };
+                $(tblSalon).jqxGrid('addrow', null, mesa);
+                $(tblSalon).jqxGrid('selectrow', fila);
+                $(tblSalon).jqxGrid('ensurerowvisible', fila);
+            });
+            $('#btnEliminarSalon').click(function () {
+                var rows = $(tblSalon).jqxGrid('getrows');
+                if (rows.length > 0) {
+                    var selected = $(tblSalon).jqxGrid('getselectedrowindex')
+                    if (selected != -1) {
+                        if (rows[selected]['Codigo'] != '') {
+                            arrEliminadosSalon.push(rows[selected]);
+                        };
+                        var rowId = $(tblSalon).jqxGrid('getrowid', selected);
+                        $(tblSalon).jqxGrid('deleterow', rowId);
+                        if (selected - 1 != -1) {
+                            $(tblSalon).jqxGrid('selectrow', selected - 1);
+                            $(tblSalon).jqxGrid('ensurerowvisible', selected - 1);
+                        }
+                        else {
+                            if (rows.length > 0) {
+                                $(tblSalon).jqxGrid('selectrow', selected);
+                                $(tblSalon).jqxGrid('ensurerowvisible', selected);
+                            }
+                        }
+                    }
+                }
+            });
+
             //listado de mesas
             $(tblMesas).CreateGrid({
                 query: 'tbl_rest_mantenimiento_lista_mesas',
                 items: { C_EMPRESA: empresa },
-                hiddens: ['C_EMPRESA', 'C_ESTABLECIMIENTO', 'Codigo'],
+                hiddens: ['C_EMPRESA', 'C_ESTABLECIMIENTO', 'Codigo', 'C_SALON'],
                 columns: {
                     '_rowNum': {
                         text: '#',
@@ -1452,6 +1552,33 @@
                             $.each(establecimientos, function (i, v) {
                                 if (v.label == newvalue) {
                                     $(tblMesas).jqxGrid('getrows')[row].C_ESTABLECIMIENTO = v.value;
+                                }
+                            });
+                        }
+                    },
+                    'Salón': {
+                        width: 300,
+                        columntype: 'dropdownlist',
+                        cellclassname: fnClassEditer,
+                        createeditor: function (row, value, editor) {
+                            var estadoSource =
+                            {
+                                datatype: "array",
+                                datafields: [
+                                    { name: 'label', type: 'string' },
+                                    { name: 'value', type: 'string' }
+                                ],
+                                localdata: salones
+                            };
+
+                            var myadapter = new $.jqx.dataAdapter(estadoSource, { autoBind: true });
+
+                            editor.jqxDropDownList({ source: myadapter, displayMember: 'label', valueMember: 'value' });
+                        },
+                        cellendedit: function (row, datafield, columntype, oldvalue, newvalue) {
+                            $.each(salones, function (i, v) {
+                                if (v.label == newvalue) {
+                                    $(tblMesas).jqxGrid('getrows')[row].C_SALON = v.value;
                                 }
                             });
                         }
@@ -1986,6 +2113,56 @@
                 });
             };
 
+            //TABLA rest.SALON
+            $.each($(tblSalon).jqxGrid('getrows'), function (i, dataMesa) {
+
+                var tipo = 1;
+                var condicion = '';
+
+                if (dataMesa['C_SALON'] == '') tipo = 1;
+                else tipo = 2;
+                if (tipo == 2) condicion = `C_EMPRESA = '${empresa}' AND C_SALON='${dataMesa['C_SALON']}'`;
+
+                const objMesa = {
+                    C_EMPRESA: dataMesa['C_EMPRESA'],
+                    C_SALON: dataMesa['C_SALON'],
+                    NOMBRE: dataMesa['NOMBRE'],
+                    IND_ESTADO: (dataMesa['IND_ESTADO'] == 'Activo' ? '*' : null)
+                };
+                const extMesa = {
+                    C_SALON: {
+                        action: {
+                            name: 'GetNextId',
+                            args: $.ConvertObjectToArr({
+                                columns: 'C_EMPRESA',
+                                max_length: '3'
+                            })
+                        }
+                    }
+                };
+                $.AddPetition({
+                    type: tipo,
+                    table: 'rest.SALON',
+                    condition: condicion,
+                    items: $.ConvertObjectToArr(objMesa, extMesa)
+                });
+            });
+            if (arrEliminadosSalon.length > 0) {
+                $.each(arrEliminadosSalon, function (i, eliminados) {
+                    const objEliMesa = {
+                        C_EMPRESA: eliminados.C_EMPRESA,
+                        C_SALON: eliminados.C_SALON,
+                        IND_ESTADO: 'E'
+                    };
+                    $.AddPetition({
+                        table: 'rest.SALON',
+                        type: 3,
+                        condition: `C_EMPRESA = '${empresa}' AND C_SALON='${eliminados['C_SALON']}'`,
+                        items: $.ConvertObjectToArr(objEliMesa)
+                    });
+                });
+            };
+
             //TABLA rest.MESA
             $.each($(tblMesas).jqxGrid('getrows'), function (i, dataMesa) {
 
@@ -2002,6 +2179,7 @@
                     C_EMPRESA: dataMesa['C_EMPRESA'],
                     C_ESTABLECIMIENTO: dataMesa['C_ESTABLECIMIENTO'],
                     C_MESA: dataMesa['Codigo'],
+                    C_SALON: dataMesa['C_SALON'],
                     NOMBRE_MESA: dataMesa['Nombre de Mesa'],
                     IND_ESTADO: (dataMesa['IND_ESTADO'] == 'Activo' ? '*' : null)
                 };
@@ -2110,11 +2288,15 @@
                     $(tblMetodoPago).jqxGrid('updatebounddata');
                     $(tblMesas).jqxGrid('updatebounddata');
                     $(tblCocinas).jqxGrid('updatebounddata');
+                    $(tblSalon).jqxGrid('updatebounddata');
 
                     arrEliminadosCaja = [];
                     arrEliminadosCategoria = [];
                     arrEliminadosEstablecimientos = [];
                     arrEliminadosMetodoPago = [];
+                    arrEliminadosCocinas = [];
+                    arrEliminadosMesas = [];
+                    arrEliminadosSalon = [];
 
                     obtenerInfoEmpresa();
                     $.GetQuery({
@@ -2228,6 +2410,7 @@
 
                 //validacion de restaurant
                 if ($.solver.basePath == '/restaurant') {
+                    $('#salon-tab').css({ 'display': 'block' });
                     $('#mesa-tab').css({ 'display': 'block' });
                     $('#cocina-tab').css({ 'display': 'block' });
                     $('#pmetodopago-tab').css({ 'display': 'block' });
