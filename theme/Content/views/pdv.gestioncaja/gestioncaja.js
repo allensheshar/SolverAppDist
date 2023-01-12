@@ -17,10 +17,11 @@
             document.location.href = $.solver.baseUrl + `/Procesos/ArqueoCajaVendedor?a=${row['C_CAJA']}&b=${row['Vendedor']}&c=${row['C_FECHA']}&d=${row['C_OPERACION']}`;
         }
         $.Imprimir = function (index) {
+
             var row = $(table).jqxGrid('getrows')[index];
             $.DisplayStatusBar({ message: 'Generando pdf.' });
 
-            $.CreatePDFDocument({
+            var optionsToServer = {
                 empresa: $.solver.session.SESSION_EMPRESA,
                 formato: 'formato_estandar_cuadre_caja',
                 papel: 'A4',
@@ -137,11 +138,50 @@
                     //    })
                     //},
                 ],
-                onReady: function (result) {
-                    window.open(`${$.solver.services.api}/service/viewfile/${result.token}`);
-                    $.CloseStatusBar();
-                }
-            })
+                //onReady: function (result) {
+                //    window.open(`${$.solver.services.api}/service/viewfile/${result.token}`);
+                //    $.CloseStatusBar();
+                //}
+            };
+
+            var settings = {
+                "url": `${$.solver.services.files}/Service/CreatePDFDocumentWithFile`,
+                "method": "POST",
+                "timeout": 0,
+                xhr: function () {
+                    xhr = jQuery.ajaxSettings.xhr.apply(this, arguments);
+                    return xhr;
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                beforeSend: function (xhr) {
+                    $.DisplayStatusBar({ message: 'Generando documento ...' });
+                },
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify(optionsToServer),
+            };
+
+            $.ajax(settings).done(function (json) {
+
+                $.CloseStatusBar();
+
+                var blobUrl = URL.createObjectURL(xhr.response);
+
+                var dialog = bootbox.dialog({
+                    message: `<div class="embed-responsive embed-responsive-16by9"><iframe class= "embed-responsive-item" src="" allowfullscreen></iframe></div>`,
+                    closeButton: true,
+                    className: 'modal-75'
+                });
+
+                dialog.init(function () {
+                    $(dialog).find('.embed-responsive-item').attr("src", blobUrl);
+                });
+
+            });
+
         }
         $.Paloteo = function (index) {
             var row = $(table).jqxGrid('getrows')[index];
@@ -152,7 +192,7 @@
 
             $.DisplayStatusBar({ message: 'Generando pdf.' });
 
-            $.CreatePDFDocument({
+            var optionsToServer = {
                 empresa: $.solver.session.SESSION_EMPRESA,
                 formato: formato,
                 papel: 'Ticket80',
@@ -350,13 +390,51 @@
                         })
                     },
                 ],
-                onReady: function (result) {
-                    fnMostrarPdf(result.token)
-                    $.CloseStatusBar();
-                }
-            })
+                //onReady: function (result) {
+                //    fnMostrarPdf(result.token)
+                //    $.CloseStatusBar();
+                //}
+            };
 
-        }
+            var settings = {
+                "url": `${$.solver.services.files}/Service/CreatePDFDocumentWithFile`,
+                "method": "POST",
+                "timeout": 0,
+                xhr: function () {
+                    xhr = jQuery.ajaxSettings.xhr.apply(this, arguments);
+                    return xhr;
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                beforeSend: function (xhr) {
+                    $.DisplayStatusBar({ message: 'Generando documento ...' });
+                },
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify(optionsToServer),
+            };
+
+            $.ajax(settings).done(function (json) {
+
+                $.CloseStatusBar();
+
+                var blobUrl = URL.createObjectURL(xhr.response);
+
+                var dialog = bootbox.dialog({
+                    message: `<div class="embed-responsive embed-responsive-16by9"><iframe class= "embed-responsive-item" src="" allowfullscreen></iframe></div>`,
+                    closeButton: true,
+                    className: 'modal-75'
+                });
+
+                dialog.init(function () {
+                    $(dialog).find('.embed-responsive-item').attr("src", blobUrl);
+                });
+
+            });
+
+        };
 
         const actionAperturarCaja = function () {
             $.GetQuery({
