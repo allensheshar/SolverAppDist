@@ -11,6 +11,7 @@
         let objMyCaja = {};
         let metodoPagoArr = [];
         let lstCategorias = [];
+        let lstSalones = [];
         let buttonState = false;
         let isAlert = false;
         let baulPedidos = [];
@@ -3483,6 +3484,7 @@
                     $('#zone-establecimiento').hide();
                     $('#zone-actions').show();
                     $('#zone-Cat').show();
+                    $('#zone-salones').show();
                     $('#resumen').show();
                     $('#zone-search').show();
 
@@ -3506,7 +3508,7 @@
 
             var fnObtenerPedidos = function () {
                 $.GetQuery({
-                    query: ['q_puntoventa_procesos_puntoventa_obtenerpedidos'],
+                    query: ['q_puntoventa_procesos_puntoventa_obtenerpedidos_v2'],
                     items: [{
                         C_EMPRESA: $.solver.session.SESSION_EMPRESA,
                         IND_ESTADO: function () {
@@ -3531,7 +3533,10 @@
                         C_USUARIO_CAJA: function () {
                             return objMyCaja.C_USUARIO;
                         },
-                        C_USUARIO: $.solver.session.SESSION_ID
+                        C_USUARIO: $.solver.session.SESSION_ID,
+                        C_SALON: function () {
+                            return (($('#zone-actions-pedido').find('button.btn-orange').attr('data-estado') || '*') == '*' ? $('#C_SALON').val() : '')
+            }
                     }],
                     onReady: function (pedidos) {
 
@@ -3831,8 +3836,11 @@
             //obtiene mesas
             if ($.solver.basePath == '/restaurant') {
                 $.GetQuery({
-                    query: ['q_rest_procesos_lista_mesas'],
-                    items: [{ empresa: $.solver.session.SESSION_EMPRESA }],
+                    query: ['q_rest_procesos_lista_mesas_v2'],
+                    items: [{
+                        empresa: $.solver.session.SESSION_EMPRESA, C_SALON: function () {
+                            return $('#C_SALON').val();
+                        }}],
                     onReady: function (mesas) {
 
                         if (!isAlert) {
@@ -4209,8 +4217,11 @@
                 }
 
                 $.GetQuery({
-                    query: ['q_rest_procesos_lista_mesas'],
-                    items: [{ empresa: $.solver.session.SESSION_EMPRESA }],
+                    query: ['q_rest_procesos_lista_mesas_v2'],
+                    items: [{
+                        empresa: $.solver.session.SESSION_EMPRESA, C_SALON: function () {
+                            return $('#C_SALON').val();
+                        } }],
                     onReady: function (mesas) {
 
                         var pedido = mesas.find(x => x['C_PEDIDO'] == $('#C_PEDIDO').val());
@@ -4430,6 +4441,51 @@
             };
 
         };
+        const fnValidarSalones = function () {
+            $('#C_SALON').FieldLoadRemote();
+            $('#C_SALON').change(function () {
+                fnActionNuevo();
+                $('button[name=btnPendiente]').trigger('click')
+            })
+            //$.GetQuery({
+            //    query: ['q_puntoventa_procesos_puntoventa_obtenersalones'],
+            //    items: [{
+            //        C_EMPRESA: $.solver.session.SESSION_EMPRESA
+            //    }],
+            //    onReady: function (result) {
+
+            //        lstSalones = result;
+
+            //        $('.zone-salones').html(`<a class="dropdown-item" data-token="todos" href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Todos</a>`);
+
+            //        for (var item in result) {
+
+            //            var row = result[item];
+            //            var token = $.CreateToken();
+
+            //            $('.zone-salones').append(`<a class="dropdown-item" id="${token}" data-token="${item}" href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> ${row.NOMBRE}</a>`);
+
+            //        };
+
+            //        $('.zone-salones a').click(function (e) {
+
+            //            var refToken = $(this).attr('data-token');
+
+            //            if (refToken == 'todos') {
+            //                $('#C_SALON').val('');
+            //            } else {
+            //                $('#C_SALON').val(lstSalones[refToken]['C_SALON'])
+            //            };
+
+            //            fnActionNuevo();
+
+            //            e.preventDefault();
+
+            //        });
+
+            //    }
+            //})
+        }
         /* FUNCIONES VARIAS */
 
         /* AGREGAR PETICIONES */
@@ -8240,8 +8296,11 @@
             }
 
             $.GetQuery({
-                query: ['q_rest_procesos_lista_mesas'],
-                items: [{ empresa: $.solver.session.SESSION_EMPRESA }],
+                query: ['q_rest_procesos_lista_mesas_v2'],
+                items: [{
+                    empresa: $.solver.session.SESSION_EMPRESA, C_SALON: function () {
+                        return $('#C_SALON').val();
+                    }}],
                 onReady: function (mesas) {
 
                     $('#pdvBox .blocked').css({ display: 'block' });
@@ -8683,5 +8742,6 @@
             })
         }
 
+        fnValidarSalones();
     });
 });

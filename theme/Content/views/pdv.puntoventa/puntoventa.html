@@ -7,6 +7,7 @@
 <input type="hidden" id="SALDOPAGAR" />
 <input type="hidden" id="IND_ESTADO" value="" />
 <input type="hidden" id="C_CATEGORIA" value="" />
+<!--<input type="hidden" id="C_SALON" value="" />-->
 <input type="hidden" id="C_ALMACEN_DEFECTO" value="" />
 <input type="hidden" id="PORCENTAJE_DESCUENTO_GLOBAL" value="" />
 <input type="hidden" id="COMENTARIO_DESCUENTO_GLOBAL" value="" />
@@ -59,6 +60,18 @@
                     <div class="col-9 mybuttons">
                         <div class="row">
                             <div class="col-2 pr-0 text-truncate">
+                                <select id="C_SALON" class="form-control form-control-lg rounded-0 btn-orange"
+                                        data-query="q_puntoventa_procesos_puntoventa_obtenersalones" data-value="C_SALON" data-field="NOMBRE" 
+                                        data-textDefault="Todos"
+                                        data-C_EMPRESA="@Session["SESSION_EMPRESA"]"></select>
+                            </div>
+                            <!--<div class="col-2 btn-group btn-group-lg pl-0" role="group">
+                                <button name="btnSalones" type="button" class="btn btn-lg btn-gray btn-block rounded-0 dropdown-toggle text-truncate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-list" aria-hidden="true"></i> Salones
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right zone-salones" aria-labelledby="btnSalones"></div>
+                            </div>-->
+                            <div class="col-2 pl-0 pr-0 text-truncate">
                                 <button name="btnUnirCuentas" class="btn btn-lg btn-orange btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-files-o" aria-hidden="true"></i> Unir Cuentas</button>
                             </div>
                             <div class="col-2 pl-0 pr-0 text-truncate">
@@ -79,7 +92,7 @@
                             <div class="col-2 pl-0 pr-0 text-truncate">
                                 <button name="btnCerrarCaja" class="btn btn-lg btn-danger btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-window-close-o" aria-hidden="true"></i> Cerrar Caja</button>
                             </div>
-                            <div class="col-2 pl-0 text-truncate">
+                            <div class="col-2 pl-0 pr-0 text-truncate">
                                 <button name="btnSalir" class="btn btn-lg btn-primary btn-block rounded-0 pl-1 pr-1 text-truncate" disabled><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</button>
                             </div>
                         </div>

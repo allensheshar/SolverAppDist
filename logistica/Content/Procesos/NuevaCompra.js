@@ -436,6 +436,8 @@
                                     if (tipoOperacionCabecera == '07385') {
                                         $(object).find('.porcentajes').hide();
                                     }
+
+                                    $(controls).find('#TOTAL').removeAttr('readonly')
                                 }
                             })
                         },
