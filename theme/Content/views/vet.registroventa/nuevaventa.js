@@ -1232,7 +1232,7 @@
                 let precio = v.PRECIO;
 
                 const baseImponible = precio * cantidad;
-                const incluyeIgv = v.INCLUYE_IGV;
+                const incluyeIgv = (v.INCLUYE_IGV === 'true' || v.INCLUYE_IGV === true ? true : false);
                 const porcDescuento = v.PORC_DSCTO;
 
                 var porc_igv = parseFloat($('#PORC_IGV').val());

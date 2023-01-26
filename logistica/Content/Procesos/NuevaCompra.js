@@ -154,11 +154,9 @@
                         $(_object).find('#NOMBRE_PARA_VENTA').val(row['NOMBRE_PARA_VENTA']);
                         $(_object).find('#C_PARAMETRO_GENERAL_TIPO_PRODUCTO').val(row['C_PARAMETRO_GENERAL_TIPO_PRODUCTO']);
 
-                        //$(_object).find('#AFECTACION_IGV').val(row['C_PARAMETRO_GENERAL_AFECTACION_IGV']);
                         if ($(_object).find('#AFECTACION_IGV')[0].args.data.filter(x => x['CODIGO'] == row['C_PARAMETRO_GENERAL_AFECTACION_IGV']).length > 0) {
                             $(_object).find('#AFECTACION_IGV').val(row['C_PARAMETRO_GENERAL_AFECTACION_IGV']);
                         }
-
 
                         $(_object).find('#CENTRO_COSTO').val(row['C_UNIDAD_NEGOCIO']);
 
@@ -340,6 +338,7 @@
                                         const porc_igv = fila['PORC_IGV'];
                                         const porc_rc = fila['PORC_RC'];
                                         const flag_icbper = fila['FLAG_ICBPER'];
+                                        const tipo_ingreso = fila['TIPO_INGRESO']
 
                                         $(controls).find('#C_PRODUCTO').val(c_producto);
                                         $(controls).find('#NOMBRE_PARA_VENTA').val(nomProducto);
@@ -371,6 +370,7 @@
                                         $(controls).find('#PORCENTAJE_IGV').val(porc_igv);
                                         $(controls).find('#PORCENTAJE_RC').val(porc_rc);
                                         $(controls).find('#FLAG_ICBPER').prop('checked', (flag_icbper == '*' ? true : false))
+                                        $(controls).find('#TIPO_INGRESO').val(tipo_ingreso)
                                     }
                                     else {
                                         $(modalBuscar).find('#btnEscogerProducto').trigger('click');
@@ -537,6 +537,7 @@
                                 else stockAux = cantidad
 
                                 const flag_icbper = $(controls.FLAG_ICBPER).is(':checked');
+                                var tipo_ingreso = $(controls.TIPO_INGRESO).val()
 
                                 if (indice != undefined) {
                                     $(table).jqxGrid('getrows')[indice]['IND_SERVICIO'] = (c_tipo_producto == '07229' ? '*' : '&');
@@ -585,6 +586,8 @@
                                     $(table).jqxGrid('getrows')[indice]['PORC_IGV'] = porc_igv;
                                     $(table).jqxGrid('getrows')[indice]['PORC_RC'] = porc_recargo_consumo;
                                     $(table).jqxGrid('getrows')[indice]['FLAG_ICBPER'] = (flag_icbper ? '*' : '&');
+
+                                    $(table).jqxGrid('getrows')[indice]['TIPO_INGRESO'] = tipo_ingreso;
 
                                     $(table).jqxGrid('refresh');
 
@@ -641,6 +644,7 @@
                                         PORC_IGV: porc_igv,
                                         PORC_RC: porc_recargo_consumo,
                                         FLAG_ICBPER: (flag_icbper ? '*' : '&'),
+                                        TIPO_INGRESO: tipo_ingreso
                                     });
                                 }
                                 fnCalcularTotales();
@@ -682,7 +686,7 @@
             };
             const fnEditarProducto = function (indice) {
                 fnBuscarProducto(indice);
-            }
+            };
             $(table).CreateGrid({
                 query: 'q_ventas_procesos_nuevacompra_consultardetalle',
                 items: {
@@ -693,7 +697,7 @@
                     'VALOR_UNITARIO', 'DSCTO_UNITARIO', 'VALOR_VENTA_UNITARIO', 'AFECTACION_IGV', 'IGV_UNITARIO', 'DESCRIPCION', 'NUM', 'NOMBRE_ORIGINAL',
                     'C_PARAMETRO_GENERAL_TIPO_PRODUCTO', 'UNIDAD_AUX', 'CODIGO_AFECTACION_IGV_CABECERA', 'DSCTO_UNITARIO_IGV', 'C_UND_PRIN', 'UND_PRIN',
                     'C_UND_AUX', 'UND_AUX', 'STOCK_PRIN', 'STOCK_AUX', 'FACTOR', 'C_UNIDAD_NEGOCIO', 'C_PARAMETRO_GENERAL_UNIDAD', 'PORC_DSCTO', 'DSCTO_PARCIAL',
-                    'C_ALMACEN', 'FLAG_GENERA_STOCK_AUT', 'RECARGO_CONSUMO', 'PORC_IGV', 'PORC_RC', 'FLAG_ICBPER'],
+                    'C_ALMACEN', 'FLAG_GENERA_STOCK_AUT', 'RECARGO_CONSUMO', 'PORC_IGV', 'PORC_RC', 'FLAG_ICBPER', 'TIPO_INGRESO'],
                 columns: {
                     '_rowNum': {
                         text: '#',
@@ -2007,6 +2011,7 @@
                         PORC_IGV: detalle['PORC_IGV'],
                         PORC_RC: detalle['PORC_RC'],
                         FLAG_ICBPER: detalle['FLAG_ICBPER'],
+                        TIPO_INGRESO: detalle['TIPO_INGRESO']
                     };
                     var extDetalle = {
                         C_COMPRA: {
@@ -2079,6 +2084,7 @@
                         PORC_IGV: detalle['PORC_IGV'],
                         PORC_RC: detalle['PORC_RC'],
                         FLAG_ICBPER: detalle['FLAG_ICBPER'],
+                        TIPO_INGRESO: detalle['TIPO_INGRESO']
                     };
                     $.AddPetition({
                         table: 'LOG.COMPRA_DETALLE',
@@ -2447,6 +2453,11 @@
                     }
                     else {
                         $('.fechaingresostock').hide();
+                    }
+
+                    var rows = $(table).jqxGrid('getrows');
+                    for (var i = 0; i < rows.length; i++) {
+                        $(table).jqxGrid('getrows')[i].TIPO_INGRESO = $(controls.TIPO_INGRESO).val()
                     }
                 })
                 var tipoIngreso = $(controls.TIPO_INGRESO).val();

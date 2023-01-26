@@ -1,0 +1,188 @@
+﻿
+<style>
+    .red {
+        color: red;
+    }
+</style>
+
+<form name="filter_periodo" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <label class="col-form-label col-form-label-sm"><strong>Periodo:</strong></label>
+    </div>
+    <div class="form-group mr-2">
+        <select id="anio" name="anio" class="form-control form-control-sm" data-query="gbl_anio_trabajo" data-field="Anio" data-value="Anio" data-enableDefault="0" data-textDefault='@DateTime.Now.Year'></select>
+    </div>
+    <div class="form-group mr-2">
+        <select id="mes" name="mes" class="form-control form-control-sm" data-query="gbl_mes_trabajo_v2" data-field="NombreMes" data-value="Mes" data-enableDefault="0" data-textDefault='@DateTime.Now.Month'></select>
+    </div>
+    <div class="form-group mr-1">
+        <button type="submit" class="btn btn-sm btn-danger" name="btnUpdate"><i class="fa fa-refresh" aria-hidden="true"></i> Actualizar</button>
+    </div>
+    <div class="form-group ml-1">
+        <button type="button" class="btn btn-sm btn-orange" name="btnProcesar"><i class="fa fa-paper-plane" aria-hidden="true"></i> Procesar</button>
+    </div>
+    <input type="hidden" name="libro" value='@ViewBag.Libro' />
+    <input type="hidden" name="codlibro" value='@ViewBag.CodLibro' />
+</form>
+
+<div class="card mb-2">
+    <div class="card-body">
+
+        <form name="filter_comprobantes">
+            <input type="hidden" name="FECHA_ENVIO" value="" />
+            <div class="row mb-2">
+                <div class="col-md-3">
+                    <div class="form-group-rm">
+                        <label>Razón social / RUC / Usuario </label>
+                        <input type="text" class="form-control form-control-sm" name="NOMBRE" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label> Tipo Doc</label>
+                        <select id="_tipo_doc" name="TIPODOC" class="form-control form-control-sm" data-query="cb_archivos_cargaarchivos_procesar_doc_tipo" data-value="CODIGO" data-field="DESCRIPCION" data-empresa='@Session["SESSION_EMPRESA"]'></select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label> Serie / Nro Documento</label>
+                        <input type="text" class="form-control form-control-sm" name="NUMERO" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label>Fecha Emisión</label>
+                        <input type="text" class="form-control form-control-sm" name="FECHA_EMISION" placeholder="DD/MM/YYY" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label> Moneda</label>
+                        <select class="form-control form-control-sm" name="MONEDA" data-query="gbl_obtener_parametro_general" data-value="CODIGO_PARAMETRO" data-field="DESCRIPCION" data-tipoparametro="Moneda"></select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group-rm">
+                        <label>Modo Carga</label>
+                        <select name="MODO_CARGA" class="form-control form-control-sm">
+                            <option value=""> --seleccione--</option>
+                            <option value="M"> Manual</option>
+                            <option value="E"> Correo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label>Estado de validación</label>
+                        <select name="ESTADO_VALIDACION" class="form-control form-control-sm">
+                            <option value=""> --seleccione--</option>
+                            <option value="1"> Validado</option>
+                            <option value="2"> No validado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label>Estado del comprobante</label>
+                        <select name="ESTADO_COMPROBANTE" class="form-control form-control-sm">
+                            <option value=""> --seleccione--</option>
+                            <option value="0"> Comprobante no informado</option>
+                            <option value="1"> Comprobante aceptado</option>
+                            <option value="2"> Comunicado en una baja</option>
+                            <option value="3"> Autorizado</option>
+                            <option value="4"> No autorizado</option>
+                            <option value="99"> Error al validar comprobante</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label>Estado del contribuyente</label>
+                        <select name="ESTADO_CONTRIBUYENTE" class="form-control form-control-sm">
+                            <option value=""> --seleccione--</option>
+                            <option value="00"> Activo</option>
+                            <option value="01"> Baja provisional</option>
+                            <option value="02"> Baja prov. por oficio</option>
+                            <option value="03"> Suspención temporal</option>
+                            <option value="10"> Baja definitiva</option>
+                            <option value="11"> Baja de oficio</option>
+                            <option value="22"> Inhabilitado - vet unica</option>
+                            <option value="-"> No aplica</option>
+                            <option value="99"> No existe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-rm">
+                        <label>Condicion domiciliaria</label>
+                        <select name="CONDICION_DOM" class="form-control form-control-sm">
+                            <option value=""> --seleccione--</option>
+                            <option value="00"> Validado</option>
+                            <option value="09"> Pendiente</option>
+                            <option value="11"> Por verificar</option>
+                            <option value="12"> No habido</option>
+                            <option value="20"> No hallado</option>
+                            <option value="-"> No aplica</option>
+                            <option value="99"> No existe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <label for="exampleFormControlSelect1">&nbsp;</label>
+                    <div class="form-group-rm">
+                        <div class="row">
+                            <button type="submit" id="btnBuscar_ventas" class="btn btn-sm btn-block btn-gray"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Buscar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <label for="exampleFormControlSelect1">&nbsp;</label>
+                    <div id="actionsComprobantes"></div>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item mr-1px">
+        <a class="nav-link text-left radius-0 active" id="comprobantes-tab" data-toggle="tab" href="#comprobantes" role="tab" aria-controls="comprobantes" aria-selected="false">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            <span class="d-n-active text-white-m1">Comprobantes Pendientes</span>
+        </a>
+    </li>
+    <li class="nav-item mr-1px">
+        <a class="nav-link text-left radius-0" id="homologar-tab" data-toggle="tab" href="#homologar" role="tab" aria-controls="homologar" aria-selected="false">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            <span class="d-n-active text-white-m1">Homologar Conceptos</span>
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content rounded-bottom">
+
+    <div class="tab-pane fade show text-95 active" id="comprobantes" role="tabpanel" aria-labelledby="comprobantes-tab">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="table-comprobantes"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="tab-pane fade show text-95" id="homologar" role="tabpanel" aria-labelledby="comprobantes-tab">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="table-homologar"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

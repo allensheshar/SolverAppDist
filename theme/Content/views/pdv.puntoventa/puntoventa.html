@@ -15,6 +15,18 @@
 <input type="hidden" id="C_MESERO" />
 <input type="hidden" id="USUARIO_CONSTANTE" value="&" />
 
+<!-- Campos para delivery -->
+<input type="hidden" id="IND_DELIVERY" />
+<input type="hidden" id="C_CLIENTE_DELIVERY" />
+<input type="hidden" id="TIPO_DOCUMENTO_DELIVERY" />
+<input type="hidden" id="RUC_DELIVERY" />
+<input type="hidden" id="NOMBRE_DELIVERY" />
+<input type="hidden" id="DIRECCION_ENTREGA" />
+<input type="hidden" id="REFERENCIA_ENTREGA" />
+<input type="hidden" id="TELEFONO" />
+<input type="hidden" id="METODO_PAGO_DELIVERY" />
+<input type="hidden" id="TIPO_COMPROBANTE" />
+
 <div class="row">
     <div class="col-2">
 
@@ -61,8 +73,8 @@
                         <div class="row">
                             <div class="col-2 pr-0 text-truncate">
                                 <select id="C_SALON" class="form-control form-control-lg rounded-0 btn-orange"
-                                        data-query="q_puntoventa_procesos_puntoventa_obtenersalones" data-value="C_SALON" data-field="NOMBRE" 
-                                        data-textDefault="Todos"
+                                        data-query="q_puntoventa_procesos_puntoventa_obtenersalones" data-value="C_SALON" data-field="NOMBRE"
+                                        data-textDefault="Todos" data-enabledefault="0"
                                         data-C_EMPRESA="@Session["SESSION_EMPRESA"]"></select>
                             </div>
                             <!--<div class="col-2 btn-group btn-group-lg pl-0" role="group">
@@ -317,7 +329,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -589,7 +601,7 @@
         <div class="row mb-1" id="divOperacion" style="margin: 0px; display:none;">
             <div class="col"><label class="col-form-label col-form-label-lg"><strong>Nro operación:</strong></label></div>
             <div class="col">
-                <input id="nro_operacion_2" class="form-control form-control-lg" placeholder="Nro de operación" autocomplete="off" maxlength="4" style="font-size: 30px; 
+                <input id="nro_operacion_2" class="form-control form-control-lg" placeholder="Nro de operación" autocomplete="off" maxlength="4" style="font-size: 30px;
                                                 text-align: center;
                                                 text-align-last: center;
                                                 -moz-text-align-last: center;
@@ -719,15 +731,28 @@
 
 <div id="zoneEditarMesa" class="d-none">
     <form name="my_form">
+        <input type="hidden" id="C_CLIENTE_DELIVERY" />
+        <input type="hidden" id="TIPO_DOCUMENTO_DELIVERY" />
+        <div class="row mt-2">
+            <div class="col">
+                <input type="checkbox" id="CHECK_DELIVERY">
+                <label class="form-check-label col-form-label col-form-label-lg" for="CHECK_DELIVERY">
+                    <strong>¿Es delivery?</strong>
+                </label>
+            </div>
+            <div class="col">
+                <button type="button" id="btnNuevoCliente" class="btn btn-lg btn-orange float-right"><i class="fa fa-plus"></i>&nbsp;Nuevo Cliente</button>
+            </div>
+        </div>
         <div class="row mt-2">
             <div class="col-5">
                 <label for="NOMBRE_MESA" class="col-form-label col-form-label-lg">Nombre Mesa</label>
             </div>
             <div class="col-7">
-                <input type="text" class="form-control form-control-lg" name="NOMBRE_MESA" autocomplete="off" required maxlength="10" />
+                <input type="text" class="form-control form-control-lg" name="NOMBRE_MESA" autocomplete="off" required maxlength="15" />
             </div>
         </div>
-        <div class="row mt-2">
+        <div class="row mt-2 no-delivery">
             <div class="col-5">
                 <label for="NRO_PERSONAS" class="col-form-label col-form-label-lg">Nro Personas</label>
             </div>
@@ -743,6 +768,69 @@
                 <select name="C_MESERO" class="form-control form-control-lg"
                         data-query="q_puntoventa_procesos_obtener_usuarios" data-value="SESSION_ID" data-field="SESSION_NOMBRE"
                         data-empresa="@Session["SESSION_EMPRESA"]" data-enabledefault="0" required></select>
+            </div>
+        </div>
+        <div class="row mt-2 delivery">
+            <div class="col-5">
+                <label for="RUC_DELIVERY" class="col-form-label col-form-label-lg">Documento:</label>
+            </div>
+            <div class="col-7">
+                <div class="input-group mb-1">
+                    <input id="RUC_DELIVERY" class="form-control form-control-lg" autocomplete="off" maxlength="15">
+                    <div class="input-group-append">
+                        <button type="button" id="btnBuscarCliente" class="btn btn-gray btn-lg"><i class="fa fa-search-plus" aria-hidden="true"></i> Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 delivery">
+            <div class="col-5">
+                <label for="NOMBRE_DELIVERY" class="col-form-label col-form-label-lg">Nombre / Razón social:</label>
+            </div>
+            <div class="col-7">
+                <input id="NOMBRE_DELIVERY" class="form-control form-control-lg" autocomplete="off" disabled />
+            </div>
+        </div>
+        <div class="row mt-2 delivery">
+            <div class="col-5">
+                <label for="DIRECCION_ENTREGA" class="col-form-label col-form-label-lg">Dirección Entrega:</label>
+            </div>
+            <div class="col-7">
+                <input id="DIRECCION_ENTREGA" class="form-control form-control-lg" autocomplete="off" maxlength="100" />
+            </div>
+        </div>
+        <div class="row mt-2 delivery">
+            <div class="col-5">
+                <label for="REFERENCIA_ENTREGA" class="col-form-label col-form-label-lg">Referencia:</label>
+            </div>
+            <div class="col-7">
+                <input id="REFERENCIA_ENTREGA" class="form-control form-control-lg" autocomplete="off" maxlength="100" />
+            </div>
+        </div>
+        <div class="row mt-2 delivery">
+            <div class="col-5">
+                <label for="TELEFONO" class="col-form-label col-form-label-lg">Telefono:</label>
+            </div>
+            <div class="col-7">
+                <input id="TELEFONO" class="form-control form-control-lg" autocomplete="off" maxlength="100" />
+            </div>
+        </div>
+        <div class="row mt-2 delivery">
+            <div class="col-5">
+                <label for="FORMA_PAGO" class="col-form-label col-form-label-lg">Método de Pago:</label>
+            </div>
+            <div class="col-7">
+                <select class="form-control form-control-lg" id="METODO_PAGO_DELIVERY"
+                        data-query="q_restaurant_obtener_metodospago" data-field="NomPago" data-value="idPago"
+                        data-C_EMPRESA="@Session["SESSION_EMPRESA"]" data-enabledefault="0"></select>
+            </div>
+        </div>
+        <div class="row mt-2 delivery">
+            <div class="col-5">
+                <label for="TIPO_COMPROBANTE" class="col-form-label col-form-label-lg">Tipo de comprobante:</label>
+            </div>
+            <div class="col-7">
+                <select class="form-control form-control-lg" id="TIPO_COMPROBANTE"></select>
             </div>
         </div>
         <div class="row mt-2">

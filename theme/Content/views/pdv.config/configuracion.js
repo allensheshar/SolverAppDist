@@ -52,7 +52,13 @@
                     tableText: 'caja',
                     items: ['NOMBRE_ESTABLECIMIENTO', 'NOMBRE_CAJA'],
                     itemsText: ['Establecimiento', 'Nombre']
-                }
+                },
+                //{
+                //    table: tblMesas,
+                //    tableText: 'mesas',
+                //    items: ['Salón', 'Nombre de Mesa'],
+                //    itemsText: ['Salón', 'Nombre de Mesa']
+                //}
             ]
         };
         const getData = function () {
@@ -748,7 +754,7 @@
                 config: {
                     virtualmode: false,
                     height: 600,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
                     sortable: false,
@@ -945,7 +951,7 @@
                     pageSize: 100,
                     columnsresize: true,
                     editable: true,
-                    sortable: true,
+                    sortable: false,
                     pageable: false
                 }
             });
@@ -1221,7 +1227,7 @@
                 config: {
                     virtualmode: false,
                     height: 600,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
                     sortable: false,
@@ -1370,10 +1376,10 @@
                     ],
                     virtualmode: false,
                     height: 600,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
-                    sortable: true,
+                    sortable: false,
                     pageable: false
                 }
             });
@@ -1440,6 +1446,21 @@
                         width: 300,
                         cellclassname: fnClassEditer
                     },
+                    'IND_DEFECTO': {
+                        text: 'Defecto',
+                        width: 100,
+                        columntype: 'checkbox',
+                    },
+                    'IND_CREAR_MESA': {
+                        text: 'Crear Mesa',
+                        width: 100,
+                        columntype: 'checkbox',
+                    },
+                    'IND_DELIVERY': {
+                        text: 'Delivery',
+                        width: 100,
+                        columntype: 'checkbox',
+                    },
                     'IND_ESTADO': {
                         text: 'Estado',
                         columntype: 'dropdownlist',
@@ -1468,11 +1489,27 @@
                 config: {
                     virtualmode: false,
                     height: 600,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
-                    sortable: true,
+                    sortable: false,
                     pageable: false
+                }
+            });
+            $(tblSalon).on('cellvaluechanged', function (event) {
+                var args = event.args;
+                var datafield = args.datafield;
+                var rowIndex = args.rowindex;
+                var value = args.newvalue;
+
+                if (datafield == 'IND_DEFECTO') {
+                    var rows = $(tblSalon).jqxGrid('getrows')
+                    for (var i = 0; i < rows.length; i++) {
+                        if (i != rowIndex) {
+                            $(tblSalon).jqxGrid('getrows')[i].IND_DEFECTO = false;
+                        }
+                    }
+                    $(tblSalon).jqxGrid('refresh')
                 }
             });
             $('#btnAgregarSalon').click(function () {
@@ -1483,6 +1520,9 @@
                     C_EMPRESA: empresa,
                     C_SALON: '',
                     NOMBRE: '',
+                    IND_DEFECTO: false,
+                    IND_CREAR_MESA: false,
+                    IND_DELIVERY: false,
                     IND_ESTADO: 'Activo'
                 };
                 $(tblSalon).jqxGrid('addrow', null, mesa);
@@ -1615,13 +1655,14 @@
                 config: {
                     virtualmode: false,
                     height: 600,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
-                    sortable: true,
+                    sortable: false,
                     pageable: false
                 }
             });
+            
             $('#btnAgregarMesa').click(function () {
                 const fila = $(tblMesas).jqxGrid('getrows').length;
                 var mesa = {
@@ -1766,10 +1807,10 @@
                 config: {
                     virtualmode: false,
                     height: 600,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
-                    sortable: true,
+                    sortable: false,
                     pageable: false
                 }
             });
@@ -2072,11 +2113,11 @@
                     C_EMPRESA: dataMetodoPago['C_EMPRESA'],
                     C_METODO_PAGO: dataMetodoPago['C_METODO_PAGO'],
                     NOMBRE_METODO_PAGO: dataMetodoPago['NOMBRE_METODO_PAGO'],
-                    IND_EFECTIVO: (dataMetodoPago['IND_EFECTIVO'] == true ? '*' : null),
-                    IND_TARJETA: (dataMetodoPago['IND_TARJETA'] == true ? '*' : null),
-                    IND_CREDITO: (dataMetodoPago['IND_CREDITO'] == true ? '*' : null),
-                    IND_BANCOS: (dataMetodoPago['IND_BANCOS'] == true ? '*' : null),
-                    IND_DEFECTO: (dataMetodoPago['IND_DEFECTO'] == true ? '*' : null),
+                    IND_EFECTIVO: (dataMetodoPago['IND_EFECTIVO'] == true || dataMetodoPago['IND_EFECTIVO'] == 'true' ? '*' : null),
+                    IND_TARJETA: (dataMetodoPago['IND_TARJETA'] == true || dataMetodoPago['IND_TARJETA'] == 'true' ? '*' : null),
+                    IND_CREDITO: (dataMetodoPago['IND_CREDITO'] == true || dataMetodoPago['IND_CREDITO'] == 'true' ? '*' : null),
+                    IND_BANCOS: (dataMetodoPago['IND_BANCOS'] == true || dataMetodoPago['IND_BANCOS'] == 'true' ? '*' : null),
+                    IND_DEFECTO: (dataMetodoPago['IND_DEFECTO'] == true || dataMetodoPago['IND_DEFECTO'] == 'true' ? '*' : null),
                     IND_ESTADO: (dataMetodoPago['IND_ESTADO'] == 'Activo' ? '*' : null)
                 };
                 const extMetodoPago = {
@@ -2127,7 +2168,10 @@
                     C_EMPRESA: dataMesa['C_EMPRESA'],
                     C_SALON: dataMesa['C_SALON'],
                     NOMBRE: dataMesa['NOMBRE'],
-                    IND_ESTADO: (dataMesa['IND_ESTADO'] == 'Activo' ? '*' : null)
+                    IND_ESTADO: (dataMesa['IND_ESTADO'] == 'Activo' ? '*' : null),
+                    IND_DEFECTO: (dataMesa['IND_DEFECTO'] == true || dataMesa['IND_DEFECTO'] == 'true' ? '*' : '&'),
+                    IND_CREAR_MESA: (dataMesa['IND_CREAR_MESA'] == true || dataMesa['IND_CREAR_MESA'] == 'true' ? '*' : '&'),
+                    IND_DELIVERY: (dataMesa['IND_DELIVERY'] == true || dataMesa['IND_DELIVERY'] == 'true' ? '*' : '&')
                 };
                 const extMesa = {
                     C_SALON: {
@@ -2168,8 +2212,6 @@
 
                 var tipo = 1;
                 var condicion = '';
-
-                //console.log(dataMetodoPago);
 
                 if (dataMesa['Codigo'] == '') tipo = 1;
                 else tipo = 2;

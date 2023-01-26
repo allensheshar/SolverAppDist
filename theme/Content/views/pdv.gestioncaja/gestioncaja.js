@@ -392,205 +392,6 @@
 
             });
 
-            $.GetQuery({
-                query: ['q_pdv_gestioncaja_obtener_impresora'],
-                items: [{
-                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                    C_CAJA: row['C_CAJA']
-                }],
-                onReady: function (result) {
-                    var impresora = result[0].C_IMPRESORA;
-                    $.SendPrinter({
-                        empresa: $.solver.session.SESSION_EMPRESA,
-                        formato: formato,
-                        impresora: impresora,
-                        copias: 1,
-                        papel: 'Ticket80',
-                        querys: [
-                            {
-                                name: 'cabecera',
-                                args: $.ConvertObjectToArr({
-                                    modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja_cabecera',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-PRODUCTOS',
-                                })
-                            },
-                            {
-                                name: 'productos_vendidos',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-PRODUCTOS',
-                                })
-                            },
-                            {
-                                name: 'productos_cortesia',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-PRODUCTOS-CORTESIA',
-                                })
-                            },
-                            {
-                                name: 'metodos_pago',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-METODOS-PAGO',
-                                })
-                            },
-                            {
-                                name: 'comprobantes_ok',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-COMPROBANTES-OK',
-                                })
-                            },
-                            {
-                                name: 'productos_anulados',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-COMPROBANTES-ANULADOS-PRODUCTO',
-                                })
-                            },
-                            {
-                                name: 'cuentas_anuladas',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-COMPROBANTES-ANULADOS-CUENTA',
-                                })
-                            },
-                            {
-                                name: 'documentos_anulados',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-COMPROBANTES-ANULADOS-DOCUMENTO',
-                                })
-                            },
-                            {
-                                name: 'comprobantes_por_hora',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-COMPROBANTE-HORA',
-                                })
-                            },
-                            {
-                                name: 'comprobante_por_metodopago',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-COMPROBANTE-METODOS-PAGO',
-                                })
-                            },
-                            {
-                                name: 'tblResumenArqueo',
-                                args: $.ConvertObjectToArr({
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-ARQUEO-RESUMEN',
-                                })
-                            },
-                            {
-                                name: 'tblSolesArqueo',
-                                args: $.ConvertObjectToArr({
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-ARQUEO-SOLES',
-                                })
-                            },
-                            {
-                                name: 'tblDolaresArqueo',
-                                args: $.ConvertObjectToArr({
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-ARQUEO-DOLARES',
-                                })
-                            },
-                            {
-                                name: 'tblCocinas',
-                                args: $.ConvertObjectToArr({
-                                    //modeWork: 'd', //diccionario
-                                    script: 'q_puntoventa_procesos_baloteo_de_caja',
-                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
-                                    C_CAJA: row['C_CAJA'],
-                                    C_USUARIO: row['Vendedor'],
-                                    C_FECHA: row['Fecha caja apertura'],
-                                    C_OPERACION: row['C_OPERACION'],
-                                    TIPO_RESULTADO: 'LISTA-COCINA',
-                                })
-                            },
-                        ]
-                    });
-                }
-            })
-
         };
 
         const actionAperturarCaja = function () {
@@ -777,6 +578,18 @@
                                             C_EMPRESA: c_empresa,
                                             C_CAJA: row['C_CAJA'],
                                             C_USUARIO: row['Vendedor'],
+                                        })
+                                    });
+
+                                    $.AddPetition({
+                                        type: 4,
+                                        items: $.ConvertObjectToArr({
+                                            script: 'spw_eliminar_mesas_temporales',
+                                            C_EMPRESA: c_empresa,
+                                            C_CAJA: row['C_CAJA'],
+                                            C_USUARIO: row['Vendedor'],
+                                            C_FECHA: row['Fecha caja apertura'],
+                                            C_OPERACION: row['C_OPERACION']
                                         })
                                     });
 

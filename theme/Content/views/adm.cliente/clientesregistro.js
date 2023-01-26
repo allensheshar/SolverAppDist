@@ -1638,32 +1638,49 @@
             }
         });
 
-        $('#NRO_DOCUMENTO').keyup(function () {
-            if ($(this).val().length == 11) {
+        $('#btnBuscarSunat').click(function () {
+            if ($('#NRO_DOCUMENTO').val().length == 11) {
+                var estadoBusqueda = false;
+                setTimeout(function () {
+                    if (!estadoBusqueda) {
+                        estadoBusqueda = true;
+                        $.CloseStatusBar();
+                        alertify.warning('No se encuentra el cliente, por favor llenarlo a mano')
+                    }
+                }, 10000)
                 $.GetQuery({
                     query: ['q_ventas_mantenimiento_clientes_obtenerpadron_ruc'],
                     items: [{ RUC: function () { return $('#NRO_DOCUMENTO').val(); } }],
+                    onBefore: function () {
+                        $.DisplayStatusBar({
+                            message: 'Buscando ruc'
+                        });
+                    },
                     onError: function () {
                         $.CloseStatusBar();
                         $.ShowError({ error: error });
                     },
                     onReady: function (result) {
-                        $.CloseStatusBar();
-                        if (result.length != 0) {
-                            const data = result[0]
-                            $('#RAZON_SOCIAL').val(data['RAZON_SOCIAL']);
-                            $('#DIRECCION').val(data['DIRECCION']);
-                            $('#UBIGEO').val(data['UBIGEO']);
-                        }
-                        else {
-                            $('#RAZON_SOCIAL').val('');
-                            $('#DIRECCION').val('');
-                            $('#UBIGEO').val('');
+                        //$.CloseStatusBar();
+                        if (!estadoBusqueda) {
+                            estadoBusqueda = true;
+                            $.CloseStatusBar();
+                            if (result.length != 0) {
+                                const data = result[0]
+                                $('#RAZON_SOCIAL').val(data['RAZON_SOCIAL']);
+                                $('#DIRECCION').val(data['DIRECCION']);
+                                $('#UBIGEO').val(data['UBIGEO']);
+                            }
+                            else {
+                                $('#RAZON_SOCIAL').val('');
+                                $('#DIRECCION').val('');
+                                $('#UBIGEO').val('');
+                            }
                         }
                     }
                 });
             }
-            $('#C_USUARIO').val($(this).val());
+            $('#C_USUARIO').val($('#NRO_DOCUMENTO').val());
         });
         $('#C_ARCHIVO, #C_ARCHIVO_FICHA_RUC, #C_ARCHIVO_DNI_REPRESENTANTE_LEGAL, #C_ARCHIVO_COPIA_LITERAL, #C_ARCHIVO_REGISTRO_VET, #C_ARCHIVO_REGISTRO_COM, #C_ARCHIVO_REGISTRO_PROD_SERV, #C_ARCHIVO_REGISTRO_CLI, #C_ARCHIVO_REGISTRO_PRO, #C_ARCHIVO_CONSTANCIA_ASOC_PSE_SOLUNET').change(function () {
 

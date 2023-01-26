@@ -107,6 +107,18 @@
             $('#MOTIVO_CORTESIA').val('');
             $('.mytable-pedido').find('.box-info-pedido').removeClass('border-danger');
 
+            // Delivery
+            $('#IND_DELIVERY').val('')
+            $('#C_CLIENTE_DELIVERY').val('')
+            $('#TIPO_DOCUMENTO_DELIVERY').val('')
+            $('#RUC_DELIVERY').val('')
+            $('#NOMBRE_DELIVERY').val('')
+            $('#DIRECCION_ENTREGA').val('')
+            $('#REFERENCIA_ENTREGA').val('')
+            $('#TELEFONO').val('')
+            $('#METODO_PAGO_DELIVERY').val('')
+            $('#TIPO_COMPROBANTE').val('')
+
             fnObtenerPlatos();
 
             buttonState = false;
@@ -384,6 +396,19 @@
                     $('#PORCENTAJE_DESCUENTO_GLOBAL').val('');
                     $('#COMENTARIO_DESCUENTO_GLOBAL').val('');
                     $('#MOTIVO_CORTESIA').val('');
+
+
+                    // Delivery
+                    $('#IND_DELIVERY').val('')
+                    $('#C_CLIENTE_DELIVERY').val('')
+                    $('#TIPO_DOCUMENTO_DELIVERY').val('')
+                    $('#RUC_DELIVERY').val('')
+                    $('#NOMBRE_DELIVERY').val('')
+                    $('#DIRECCION_ENTREGA').val('')
+                    $('#REFERENCIA_ENTREGA').val('')
+                    $('#TELEFONO').val('')
+                    $('#METODO_PAGO_DELIVERY').val('')
+                    $('#TIPO_COMPROBANTE').val('')
 
                     fnObtenerPlatos();
 
@@ -2529,14 +2554,19 @@
 
                                 // Seteamos valores por defecto
 
-                                if (precioTotal <= 700) {
+                                if (precioTotal <= 700 && $('#C_CLIENTE_DELIVERY').val() == '') {
                                     if (C_CLIENTE != '') {
                                         $(dialogPagoDetallado).find('#C_CLIENTE').val(C_CLIENTE);
                                         fnObtenerCliente(dialogPagoDetallado, C_CLIENTE);
                                     }
-                                };
+                                }
 
-                                if (C_TIPO_DOC != '') {
+                                if ($('#C_CLIENTE_DELIVERY').val() != '') {
+                                    $(dialogPagoDetallado).find('#C_CLIENTE').val($('#C_CLIENTE_DELIVERY').val());
+                                    fnObtenerCliente(dialogPagoDetallado, $('#C_CLIENTE_DELIVERY').val());
+                                }
+
+                                if (C_TIPO_DOC != '' && $('#TIPO_COMPROBANTE').val() == '') {
                                     $('.box-tipo-comprobante').removeClass('active-box-comprobante');
                                     $.each($('.box-tipo-comprobante'), function (i, v) {
                                         var codigo = $(v).attr('data-codigo');
@@ -2545,6 +2575,15 @@
                                         }
                                     });
                                 };
+                                if ($('#TIPO_COMPROBANTE').val() != '') {
+                                    $('.box-tipo-comprobante').removeClass('active-box-comprobante');
+                                    $.each($('.box-tipo-comprobante'), function (i, v) {
+                                        var codigo = $(v).attr('data-codigo');
+                                        if (codigo == $('#TIPO_COMPROBANTE').val()) {
+                                            $(v).trigger('click');
+                                        }
+                                    });
+                                }
 
                                 if (C_MONEDA != '') {
                                     $('.box-tipo-moneda').removeClass('active-box-moneda');
@@ -2556,7 +2595,7 @@
                                     });
                                 };
 
-                                if (C_METODO_PAGO != '') {
+                                if (C_METODO_PAGO != '' && $('#METODO_PAGO_DELIVERY').val() == '') {
                                     $('.box-tipo-pago').removeClass('active-box');
                                     $.each($('.box-tipo-pago'), function (i, v) {
                                         var codigo = $(v).attr('data-idpago');
@@ -2565,6 +2604,15 @@
                                         }
                                     });
                                 };
+                                if ($('#METODO_PAGO_DELIVERY').val() != '') {
+                                    $('.box-tipo-pago').removeClass('active-box');
+                                    $.each($('.box-tipo-pago'), function (i, v) {
+                                        var codigo = $(v).attr('data-idpago');
+                                        if (codigo == $('#METODO_PAGO_DELIVERY').val()) {
+                                            $(v).trigger('click');
+                                        }
+                                    });
+                                }
 
                             },
                             onError: function (error) {
@@ -3536,7 +3584,7 @@
                         C_USUARIO: $.solver.session.SESSION_ID,
                         C_SALON: function () {
                             return (($('#zone-actions-pedido').find('button.btn-orange').attr('data-estado') || '*') == '*' ? $('#C_SALON').val() : '')
-            }
+                        }
                     }],
                     onReady: function (pedidos) {
 
@@ -3750,7 +3798,6 @@
 
         };
         const fnObtenerPlatos = function () {
-
             //obtiene productos (platos)
             $.GetQuery({
                 query: ['q_puntoventa_procesos_puntoventa_obtenerproductos'],
@@ -3838,9 +3885,11 @@
                 $.GetQuery({
                     query: ['q_rest_procesos_lista_mesas_v2'],
                     items: [{
-                        empresa: $.solver.session.SESSION_EMPRESA, C_SALON: function () {
+                        empresa: $.solver.session.SESSION_EMPRESA,
+                        C_SALON: function () {
                             return $('#C_SALON').val();
-                        }}],
+                        }
+                    }],
                     onReady: function (mesas) {
 
                         if (!isAlert) {
@@ -3849,9 +3898,26 @@
                             $('#pdvBox .blocked').css({ display: 'block' });
                             $('#pdvBox .blocked .text').html('<div class="zoneMesasFloat row"></div>');
 
+                            var titulo = '';
+                            var btnCrearMesa = '';
+                            if (mesas.length == 0) {
+                                titulo = 'No existen mesas'
+                            }
+                            else {
+                                titulo = '<i class="fa fa-check-square" aria-hidden="true"></i> SELECCIONA TU MESA'
+                            }
+
+                            if ($('#C_SALON').val() != '' && $('#COD_CAJA').val() != '') {
+                                if (lstSalones.filter(x => x['C_SALON'] == $('#C_SALON').val())[0].IND_CREAR_MESA == '*') {
+                                    btnCrearMesa = `<a id="btnCrearMesa" data-token="-1" class="float-right btn btn-orange rounded pt-1 pb-1 border"><i class="fa fa-plus" aria-hidden="true"></i> CREAR MESA</a>`;
+                                }
+                            }
+
                             $('.zoneMesasFloat').append(`
                                 <div class="col-md-12 mb-2">
-                                    <h4 class="title-header"><i class="fa fa-check-square" aria-hidden="true"></i> SELECCIONA TU MESA</h4>
+                                    <h4 class="title-header">${titulo}
+                                        ${btnCrearMesa}
+                                    </h4>
                                 </div>
                             `);
 
@@ -3890,7 +3956,8 @@
                                         $('#pdvBox .blocked').css({ display: 'none' });
                                     });
 
-                                } else {
+                                }
+                                else {
 
                                     if ($('#COD_CAJA').val() == '' && objPermisos.FLAG_PERMISO_CREAR_PEDIDOS == '*') {
                                         $.GetQuery({
@@ -3930,7 +3997,13 @@
                                     }
                                 };
                             });
-
+                            $('.zoneMesasFloat').find('#btnCrearMesa').click(function () {
+                                fnEditarMesa({}, function (data) {
+                                    objMesa.push(data);
+                                    $('#nroPedido').html('NRO PEDIDO XXX' + fnObtenerNombreMesa());
+                                    $('#pdvBox .blocked').css({ display: 'none' });
+                                });
+                            })
                         }
 
                     }
@@ -3939,7 +4012,6 @@
 
         };
         const fnEditarMesa = function (data, callback, editar = '&') {
-
             var tokenLogin = $.CreateToken();
             let dialogMesa = bootbox.dialog({
                 title: 'Edicion de Mesa',
@@ -3951,6 +4023,105 @@
 
             dialogMesa.init(function () {
                 setTimeout(function () {
+
+                    // funcion para mostrar campos
+                    const fnValidarCamposDelivery = function () {
+                        var isDelivery = $(dialogMesa).find('#CHECK_DELIVERY').prop('checked')
+                        if (isDelivery) {
+                            $(dialogMesa).find('.delivery').show();
+                            $(dialogMesa).find('.no-delivery').hide();
+                        }
+                        else {
+                            $(dialogMesa).find('.no-delivery').show();
+                            $(dialogMesa).find('.delivery').hide();
+                        }
+                    }
+                    const fnObtenerCliente = function (codCliente = '') {
+                        $.GetQuery({
+                            query: ['q_puntoventa_procesos_puntoventa_obtenercliente'],
+                            items: [{
+                                C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                C_CLIENTE: function () {
+                                    return $(dialogMesa).find('#C_CLIENTE_DELIVERY').val()
+                                }
+                            }],
+                            onReady: function (result) {
+                                if (result.length > 0) {
+                                    const dataCliente = result[0];
+                                    const nroDocumento = dataCliente.RUC_CLIENTE;
+                                    const nombre = dataCliente.RAZON_SOCIAL;
+                                    const tipoDocumento = dataCliente.C_PARAMETRO_GENERAL_TIPO_DOCUMENTO;
+                                    const direccion = dataCliente.DIRECCION_FISCAL;
+                                    $(dialogMesa).find('#TIPO_DOCUMENTO_DELIVERY').val(tipoDocumento)
+                                    $(dialogMesa).find('#RUC_DELIVERY').val(nroDocumento)
+                                    $(dialogMesa).find('#NOMBRE_DELIVERY').val(nombre);
+                                    $(dialogMesa).find('#DIRECCION_ENTREGA').val(direccion);
+
+                                    if (tipoDocumento == '00017') { //ruc
+                                        $.each($(dialogMesa).find('#TIPO_COMPROBANTE option'), function (i, v) {
+                                            $(v).attr('disabled', 'disabled')
+                                            if ($(v).attr('value') == '07236') {
+                                                $(v).removeAttr('disabled');
+                                                $(dialogMesa).find('#TIPO_COMPROBANTE').val('07236');
+                                            }
+                                        });
+                                    }
+                                    else if (tipoDocumento == '00013') { //dni
+                                        $.each($(dialogMesa).find('#TIPO_COMPROBANTE option'), function (i, v) {
+                                            $(v).attr('disabled', 'disabled')
+                                            if ($(v).attr('value') == '07237') {
+                                                $(v).removeAttr('disabled');
+                                                $(dialogMesa).find('#TIPO_COMPROBANTE').val('07237');
+                                            }
+                                        });
+                                    }
+                                    else { //otros
+                                        $.each($(dialogMesa).find('#TIPO_COMPROBANTE option'), function (i, v) {
+                                            $(v).attr('disabled', 'disabled')
+                                            if ($(v).attr('value') == '07237') {
+                                                $(v).removeAttr('disabled');
+                                                $(dialogMesa).find('#TIPO_COMPROBANTE').val('07237');
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    };
+                    const fnEditarCliente = function (codCliente = '') {
+                        $.solver.fn.fnEditarCliente({
+                            codCliente,
+                            onReady: function (result, controls, form, dialog) {
+                                codCliente = result.items.C_CLIENTE;
+                                $(dialogMesa).find('#C_CLIENTE_DELIVERY').val(codCliente);
+                                fnObtenerCliente(dialogMesa);
+                                $(dialog).modal('hide');
+                            }
+                        })
+                    };
+                    const setearInfo = function (odata, callback) {
+                        if (odata.NRO_PERSONAS == '') odata.NRO_PERSONAS = 0;
+
+                        data['Nombre de Mesa'] = odata.NOMBRE_MESA;
+                        data['NRO_PERSONAS'] = odata.NRO_PERSONAS;
+                        $('#C_MESERO').val(odata.C_MESERO);
+
+                        // Cambios para delivery
+                        $('#IND_DELIVERY').val($(dialogMesa).find('#CHECK_DELIVERY').prop('checked') ? '*' : '&');
+                        $('#C_CLIENTE_DELIVERY').val($(dialogMesa).find('#C_CLIENTE_DELIVERY').val())
+                        $('#TIPO_DOCUMENTO_DELIVERY').val($(dialogMesa).find('#TIPO_DOCUMENTO_DELIVERY').val())
+                        $('#RUC_DELIVERY').val($(dialogMesa).find('#RUC_DELIVERY').val())
+                        $('#NOMBRE_DELIVERY').val($(dialogMesa).find('#NOMBRE_DELIVERY').val())
+                        $('#DIRECCION_ENTREGA').val($(dialogMesa).find('#DIRECCION_ENTREGA').val())
+                        $('#REFERENCIA_ENTREGA').val($(dialogMesa).find('#REFERENCIA_ENTREGA').val())
+                        $('#TELEFONO').val($(dialogMesa).find('#TELEFONO').val())
+                        $('#METODO_PAGO_DELIVERY').val($(dialogMesa).find('#METODO_PAGO_DELIVERY').val())
+                        $('#TIPO_COMPROBANTE').val($(dialogMesa).find('#TIPO_COMPROBANTE').val())
+
+                        if (typeof callback == 'function') callback(data);
+
+                        $(dialogMesa).modal('hide');
+                    }
 
                     // Agregamos html inicial ${tokenLogin}
                     let _html = $('#zoneEditarMesa').html();
@@ -3965,11 +4136,47 @@
                         type: -1,
                         onDone: function (xform, controls) {
 
+                            $.GetQuery({
+                                query: ['q_puntoventa_procesos_puntoventa_tipodocs_detallado', 'q_puntoventa_procesos_puntoventa_obtenerdatospordefecto'],
+                                items: [{
+                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                    C_CAJA: function () {
+                                        return $('#COD_CAJA').val();
+                                    }
+                                }, {
+                                    C_EMPRESA: $.solver.session.SESSION_EMPRESA
+                                }],
+                                onReady: function (resultData) {
+                                    debugger
+                                    var result = resultData['q_puntoventa_procesos_puntoventa_tipodocs_detallado'].result.rows
+                                    var resultDefecto = resultData['q_puntoventa_procesos_puntoventa_obtenerdatospordefecto'].result.rows[0]
+                                    var html = ''
+                                    if (result.length != 0) {
+                                        for (var i = 0; i < result.length; i++) {
+                                            var item = result[i];
+                                            html += `<option value="${item.TIPO_DOC_COD}">${item.TIPO_DOC_NOM_CORTO}</option>`
+                                        }
+                                    }
+                                    $(dialogMesa).find('#TIPO_COMPROBANTE').html(html);
+                                    $(dialogMesa).find('#C_CLIENTE_DELIVERY').val(resultDefecto['C_CLIENTE'])
+                                    fnObtenerCliente();
+
+                                }
+                            })
+
+                            if (lstSalones.filter(x => x['C_SALON'] == $('#C_SALON').val())[0].IND_DELIVERY == '*') {
+                                $(dialogMesa).find('#CHECK_DELIVERY').prop('checked', true)
+                            }
+
+                            $(dialogMesa).find('#CHECK_DELIVERY').change(function () {
+                                fnValidarCamposDelivery();
+                            })
+
                             if (editar == '&') {
                                 $(controls.NOMBRE_MESA).val(data['Nombre de Mesa']);
                             }
                             else {
-                                $(controls.NOMBRE_MESA).val(data['NOMBRE_MESA_ADIC']);
+                                $(controls.NOMBRE_MESA).val(data.NOMBRE_MESA_ADIC);
                                 $(controls.C_MESERO).val($.solver.session.SESSION_ID);
                             }
 
@@ -3982,7 +4189,9 @@
                                 });
                             }
 
-                            $(controls.NRO_PERSONAS).val(data['NRO_PERSONAS']).focus();
+                            if (!$.isEmptyObject(data)) {
+                                $(controls.NRO_PERSONAS).val(data.NRO_PERSONAS).focus();
+                            }
 
                             const meseroCount = $(controls.C_MESERO)[0].args.data.filter(x => x['SESSION_ID'] == $.solver.session.SESSION_ID).length
                             if (meseroCount != 0) {
@@ -3991,20 +4200,156 @@
                             if (editar == '*') {
                                 $(controls.C_MESERO).val(data['C_USUARIO']);
                                 $(controls.C_MESERO).attr('disabled', 'disabled')
+
+                                // Seteamos valores de delivery
+                                $(dialogMesa).find('#C_CLIENTE_DELIVERY').val($('#C_CLIENTE_DELIVERY').val())
+                                $(dialogMesa).find('#TIPO_DOCUMENTO_DELIVERY').val($('#TIPO_DOCUMENTO_DELIVERY').val())
+                                $(dialogMesa).find('#RUC_DELIVERY').val($('#RUC_DELIVERY').val())
+                                $(dialogMesa).find('#NOMBRE_DELIVERY').val($('#NOMBRE_DELIVERY').val())
+                                $(dialogMesa).find('#DIRECCION_ENTREGA').val($('#DIRECCION_ENTREGA').val())
+                                $(dialogMesa).find('#REFERENCIA_ENTREGA').val($('#REFERENCIA_ENTREGA').val())
+                                $(dialogMesa).find('#TELEFONO').val($('#TELEFONO').val())
+                                $(dialogMesa).find('#METODO_PAGO_DELIVERY').val($('#METODO_PAGO_DELIVERY').val())
+                                $(dialogMesa).find('#TIPO_COMPROBANTE').val($('#TIPO_COMPROBANTE').val())
+                                $(dialogMesa).find('#CHECK_DELIVERY').prop('checked', ($('#IND_DELIVERY').val() == '*' ? true : false))
+
+                                setTimeout(function () {
+                                    var tipoDocumento = $('#TIPO_DOCUMENTO_DELIVERY').val();
+                                    if (tipoDocumento == '00017') { //ruc
+                                        $.each($(dialogMesa).find('#TIPO_COMPROBANTE option'), function (i, v) {
+                                            $(v).attr('disabled', 'disabled')
+                                            if ($(v).attr('value') == '07236') {
+                                                $(v).removeAttr('disabled');
+                                                $(dialogMesa).find('#TIPO_COMPROBANTE').val('07236');
+                                            }
+                                        });
+                                    }
+                                    else if (tipoDocumento == '00013') { //dni
+                                        $.each($(dialogMesa).find('#TIPO_COMPROBANTE option'), function (i, v) {
+                                            $(v).attr('disabled', 'disabled')
+                                            if ($(v).attr('value') == '07237') {
+                                                $(v).removeAttr('disabled');
+                                                $(dialogMesa).find('#TIPO_COMPROBANTE').val('07237');
+                                            }
+                                        });
+                                    }
+                                    else { //otros
+                                        $.each($(dialogMesa).find('#TIPO_COMPROBANTE option'), function (i, v) {
+                                            $(v).attr('disabled', 'disabled')
+                                            if ($(v).attr('value') == '07237') {
+                                                $(v).removeAttr('disabled');
+                                                $(dialogMesa).find('#TIPO_COMPROBANTE').val('07237');
+                                            }
+                                        });
+                                    }
+                                }, 500)
                             }
+
+                            fnValidarCamposDelivery();
+
+                            $(dialogMesa).find('#btnNuevoCliente').click(function () {
+                                fnEditarCliente('');
+                            })
+                            $(dialogMesa).find('#btnBuscarCliente').click(function () {
+
+                                var nroDocumento = $(dialogMesa).find('#RUC_DELIVERY').val()
+                                var codCliente = $(dialogMesa).find('#C_CLIENTE_DELIVERY').val()
+
+                                // Validamos si el nroDocumento tiene resultados
+                                $.GetQuery({
+                                    query: ['gbl_listarclientes'],
+                                    items: [{
+                                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                        NOMBRE: nroDocumento
+                                    }],
+                                    onReady: function (result) {
+                                        if (result.length == 0) {
+                                            fnObtenerAlertaError('<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;<label>CLIENTE NO ENCONTRADO</label>')
+                                            return;
+                                        }
+
+                                        if (result.length == 1) {
+                                            if (codCliente == result[0]['C_CLIENTE']) {
+                                                nroDocumento = '';
+                                            }
+                                            else {
+                                                $(dialogMesa).find('#C_CLIENTE_DELIVERY').val(result[0]['C_CLIENTE'])
+                                                fnObtenerCliente(dialogMesa, C_CLIENTE);
+                                                return;
+                                            }
+                                        }
+
+                                        $.solver.fn.busquedaCliente({
+                                            buscar: nroDocumento,
+                                            onSelected: function (row) {
+                                                $(dialogMesa).find('#C_CLIENTE_DELIVERY').val(row['C_CLIENTE'])
+                                                fnObtenerCliente(dialogMesa, C_CLIENTE);
+                                            }
+                                        })
+                                    }
+                                });
+                            });
 
                         },
                         onReady: function (q, q, odata) {
+                            if ($.isEmptyObject(data)) {
+                                var c_salon = $('#C_SALON').val();
+                                var tokenMesa = $.AddPetition({
+                                    type: 1,
+                                    table: 'REST.MESA',
+                                    items: $.ConvertObjectToArr({
+                                        C_EMPRESA: $.solver.session.SESSION_EMPRESA,
+                                        C_ESTABLECIMIENTO: objMyCaja.C_ESTABLECIMIENTO,
+                                        C_MESA: '',
+                                        NOMBRE_MESA: odata.NOMBRE_MESA,
+                                        IND_ESTADO: '*',
+                                        C_SALON: c_salon,
+                                        C_CAJA: objMyCaja.C_CAJA,
+                                        C_USUARIO: objMyCaja.C_USUARIO,
+                                        C_FECHA: objMyCaja.C_FECHA,
+                                        C_OPERACION: objMyCaja.C_OPERACION
+                                    }, {
+                                        C_MESA: {
+                                            action: {
+                                                name: 'GetNextId',
+                                                args: $.ConvertObjectToArr({
+                                                    columns: 'C_EMPRESA,C_ESTABLECIMIENTO',
+                                                    max_length: '3'
+                                                })
+                                            }
+                                        }
+                                    })
+                                })
+                                $.SendPetition({
+                                    onBefore: function () {
+                                        $.DisplayStatusBar({ message: 'Creando mesa.' });
+                                    },
+                                    onReady: function (result) {
+                                        $.CloseStatusBar();
+                                        $.GetQuery({
+                                            query: ['q_rest_procesos_obtener_mesa_creada'],
+                                            items: [{
+                                                empresa: $.solver.session.SESSION_EMPRESA,
+                                                C_SALON: c_salon,
+                                                C_MESA: result[tokenMesa].items.C_MESA
+                                            }],
+                                            onReady: function (res) {
+                                                data = res[0];
+                                                setearInfo(odata, callback)
+                                            }
+                                        })
 
-                            if (odata.NRO_PERSONAS == '') odata.NRO_PERSONAS = 0;
+                                    },
+                                    onError: function (_error) {
+                                        $.CloseStatusBar();
+                                        $.ShowError({ error: _error });
+                                    }
+                                })
+                            }
+                            else {
+                                setearInfo(odata, callback)
+                            }
 
-                            data['Nombre de Mesa'] = odata.NOMBRE_MESA;
-                            data['NRO_PERSONAS'] = odata.NRO_PERSONAS;
-                            $('#C_MESERO').val(odata.C_MESERO);
-
-                            if (typeof callback == 'function') callback(data);
-
-                            $(dialogMesa).modal('hide');
 
                         },
                         onError: function (error) {
@@ -4017,6 +4362,11 @@
             });
 
             dialogMesa.on('hide.bs.modal', function () { buttonState = false; });
+
+            $('.bootbox .modal-dialog').draggable({
+                handle: '.modal-header'
+            });
+            $('.bootbox .modal-header').css('cursor', 'move');
 
         };
         const fnArmarCategorias = function () {
@@ -4221,7 +4571,8 @@
                     items: [{
                         empresa: $.solver.session.SESSION_EMPRESA, C_SALON: function () {
                             return $('#C_SALON').val();
-                        } }],
+                        }
+                    }],
                     onReady: function (mesas) {
 
                         var pedido = mesas.find(x => x['C_PEDIDO'] == $('#C_PEDIDO').val());
@@ -4236,6 +4587,17 @@
                                     C_EMPRESA: $.solver.session.SESSION_EMPRESA,
                                     C_PEDIDO: $('#C_PEDIDO').val(),
                                     NOM_MESAS: data['Nombre de Mesa'],
+
+                                    IND_DELIVERY: $('#IND_DELIVERY').val(),
+                                    C_CLIENTE_DELIVERY: $('#C_CLIENTE_DELIVERY').val(),
+                                    TIPO_DOCUMENTO_DELIVERY: $('#TIPO_DOCUMENTO_DELIVERY').val(),
+                                    RUC_DELIVERY: $('#RUC_DELIVERY').val(),
+                                    NOMBRE_DELIVERY: $('#NOMBRE_DELIVERY').val(),
+                                    DIRECCION_ENTREGA: $('#DIRECCION_ENTREGA').val(),
+                                    REFERENCIA_ENTREGA: $('#REFERENCIA_ENTREGA').val(),
+                                    TELEFONO: $('#TELEFONO').val(),
+                                    METODO_PAGO_DELIVERY: $('#METODO_PAGO_DELIVERY').val(),
+                                    TIPO_COMPROBANTE: $('#TIPO_COMPROBANTE').val()
                                 })
                             })
 
@@ -4442,49 +4804,26 @@
 
         };
         const fnValidarSalones = function () {
-            $('#C_SALON').FieldLoadRemote();
             $('#C_SALON').change(function () {
                 fnActionNuevo();
                 $('button[name=btnPendiente]').trigger('click')
             })
-            //$.GetQuery({
-            //    query: ['q_puntoventa_procesos_puntoventa_obtenersalones'],
-            //    items: [{
-            //        C_EMPRESA: $.solver.session.SESSION_EMPRESA
-            //    }],
-            //    onReady: function (result) {
-
-            //        lstSalones = result;
-
-            //        $('.zone-salones').html(`<a class="dropdown-item" data-token="todos" href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Todos</a>`);
-
-            //        for (var item in result) {
-
-            //            var row = result[item];
-            //            var token = $.CreateToken();
-
-            //            $('.zone-salones').append(`<a class="dropdown-item" id="${token}" data-token="${item}" href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> ${row.NOMBRE}</a>`);
-
-            //        };
-
-            //        $('.zone-salones a').click(function (e) {
-
-            //            var refToken = $(this).attr('data-token');
-
-            //            if (refToken == 'todos') {
-            //                $('#C_SALON').val('');
-            //            } else {
-            //                $('#C_SALON').val(lstSalones[refToken]['C_SALON'])
-            //            };
-
-            //            fnActionNuevo();
-
-            //            e.preventDefault();
-
-            //        });
-
-            //    }
-            //})
+            $.GetQuery({
+                query: ['q_puntoventa_procesos_puntoventa_obtenersalones'],
+                items: [{
+                    C_EMPRESA: $.solver.session.SESSION_EMPRESA
+                }],
+                onReady: function (result) {
+                    lstSalones = result;
+                    var html = ''
+                    for (var i = 0; i < result.length; i++) {
+                        var item = result[i];
+                        var selected = (item.IND_DEFECTO == '*' ? 'selected' : '')
+                        html += `<option value="${item.C_SALON}" ${selected}>${item.NOMBRE}</option>`
+                    }
+                    $('#C_SALON').html(html)
+                }
+            })
         }
         /* FUNCIONES VARIAS */
 
@@ -4620,7 +4959,18 @@
                 },
                 C_FECHA: '',
                 C_OPERACION: '',
-                C_USUARIO_CAJA: ''
+                C_USUARIO_CAJA: '',
+
+                IND_DELIVERY: $('#IND_DELIVERY').val(),
+                C_CLIENTE_DELIVERY: $('#C_CLIENTE_DELIVERY').val(),
+                TIPO_DOCUMENTO_DELIVERY: $('#TIPO_DOCUMENTO_DELIVERY').val(),
+                RUC_DELIVERY: $('#RUC_DELIVERY').val(),
+                NOMBRE_DELIVERY: $('#NOMBRE_DELIVERY').val(),
+                DIRECCION_ENTREGA: $('#DIRECCION_ENTREGA').val(),
+                REFERENCIA_ENTREGA: $('#REFERENCIA_ENTREGA').val(),
+                TELEFONO: $('#TELEFONO').val(),
+                METODO_PAGO_DELIVERY: $('#METODO_PAGO_DELIVERY').val(),
+                TIPO_COMPROBANTE: $('#TIPO_COMPROBANTE').val()
             };
             const typePedido = (codPedido == '' ? 1 : 2);
 
@@ -5254,7 +5604,7 @@
                                 if (!cambiaProducto) {
                                     $('#tablePrecios').jqxGrid('hidecolumn', 'IND_CAMBIAR_PROD');
                                 }
-                            }, 300)
+                            }, 250)
                             fnMostrarLabelPromocion();
                         });
                     }
@@ -5271,6 +5621,7 @@
                             fnObtenerAlertaError('La cantidad no puede ser menor a 0');
                         }
                         else {
+
                             var C_UNIDAD_MEDIDA = ''
                             var UNIDAD_MEDIDA = ''
                             var TIPO_CLIENTE = ''
@@ -5278,14 +5629,16 @@
                             var CANTIDAD = parseFloat($('#cantidad').val());
                             var C_PRODUCTO_PRECIO = ''
 
-                            var precios = $('#tipoCliente')[0].args.data.filter(x => x['CODIGO'] == $('#tipoCliente').val());
-
                             if (C_PARAMETRO_GENERAL_TIPO_PRODUCTO != '07229') {
+
+                                var precios = $('#tipoCliente')[0].args.data.filter(x => x['CODIGO'] == $('#tipoCliente').val());
+
                                 C_UNIDAD_MEDIDA = $('.active-box-unidad').attr('data-codigo');
                                 UNIDAD_MEDIDA = $('.active-box-unidad').attr('data-nombre');
                                 TIPO_CLIENTE = $('#tipoCliente').val();
                                 PRECIO = $('#precioProducto').val();
                                 C_PRODUCTO_PRECIO = (precios.length > 0 ? precios[0].C_PRODUCTO_PRECIO : '');
+
                             };
 
                             if (PROMOCION == '*' && (productosPromo.filter(x => x['IND_CAMBIAR_PROD'] == '*').length != 0 || CALCULO_PRECIO != '')) {
@@ -5314,6 +5667,7 @@
                                 C_PRODUCTO_PRECIO, C_PARAMETRO_GENERAL_TIPO_PRODUCTO, CANTIDAD,
                                 PROMOCION: productosPromo
                             });
+
                         }
                     });
 
@@ -5595,13 +5949,13 @@
 
             var PlatoContar = objPedido.platos.length + 1;
             var nota2 = data.PROMOCION.map(function (x) {
-                return x.CANTIDAD + ' '+ x.NOMBRE_PARA_VENTA;
+                return x.CANTIDAD + ' ' + x.NOMBRE_PARA_VENTA;
             }).join('<br>');
             var Plato = {
                 Fila: PlatoContar,
                 IdPedido: '',
                 IdProducto: data.C_PRODUCTO,
-                Nombre: data.NOMBRE_PARA_VENTA + (nota2 == '' ? '' : '<br/><span class="text-primary">' + nota2 + '</span>') + ($('#nota').val() == '' ? '' : '<br/><span class="text-danger">&nbsp;' + $('#nota').val() + '</span>' ) ,
+                Nombre: data.NOMBRE_PARA_VENTA + (nota2 == '' ? '' : '<br/><span class="text-primary">' + nota2 + '</span>') + ($('#nota').val() == '' ? '' : '<br/><span class="text-danger">&nbsp;' + $('#nota').val() + '</span>'),
                 NombreCorto: data.NOMBRE_PARA_VENTA,
                 Precio: data.PRECIO,
                 AfectacionCabecera: data.CODIGO_AFECTACION_IGV,
@@ -6020,6 +6374,18 @@
                     $('#PORCENTAJE_DESCUENTO_GLOBAL').val(dataPedido['PORCENTAJE_DESCUENTO_GLOBAL']);
                     $('#COMENTARIO_DESCUENTO_GLOBAL').val(dataPedido['COMENTARIO_DESCUENTO_GLOBAL']);
                     $('#MOTIVO_CORTESIA').val(dataPedido['MOTIVO_CORTESIA']);
+
+                    // Campos de delivery
+                    $('#IND_DELIVERY').val(dataPedido['IND_DELIVERY'])
+                    $('#C_CLIENTE_DELIVERY').val(dataPedido['C_CLIENTE_DELIVERY'])
+                    $('#TIPO_DOCUMENTO_DELIVERY').val(dataPedido['TIPO_DOCUMENTO_DELIVERY'])
+                    $('#RUC_DELIVERY').val(dataPedido['RUC_DELIVERY'])
+                    $('#NOMBRE_DELIVERY').val(dataPedido['NOMBRE_DELIVERY'])
+                    $('#DIRECCION_ENTREGA').val(dataPedido['DIRECCION_ENTREGA'])
+                    $('#REFERENCIA_ENTREGA').val(dataPedido['REFERENCIA_ENTREGA'])
+                    $('#TELEFONO').val(dataPedido['TELEFONO'])
+                    $('#METODO_PAGO_DELIVERY').val(dataPedido['METODO_PAGO_DELIVERY'])
+                    $('#TIPO_COMPROBANTE').val(dataPedido['TIPO_COMPROBANTE'])
 
                     //reiniciar controles
                     fnMostrarResumen();
@@ -8300,7 +8666,8 @@
                 items: [{
                     empresa: $.solver.session.SESSION_EMPRESA, C_SALON: function () {
                         return $('#C_SALON').val();
-                    }}],
+                    }
+                }],
                 onReady: function (mesas) {
 
                     $('#pdvBox .blocked').css({ display: 'block' });

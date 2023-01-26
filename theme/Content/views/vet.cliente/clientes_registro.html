@@ -32,17 +32,22 @@
                         </div>
                         <div class="col-md-2 col-sm-6 col-xs-6">
                             <label for="RUC_CLIENTE" class="text-danger"> Nro de documento</label>
-                            <input type="text" id="RUC_CLIENTE" class="number-input form-control form-control-sm shadow-none" maxlength="15" autocomplete="off" name="RUC_CLIENTE" required />
+                            <div class="input-group">
+                                <input type="text" id="RUC_CLIENTE" class="number-input form-control form-control-sm shadow-none" maxlength="15" autocomplete="off" name="RUC_CLIENTE" />
+                                <div class="input-group-append">
+                                    <button id="btnBuscarSunat" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search"></i> Sunat</button>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4 col-sm-3 col-xs-3">
+                                <label for="RAZON_SOCIAL" class="text-danger"> Razón social</label>
+                                <input type="text" id="RAZON_SOCIAL" class="form-control form-control-sm shadow-none" autocomplete="off" name="RAZON_SOCIAL" required />
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <label for="DIRECCION_FISCAL" class="help-block text-muted small-font"> Dirección fiscal</label>
+                                <input type="text" id="DIRECCION_FISCAL" class="form-control form-control-sm shadow-none" autocomplete="off" name="DIRECCION_FISCAL" />
+                            </div>
                         </div>
-                        <div class="col-md-4 col-sm-3 col-xs-3">
-                            <label for="RAZON_SOCIAL" class="text-danger"> Razón social</label>
-                            <input type="text" id="RAZON_SOCIAL" class="form-control form-control-sm shadow-none" autocomplete="off" name="RAZON_SOCIAL" required />
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <label for="DIRECCION_FISCAL" class="help-block text-muted small-font"> Dirección fiscal</label>
-                            <input type="text" id="DIRECCION_FISCAL" class="form-control form-control-sm shadow-none" autocomplete="off" name="DIRECCION_FISCAL" />
-                        </div>
-                    </div>
 
                     <div class="row mb-3">
                         <div class="col-md-4 col-sm-4 col-xs-6">

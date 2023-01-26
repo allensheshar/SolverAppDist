@@ -6,7 +6,7 @@
         const fnLoginUser = function (usuario) {
 
             var dialog = bootbox.dialog({
-                centerVertical: true,
+                //centerVertical: true,
                 size: 'small',
                 message: `  
                 <form name="frmSetLogin">

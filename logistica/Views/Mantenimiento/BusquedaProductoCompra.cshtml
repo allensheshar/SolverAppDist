@@ -115,6 +115,19 @@
                     </div>
                 </div>
                 <div class="row mb-3">
+                    <div class="col-2">
+                        <label class="col-form-label col-form-label-lg float-right" for="TIPO_INGRESO">Tipo de ingreso:</label>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-control form-control-lg" name="TIPO_INGRESO" id="TIPO_INGRESO">
+                            <option value="M">Mercadería</option>
+                            <option value="G">Gastos</option>
+                            <option value="S">Servicios</option>
+                            <option value="A">Activos fijos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
                     <div class="col-md-2">
                         <label for="CENTRO_COSTO" class="col-form-label col-form-label-lg float-right">Centro costo:</label>
                     </div>
@@ -149,40 +162,6 @@
                                 data-enabledefault="0"></select>
                     </div>
                 </div>
-                @*<div class="row mb-3">
-            <div class="col-md-2">
-                <label class="col-form-label col-form-label-lg float-right" for="CHECK_OTROS_CARGOS">Otros cargos y tributos:</label>
-            </div>
-            <div class="col-md-4">
-                <input type="checkbox" id="CHECK_OTROS_CARGOS" name="CHECK_OTROS_CARGOS" class="mt-3 float-left">
-            </div>
-            <div class="col-md-2">
-                <label class="col-form-label col-form-label-lg float-right" for="CHECK_BOLSAS">Bolsas:</label>
-            </div>
-            <div class="col-md-4">
-                <input type="checkbox" id="CHECK_BOLSAS" name="CHECK_BOLSAS" class="mt-3 float-left">
-            </div>
-        </div>*@
-                @*<div class="row mb-3">
-            <div class="col-md-2">
-                <label class="col-form-label col-form-label-lg float-right" for="CHECK_PRORRATA">Prorrata:</label>
-            </div>
-            <div class="col-md-2">
-                <input type="checkbox" id="CHECK_PRORRATA" name="CHECK_PRORRATA" class="mt-3 float-left checkbox">
-            </div>
-            <div class="col-md-2">
-                <label class="col-form-label col-form-label-lg float-right" for="CHECK_OP_NO_GRAVADA">No gravada:</label>
-            </div>
-            <div class="col-md-2">
-                <input type="checkbox" id="CHECK_OP_NO_GRAVADA" name="CHECK_OP_NO_GRAVADA" class="mt-3 float-left checkbox">
-            </div>
-            <div class="col-md-2">
-                <label class="col-form-label col-form-label-lg float-right" for="CHECK_ISC">Isc:</label>
-            </div>
-            <div class="col-md-2">
-                <input type="checkbox" id="CHECK_ISC" name="CHECK_ISC" class="mt-3 float-left checkbox">
-            </div>
-        </div>*@
             </div>
             <div class="col-md-12 mt-2">
                 <div class="row">

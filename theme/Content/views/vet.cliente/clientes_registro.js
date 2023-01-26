@@ -683,7 +683,15 @@
                     $(controls.RUC_CLIENTE).trigger('keyup');
                 });
                 $(controls.C_PARAMETRO_GENERAL_TIPO_DOCUMENTO).trigger('change');
-                $(controls.RUC_CLIENTE).keyup(function () {
+                $('#btnBuscarSunat').click(function () {
+                    var estadoBusqueda = false;
+                    setTimeout(function () {
+                        if (!estadoBusqueda) {
+                            estadoBusqueda = true;
+                            $.CloseStatusBar();
+                            alertify.warning('No se encuentra el cliente, por favor llenarlo a mano')
+                        }
+                    }, 10000)
                     $.GetQuery({
                         query: ['q_ventas_mantenimiento_clienteregistro_validardocumento'],
                         items: [{
@@ -696,7 +704,9 @@
                             }
                         }],
                         onReady: function (result) {
+                            
                             if (result.length > 0 && $(controls.C_CLIENTE).val() == '') {
+                                estadoBusqueda = true;
                                 alertify.warning('El documento ya se encuentra registrado.');
                                 $(controls.RAZON_SOCIAL).val('')
                                 $(controls.DIRECCION_FISCAL).val('')
@@ -721,29 +731,32 @@
                                                     $.ShowError({ error: error });
                                                 },
                                                 onReady: function (result) {
-                                                    $.CloseStatusBar();
-                                                    if (result.length > 0) {
-                                                        alertify.success('RUC encontrado.')
-                                                        $(controls.RAZON_SOCIAL).val(result[0].RAZON_SOCIAL);
-                                                        $(controls.DIRECCION_FISCAL).val(result[0].DIRECCION);
-                                                        if (result[0].DEPARTAMENTO != null) $(controls.DEPARTAMENTO).val(result[0].DEPARTAMENTO);
-                                                        if (result[0].PROVINCIA != null) $(controls.PROVINCIA).val(result[0].PROVINCIA);
-                                                        if (result[0].DISTRITO != null) $(controls.DISTRITO).val(result[0].DISTRITO);
+                                                    if (!estadoBusqueda) {
+                                                        estadoBusqueda = true;
+                                                        $.CloseStatusBar();
+                                                        if (result.length > 0) {
+                                                            alertify.success('RUC encontrado.')
+                                                            $(controls.RAZON_SOCIAL).val(result[0].RAZON_SOCIAL);
+                                                            $(controls.DIRECCION_FISCAL).val(result[0].DIRECCION);
+                                                            if (result[0].DEPARTAMENTO != null) $(controls.DEPARTAMENTO).val(result[0].DEPARTAMENTO);
+                                                            if (result[0].PROVINCIA != null) $(controls.PROVINCIA).val(result[0].PROVINCIA);
+                                                            if (result[0].DISTRITO != null) $(controls.DISTRITO).val(result[0].DISTRITO);
 
-                                                        if (result[0].DEPARTAMENTO != null) {
-                                                            $(controls.DEPARTAMENTO_REF).val(result[0].DEPARTAMENTO).trigger('change')
+                                                            if (result[0].DEPARTAMENTO != null) {
+                                                                $(controls.DEPARTAMENTO_REF).val(result[0].DEPARTAMENTO).trigger('change')
+                                                            }
+                                                            else {
+                                                                $(controls.DEPARTAMENTO_REF).val('').trigger('change')
+                                                            }
                                                         }
                                                         else {
-                                                            $(controls.DEPARTAMENTO_REF).val('').trigger('change')
+                                                            alertify.error('RUC no encontrado.')
+                                                            $(controls.RAZON_SOCIAL).val('')
+                                                            $(controls.DIRECCION_FISCAL).val('')
+                                                            $(controls.DEPARTAMENTO_REF).val('')
+                                                            $(controls.PROVINCIA_REF).val('')
+                                                            $(controls.DISTRITO_REF).val('')
                                                         }
-                                                    }
-                                                    else {
-                                                        alertify.error('RUC no encontrado.')
-                                                        $(controls.RAZON_SOCIAL).val('')
-                                                        $(controls.DIRECCION_FISCAL).val('')
-                                                        $(controls.DEPARTAMENTO_REF).val('')
-                                                        $(controls.PROVINCIA_REF).val('')
-                                                        $(controls.DISTRITO_REF).val('')
                                                     }
                                                 }
                                             });
@@ -762,29 +775,32 @@
                                                     $.ShowError({ error: error });
                                                 },
                                                 onReady: function (result) {
-                                                    $.CloseStatusBar();
-                                                    if (result.length > 0) {
-                                                        alertify.success('DNI encontrado.')
-                                                        $(controls.RAZON_SOCIAL).val(result[0].RAZON_SOCIAL);
-                                                        $(controls.DIRECCION_FISCAL).val(result[0].DIRECCION);
-                                                        if (result[0].DEPARTAMENTO != null) $(controls.DEPARTAMENTO).val(result[0].DEPARTAMENTO);
-                                                        if (result[0].PROVINCIA != null) $(controls.PROVINCIA).val(result[0].PROVINCIA);
-                                                        if (result[0].DISTRITO != null) $(controls.DISTRITO).val(result[0].DISTRITO);
+                                                    if (!estadoBusqueda) {
+                                                        estadoBusqueda = true;
+                                                        $.CloseStatusBar();
+                                                        if (result.length > 0) {
+                                                            alertify.success('DNI encontrado.')
+                                                            $(controls.RAZON_SOCIAL).val(result[0].RAZON_SOCIAL);
+                                                            $(controls.DIRECCION_FISCAL).val(result[0].DIRECCION);
+                                                            if (result[0].DEPARTAMENTO != null) $(controls.DEPARTAMENTO).val(result[0].DEPARTAMENTO);
+                                                            if (result[0].PROVINCIA != null) $(controls.PROVINCIA).val(result[0].PROVINCIA);
+                                                            if (result[0].DISTRITO != null) $(controls.DISTRITO).val(result[0].DISTRITO);
 
-                                                        if (result[0].DEPARTAMENTO != null) {
-                                                            $(controls.DEPARTAMENTO_REF).val(result[0].DEPARTAMENTO).trigger('change')
+                                                            if (result[0].DEPARTAMENTO != null) {
+                                                                $(controls.DEPARTAMENTO_REF).val(result[0].DEPARTAMENTO).trigger('change')
+                                                            }
+                                                            else {
+                                                                $(controls.DEPARTAMENTO_REF).val('').trigger('change')
+                                                            }
                                                         }
                                                         else {
-                                                            $(controls.DEPARTAMENTO_REF).val('').trigger('change')
+                                                            alertify.error('DNI no encontrado.')
+                                                            $(controls.RAZON_SOCIAL).val('')
+                                                            $(controls.DIRECCION_FISCAL).val('')
+                                                            $(controls.DEPARTAMENTO_REF).val('')
+                                                            $(controls.PROVINCIA_REF).val('')
+                                                            $(controls.DISTRITO_REF).val('')
                                                         }
-                                                    }
-                                                    else {
-                                                        alertify.error('DNI no encontrado.')
-                                                        $(controls.RAZON_SOCIAL).val('')
-                                                        $(controls.DIRECCION_FISCAL).val('')
-                                                        $(controls.DEPARTAMENTO_REF).val('')
-                                                        $(controls.PROVINCIA_REF).val('')
-                                                        $(controls.DISTRITO_REF).val('')
                                                     }
                                                 }
                                             });

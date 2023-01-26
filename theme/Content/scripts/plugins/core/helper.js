@@ -1214,7 +1214,12 @@ $.solver = {
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="RUC_CLIENTE">Nro de documento</label>
-                                            <input type="text" name="RUC_CLIENTE" class="number-input form-control form-control-sm" required maxlength="11" minlength="11" />
+                                            <div class="input-group">
+                                                <input type="text" name="RUC_CLIENTE" class="number-input form-control form-control-sm" maxlength="11" minlength="11" />
+                                                <div class="input-group-append">
+                                                    <button id="btnBuscarSunat" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search"></i> Sunat</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1296,7 +1301,16 @@ $.solver = {
                                     _arguments.onReady(form, controls, token, dialog);
                                 }
 
-                                $(controls.RUC_CLIENTE).keyup(function () {
+                                $('#btnBuscarSunat').click(function () {
+                                    var estadoBusqueda = false;
+                                    setTimeout(function () {
+                                        if (!estadoBusqueda) {
+                                            estadoBusqueda = true;
+                                            $.CloseStatusBar();
+                                            alertify.warning('No se encuentra el cliente, por favor llenarlo a mano')
+                                        }
+                                    }, 10000)
+
                                     $(controls.RAZON_SOCIAL).val('')
                                     $(controls.DIRECCION_FISCAL).val('')
                                     if (
@@ -1316,6 +1330,7 @@ $.solver = {
                                             }],
                                             onReady: function (result) {
                                                 if (result.length > 0 && $(controls.C_CLIENTE).val() == '') {
+                                                    estadoBusqueda = true;
                                                     alertify.warning('El documento ya se encuentra registrado.');
                                                     $(controls.RAZON_SOCIAL).val('')
                                                     $(controls.DIRECCION_FISCAL).val('')
@@ -1339,25 +1354,28 @@ $.solver = {
                                                                     $.ShowError({ error: error });
                                                                 },
                                                                 onReady: function (result) {
-                                                                    $.CloseStatusBar();
-                                                                    if (result.length > 0) {
-                                                                        alertify.success('RUC encontrado.')
-                                                                        $(controls.RAZON_SOCIAL).val(result[0].RAZON_SOCIAL);
-                                                                        $(controls.DIRECCION_FISCAL).val(result[0].DIRECCION);
-                                                                        if (result[0].DEPARTAMENTO != null) $(controls.DEPARTAMENTO).val(result[0].DEPARTAMENTO);
-                                                                        if (result[0].PROVINCIA != null) $(controls.PROVINCIA).val(result[0].PROVINCIA);
-                                                                        if (result[0].DISTRITO != null) $(controls.DISTRITO).val(result[0].DISTRITO);
-                                                                        setTimeout(function () {
-                                                                            $(controls.CORREO_FACTURACION).focus();
-                                                                        }, 200)
-                                                                    }
-                                                                    else {
-                                                                        alertify.error('RUC no encontrado.')
-                                                                        $(controls.RAZON_SOCIAL).val('')
-                                                                        $(controls.DIRECCION_FISCAL).val('')
-                                                                        $(controls.DEPARTAMENTO).val('')
-                                                                        $(controls.PROVINCIA).val('')
-                                                                        $(controls.DISTRITO).val('')
+                                                                    if (!estadoBusqueda) {
+                                                                        estadoBusqueda = true;
+                                                                        $.CloseStatusBar();
+                                                                        if (result.length > 0) {
+                                                                            alertify.success('RUC encontrado.')
+                                                                            $(controls.RAZON_SOCIAL).val(result[0].RAZON_SOCIAL);
+                                                                            $(controls.DIRECCION_FISCAL).val(result[0].DIRECCION);
+                                                                            if (result[0].DEPARTAMENTO != null) $(controls.DEPARTAMENTO).val(result[0].DEPARTAMENTO);
+                                                                            if (result[0].PROVINCIA != null) $(controls.PROVINCIA).val(result[0].PROVINCIA);
+                                                                            if (result[0].DISTRITO != null) $(controls.DISTRITO).val(result[0].DISTRITO);
+                                                                            setTimeout(function () {
+                                                                                $(controls.CORREO_FACTURACION).focus();
+                                                                            }, 200)
+                                                                        }
+                                                                        else {
+                                                                            alertify.error('RUC no encontrado.')
+                                                                            $(controls.RAZON_SOCIAL).val('')
+                                                                            $(controls.DIRECCION_FISCAL).val('')
+                                                                            $(controls.DEPARTAMENTO).val('')
+                                                                            $(controls.PROVINCIA).val('')
+                                                                            $(controls.DISTRITO).val('')
+                                                                        }
                                                                     }
                                                                 }
                                                             });
@@ -1375,25 +1393,28 @@ $.solver = {
                                                                     $.ShowError({ error: error });
                                                                 },
                                                                 onReady: function (result) {
-                                                                    $.CloseStatusBar();
-                                                                    if (result.length > 0) {
-                                                                        alertify.success('DNI encontrado.')
-                                                                        $(controls.RAZON_SOCIAL).val(result[0].RAZON_SOCIAL);
-                                                                        $(controls.DIRECCION_FISCAL).val(result[0].DIRECCION);
-                                                                        if (result[0].DEPARTAMENTO != null) $(controls.DEPARTAMENTO).val(result[0].DEPARTAMENTO);
-                                                                        if (result[0].PROVINCIA != null) $(controls.PROVINCIA).val(result[0].PROVINCIA);
-                                                                        if (result[0].DISTRITO != null) $(controls.DISTRITO).val(result[0].DISTRITO);
-                                                                        setTimeout(function () {
-                                                                            $(controls.CORREO_FACTURACION).focus();
-                                                                        }, 200)
-                                                                    }
-                                                                    else {
-                                                                        alertify.error('DNI no encontrado.')
-                                                                        $(controls.RAZON_SOCIAL).val('')
-                                                                        $(controls.DIRECCION_FISCAL).val('')
-                                                                        $(controls.DEPARTAMENTO_REF).val('')
-                                                                        $(controls.PROVINCIA_REF).val('')
-                                                                        $(controls.DISTRITO_REF).val('')
+                                                                    if (!estadoBusqueda) {
+                                                                        estadoBusqueda = true;
+                                                                        $.CloseStatusBar();
+                                                                        if (result.length > 0) {
+                                                                            alertify.success('DNI encontrado.')
+                                                                            $(controls.RAZON_SOCIAL).val(result[0].RAZON_SOCIAL);
+                                                                            $(controls.DIRECCION_FISCAL).val(result[0].DIRECCION);
+                                                                            if (result[0].DEPARTAMENTO != null) $(controls.DEPARTAMENTO).val(result[0].DEPARTAMENTO);
+                                                                            if (result[0].PROVINCIA != null) $(controls.PROVINCIA).val(result[0].PROVINCIA);
+                                                                            if (result[0].DISTRITO != null) $(controls.DISTRITO).val(result[0].DISTRITO);
+                                                                            setTimeout(function () {
+                                                                                $(controls.CORREO_FACTURACION).focus();
+                                                                            }, 200)
+                                                                        }
+                                                                        else {
+                                                                            alertify.error('DNI no encontrado.')
+                                                                            $(controls.RAZON_SOCIAL).val('')
+                                                                            $(controls.DIRECCION_FISCAL).val('')
+                                                                            $(controls.DEPARTAMENTO_REF).val('')
+                                                                            $(controls.PROVINCIA_REF).val('')
+                                                                            $(controls.DISTRITO_REF).val('')
+                                                                        }
                                                                     }
                                                                 }
                                                             });
