@@ -249,7 +249,7 @@
                 maxFileCount: 1,
                 showPreview: false,
                 mainClass: "input-group-sm",
-                uploadUrl: $.solver.services.api + "/Service/Upload/New",
+                uploadUrl: $.solver.services.files + "/Service/Upload/New",
                 uploadAsync: true,
             });
             $("#input-b6").on("filebatchselected", function (event, files) {
@@ -257,7 +257,7 @@
             });
             $("#input-b6").on("fileuploaded", function (event, data, previewId, index) {
                 $('#C_ARCHIVO').val(data.response.token);
-                $("#input-b6").fileinput('clear');
+                //$("#input-b6").fileinput('clear');
                 $('#C_ARCHIVO').trigger('change');
             });
         };
@@ -417,7 +417,18 @@
                                 $('#FORMATO_NO_DOMICILIADO').val(data['FORMATO_NO_DOMICILIADO']);
                                 $('#FORMATO_NO_DOMICILIADO_NC_ND').val(data['FORMATO_NO_DOMICILIADO_NC_ND']);
 
+                                $('#URL_SERVICIO_SUNAT_TOKEN_GRE').val(data['URL_SERVICIO_SUNAT_TOKEN_GRE']);
+                                $('#URL_SERVICIO_SUNAT_SEND_GRE').val(data['URL_SERVICIO_SUNAT_SEND_GRE']);
+                                $('#URL_SERVICIO_SUNAT_CONSULT_GRE').val(data['URL_SERVICIO_SUNAT_CONSULT_GRE']);
+                                $('#CLIENTID_GRE').val(data['CLIENTID_GRE']);
+                                $('#CLIENTSECRET_GRE').val(data['CLIENTSECRET_GRE']);
+                                $('#USUARIOSUNAT_GRE').val(data['USUARIOSUNAT_GRE']);
+                                $('#CLAVESUNAT_GRE').val(data['CLAVESUNAT_GRE']);
+                                $('#FORMATO_GRE').val(data['FORMATO_GRE']);
+
+
                                 $('#CORREOS_EN_COPIA').tagsinput('add', data['CORREOS_EN_COPIA'], { preventPost: true });
+                                $('#CORREOS_EN_COPIA_GRE').tagsinput('add', data['CORREOS_EN_COPIA_GRE'], { preventPost: true });
 
                                 fnObtenerImagen('C_ARCHIVO_LOGO_FTE', 'imgfte');
 
@@ -499,7 +510,18 @@
                     FORMATO_NC_ND: $('#FORMATO_NC_ND').val(),
                     FORMATO_NO_DOMICILIADO: $('#FORMATO_NO_DOMICILIADO').val(),
                     FORMATO_NO_DOMICILIADO_NC_ND: $('#FORMATO_NO_DOMICILIADO_NC_ND').val(),
-                    CORREOS_EN_COPIA: $('#CORREOS_EN_COPIA').val()
+                    CORREOS_EN_COPIA: $('#CORREOS_EN_COPIA').val(),
+
+                    URL_SERVICIO_SUNAT_TOKEN_GRE: $('#URL_SERVICIO_SUNAT_TOKEN_GRE').val(),
+                    URL_SERVICIO_SUNAT_SEND_GRE: $('#URL_SERVICIO_SUNAT_SEND_GRE').val(),
+                    URL_SERVICIO_SUNAT_CONSULT_GRE: $('#URL_SERVICIO_SUNAT_CONSULT_GRE').val(),
+                    CLIENTID_GRE: $('#CLIENTID_GRE').val(),
+                    CLIENTSECRET_GRE: $('#CLIENTSECRET_GRE').val(),
+                    USUARIOSUNAT_GRE: $('#USUARIOSUNAT_GRE').val(),
+                    CLAVESUNAT_GRE: $('#CLAVESUNAT_GRE').val(),
+                    FORMATO_GRE: $('#FORMATO_GRE').val(),
+                    CORREOS_EN_COPIA_GRE: $('#CORREOS_EN_COPIA_GRE').val()
+
                 }
                 var _type = 1;
                 if (id_emisor != '' && id_emisor != '0') _type = 2;
@@ -676,7 +698,7 @@
                 config: {
                     virtualmode: false,
                     height: 500,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: false,
                     sortable: false,

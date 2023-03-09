@@ -473,7 +473,7 @@
                             config: {
                                 virtualmode: false,
                                 height: 600,
-                                pageSize: 999999,
+                                pageSize: 100,
                                 pageable: false,
                                 sortable: false,
                                 editable: false,
@@ -872,7 +872,7 @@
                                     config: {
                                         virtualmode: false,
                                         height: 600,
-                                        pageSize: 999999,
+                                        pageSize: 100,
                                         pageable: false,
                                         sortable: false,
                                         editable: false,

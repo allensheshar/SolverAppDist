@@ -66,7 +66,7 @@
                 config: {
                     sortable: true,
                     height: 600,
-                    pageSize: 999999,
+                    pageSize: 100,
                     rendered: function () { }
                 }
             });

@@ -17,12 +17,14 @@
                     NRO_PEDIDO: function () {
                         return $(_controls.pedido).val();
                     },
-                    FECHA: function () {
-                        return $(_controls.fecha).val();
+                    DESDE: function () {
+                        return $(_controls.desde).val();
+                    },
+                    HASTA: function () {
+                        return $(_controls.hasta).val();
                     },
                     BASE: $.solver.basePath
                 },
-                hiddens: ['C_PRODUCTO'],
                 columns: {
                     'num': {
                         text: 'N°',
@@ -85,6 +87,12 @@
                         width: '60',
                         cellsAlign: 'right'
                     },
+                    C_PRODUCTO: {
+                        columngroup: 'detalle',
+                        text: '',
+                        cellsAlign: 'center',
+                        width: '60',
+                    },
                     NOMBRE_PARA_VENTA: {
                         columngroup: 'detalle',
                         text: 'Producto',
@@ -125,10 +133,14 @@
                     C_COMANDA: {
                         columngroup: 'comanda',
                         text: 'Comanda',
-                        width: '60',
+                        width: '80',
                         cellsrenderer: function (row, columnfield, value, defaulthtml, columnproperties) {
                             if (value != '') {
-                                return `<div class="jqx-grid-cell-left-align" style="margin-top: 4px;">${value}&nbsp;&nbsp;<i class="fa fa-print" style="cursor: pointer;" onclick="$.ReimprimirComanda('${row}');"></i></div>`;
+                                return `
+                                    <div class="jqx-grid-cell-left-align" style="margin-top: 4px;">${value}&nbsp;&nbsp;
+                                        <i class="fa fa-eye" style="cursor: pointer;" onclick="$.VerComanda('${row}');"></i>
+                                        <i class="fa fa-print" style="cursor: pointer;" onclick="$.ReimprimirComanda('${row}');"></i>
+                                    </div>`;
                             }
                         }
                     },
@@ -136,6 +148,12 @@
                         columngroup: 'comanda',
                         text: 'Fecha comanda',
                         width: '120',
+                    },
+                    C_COCINA: {
+                        columngroup: 'comanda',
+                        width: '40',
+                        cellsAlign: 'center',
+                        text: '',
                     },
                     NOMBRE_COCINA: {
                         columngroup: 'comanda',
@@ -171,6 +189,79 @@
             })
         }
 
+        $.VerComanda = function (rowIndex) {
+            var row = $(table).jqxGrid('getrows')[rowIndex];
+            const codPedido = row['C_PEDIDO'];
+            const codComanda = row['C_COMANDA'];
+            const codProducto = row['C_PRODUCTO'];
+            const codCocina = row['C_COCINA']
+
+            var optionsToServer = {
+                empresa: $.solver.session.SESSION_EMPRESA,
+                formato: 'formato_estandar_comanda_restaurant',
+                papel: 'Ticket80',
+                querys: [
+                    {
+                        name: 'cabecera',
+                        args: $.ConvertObjectToArr({
+                            modeWork: 'd', //diccionario
+                            script: 'q_restaurant_print_comanda_cabecera',
+                            empresa: $.solver.session.SESSION_EMPRESA,
+                            pedido: codPedido,
+                            comanda: codComanda,
+                            cocina: codCocina
+                        })
+                    },
+                    {
+                        name: 'detalle',
+                        args: $.ConvertObjectToArr({
+                            script: 'q_restaurant_print_comanda_detalle',
+                            empresa: $.solver.session.SESSION_EMPRESA,
+                            pedido: codPedido,
+                            comanda: codComanda,
+                            cocina: codCocina
+                        })
+                    }
+                ],
+            };
+            var settings = {
+                "url": `${$.solver.services.files}/Service/CreatePDFDocumentWithFile`,
+                "method": "POST",
+                "timeout": 0,
+                xhr: function () {
+                    xhr = jQuery.ajaxSettings.xhr.apply(this, arguments);
+                    return xhr;
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                beforeSend: function (xhr) {
+                    $.DisplayStatusBar({ message: 'Generando documento ...' });
+                },
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify(optionsToServer),
+            };
+
+            $.ajax(settings).done(function (json) {
+
+                $.CloseStatusBar();
+
+                var blobUrl = URL.createObjectURL(xhr.response);
+
+                var dialog = bootbox.dialog({
+                    message: `<div class="embed-responsive embed-responsive-16by9"><iframe class= "embed-responsive-item" src="" allowfullscreen></iframe></div>`,
+                    closeButton: true,
+                    className: 'modal-75'
+                });
+
+                dialog.init(function () {
+                    $(dialog).find('.embed-responsive-item').attr("src", blobUrl);
+                });
+
+            });
+        }
         $.ReimprimirComanda = function (rowIndex) {
             var row = $(table).jqxGrid('getrows')[rowIndex];
             const codPedido = row['C_PEDIDO'];
@@ -268,7 +359,11 @@
                 _controls = controls;
                 fnCrearTabla();
 
-                $(controls.fecha).datetimepicker({
+                $(controls.desde).datetimepicker({
+                    format: 'DD/MM/YYYY',
+                    locale: 'es'
+                });
+                $(controls.hasta).datetimepicker({
                     format: 'DD/MM/YYYY',
                     locale: 'es'
                 });

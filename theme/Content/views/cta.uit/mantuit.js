@@ -131,7 +131,7 @@
                 },
                 config: {
                     height: 650,
-                    pageSize: 999999,
+                    pageSize: 100,
                     virtualmode: false,
                     columnsresize: true,
                     pageable: false,

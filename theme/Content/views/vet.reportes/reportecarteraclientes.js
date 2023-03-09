@@ -43,7 +43,7 @@
                     }
                 },
                 config: {
-                    pageSize: 999999,
+                    pageSize: 100,
                     sortable: true,
                     editable: false,
                 }

@@ -3,12 +3,15 @@
         alertify.set('notifier', 'position', 'top-center');
 
         //Variables
+        var modulo = $.solver.basePath;
         const tblProductos = $('#tblProductos');
         let _controls;
 
+        $('#C_PARAMETRO_GENERAL_TIPO_PRODUCTO').attr('data-MODULO', modulo);
+
         const fnCrearTabla = function () {
             $(tblProductos).CreateGrid({
-                query: 'tbl_ventas_mantenimiento_productos_listarproductos_v2',
+                query: 'tbl_ventas_mantenimiento_productos_listarproductos_v3',
                 items: {
                     C_EMPRESA: $.solver.session.SESSION_EMPRESA,
                     C_CATEGORIA: function () {
@@ -16,9 +19,6 @@
                     },
                     TIPO_PRODUCTO: function () {
                         return $(_controls.C_PARAMETRO_GENERAL_TIPO_PRODUCTO).val() || '';
-                        //if ($.solver.basePath == '/ventas') return '07228';
-                        //if ($.solver.basePath == '/puntoventa' || $.solver.basePath == '/restaurant') return '07228';
-                        //if ($.solver.basePath == '/restaurant') return '09994';
                     },
                     IND_ESTADO: function () {
                         return $(_controls.IND_ESTADO).val();
@@ -32,7 +32,7 @@
                     NOMBRE: function () {
                         return $(_controls.buscar).val() || '';
                     },
-
+                    MODULO: modulo
                 },
                 sortcolumn: 'C_PRODUCTO',
                 sortdirection: 'DESC',
@@ -108,7 +108,7 @@
                 },
                 config: {
                     sortable: true,
-                    pageSize: 999999,
+                    pageSize: 100,
                     rendered: function () {
                         $(tblProductos).jqxGrid('selectrow', 0);
                     }
@@ -165,7 +165,6 @@
                 $(tblProductos).jqxGrid('updatebounddata');
             }
         });
-
 
     });
 });

@@ -61,7 +61,7 @@
                     },
                 },
                 config: {
-                    pageSize: 99999,
+                    pageSize: 100,
                     showaggregates: true,
                     showstatusbar: true,
                     statusbarheight: 20,

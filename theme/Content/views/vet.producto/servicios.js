@@ -63,7 +63,7 @@
                 },
                 config: {
                     sortable: true,
-                    pageSize: 999999,
+                    pageSize: 100,
                     rendered: function () {
                         $(tblServicios).jqxGrid('selectrow', 0);
                     }

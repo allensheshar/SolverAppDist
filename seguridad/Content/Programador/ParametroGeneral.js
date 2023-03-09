@@ -112,6 +112,11 @@
                                         cellsAlign: 'center',
                                         width: 130
                                     },
+                                    'CODIGO_PARAMETRO_8': {
+                                        text: 'Cod. parámetro 8',
+                                        cellsAlign: 'center',
+                                        width: 130
+                                    },
                                     'FLAG_ESTADO': {
                                         text: 'Estado',
                                         columntype: 'dropdownlist',
@@ -202,6 +207,7 @@
                                             CODIGO_PARAMETRO_5: parametro.CODIGO_PARAMETRO_5,
                                             CODIGO_PARAMETRO_6: parametro.CODIGO_PARAMETRO_6,
                                             CODIGO_PARAMETRO_7: parametro.CODIGO_PARAMETRO_7,
+                                            CODIGO_PARAMETRO_8: parametro.CODIGO_PARAMETRO_8,
                                             FLAG_ESTADO: parametro.FLAG_ESTADO == 'Activo' ? '*' : '&',
                                         };
                                         var extInsetParametro = {
@@ -234,6 +240,7 @@
                                             CODIGO_PARAMETRO_5: parametro.CODIGO_PARAMETRO_5,
                                             CODIGO_PARAMETRO_6: parametro.CODIGO_PARAMETRO_6,
                                             CODIGO_PARAMETRO_7: parametro.CODIGO_PARAMETRO_7,
+                                            CODIGO_PARAMETRO_8: parametro.CODIGO_PARAMETRO_8,
                                             FLAG_ESTADO: parametro.FLAG_ESTADO == 'Activo' ? '*' : '&',
                                         };
                                         $.AddPetition({

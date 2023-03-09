@@ -11,7 +11,7 @@
         </div>
     </div>
     <hr />
-    <ul class="nav nav-tabs" id="myTabRoles" role="tablist">
+    <ul class="nav nav-tabs mod-ventas" id="myTabRoles" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="producto-tab" data-toggle="tab" href="#producto" role="tab" aria-controls="producto" aria-selected="true">
                 Producto
@@ -34,6 +34,15 @@
             <input type="hidden" name="C_UNIDAD_NEGOCIO" id="C_UNIDAD_NEGOCIO" />
             <input type="hidden" name="PRINT_SEPARADO" id="PRINT_SEPARADO" value="&" />
 
+            <input type="hidden" name="CHECK_DIARIO" id="CHECK_DIARIO" value="&" />
+            <input type="hidden" name="CHECK_DECADAL" id="CHECK_DECADAL" value="&" />
+            <input type="hidden" name="CHECK_MENSUAL" id="CHECK_MENSUAL" value="&" />
+
+            <input type="hidden" name="IND_PRODUCTO_INTERMEDIO_1" id="IND_PRODUCTO_INTERMEDIO_1" value="&" />
+            <input type="hidden" name="IND_PRODUCTO_INTERMEDIO_2" id="IND_PRODUCTO_INTERMEDIO_2" value="&" />
+            <input type="hidden" name="IND_PRODUCTO_TERMINADO" id="IND_PRODUCTO_TERMINADO" value="&" />
+            <input type="hidden" name="IND_PRODUCTO_FINAL" id="IND_PRODUCTO_FINAL" value="&" />
+
             <div class="p-3">
                 <div class="row">
                     <div class="col-12">
@@ -46,25 +55,25 @@
                     <div class="col-md-10">
 
                         <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label class="help-block text-muted small-font"> Código de producto</label>
                                     <input id="codigo" class="form-control form-control-sm" readonly />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="C_PRODUCTO_REF" class="help-block text-muted small-font"> Código referencia</label>
                                     <input type="text" id="C_PRODUCTO_REF" name="C_PRODUCTO_REF" class="form-control form-control-sm" autocomplete="off" maxlength="100" />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="C_UNIDAD_NEGOCIO_REF" class="help-block text-muted small-font">Código centro de costo de ref.</label>
                                     <input type="text" name="C_UNIDAD_NEGOCIO_REF" id="C_UNIDAD_NEGOCIO_REF" class="form-control form-control-sm" />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="C_BARRAS_PRODUCTO" class="help-block text-muted small-font">Código de barras</label>
                                     <input type="text" name="C_BARRAS_PRODUCTO" id="C_BARRAS_PRODUCTO" class="form-control form-control-sm" />
@@ -72,29 +81,28 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" class="text-danger"> Tipo</label>
-                                    <select id="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" name="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" class="form-control form-control-sm" required>
-                                        <option value="07228" selected>Mercaderia</option>
-                                    </select>
+                                    <select id="C_PARAMETRO_GENERAL_TIPO_PRODUCTO" class="form-control form-control-sm" name="C_PARAMETRO_GENERAL_TIPO_PRODUCTO"
+                                            data-query="cb_logistica_mantenimiento_productos_listatipoproducto_v3" data-field="DESCRIPCION_PARAMETRO" data-value="C_PARAMETRO_GENERAL" data-enabledefault="0"></select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="NOMBRE_PARA_VENTA" class="text-danger"> Nombre comercial</label>
                                     <input type="text" id="NOMBRE_PARA_VENTA" name="NOMBRE_PARA_VENTA" class="form-control form-control-sm" autocomplete="off" required maxlength="350" />
                                     <span class="badge badge-warning">* Nombre para control de ventas pdv y restaurant</span>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="NOMBRE_GENERICO" class="text-danger"> Nombre genérico</label>
                                     <input type="text" id="NOMBRE_GENERICO" name="NOMBRE_GENERICO" class="form-control form-control-sm" autocomplete="off" required />
                                     <span class="badge badge-warning">* Nombre para control de compras almacén y producción</span>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="C_PARAMETRO_GENERAL_PROCEDENCIA" class="text-danger">Procedencia</label>
                                     <select id="C_PARAMETRO_GENERAL_PROCEDENCIA" name="C_PARAMETRO_GENERAL_PROCEDENCIA" class="form-control form-control-sm"
@@ -103,25 +111,25 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-sm-6 col-xs-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="FAMILIA" class="help-block text-muted small-font">Familia</label>
                                     <select id="FAMILIA" name="FAMILIA" class="form-control form-control-sm c_empresa" data-query="q_cargafamilia_combo" data-value="nombre_familia" data-field="nombre_familia" disabled data-nosend="true" data-C_EMPRESA=""></select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="SUBFAMILIA" class="help-block text-muted small-font">Sub familia</label>
                                     <select id="SUBFAMILIA" name="SUBFAMILIA" class="form-control form-control-sm" data-nosend="true" disabled></select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="C_CATEGORIA" class="help-block text-muted small-font">Categoría</label>
                                     <select id="C_CATEGORIA" name="C_CATEGORIA" class="form-control form-control-sm" disabled></select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="NOMBRE_CENTRO_COSTO" class="text-danger">(*) Centro de costo / Unidad de negocio.</label>
                                     <div class="input-group mb-3">
@@ -134,7 +142,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3 pb-2">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="TIPO_UNIDAD" class="text-danger">Tipo de unidad</label>
                                     <select name="TIPO_UNIDAD" id="TIPO_UNIDAD" class="form-control form-control-sm" required>
@@ -143,19 +151,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="C_PARAMETRO_GENERAL_UNIDAD_PRIN" class="text-danger">Unidad principal</label>
                                     <select name="C_PARAMETRO_GENERAL_UNIDAD_PRIN" id="C_PARAMETRO_GENERAL_UNIDAD_PRIN" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Unidad Producto Venta" required></select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="C_PARAMETRO_GENERAL_UNIDAD_AUX" class="text-danger">Unidad auxiliar</label>
                                     <select name="C_PARAMETRO_GENERAL_UNIDAD_AUX" id="C_PARAMETRO_GENERAL_UNIDAD_AUX" class="form-control form-control-sm" data-query="gbl_obtener_parametro_general" data-value="CODIGO" data-field="DESCRIPCION" data-tipoParametro="Unidad Producto Venta" required></select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="FACTOR" class="text-danger">Factor de conversión</label>
                                     <input type="text" name="FACTOR" class="form-control form-control-sm number-input" autocomplete="off" value="1" readonly required min="1" />
@@ -163,7 +171,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3 pb-2">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="PROMOCION" class="text-danger">¿Es paquete?</label>
                                     <select name="PROMOCION" id="PROMOCION" class="form-control form-control-sm" required>
@@ -172,7 +180,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3 pb-2 calculoPrecio" style="display:none">
+                            <div class="col-3 calculoPrecio" style="display:none">
                                 <div class="form-group">
                                     <label for="CALCULO_PRECIO" class="help-block text-muted small-font">Cálculo del precio?</label>
                                     <select class="form-control form-control-sm" id="CALCULO_PRECIO" name="CALCULO_PRECIO"
@@ -180,7 +188,12 @@
                                             data-tipoParametro="Calculo del precio" data-textdefault="Sin seleccionar"></select>
                                 </div>
                             </div>
-
+                            <div class="col-3 mod-logistica">
+                                <div class="form-group">
+                                    <label class="help-block text-muted small-font" for="PESO">Peso</label>
+                                    <input type="number" name="PESO" class="form-control form-control-sm" autocomplete="off" />
+                                </div>
+                            </div>
                         </div>
                         <h4 class="text-purple-d2 mb-3 border-b-1 brc-grey-l1 zone-promo" style="display:none">Productos del paquete (Mínimo 1 producto)</h4>
                         <div class="row zone-promo" style="display:none">
@@ -217,13 +230,24 @@
 
                         <h4 class="text-purple-d2 mb-3 border-b-1 brc-grey-l1">Datos contables</h4>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-3 mod-ventas">
                                 <div class="">
                                     <label for="CTA_CONTABLE_VENTAS" class="help-block text-muted small-font"> Cuenta de ventas</label>
                                     <div class="input-group mb-3">
                                         <input type="text" id="CTA_CONTABLE_VENTAS" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="" name="CTA_CONTABLE_VENTAS" autocomplete="off">
                                         <div class="input-group-append">
                                             <button id="ctaContableVentas" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mod-logistica">
+                                <div class="form-group">
+                                    <label class="help-block text-muted small-font"> Cuenta de compras</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="CTA_CONTABLE_COMPRAS" class="form-control form-control-sm" aria-describedby="basic-addon2" readonly="" name="CTA_CONTABLE_COMPRAS" autocomplete="off">
+                                        <div class="input-group-append">
+                                            <button id="ctaContableCompras" class="btn btn-orange btn-sm btn-filter" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -262,7 +286,7 @@
                                         <option value="&">Inactivo</option>
                                     </select>
                                 </div>
-                                <div class="form-group" id="groupCocina">
+                                <div class="form-group mod-ventas" id="groupCocina">
                                     <label for="C_COCINA" class="text-danger">Zona de Preparacion</label>
                                     <select name="C_COCINA" class="form-control form-control-sm" data-query="gbl_obtener_cocinas_empresa" data-field="NOMBRE_COCINA" data-value="C_COCINA" data-empresa='@Session["SESSION_EMPRESA"]'>
                                     </select>
@@ -273,10 +297,58 @@
                                         <strong>Stock ilimitado</strong>
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div class="form-check ventas">
                                     <input type="checkbox" id="CHECK_PRINT_SEPARADO" class="form-check-input" />
                                     <label class="form-check-label" for="CHECK_PRINT_SEPARADO" style="margin-right: 20px;">
                                         <strong>Imprimir por Separado</strong>
+                                    </label>
+                                </div>
+                                <div class="mt-3 almacen">
+                                    <label class="help-block text-muted small-font">Tipo de inventario</label>
+                                </div>
+                                <div class="form-check almacen">
+                                    <input type="checkbox" id="CK_DIARIO" class="form-check-input" data-nosend="1" />
+                                    <label class="form-check-label" for="CK_DIARIO" style="margin-right: 20px;">
+                                        <strong>Diario</strong>
+                                    </label>
+                                </div>
+                                <div class="form-check almacen">
+                                    <input type="checkbox" id="CK_DECADAL" class="form-check-input" data-nosend="1" />
+                                    <label class="form-check-label" for="CK_DECADAL" style="margin-right: 20px;">
+                                        <strong>Decadal</strong>
+                                    </label>
+                                </div>
+                                <div class="form-check almacen">
+                                    <input type="checkbox" id="CK_MENSUAL" class="form-check-input" data-nosend="1" />
+                                    <label class="form-check-label" for="CK_MENSUAL" style="margin-right: 20px;">
+                                        <strong>Mensual</strong>
+                                    </label>
+                                </div>
+                                <div class="mt-3 almacen">
+                                    <label class="help-block text-muted small-font">Tipo de producto</label>
+                                </div>
+                                <div class="form-check almacen">
+                                    <input type="checkbox" id="CK_PRODUCTO_INTERMEDIO_1" class="form-check-input" data-nosend="1" />
+                                    <label class="form-check-label" for="CK_PRODUCTO_INTERMEDIO_1" style="margin-right: 20px;">
+                                        <strong>Producto intermedio 1</strong>
+                                    </label>
+                                </div>
+                                <div class="form-check almacen">
+                                    <input type="checkbox" id="CK_PRODUCTO_INTERMEDIO_2" class="form-check-input" data-nosend="1" />
+                                    <label class="form-check-label" for="CK_PRODUCTO_INTERMEDIO_2" style="margin-right: 20px;">
+                                        <strong>Producto intermedio 1</strong>
+                                    </label>
+                                </div>
+                                <div class="form-check almacen">
+                                    <input type="checkbox" id="CK_PRODUCTO_TERMINADO" class="form-check-input" data-nosend="1" />
+                                    <label class="form-check-label" for="CK_PRODUCTO_TERMINADO" style="margin-right: 20px;">
+                                        <strong>Producto terminado</strong>
+                                    </label>
+                                </div>
+                                <div class="form-check almacen">
+                                    <input type="checkbox" id="CK_PRODUCTO_FINAL" class="form-check-input" data-nosend="1" />
+                                    <label class="form-check-label" for="CK_PRODUCTO_FINAL" style="margin-right: 20px;">
+                                        <strong>Producto final</strong>
                                     </label>
                                 </div>
                             </div>

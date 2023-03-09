@@ -216,7 +216,7 @@
                 config: {
                     virtualmode: false,
                     height: 550,
-                    pageSize: 999999,
+                    pageSize: 100,
                     sortable: false,
                     editable: false,
                     showaggregates: true,
@@ -327,7 +327,7 @@
                 config: {
                     virtualmode: false,
                     height: 550,
-                    pageSize: 999999,
+                    pageSize: 100,
                     sortable: false,
                     editable: false,
                     showaggregates: true,
@@ -438,7 +438,7 @@
                 config: {
                     virtualmode: false,
                     height: 550,
-                    pageSize: 999999,
+                    pageSize: 100,
                     sortable: false,
                     editable: false,
                     showaggregates: true,
@@ -935,7 +935,7 @@
                 config: {
                     virtualmode: false,
                     height: 550,
-                    pageSize: 999999,
+                    pageSize: 100,
                     sortable: false,
                     editable: false,
                     showaggregates: true,
@@ -1046,7 +1046,7 @@
                 config: {
                     virtualmode: false,
                     height: 550,
-                    pageSize: 999999,
+                    pageSize: 100,
                     sortable: false,
                     editable: false,
                     showaggregates: true,

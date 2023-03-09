@@ -71,7 +71,7 @@
                     },
                 },
                 config: {
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     rendered: function () { }
                 }

@@ -69,7 +69,7 @@
                 config: {
                     sortable: true,
                     height: 400,
-                    pageSize: 999999,
+                    pageSize: 100,
                     rendered: function () {
                     }
                 }
@@ -111,7 +111,7 @@
                 config: {
                     sortable: true,
                     height: 400,
-                    pageSize: 999999,
+                    pageSize: 100,
                     rendered: function () {
                         //$(tblVendedor).jqxGrid('selectrow', 0);
                     }

@@ -113,7 +113,7 @@
                 config: {
                     virtualmode: true,
                     height: 400,
-                    pageSize: 999999,
+                    pageSize: 100,
                     pageable: false,
                     sortable: true,
                     editable: false,

@@ -50,6 +50,8 @@
                             },
                         },
                         hiddens: ['C_SCRIPT', 'C_SCRIPT_HISTORIA', 'CADENA_SCRIPT'],
+                        sortcolumn: 'FEC_HISTORIA',
+                        sortdirection: 'DESC',
                         columns: {
                             '_rowNum': {
                                 text: '#',

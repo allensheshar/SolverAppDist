@@ -1700,7 +1700,7 @@
                         virtualmode: false,
                         height: 290,
                         rowsheight: 28,
-                        pageSize: 999999,
+                        pageSize: 100,
                         editable: false,
                         //pageable: false,
                         sortable: false,
@@ -4147,7 +4147,6 @@
                                     C_EMPRESA: $.solver.session.SESSION_EMPRESA
                                 }],
                                 onReady: function (resultData) {
-                                    debugger
                                     var result = resultData['q_puntoventa_procesos_puntoventa_tipodocs_detallado'].result.rows
                                     var resultDefecto = resultData['q_puntoventa_procesos_puntoventa_obtenerdatospordefecto'].result.rows[0]
                                     var html = ''
@@ -4935,9 +4934,9 @@
                 C_MONEDA: codMoneda,
                 C_CLIENTE: codCliente,
                 //C_USUARIO: codUsuario,
-                PRECIO_BASE: (precioTotal / 1.18),
+                PRECIO_BASE: numeral(precioTotal / 1.18).format('0.0000000000'),
                 DESCUENTO: 0,
-                IGV: (precioTotal - (precioTotal / 1.18)),
+                IGV: numeral(precioTotal - (precioTotal / 1.18)).format('0.0000000000'),
                 PRECIO_TOTAL: precioTotal,
                 OPERACIONES_GRATUITAS: operacionesGratuitas,
                 IND_ESTADO: '*',
@@ -5068,7 +5067,7 @@
                     C_PRODUCTO: itemPedidoDetalle.IdProducto,
                     DESCRIPCION: '',
                     CANTIDAD: itemPedidoDetalle.Cantidad,
-                    PRECIO: itemPedidoDetalle.Precio,
+                    PRECIO: numeral(itemPedidoDetalle.Precio).format('0.000'),
                     PORC_DSCTO: itemPedidoDetalle.PorcDscto || 0,
                     INCLUYE_IGV: '*',
                     AFECTACION_IGV: itemPedidoDetalle.Afectacion,
@@ -6609,7 +6608,7 @@
                                 virtualmode: false,
                                 height: 400,
                                 rowsheight: 45,
-                                pageSize: 999999,
+                                pageSize: 100,
                                 pageable: false,
                                 sortable: false,
                                 editable: true,
@@ -6666,10 +6665,10 @@
                                     var indexes = $(dialogCortesia).find(`#${tokenCortesia} #tableCortesia`).jqxGrid('getselectedrowindexes'); //datos selecionados;
                                     var newPlatoCortesia = {};
 
-                                    if (indexes.length == 0) {
-                                        fnObtenerAlertaWarning('Por favor seleccione los productos a aplicar la cortesía')
-                                        return;
-                                    }
+                                    //if (indexes.length == 0) {
+                                    //    fnObtenerAlertaWarning('Por favor seleccione los productos a aplicar la cortesía')
+                                    //    return;
+                                    //}
 
                                     // Regresamos a la normalidad todos los productos
                                     $.each(objPedido.platos, function (i, plato) {
@@ -6879,7 +6878,7 @@
                                         virtualmode: false,
                                         height: 400,
                                         rowsheight: 45,
-                                        pageSize: 999999,
+                                        pageSize: 100,
                                         pageable: false,
                                         sortable: false,
                                         editable: true,
@@ -6965,33 +6964,38 @@
 
                                         bootbox.prompt({
                                             title: "Ingrese monto de descuento",
-                                            inputType: 'number',
+                                            //inputType: 'number',
                                             callback: function (result) {
+                                                if (result != null) {
+                                                    if (!(!isNaN(parseFloat(result)) && isFinite(result))) {
+                                                        return false;
+                                                    }
 
-                                                var totalventa = 0;
-                                                var percent = 0;
-                                                //var platos = objPedido.platos.filter(x => x.Estado == '*');
-                                                var platos = [];
-                                                var indexes = $(dialogDescuento).find(`#${tokenDescuento} #tableDescuento`).jqxGrid('getselectedrowindexes');
-                                                $.each(indexes, function (i, index) {
-                                                    const rowId = $(dialogDescuento).find(`#${tokenDescuento} #tableDescuento`).jqxGrid('getrowid', index);
-                                                    const row = $(dialogDescuento).find(`#${tokenDescuento} #tableDescuento`).jqxGrid('getrows')[rowId];
-                                                    const plato = objPedido.platos.find(x => x['C_DETALLE'] == row['IdDetalle']);
-                                                    platos.push(plato);
-                                                });
+                                                    var totalventa = 0;
+                                                    var percent = 0;
+                                                    //var platos = objPedido.platos.filter(x => x.Estado == '*');
+                                                    var platos = [];
+                                                    var indexes = $(dialogDescuento).find(`#${tokenDescuento} #tableDescuento`).jqxGrid('getselectedrowindexes');
+                                                    $.each(indexes, function (i, index) {
+                                                        const rowId = $(dialogDescuento).find(`#${tokenDescuento} #tableDescuento`).jqxGrid('getrowid', index);
+                                                        const row = $(dialogDescuento).find(`#${tokenDescuento} #tableDescuento`).jqxGrid('getrows')[rowId];
+                                                        const plato = objPedido.platos.find(x => x['C_DETALLE'] == row['IdDetalle']);
+                                                        platos.push(plato);
+                                                    });
 
-                                                $.each(platos, function (i, plato) {
-                                                    totalventa += plato.PrecioOriginal * plato.Cantidad;
-                                                });
+                                                    $.each(platos, function (i, plato) {
+                                                        totalventa += plato.PrecioOriginal * plato.Cantidad;
+                                                    });
 
-                                                percent = result / totalventa;
+                                                    percent = result / totalventa;
 
-                                                if ((percent * 100) > 60) {
-                                                    fnObtenerAlertaWarning('El porcentaje ingresado no debe ser mayor a 60%.')
-                                                    return;
-                                                };
+                                                    //if ((percent * 100) > 60) {
+                                                    //    fnObtenerAlertaWarning('El porcentaje ingresado no debe ser mayor a 60%.')
+                                                    //    return;
+                                                    //};
 
-                                                $('#txtDescuentoPorItem').val(parseFloat(percent * 100).toFixed(10));
+                                                    $('#txtDescuentoPorItem').val(parseFloat(percent * 100).toFixed(10));
+                                                }
 
                                             }
                                         });
@@ -7042,7 +7046,7 @@
                                             var nuevoPrecio = precioOriginal - precioDescuento;
 
                                             //nuevoPrecio = parseFloat(nuevoPrecio);
-                                            plato.Precio = nuevoPrecio;
+                                            plato.Precio = parseFloat(numeral(nuevoPrecio).format('0.000'));
                                             plato.PorcDscto = descuento;
 
                                         }
@@ -8117,7 +8121,7 @@
                                     virtualmode: false,
                                     height: 400,
                                     rowsheight: 45,
-                                    pageSize: 999999,
+                                    pageSize: 100,
                                     pageable: false,
                                     sortable: false,
                                     editable: true,

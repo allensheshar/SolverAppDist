@@ -1,10 +1,16 @@
 ﻿<form name="filterPeriodo" class="mb-2">
     <div class="row">
         <div class="col-auto">
-            <label class="col-form-label col-form-label-sm"><strong>Fecha:</strong></label>
+            <label class="col-form-label col-form-label-sm"><strong>Desde:</strong></label>
         </div>
         <div class="col-auto p-0">
-            <input name="fecha" class="form-control form-control-sm" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+            <input name="desde" class="form-control form-control-sm" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label col-form-label-sm"><strong>Hasta:</strong></label>
+        </div>
+        <div class="col-auto p-0">
+            <input name="hasta" class="form-control form-control-sm" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
         </div>
         <div class="col-auto">
             <label class="col-form-label col-form-label-sm"><strong>Nro Pedido:</strong></label>

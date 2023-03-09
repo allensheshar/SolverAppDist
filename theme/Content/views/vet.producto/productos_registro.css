@@ -22,3 +22,11 @@
 .almacen-box {
     background-color: #f9e4c1
 }
+
+.almacen {
+    display: none !important;
+}
+
+.ventas {
+    display: none !important;
+}

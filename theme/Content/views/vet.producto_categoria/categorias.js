@@ -160,7 +160,7 @@
                 config: {
                     virtualmode: false,
                     height: 500,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
                     sortable: false,

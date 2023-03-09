@@ -178,8 +178,8 @@
                         }
                         $(objectParent).find('#C_ALMACEN').val(c_almacen);
                         $(objectParent).find('#NOM_ALMACEN').val(nom_almacen);
-                        $(objectParent).find('#STOCK').val(stock);
-                        $(objectParent).find('#CANTIDAD').attr('max', stock)
+                        //$(objectParent).find('#STOCK').val(stock);
+                        //$(objectParent).find('#CANTIDAD').attr('max', stock)
                         if (row['C_PARAMETRO_GENERAL_TIPO_PRODUCTO'] == '07229') {
                             $(objectParent).find('#CANTIDAD').val(1);
                             $(objectParent).find('#CANTIDAD').removeAttr('readonly');
@@ -317,8 +317,8 @@
                                                                         $(_object).find('#CANTIDAD').removeAttr('max')
                                                                     }
                                                                     else {
-                                                                        $(_object).find('#STOCK').val(CANTIDAD);
-                                                                        $(_object).find('#CANTIDAD').attr('max', CANTIDAD)
+                                                                        //$(_object).find('#STOCK').val(CANTIDAD);
+                                                                        //$(_object).find('#CANTIDAD').attr('max', CANTIDAD)
                                                                     }
                                                                     $(_object).find('#C_UNIDAD_MEDIDA').attr('data-c_producto', row['C_PRODUCTO']).FieldLoadRemote({
                                                                         onReady: function () {
@@ -481,8 +481,8 @@
                                                                         }
                                                                         $(_object).find('#C_ALMACEN').val(c_almacen);
                                                                         $(_object).find('#NOM_ALMACEN').val(nom_almacen);
-                                                                        $(_object).find('#STOCK').val(stock);
-                                                                        $(_object).find('#CANTIDAD').attr('max', stock)
+                                                                        //$(_object).find('#STOCK').val(stock);
+                                                                        //$(_object).find('#CANTIDAD').attr('max', stock)
                                                                         if (row['C_PARAMETRO_GENERAL_TIPO_PRODUCTO'] == '07229') {
                                                                             $(_object).find('#CANTIDAD').val(1);
                                                                             $(_object).find('#CANTIDAD').removeAttr('readonly');
@@ -726,7 +726,7 @@
                                                         $(form).find('#UNIDAD_MEDIDA').val(unidad_medida);
                                                         $(form).find('#C_ALMACEN').val(c_almacen);
                                                         $(form).find('#NOM_ALMACEN').val(almacen);
-                                                        $(form).find('#STOCK').val(stock);
+                                                        //$(form).find('#STOCK').val(stock);
                                                         $(form).find('#STOCK_ILIMITADO').val(stockIlimitado);
                                                         $(form).find('#PROMOCION').val(promocion);
                                                         $(form).find('#MODIFICA_PRECIO').val(modificaPrecio);
@@ -776,12 +776,12 @@
                                                             });
                                                             if (almacen.length > 0) {
                                                                 const data = almacen[0];
-                                                                $(form).find('#STOCK').val(data.CANTIDAD);
-                                                                $(form).find('#CANTIDAD').attr('max', data.CANTIDAD);
+                                                                //$(form).find('#STOCK').val(data.CANTIDAD);
+                                                                //$(form).find('#CANTIDAD').attr('max', data.CANTIDAD);
                                                             }
                                                             else {
-                                                                $(form).find('#STOCK').val(0);
-                                                                $(form).find('#CANTIDAD').attr('max', 0);
+                                                                //$(form).find('#STOCK').val(0);
+                                                                //$(form).find('#CANTIDAD').attr('max', 0);
                                                             }
                                                         }
                                                     });
@@ -801,12 +801,12 @@
                                                                     if (result.length > 0) {
                                                                         const data = result[0];
 
-                                                                        $(form).find('#STOCK').val(data.CANTIDAD);
-                                                                        $(form).find('#CANTIDAD').attr('max', data.CANTIDAD);
+                                                                        //$(form).find('#STOCK').val(data.CANTIDAD);
+                                                                        //$(form).find('#CANTIDAD').attr('max', data.CANTIDAD);
                                                                     }
                                                                     else {
-                                                                        $(form).find('#STOCK').val(0);
-                                                                        $(form).find('#CANTIDAD').attr('max', 0);
+                                                                        //$(form).find('#STOCK').val(0);
+                                                                        //$(form).find('#CANTIDAD').attr('max', 0);
                                                                     }
                                                                 }
                                                             })
@@ -856,8 +856,8 @@
                                             $('#PRECIO').val('').trigger('change')
                                         }
                                         else {
-                                            $('#STOCK').val(result[0].STOCK)
-                                            $('#CANTIDAD').attr('max', result[0].STOCK)
+                                            //$('#STOCK').val(result[0].STOCK)
+                                            //$('#CANTIDAD').attr('max', result[0].STOCK)
                                             $('#PRECIO').val(result[0].PRECIO).trigger('change')
                                         }
                                     }
@@ -1464,12 +1464,14 @@
                         if ((data['IND_ESTADO_COTIZACION'] == 'A' && data['IND_ESTADO_VENTA'] == null) | (data['IND_ESTADO_NOTA_PEDIDO'] == 'A' && data['IND_ESTADO_VENTA'] == null)) {
                             //$('#btnCliente').hide()
                         }
+                        else if (data['IND_ESTADO_VENTA'] == 'B' && data['IND_NOTA_PEDIDO'] == '*') {
+                        }
                         else if (data['IND_ESTADO_VENTA'] == '*' || data['IND_ESTADO_VENTA'] == 'O' || data['IND_ESTADO_VENTA'] == 'B') {
                             $('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').attr('disabled', 'disabled');
                         }
                         else {
                             $('#btnCliente').hide();
-                            $('#btnBusquedaProducto').hide();
+                            //$('#btnBusquedaProducto').hide();
                             $('#FECHA_VENCIMIENTO').attr('disabled', 'disabled');
                             if (notaDebito == '*') {
                                 $('#FECHA_VENCIMIENTO').attr('disabled', false);
@@ -1587,7 +1589,9 @@
                                 $('#porcIgv').html(numeral(porcIgv).format('0%'));
                             });
 
-                            $('#C_ESTABLECIMIENTO').attr('disabled', 'disabled')
+                            if (data['IND_ESTADO_VENTA'] != 'B' && data['IND_NOTA_PEDIDO'] != '*') {
+                                $('#C_ESTABLECIMIENTO').attr('disabled', 'disabled')
+                            }
                             $('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').attr('data-C_ESTABLECIMIENTO', data['C_ESTABLECIMIENTO']);
                             $('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').attr('data-query', 'gbl_obtener_tipo_documento_ventas_nuevaventa_docs');
                             $('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').FieldLoadRemote({
@@ -1599,9 +1603,11 @@
                                         .attr('data-C_TIPO_DOC', $('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').val())
                                         .FieldLoadRemote({
                                             onReady: function () {
-                                                $('#serie').val(data['SERIE']);
-                                                $('#serie').attr('disabled', 'disabled');
-                                                $('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').attr('disabled', 'disabled')
+                                                if (data['IND_ESTADO_VENTA'] != 'B' && data['IND_NOTA_PEDIDO'] != '*') {
+                                                    $('#serie').val(data['SERIE']);
+                                                    $('#serie').attr('disabled', 'disabled');
+                                                    $('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').attr('disabled', 'disabled')
+                                                }
                                             }
                                         });
                                 }
@@ -1941,7 +1947,7 @@
                 config: {
                     virtualmode: false,
                     height: 305,
-                    pageSize: 999999,
+                    pageSize: 100,
                     pageable: false,
                     sortable: false,
                     editable: false,
@@ -2101,7 +2107,7 @@
                             pageable: true,
                             sortable: true,
                             height: 600,
-                            pageSize: 999999
+                            pageSize: 100
                         }
                     });
                     $(object).find('#tblBusquedaCliente').on("rowdoubleclick", function () {
@@ -2431,7 +2437,7 @@
                                 },
                                 config: {
                                     height: 500,
-                                    pageSize: 999999,
+                                    pageSize: 100,
                                 }
                             });
                             const actionElegir = function () {
@@ -2678,7 +2684,7 @@
                     },
                     config: {
                         virtualmode: false,
-                        pageSize: 999999,
+                        pageSize: 100,
                         pageable: false,
                         height: 135,
                         sortable: false,
@@ -3697,7 +3703,7 @@
                             $('#CUENTA_BANCARIA').attr('disabled', 'disabled');
                             $('#OBSERVACION_COTIZACION').attr('disabled', 'disabled');
                             $('#OBSERVACION_VENTA').attr('disabled', 'disabled');
-                            $('#btnBusquedaProducto').hide();
+                            //$('#btnBusquedaProducto').hide();
                         }
                         else {
                             $('#NRO_COMPROBANTE').text(result[tokenVenta].items.NRO_COMPROBANTE);
@@ -3808,6 +3814,26 @@
                                             }
 
                                         }
+                                    }
+                                }
+
+                                if ($('#divTblCuotas')[0].children.length > 0) {
+                                    var primeraFila = $(tblCuotas).jqxGrid('getrows')[0];
+                                    var ultimaFila = $(tblCuotas).jqxGrid('getrows')[$(tblCuotas).jqxGrid('getrows').length - 1];
+                                    if (ultimaFila['FECHA_VENCIMIENTO'] != $('#FECHA_VENCIMIENTO').val()) {
+                                        fnObtenerAlerta('La fecha de vencimiento no debe ser diferente a la fecha de la última cuota');
+                                        guardar = false;
+                                        return;
+                                    }
+
+                                    var _fechaVencimiento = primeraFila['FECHA_VENCIMIENTO'].split('/');
+                                    var _fechaEmision = $('#FECHAEMISION').val().split('/');
+                                    var fechaVenMoment = moment(new Date(_fechaVencimiento[2], parseFloat(_fechaVencimiento[1]) - 1, _fechaVencimiento[0]));
+                                    var fechaEmiMoment = moment(new Date(_fechaEmision[2], parseFloat(_fechaEmision[1]) - 1, _fechaEmision[0]));
+                                    if (fechaVenMoment.diff(fechaEmiMoment,'days') < 1) {
+                                        fnObtenerAlerta('La primera fecha de pago no debe ser diferente a la fecha de emisión del comprobante');
+                                        guardar = false;
+                                        return;
                                     }
                                 }
                             }
@@ -4442,7 +4468,8 @@
             fnCalcularTotales();
         });
         $('#FORMA_PAGO').change(function () {
-            if ($(this).val() == '09913' && ($('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').val() == '07236' && notaCredito == '') || ($('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').val() == '07241' && $('#TIPO_NOTA_CREDITO').val() == '09985')) {
+            var formaPago = $('#FORMA_PAGO').val();
+            if (formaPago == '09913' && ($('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').val() == '07236' && notaCredito == '') || ($('#C_PARAMETRO_GENERAL_TIPO_DOCUMENTO').val() == '07241' && $('#TIPO_NOTA_CREDITO').val() == '09985')) {
                 $('.zone-cuotas').show();
                 fnCrearTablaCuotas();
                 $('#FECHA_VENCIMIENTO').removeAttr('disabled');
@@ -4452,6 +4479,17 @@
                 $('#NRO_CUOTAS').val('')
                 $('#FECHA_VENCIMIENTO').attr('disabled', 'disabled');
                 $('#FECHA_VENCIMIENTO').val($('#FECHAEMISION').val()).trigger('change');
+            }
+
+            var fechaEmision = $('#FECHAEMISION').val().split('/')
+            if (formaPago == '09913') {
+                $('#FECHA_VENCIMIENTO').datetimepicker('minDate', moment(new Date(fechaEmision[2], parseFloat(fechaEmision[1]) - 1, fechaEmision[0])).subtract(-1, 'days'));
+                if (dataVenta['FECHA_VENCIMIENTO'] != '') {
+                    $('#FECHA_VENCIMIENTO').val(dataVenta['FECHA_VENCIMIENTO']);
+                }
+            }
+            else {
+                $('#FECHA_VENCIMIENTO').val($('#FECHAEMISION').val())
             }
         });
         $('#TIPO_OPERACION').change(function () {

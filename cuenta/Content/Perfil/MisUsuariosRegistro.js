@@ -135,7 +135,7 @@
                 config: {
                     virtualmode: false,
                     height: 500,
-                    pageSize: 999999,
+                    pageSize: 100,
                     pageable: false,
                     sortable: false,
                     rendered: function () {

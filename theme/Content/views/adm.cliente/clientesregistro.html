@@ -290,45 +290,118 @@
                             <label for="CLAVE_PFX">Clave pfx</label>
                             <input type="text" class="form-control form-control-sm" id="CLAVE_PFX">
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="USUARIO_SUNAT">Usuario Sunat</label>
-                            <input type="text" class="form-control form-control-sm" id="USUARIO_SUNAT">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="CLAVE_SUNAT">Clave Sunat/Ose</label>
-                            <input type="text" class="form-control form-control-sm" id="CLAVE_SUNAT">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="URL_SERVICIO_SUNAT">Url servicio Sunat/Ose</label>
-                            <input type="text" class="form-control form-control-sm" id="URL_SERVICIO_SUNAT">
-                        </div>
 
-                        <div class="form-group col-md-2">
-                            <label for="FORMATO_FT_BT">Formato FT</label>
-                            <input type="text" class="form-control form-control-sm" id="FORMATO_FT_BT">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="FORMATO_NC_ND">Formato NC</label>
-                            <input type="text" class="form-control form-control-sm" id="FORMATO_NC_ND">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="FORMATO_NO_DOMICILIADO">Formato no domiciliado</label>
-                            <input type="text" class="form-control form-control-sm" id="FORMATO_NO_DOMICILIADO">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="FORMATO_NO_DOMICILIADO">Formato no domiciliado NC</label>
-                            <input type="text" class="form-control form-control-sm" id="FORMATO_NO_DOMICILIADO_NC_ND">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="FORMATO_GRE">Formato Guia Remision E.</label>
-                            <input type="text" class="form-control form-control-sm" id="FORMATO_GRE">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="CORREOS_EN_COPIA">Correos Copia</label>
-                            <input type="text" class="form-control form-control-sm" data-role="tagsinput" id="CORREOS_EN_COPIA">
-                        </div>
+                        
 
                     </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <h5 class="card-title">Configuración para FTE</h5>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-8">
+                                            <label for="URL_SERVICIO_SUNAT">Url servicio Sunat/Ose</label>
+                                            <input type="text" class="form-control form-control-sm" id="URL_SERVICIO_SUNAT">
+                                        </div>
+
+                                        <div class="form-group col-md-2">
+                                            <label for="USUARIO_SUNAT">Usuario Sunat</label>
+                                            <input type="text" class="form-control form-control-sm" id="USUARIO_SUNAT">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="CLAVE_SUNAT">Clave Sunat/Ose</label>
+                                            <input type="text" class="form-control form-control-sm" id="CLAVE_SUNAT">
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="FORMATO_FT_BT">Formato FT</label>
+                                            <input type="text" class="form-control form-control-sm" id="FORMATO_FT_BT">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="FORMATO_NC_ND">Formato NC</label>
+                                            <input type="text" class="form-control form-control-sm" id="FORMATO_NC_ND">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="FORMATO_NO_DOMICILIADO">Formato no domiciliado</label>
+                                            <input type="text" class="form-control form-control-sm" id="FORMATO_NO_DOMICILIADO">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="FORMATO_NO_DOMICILIADO">Formato no domiciliado NC</label>
+                                            <input type="text" class="form-control form-control-sm" id="FORMATO_NO_DOMICILIADO_NC_ND">
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="CORREOS_EN_COPIA">Correos Copia</label>
+                                            <input type="text" class="form-control form-control-sm" data-role="tagsinput" id="CORREOS_EN_COPIA">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <h5 class="card-title">Configuración para GRE</h5>
+
+                                    <div class="row">
+
+                                        <div class="form-group col-md-6">
+                                            <label for="URL_SERVICIO_SUNAT_TOKEN_GRE">Url servicio Sunat Token</label>
+                                            <input type="text" class="form-control form-control-sm" id="URL_SERVICIO_SUNAT_TOKEN_GRE">
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="URL_SERVICIO_SUNAT_SEND_GRE">Url servicio Sunat Envio</label>
+                                            <input type="text" class="form-control form-control-sm" id="URL_SERVICIO_SUNAT_SEND_GRE">
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="URL_SERVICIO_SUNAT_CONSULT_GRE">Url servicio Sunat Estado</label>
+                                            <input type="text" class="form-control form-control-sm" id="URL_SERVICIO_SUNAT_CONSULT_GRE">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="CLIENTID_GRE">ClientID Api Sunat</label>
+                                            <input type="text" class="form-control form-control-sm" id="CLIENTID_GRE">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="CLIENTSECRET_GRE">ClientSecret Api Sunat</label>
+                                            <input type="text" class="form-control form-control-sm" id="CLIENTSECRET_GRE">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="USUARIOSUNAT_GRE">Usuario Sunat</label>
+                                            <input type="text" class="form-control form-control-sm" id="USUARIOSUNAT_GRE">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="CLAVESUNAT_GRE">Clave Sunat</label>
+                                            <input type="text" class="form-control form-control-sm" id="CLAVESUNAT_GRE">
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="FORMATO_GRE">Formato Guia Remision E.</label>
+                                            <input type="text" class="form-control form-control-sm" id="FORMATO_GRE">
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="CORREOS_EN_COPIA_GRE">Correos Copia</label>
+                                            <input type="text" class="form-control form-control-sm" data-role="tagsinput" id="CORREOS_EN_COPIA_GRE">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-md-2">
                     <div class="form-group row">

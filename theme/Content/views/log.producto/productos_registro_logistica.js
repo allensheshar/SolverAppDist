@@ -240,7 +240,7 @@
                 config: {
                     virtualmode: false,
                     height: 200,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
                     sortable: false,
@@ -292,7 +292,7 @@
                         config: {
                             virtualmode: false,
                             height: 200,
-                            pageSize: 999999,
+                            pageSize: 100,
                             pageable: false,
                             sortable: false,
                             editable: false,

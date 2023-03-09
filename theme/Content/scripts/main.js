@@ -67,6 +67,6 @@ requirejs.config({
         "idle": ["jquery"],
         "sidebar": ["jquery"],
     },
-    //urlArgs: "version=13122022.2-prod"
-    urlArgs: "version=" + (new Date()).getTime()
+    urlArgs: "version=08022023.1-prod"
+    //urlArgs: "version=" + (new Date()).getTime()
 });

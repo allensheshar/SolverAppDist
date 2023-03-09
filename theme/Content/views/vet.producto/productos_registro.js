@@ -3,6 +3,8 @@
 
         alertify.set('notifier', 'position', 'top-center');
 
+        var modulo = $.solver.basePath;
+
         let _controls;
         let productos = [];
         let arrEliminadoPrecio = [];
@@ -304,7 +306,7 @@
                 config: {
                     virtualmode: false,
                     height: 500,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
                     sortable: false,
@@ -455,7 +457,7 @@
                 config: {
                     virtualmode: false,
                     height: 200,
-                    pageSize: 999999,
+                    pageSize: 100,
                     columnsresize: true,
                     editable: true,
                     sortable: false,
@@ -480,6 +482,30 @@
                 $('#STOCK_ILIMITADO').val('&')
             }
         };
+        const fnChangeDiario = function () {
+            if ($('#CK_DIARIO').prop('checked')) {
+                $('#CHECK_DIARIO').val('*')
+            }
+            else {
+                $('#CHECK_DIARIO').val('&')
+            }
+        }
+        const fnChangeDecadal = function () {
+            if ($('#CK_DECADAL').prop('checked')) {
+                $('#CHECK_DECADAL').val('*')
+            }
+            else {
+                $('#CHECK_DECADAL').val('&')
+            }
+        }
+        const fnChangeMensual = function () {
+            if ($('#CK_MENSUAL').prop('checked')) {
+                $('#CHECK_MENSUAL').val('*')
+            }
+            else {
+                $('#CHECK_MENSUAL').val('&')
+            }
+        }
         const fnChangePrintSeparado = function () {
             if ($('#CHECK_PRINT_SEPARADO').prop('checked')) {
                 $('#PRINT_SEPARADO').val('*')
@@ -514,7 +540,7 @@
                         config: {
                             virtualmode: false,
                             height: 200,
-                            pageSize: 999999,
+                            pageSize: 100,
                             pageable: false,
                             sortable: false,
                             editable: false,
@@ -720,8 +746,10 @@
             }
         };
         const fnValidarMovimientos = function (callback) {
-            
+
         }
+
+        $('#C_PARAMETRO_GENERAL_TIPO_PRODUCTO').attr('data-MODULO', modulo);
 
         //set values
         $('.c_empresa').attr('data-c_empresa', empresa);
@@ -745,7 +773,8 @@
                     }
                 }
             },
-            onSubmit: function (form, controls) {
+            onSubmit: function (form, controls, objParent) {
+                objParent.PESO = (objParent.PESO == '' ? 0 : objParent.PESO);
                 if ($(_controls.CALCULO_PRECIO).val() != '') {
                     objValidarTablas.tables.splice(1, 1)
                 }
@@ -1014,32 +1043,8 @@
                 });
 
                 if ($.solver.basePath == '/ventas') {
-                    $(_controls.C_COCINA).closest('div').addClass('d-none');
+                    $('#groupCocina').hide();
                 };
-
-                //cargamos combo de tipo de producto
-                $(_controls.C_PARAMETRO_GENERAL_TIPO_PRODUCTO).attr('data-query', 'cb_logistica_mantenimiento_productos_listatipoproducto_v2');
-                $(_controls.C_PARAMETRO_GENERAL_TIPO_PRODUCTO).attr('data-value', 'C_PARAMETRO_GENERAL');
-                $(_controls.C_PARAMETRO_GENERAL_TIPO_PRODUCTO).attr('data-field', 'DESCRIPCION_PARAMETRO');
-                $(_controls.C_PARAMETRO_GENERAL_TIPO_PRODUCTO).FieldLoadRemote({
-                    onReady: function (control) {
-                        if ($(controls.C_PRODUCTO).val() == '') {
-                            if ($.solver.basePath == '/ventas') {
-                                $(control).val('07228');
-                            };
-                            if ($.solver.basePath == '/puntoventa') {
-                                $(control).val('07228');
-                            };
-                            if ($.solver.basePath == '/restaurant') {
-                                $(control).val('09994');
-                            };
-                        }
-                        else {
-                            const tipo = object.rows[0].C_PARAMETRO_GENERAL_TIPO_PRODUCTO;
-                            $(control).val(tipo)
-                        }
-                    }
-                });
 
                 if ($(_controls.C_PRODUCTO).val() != '') {
                     $('#codigo').val($(_controls.C_PRODUCTO).val());
@@ -1073,6 +1078,10 @@
                 $('#ctaContableVentas').click(function () {
                     estado = true;
                     fnObtenerCtaContable('ventas')
+                });
+                $('#ctaContableCompras').click(function () {
+                    estado = true;
+                    fnObtenerCtaContable('compras')
                 });
 
                 if ($(controls.TIPO_UNIDAD).val() == 'U') {
@@ -1121,7 +1130,7 @@
                             }
                         }
                     });
-                    
+
                 });
 
                 $(controls.C_PARAMETRO_GENERAL_UNIDAD_PRIN).change(function (e) {
@@ -1162,11 +1171,12 @@
 
                         // Habilitamos el check y escondemos
                         $('.form-check').hide();
-
-                        $('#groupCocina').hide();
                         $(controls.C_COCINA).attr('disabled', 'disabled')
-
                         $('.calculoPrecio').show();
+
+                        if (modulo == '/restaurant' || modulo == '/puntoventa') {
+                            $('#groupCocina').hide();
+                        }
                     }
                     else {
                         $('.zone-promo').hide()
@@ -1174,10 +1184,12 @@
 
                         // Habilitamos el check y mostramos
                         $('.form-check').show();
-
-                        $('#groupCocina').show();
                         $(controls.C_COCINA).removeAttr('disabled')
                         $('.calculoPrecio').hide();
+
+                        if (modulo == '/restaurant' || modulo == '/puntoventa') {
+                            $('#groupCocina').show();
+                        }
                     }
                 });
 
@@ -1188,17 +1200,23 @@
                     $('.zone-promo').hide()
                     $(controls.TIPO_UNIDAD).removeAttr('readonly').css({ 'pointer-events': 'auto' });
                     $('.form-check').show();
-                    $('#groupCocina').show();
                     $(controls.C_COCINA).removeAttr('disabled')
                     $('.calculoPrecio').hide();
+
+                    if (modulo == '/restaurant' || modulo == '/puntoventa') {
+                        $('#groupCocina').show();
+                    }
                 }
                 else {
                     $('.zone-promo').show();
                     $(controls.TIPO_UNIDAD).attr('readonly', 'readonly').css({ 'pointer-events': 'none' });
                     $('.form-check').hide();
-                    $('#groupCocina').hide();
                     $(controls.C_COCINA).attr('disabled', 'disabled')
                     $('.calculoPrecio').show();
+
+                    if (modulo == '/restaurant' || modulo == '/puntoventa') {
+                        $('#groupCocina').hide();
+                    }
                 };
 
                 fnObtenerCentroCosto();
@@ -1231,6 +1249,43 @@
                         $('#listaprecios-tab').hide();
                     }
                 })
+
+                if ($(_controls.CHECK_DIARIO).val() == '*') {
+                    $('#CK_DIARIO').prop('checked', true);
+                }
+                else {
+                    $('#CK_DIARIO').prop('checked', false);
+                };
+                fnChangeDiario();
+
+                if ($(_controls.CHECK_DECADAL).val() == '*') {
+                    $('#CK_DECADAL').prop('checked', true);
+                }
+                else {
+                    $('#CK_DECADAL').prop('checked', false);
+                };
+                fnChangeDecadal();
+
+                if ($(_controls.CHECK_MENSUAL).val() == '*') {
+                    $('#CK_MENSUAL').prop('checked', true);
+                }
+                else {
+                    $('#CK_MENSUAL').prop('checked', false);
+                };
+                fnChangeMensual();
+
+                if ($('#IND_PRODUCTO_INTERMEDIO_1').val() == '*') {
+                    $('#CK_PRODUCTO_INTERMEDIO_1').prop('checked', true)
+                }
+                if ($('#IND_PRODUCTO_INTERMEDIO_2').val() == '*') {
+                    $('#CK_PRODUCTO_INTERMEDIO_2').prop('checked', true)
+                }
+                if ($('#IND_PRODUCTO_TERMINADO').val() == '*') {
+                    $('#CK_PRODUCTO_TERMINADO').prop('checked', true)
+                }
+                if ($('#IND_PRODUCTO_FINAL').val() == '*') {
+                    $('#CK_PRODUCTO_FINAL').prop('checked', true)
+                }
 
             },
             onReady: function (result, controls, form) {
@@ -1345,9 +1400,20 @@
                 }
             }
         });
+
         $('#CHECK_STOCK').change(function () {
             fnChangeStockIlimitado();
         });
+        $('#CK_DIARIO').change(function () {
+            fnChangeDiario();
+        });
+        $('#CK_DECADAL').change(function () {
+            fnChangeDecadal();
+        });
+        $('#CK_MENSUAL').change(function () {
+            fnChangeMensual();
+        });
+
         $('#CHECK_PRINT_SEPARADO').change(function () {
             fnChangePrintSeparado();
         });
@@ -1405,7 +1471,42 @@
             })
         })
 
+        $('#CK_PRODUCTO_INTERMEDIO_1,#CK_PRODUCTO_INTERMEDIO_2,#CK_PRODUCTO_TERMINADO,#CK_PRODUCTO_FINAL').click(function () {
+            $('#CK_PRODUCTO_INTERMEDIO_1,#CK_PRODUCTO_INTERMEDIO_2,#CK_PRODUCTO_TERMINADO,#CK_PRODUCTO_FINAL').prop('checked', false)
+            $('#IND_PRODUCTO_INTERMEDIO_1,#IND_PRODUCTO_INTERMEDIO_2,#IND_PRODUCTO_TERMINADO,#IND_PRODUCTO_FINAL').val('&')
+
+            $(this).prop('checked', true)
+            var id = $(this).attr('id');
+            if (id == 'CK_PRODUCTO_INTERMEDIO_1') {
+                $('#IND_PRODUCTO_INTERMEDIO_1').val('*')
+            }
+            if (id == 'CK_PRODUCTO_INTERMEDIO_2') {
+                $('#IND_PRODUCTO_INTERMEDIO_2').val('*')
+            }
+            if (id == 'CK_PRODUCTO_TERMINADO') {
+                $('#IND_PRODUCTO_TERMINADO').val('*')
+            }
+            if (id == 'CK_PRODUCTO_FINAL') {
+                $('#IND_PRODUCTO_FINAL').val('*')
+            }
+        })
+
         fnCrearCargaArchivo();
+
+        // Comportamientos por modulo
+        if (modulo == '/ventas' || modulo == '/restaurant' || modulo == '/puntoventa') {
+            $('.ventas').attr('style', 'display:block !important')
+            $('.mod-ventas').show();
+            $('.mod-logistica').hide();
+        }
+        else {
+            $('.mod-ventas').hide();
+            $('.mod-logistica').show();
+        }
+
+        if (modulo == '/almacen') {
+            $('.almacen').attr('style', 'display:block !important')
+        }
 
     });
 });

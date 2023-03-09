@@ -803,6 +803,11 @@
                         editable: false,
                         sortable: false
                     },
+                    'FECHA_CREACION': {
+                        text: 'Fecha creación',
+                        width: 120,
+                        cellsAlign: 'center'
+                    },
                     'FECHA_EMISION': {
                         text: 'Fecha emisión',
                         width: 100,
@@ -851,6 +856,8 @@
                         width: 100
                     }
                 },
+                sortcolumn: 'FECHA_CREACION',
+                sortdirection: 'DESC',
                 config: {
                     virtualmode: false,
                     height: 600,

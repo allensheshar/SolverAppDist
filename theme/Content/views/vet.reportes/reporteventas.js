@@ -90,7 +90,7 @@
                         var query = result[0].CODIGO_PARAMETRO_3;
                         var columns = result[0].CODIGO_PARAMETRO_4.split(',');
 
-                        if (button == 'Resumen') {
+                        if (button == 'Resumen' && query != 'q_reportes_reporteventas_canal_resumen') {
                             columns = {
                                 '_rowNum': {
                                     text: '#',
@@ -133,6 +133,111 @@
                                     width: 80,
                                     cellsAlign: 'right',
                                     cellsFormat: 'd',
+                                    aggregates: ['sum'],
+                                    aggregatesRenderer: function (aggregates, column, element) {
+                                        var formatNumber = aggregates.sum;
+                                        if (formatNumber === undefined)
+                                            formatNumber = '';
+                                        return `<div class="d-flex justify-content-center font-weight-bold">
+                                            <strong> ${formatNumber} </strong>
+                                        </div>`;
+                                    }
+                                },
+                                '%': {
+                                    width: 80,
+                                    cellsrenderer: function (row, columnfield, value, defaulthtml, columnproperties) {
+                                        var filas = $(table).jqxGrid('getrows');
+                                        var num = filas[row].TOTAL;
+
+                                        var total = 0;
+                                        $.each(filas, function (i, v) {
+                                            total += v.TOTAL;
+                                        });
+
+                                        return '<div class="jqx-grid-cell-middle-align" style="margin-top: 4px;">' + ((num / total) * 100).toFixed(2) + '%</div>'
+                                    },
+                                    aggregates: ['sum'], aggregatesRenderer: function (aggregates, column, element) {
+                                        return `<div class="d-flex justify-content-center font-weight-bold">
+                                                    <strong>100%</strong>
+                                                </div>`;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (button == 'Resumen' && query == 'q_reportes_reporteventas_canal_resumen') {
+                            columns = {
+                                '_rowNum': {
+                                    text: '#',
+                                    width: '30',
+                                    cellsAlign: 'center',
+                                    hidden: false,
+                                    pinned: true,
+                                    editable: false,
+                                    sortable: false
+                                },
+                                DESCRIPCION: {
+                                    text: columns[0],
+                                    width: 200,
+                                    aggregatesRenderer: function (aggregates, column, element) {
+                                        var formatNumber = aggregates.sum;
+                                        if (formatNumber === undefined)
+                                            formatNumber = '';
+                                        return `<div class="h-30 d-flex justify-content-center align-items-center font-weight-bold">
+                                            <strong> Total </strong>
+                                        </div>`;
+                                    }
+                                },
+                                TOTAL: {
+                                    text: columns[1],
+                                    width: 100,
+                                    cellsAlign: 'right',
+                                    cellsFormat: 'd2',
+                                    aggregates: ['sum'],
+                                    aggregatesRenderer: function (aggregates, column, element) {
+                                        var formatNumber = aggregates.sum;
+                                        if (formatNumber === undefined)
+                                            formatNumber = '';
+                                        return `<div class="d-flex justify-content-center font-weight-bold">
+                                            <strong> ${formatNumber} </strong>
+                                        </div>`;
+                                    }
+                                },
+                                NRO_DOCS: {
+                                    text: columns[2],
+                                    width: 80,
+                                    cellsAlign: 'right',
+                                    cellsFormat: 'd',
+                                    aggregates: ['sum'],
+                                    aggregatesRenderer: function (aggregates, column, element) {
+                                        var formatNumber = aggregates.sum;
+                                        if (formatNumber === undefined)
+                                            formatNumber = '';
+                                        return `<div class="d-flex justify-content-center font-weight-bold">
+                                            <strong> ${formatNumber} </strong>
+                                        </div>`;
+                                    }
+                                },
+                                PAX: {
+                                    text: columns[3],
+                                    width: 100,
+                                    cellsAlign: 'right',
+                                    cellsFormat: 'd2',
+                                    aggregates: ['sum'],
+                                    aggregatesRenderer: function (aggregates, column, element) {
+                                        var formatNumber = aggregates.sum;
+                                        if (formatNumber === undefined)
+                                            formatNumber = '';
+                                        return `<div class="d-flex justify-content-center font-weight-bold">
+                                            <strong> ${formatNumber} </strong>
+                                        </div>`;
+                                    }
+                                },
+                                DELIVERY: {
+                                    text: columns[4],
+                                    width: 100,
+                                    cellsAlign: 'right',
+                                    cellsFormat: 'd2',
                                     aggregates: ['sum'],
                                     aggregatesRenderer: function (aggregates, column, element) {
                                         var formatNumber = aggregates.sum;
@@ -411,6 +516,87 @@
                             }
                         }
 
+                        if (button == 'Delivery' && query == 'q_reportes_reporteventas_canal_delivery') {
+                            columns = {
+                                '_rowNum': {
+                                    text: '#',
+                                    width: '30',
+                                    cellsAlign: 'center',
+                                    hidden: false,
+                                    pinned: true,
+                                    editable: false,
+                                    sortable: false
+                                },
+                                NOMBRE: {
+                                    text: 'Canal',
+                                    width: 100,
+                                    aggregatesRenderer: function (aggregates, column, element) {
+                                        var formatNumber = aggregates.sum;
+                                        if (formatNumber === undefined)
+                                            formatNumber = '';
+                                        return `<div class="h-30 d-flex justify-content-center align-items-center font-weight-bold">
+                                            <strong> Total </strong>
+                                        </div>`;
+                                    }
+                                },
+                                TIPO_COMPROBANTE: {
+                                    text: 'Tipo comprobante',
+                                    width: 100
+                                },
+                                NRO_COMPROBANTE: {
+                                    text: 'Nro comprobante',
+                                    width: 120
+                                },
+                                FECHA_EMISION: {
+                                    text: 'Fecha emision',
+                                    width: 100,
+                                    cellsAlign: 'center'
+                                },
+                                TOTAL: {
+                                    text: 'Total',
+                                    width: 80,
+                                    cellsAlign: 'right',
+                                    cellsFormat: 'd2',
+                                    aggregates: ['sum'],
+                                    aggregatesRenderer: function (aggregates, column, element) {
+                                        var formatNumber = aggregates.sum;
+                                        if (formatNumber === undefined)
+                                            formatNumber = '';
+                                        return `<div class="h-30 d-flex justify-content-center align-items-center font-weight-bold">
+                                            <strong> ${formatNumber} </strong>
+                                        </div>`;
+                                    }
+                                },
+                                TIPO_DOCUMENTO_DELIVERY: {
+                                    text: 'Tipo doc delivery',
+                                    width: 150,
+                                },
+                                RUC_DELIVERY: {
+                                    text: 'Documento',
+                                    width: 100,
+                                },
+                                NOMBRE_DELIVERY: {
+                                    text: 'Nom. cliente',
+                                    width: 120,
+                                },
+                                DIRECCION_ENTREGA: {
+                                    text: 'Dirección',
+                                    width: 120,
+                                },
+                                REFERENCIA_ENTREGA: {
+                                    text: 'Referencia',
+                                    width: 120,
+                                },
+                                TELEFONO_DELIVERY: {
+                                    text: 'Teléfono',
+                                    width: 90,
+                                },
+                                METODO_PAGO_DELIVERY: {
+                                    text: 'Metodo pago',
+                                    width: 80,
+                                },
+                            }
+                        }
                         var isRendered = false;
 
                         $(table).CreateGrid({
@@ -418,7 +604,7 @@
                             columns,
                             sortcolumn: 'TOTAL',
                             sortdirection: 'DESC',
-                            hiddens: [(button == 'Resumen' ? '' : 'DESCRIPCION')],
+                            hiddens: [(button == 'Resumen' || button == 'Delivery' ? '' : 'DESCRIPCION')],
                             items: {
                                 C_EMPRESA: $.solver.session.SESSION_EMPRESA,
                                 FLAG: $.solver.basePath,
@@ -441,7 +627,7 @@
                                 showgroupsheader: false,
                                 closeablegroups: false,
                                 rendered: function () {
-                                    if (button == 'Resumen') {
+                                    if (button == 'Resumen' || button == 'Delivery') {
                                         return;
                                     }
                                     if (!isRendered) {
@@ -453,7 +639,7 @@
                         })
                         $(table).on('bindingcomplete', function () {
 
-                            if (button == 'Resumen') {
+                            if (button == 'Resumen' || button == 'Delivery') {
                                 return;
                             }
 
